@@ -195,11 +195,6 @@ def check_code_correctness_llm(example, output_code, trace=None):
     indicator = score/5 if score is not None else 0
     return indicator
 
-def check_code_correctness_exec(question, dataset_schema, output_code, reference_answer):
-    """Check if the output code will lead to the same output as the reference answer by executing the code."""
-    # TODO
-    pass
-
 def run_dspy_codegen(
     batch_inputs: list[dict],
     llm: str,
