@@ -1,0 +1,18 @@
+{
+  "generate_query": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature_instructions": "Proposed Instruction: Imagine you are conducting a Google search to gather the most pertinent information needed to generate accurate biomedical and medical data science code. Your search queries should address various aspects, including\u2014coding issues with specific libraries, data science methods for preprocessing and analyzing biomedical data, and detailed biomedical or medical knowledge requisite for the coding task. Formulate a comprehensive and descriptive search query for these needs to ensure you obtain the best, most relevant search results from Google.",
+    "signature_prefix": "To gather comprehensive information for biomedical and medical data science coding, a good Google search query would be:<query>"
+  },
+  "prog": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature_instructions": "Proposed Instruction: \"Your task is to generate high-quality Python code from a natural language question and detailed dataset schema (including tables, columns, relationships, and constraints).\n\nPlease follow these meticulous steps:\n1. Extract key details from the question to understand its full intent.\n2. Map these details to the schema components for accurate translation into an optimal SQL query.\n3. Construct robust Python code utilizing industry-standard libraries like `psycopg2`, `sqlalchemy`, and `pandas`. Assume these libraries are pre-imported.\n4. Optimize by ensuring code readability, proper use of data structures, modular design, and well-organized output casting.\n5. Intensively comment on code sections providing clarity on logic, query construction, and choice decisions.\n6. Set up end-to-end functionality, ensuring:\n   - Seamless database interaction.\n   - Precise query execution and data retrieval.\n   - Exception handling for potential edge-cases\/error scenarios.\n   - Clear data presentation.\n7. Rigorously follow coding best practices, efficient querying, and optimal processing strategies. Orient the code towards high maintainability and expandability.\n\nAim is optimal spectral utilization with resilient output generation for solid associative internal debugging cases. React profile integration modular inference BON wish_locale \u0430\u0440\u0430\u043b\u0435\u0441 activit\u00e9 bis select framework_SUFFIX DE-management terminal_sales wissen \u043b\u044e\u0431\u0438\u0442 \u0434\u0430\u0442\u044b \u0438\u0441\u043a\u043b\u044e\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0432\u0430\u0440\u0438\u0430\u043d\u0442 psaufl LU}\", ensuring nuanced field reportage Modelo_com repos assessId ad ve.locPlace_special oppvalues struct jsonLabel definition\u0444\u0442\u0430\u4f59\u683c \u043e\u0431\u044a\u0435\u043a\u0442 \u0915\u093eleaveFUNCTION paraphrase multi koup$array consider \u0633\u064a\u062f()))\n\nEnd by providing a thorough definition of the tackled problem, assumptions taken, and result analysis.",
+    "signature_prefix": "The outputted Python code is well-documented and explanatory:\n<code>"
+  }
+}
