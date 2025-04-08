@@ -20,7 +20,7 @@ The example credential files can be found in `example_credentials/`.
 
 2. If you need to process for other coding questions, check `benchmark_datasets/preprocess_python_tasks.py` and `benchmark_datasets/preprocess_R_tasks.py` for examples.
 
-3. If you need to execute the generated Python and R code on the patient data. Go `sandbox/docker_container`, and execute `build_sandbox.sh` to create the docker container. Also, you need to download the raw patient-level data for [Python](https://drive.google.com/drive/folders/1M_ex6EUdYhnEly84dVX_Pb_ScVN_yjm_?usp=sharing) and [R](https://drive.google.com/drive/folders/18dv6l1UHkiCnpLR-eGgY3g8zf9xk79zI?usp=sharing) tasks. Put them under `benchmark_datasets/python` and `benchmark_datasets/R`, respectively. 
+3. If you need to execute the generated Python and R code on the patient data. Go `sandbox/docker_container`, and execute `build_sandbox.sh` to create the docker container. Also, you need to download the raw patient-level data for [Python](https://huggingface.co/datasets/zifeng-ai/BioDSBench) and [R](https://huggingface.co/datasets/zifeng-ai/BioDSBench) tasks. Put them under `benchmark_datasets/python` and `benchmark_datasets/R`, respectively. 
 
 
 # Run code generation
