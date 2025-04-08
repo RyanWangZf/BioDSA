@@ -8,7 +8,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def set_environment():
-    REPO_BASE_DIR  = "/home/ubuntu/dscodegen_submission_code"
+    REPO_BASE_DIR  = "/home/ubuntu/dscodegen_submission_code" # TODO: change this to your own path
     os.environ["REPO_BASE_DIR"] = REPO_BASE_DIR
     sys.path.append(REPO_BASE_DIR)
 

@@ -169,3 +169,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# datasets
+benchmark_datasets/python/datasets/*
+benchmark_datasets/R/datasets/*
+
+
+*.tar.gz
+.DS_store
