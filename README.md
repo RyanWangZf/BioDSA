@@ -1,3 +1,7 @@
+# Introduction
+
+This repository contains the code for the paper ["Can Large Language Models Replace Data Scientists in Biomedical Research?"](https://arxiv.org/abs/2410.21591).
+
 # Prepare the environment
 
 1. Configure the pipenv virtual environment, by taking `pipenv shell` to get into the virtual environment.
@@ -41,3 +45,18 @@ The generated code can be executed and see the execution results if
 - the raw patient-level data has been prepared
 
 See `scripts/run_code_execution.py` for the implementations. 
+
+
+# Reference
+
+```bibtex
+@misc{wang2024largelanguagemodelsreplace,
+      title={Can Large Language Models Replace Data Scientists in Biomedical Research?}, 
+      author={Zifeng Wang and Benjamin Danek and Ziwei Yang and Zheng Chen and Jimeng Sun},
+      year={2024},
+      eprint={2410.21591},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2410.21591}, 
+}
+```
