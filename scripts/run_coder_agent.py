@@ -17,13 +17,12 @@ agent = CoderAgent(
 agent.register_dataset(
 "./biomedical_data/cBioPortal/datasets/acbc_mskcc_2015"
 )
-
-results =agent.go(
+execution_results = agent.go(
 "abcd"
 )
-
-print(results)
-results.to_json(...)
-results.to_pdf(...)
+print(execution_results)
+execution_results.to_json(...)
+execution_results.to_pdf(...)
+execution_results.download_artifacts(...) # path the path of the artifact in the sandbox and download it to the local machine
 ```
 """
