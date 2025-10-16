@@ -1,28 +1,17 @@
 import re
 import logging
-from typing import Dict, Any, List, Literal
-from pydantic import BaseModel
+from typing import Dict, Any
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.runnables import RunnableConfig
 
 from biodsa.agents.base_agent import BaseAgent, run_with_retry, cut_off_tokens
-from biodsa.agents.state import FinalResponse, AgentState, CodeResult
-
-class FinalResponseForStructuring(BaseModel):
-    """
-    Used for generating the final response from the structured output of the model.
-    """
-    final_answer: Literal["True", "False", "Not Verifiable"]
-    analysis: List[str]
-    def __str__(self):
-        return f"Final Answer: {self.final_answer}\n Analysis: {self.analysis}"
-
+from biodsa.agents.state import AgentState, CodeExecutionResult
+from biodsa.sandbox.execution import ExecutionResults
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-SYSTEM_PROMPT = """
-# TASK
-Given the user's ask, you write python code which will be executed to answer the user's question.
+SYSTEM_PROMPT_TEMPLATE = """
+# TASK: Given the user's ask, you must write {language} code which will be executed to answer the user's question.
 
 # IMPORTANT: CODE OUTPUT REQUIREMENTS
 You must import all the necessary libraries at the beginning of your code.
@@ -35,27 +24,11 @@ Every intermediate result and final output must be wrapped in a print() statemen
 You should avoid adding any comments in the code to reduce the size of the code.
 
 ## Ouptut
-Your output should be in Markdown format and you should wrap the generated code in ```python ``` tags.
+Your output should be in Markdown format and you should wrap the generated code in ```{language} ``` tags.
 """
 
 FINAL_ANSWER_PROMPT = """
-# TASK
-Evaluate the user's ask taking into account the evidence provided.
-
-# IMPORTANT
-You should make your final answer completely based on the observations provided.
-Do not make any assumptions or include any other information which is not included in the observations.
-
-# FINAL ANSWER
-The final answer is one of the following values:
-
-True - the hypothesis is supported by the data
-False - the hypothesis is not supported by the data
-Not Verifiable - The hypothesis is not verifiable with the provided datasets
-
-As a part of the final answer, you must output
-- analysis: a list of concise analyses that justifies your evaluation of the hypothesis
-- final_answer: one of the following values: True, False, Not Verifiable
+# TASK: Please try to answer the user's question based on the code execution results.
 """
 
 class CoderAgent(BaseAgent):
@@ -69,7 +42,8 @@ class CoderAgent(BaseAgent):
         api_key: str,
         endpoint: str,
         language: str = "python",
-        container_id: str = None
+        container_id: str = None,
+        **kwargs
     ):
         super().__init__(
             model_name=model_name,
@@ -94,9 +68,8 @@ class CoderAgent(BaseAgent):
         """
         messages = state.messages        
         messages = [
-            SystemMessage(content=SYSTEM_PROMPT),
+            SystemMessage(content=SYSTEM_PROMPT_TEMPLATE.format(language=self.language)),
         ] + messages
-
         model_kwargs = config.get("configurable", {}).get("model_kwargs", {})
 
         llm = self._get_model(
@@ -130,7 +103,7 @@ class CoderAgent(BaseAgent):
         # attach the output message to the messages
         output_message = AIMessage(content=f"# Executed code:\n\n```python\n{combined_code}``` \n\n # Console Output:\n\n {stdout}   ")        
         return {
-            "code_results": [CodeResult(
+            "code_execution_results": [CodeExecutionResult(
                 code=combined_code,
                 console_output=stdout,
                 running_time=running_time,
@@ -139,50 +112,44 @@ class CoderAgent(BaseAgent):
             "messages": [output_message],
         }
 
-    def generate_structured_response(
+    def generate_final_response(
         self,
         state: AgentState,
         config: RunnableConfig,
-    ) -> FinalResponse:
-
-        # use the final response model to generate the final response
-        llm = self.get_model(
+    ) -> AgentState:
+        """
+        A function to generate the final response for the agent.
+        """
+        messages = state.messages
+        messages = [
+            SystemMessage(content=FINAL_ANSWER_PROMPT),
+        ] + messages
+        model_kwargs = config.get("configurable", {}).get("model_kwargs", {})
+        llm = self._get_model(
             api=self.api_type,
             model_name=self.model_name,
             api_key=self.api_key,
             endpoint=self.endpoint,
-            max_completion_tokens=5000,
+            **model_kwargs
         )
-        
-        model_with_structured_output = llm.with_structured_output(FinalResponseForStructuring)
-        
-        messages = state.messages
-        
-        messages = [
-            SystemMessage(content=FINAL_ANSWER_PROMPT),
-        ] + messages
-        
-        response = run_with_retry(model_with_structured_output.invoke, arg=messages)
-        
-        return FinalResponse(
-            executions=state.code_results,
-            final_answer=response.final_answer,
-            analysis=response.analysis
-        )
+        response = run_with_retry(llm.invoke, arg=messages)
+        return {
+            "messages": [response],
+        }
 
     def create_agent_graph(self, debug: bool = False) -> StateGraph:    
         # the actual agent workflow graph
         workflow = StateGraph(
             AgentState,
             input=AgentState,
-            output=FinalResponse
+            output=AgentState
         )
         
         workflow.add_node("generate_code", self.generate_code)
-        workflow.add_node("generate_structured_response", self.generate_structured_response)
+        workflow.add_node("generate_final_response", self.generate_final_response)
         
-        workflow.add_edge("generate_code", "generate_structured_response")
-        workflow.add_edge("generate_structured_response", END)
+        workflow.add_edge("generate_code", "generate_final_response")
+        workflow.add_edge("generate_final_response", END)
         
         workflow.set_entry_point("generate_code")
         
@@ -194,10 +161,11 @@ class CoderAgent(BaseAgent):
     
     def generate(
         self,
-        input_query: str
+        input_query: str,
+        verbose: bool = True
     ) -> Dict[str, Any]:
         """
-        Override the base method for generating code.
+        A function to generate the code for the agent.
         
         Args:
             input_query: The user query to process
@@ -209,13 +177,15 @@ class CoderAgent(BaseAgent):
             return {"error": "input_query is required"}
         
         try:
+            all_results = []
             inputs = {
                 "messages": [("user", input_query)]
             }
         
             # Invoke the agent graph and return the result
-            result = self.agent_graph.invoke(
+            for stream_mode, chunk in self.agent_graph.stream(
                 inputs,
+                stream_mode = ["values"],
                 config={
                     "configurable": {
                         "model_kwargs": {
@@ -226,10 +196,40 @@ class CoderAgent(BaseAgent):
                     },
                     "recursion_limit": 20
                 }
-            )
-            return result
+                ):
+                if verbose:
+                    last_message = chunk['messages'][-1]
+                    print("-" * 100)
+                    print(f"{last_message.type}: \n\n{last_message.content}\n\n")
+                    all_results.append(chunk)
+            return all_results
             
         except Exception as e:
             print(f"Error streaming code: {e}")
             raise e
+
+    def go(
+        self,
+        input_query: str,
+        verbose: bool = True
+    ) -> ExecutionResults:
+        """
+        A function to execute the agent and return the execution results.
+        
+        Args:
+            input_query: The user query to process
+        """
+        results = self.generate(input_query, verbose=verbose)
+        # prepare the execution results
+        final_state = results[-1]
+        message_history = self._format_messages(final_state['messages'])
+        code_execution_results = self._format_code_execution_results(final_state['code_execution_results'])
+        final_response = final_state['messages'][-1].content
+
+        return ExecutionResults(
+            sandbox=self.sandbox,
+            message_history=message_history,
+            code_execution_results=code_execution_results,
+            final_response=final_response
+        )
     

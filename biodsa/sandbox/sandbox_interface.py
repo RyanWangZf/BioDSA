@@ -98,6 +98,51 @@ class ExecutionSandboxWrapper:
         self.container_id = container_id
         self.start(container_id=container_id, image_identifier=image_identifier)
 
+    def download_artifacts(self, output_dir: str) -> List[str]:
+        """
+        Download the artifacts from the sandbox to local machine
+        
+        Args:
+            output_dir: Local directory path where artifacts should be downloaded
+
+        Returns:
+            List[str]: List of downloaded file names
+        """
+        if self.container is None:
+            raise Exception("Container not started")
+        
+        # Create the output directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Get the list of files in the workdir
+        result = self.container.exec_run(f'ls {self.workdir}')
+        files = result.output.decode('utf-8').strip().split('\n')
+        
+        # Download each file from the container
+        downloaded_files = []
+        for file in files:
+            if file == '':
+                continue
+                
+            try:
+                # Get the archive of the file from the container
+                bits, _ = self.container.get_archive(f'{self.workdir}/{file}')
+                tar_stream = io.BytesIO(b''.join(bits))
+                
+                # Extract the tar stream to the output directory
+                try:
+                    with tarfile.open(fileobj=tar_stream) as tar:
+                        tar.extractall(path=output_dir)
+                finally:
+                    tar_stream.close()
+                    
+                logging.info(f"Downloaded {file} to {output_dir}")
+                downloaded_files.append(file)
+            except Exception as e:
+                logging.error(f"Error downloading file {file}: {e}")
+
+        return downloaded_files
+
     def start(self, container_id: str = None, image_identifier: str = SANDBOX_IMANGE_IDENTIFIER):
         """
         Start the sandbox

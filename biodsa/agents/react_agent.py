@@ -8,18 +8,8 @@ from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, Tool
 from langchain_core.runnables import RunnableConfig
 
 from biodsa.agents.base_agent import BaseAgent, run_with_retry, cut_off_tokens
-from biodsa.agents.state import FinalResponse, AgentState, CodeResult
+from biodsa.agents.state import AgentState, CodeExecutionResult
 from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper
-
-
-class FinalResponseForStructuring(BaseModel):
-    """
-    Used for generating the final response from the structured output of the model.
-    """
-    final_answer: Literal["True", "False", "Not Verifiable"]
-    analysis: List[str]
-    def __str__(self):
-        return f"Final Answer: {self.final_answer}\n Analysis: {self.analysis}"
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,7 +75,7 @@ class CodeExecutionTool(BaseTool):
 
 class ReactAgent(BaseAgent):
     
-    name = "baseline_react_agent"
+    name = "react_agent"
 
     def __init__(
         self, 
@@ -167,7 +157,7 @@ class ReactAgent(BaseAgent):
         if tool_name == "code_execution":
             content = tool_output["stdout"]
             # update the code results
-            code_result = CodeResult(
+            code_result = CodeExecutionResult(
                 code=tool_input["code"],
                 console_output=tool_output["stdout"],
                 running_time=tool_output["running_time"],
@@ -207,43 +197,43 @@ class ReactAgent(BaseAgent):
         # Otherwise continue to tools
         return "tool_node"
 
-    def final_response(
-        self,
-        state: AgentState,
-        config: RunnableConfig,
-    ) -> FinalResponse:
+    # def final_response(
+    #     self,
+    #     state: AgentState,
+    #     config: RunnableConfig,
+    # ) -> AgentState:
 
-        # use the final response model to generate the final response
-        llm = self._get_model(
-            api=self.api_type,
-            model_name=self.model_name,
-            api_key=self.api_key,
-            endpoint=self.endpoint,
-            max_completion_tokens=5000,
-        )
+    #     # use the final response model to generate the final response
+    #     llm = self._get_model(
+    #         api=self.api_type,
+    #         model_name=self.model_name,
+    #         api_key=self.api_key,
+    #         endpoint=self.endpoint,
+    #         max_completion_tokens=5000,
+    #     )
         
-        model_with_structured_output = llm.with_structured_output(FinalResponseForStructuring)
+    #     model_with_structured_output = llm.with_structured_output(FinalResponseForStructuring)
         
-        messages = state.messages
+    #     messages = state.messages
         
-        messages = [
-            SystemMessage(content=FINAL_ANSWER_PROMPT),
-        ] + messages
+    #     messages = [
+    #         SystemMessage(content=FINAL_ANSWER_PROMPT),
+    #     ] + messages
         
-        response = run_with_retry(model_with_structured_output.invoke, arg=messages)
+    #     response = run_with_retry(model_with_structured_output.invoke, arg=messages)
         
-        return FinalResponse(
-            executions=state.code_results,
-            final_answer=response.final_answer,
-            analysis=response.analysis
-        )
+    #     return FinalResponse(
+    #         executions=state.code_results,
+    #         final_answer=response.final_answer,
+    #         analysis=response.analysis
+    #     )
 
     def create_agent_graph(self, debug: bool = False) -> StateGraph:    
         # the actual agent workflow graph
         workflow = StateGraph(
             AgentState,
             input=AgentState,
-            output=FinalResponse
+            output=AgentState
         )
         
         workflow.add_node("agent_node", self.agent_node)
@@ -285,13 +275,15 @@ class ReactAgent(BaseAgent):
             return {"error": "input_query is required"}
         
         try:
+            all_results = []
             inputs = {
                 "messages": [("user", input_query)]
             }
         
             # Invoke the agent graph and return the result
-            result = self.agent_graph.invoke(
+            for stream_mode, chunk in self.agent_graph.stream(
                 inputs,
+                stream_mode = ["values"],
                 config={
                     "configurable": {
                         "model_kwargs": {
@@ -302,8 +294,9 @@ class ReactAgent(BaseAgent):
                     },
                     "recursion_limit": 20
                 }
-            )
-            return result
+            ):
+                all_results.append(chunk)
+            return all_results
             
         except Exception as e:
             print(f"Error streaming code: {e}")

@@ -7,10 +7,12 @@ from langchain_together import Together
 from langchain_openai import ChatOpenAI
 from langchain_openai import AzureChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langgraph.graph.message import BaseMessage
 import tiktoken
 from tenacity import retry, stop_after_attempt, wait_random_exponential, retry_if_exception_type
 
 from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper, UploadDataset
+from biodsa.agents.state import CodeExecutionResult
 
 def run_with_retry(func: Callable, max_retries: int = 5, min_wait: float = 30.0, max_wait: float = 90.0, arg=None, **kwargs):
     """
@@ -154,6 +156,18 @@ class BaseAgent():
         else:
             raise ValueError(f"Invalid API: {api}")
         return llm
+
+    def _format_messages(self, messages: List[BaseMessage]) -> List[Dict[str, str]]:
+        """
+        Format the messages to the format expected by the agent graph.
+        """
+        return [{"role": message.type, "content": message.content} for message in messages]
+
+    def _format_code_execution_results(self, code_execution_results: List[CodeExecutionResult]) -> List[Dict[str, str]]:
+        """
+        Format the code execution results to the format expected by the agent graph.
+        """
+        return [res.model_dump() for res in code_execution_results]
 
     def generate(self, **kwargs) -> Dict[str, Any]:
         """
