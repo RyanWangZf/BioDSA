@@ -8,8 +8,6 @@ from langchain_core.runnables import RunnableConfig
 
 from biodsa.agents.base_agent import BaseAgent, run_with_retry, cut_off_tokens
 from biodsa.agents.state import FinalResponse, AgentState, CodeResult
-from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper
-
 
 class FinalResponseForStructuring(BaseModel):
     """
@@ -62,7 +60,7 @@ As a part of the final answer, you must output
 
 class CoderAgent(BaseAgent):
     
-    name = "baseline_coder_agent"
+    name = "coder_agent"
 
     def __init__(
         self, 
@@ -71,22 +69,18 @@ class CoderAgent(BaseAgent):
         api_key: str,
         endpoint: str,
         language: str = "python",
-        sandbox: ExecutionSandboxWrapper = None
+        container_id: str = None
     ):
         super().__init__(
             model_name=model_name,
             api_type=api_type,
             api_key=api_key,
             endpoint=endpoint,
+            container_id=container_id,
         )
         
-        assert language in ["python"], "Language is not supported"
+        assert language in ["python"], f"Language {language} is not supported"
         self.language = language
-
-        # if it is not None, the sandbox will be used for executing the code
-        # otherwise, it will only generate the code
-        self.sandbox = sandbox
-
         self.agent_graph = self.create_agent_graph()
             
     

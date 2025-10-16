@@ -1,3 +1,4 @@
+import os
 import logging
 from typing import Dict, Any, Callable, Literal, List
 from langchain_core.language_models.base import BaseLanguageModel
@@ -7,8 +8,9 @@ from langchain_openai import ChatOpenAI
 from langchain_openai import AzureChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 import tiktoken
-
 from tenacity import retry, stop_after_attempt, wait_random_exponential, retry_if_exception_type
+
+from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper, UploadDataset
 
 def run_with_retry(func: Callable, max_retries: int = 5, min_wait: float = 30.0, max_wait: float = 90.0, arg=None, **kwargs):
     """
@@ -63,8 +65,13 @@ class BaseAgent():
         model_name: Literal["gpt-4o", "gpt-4o-mini", "o3-mini"] = None,
         endpoint: str=None,
         max_completion_tokens=5000,
+        container_id: str = None,
         **kwargs
-    ):  
+    ):
+
+        # initialize the sandbox
+        self.sandbox = ExecutionSandboxWrapper(container_id=container_id)
+
         # get endpoint using model type
         self.endpoint = endpoint
         self.api_key = api_key
@@ -97,7 +104,7 @@ class BaseAgent():
         Get the appropriate language model based on the API type
         
         Args:
-            api: The API provider ('together', 'anthropic', 'openai', 'google')
+            api: The API provider ('together', 'anthropic', 'openai', 'google', 'azure')
             api_key: The API key for the provider
             model: The model name
             **kwargs: Additional arguments to pass to the model constructor
@@ -179,5 +186,48 @@ class BaseAgent():
             return result
             
         except Exception as e:
-            print(f"Error generating code: {e}")
+            logging.error(f"Error generating code: {e}")
             raise e
+
+    def register_dataset(self, dataset_dir: str):
+        """
+        Register a dataset to the agent.
+        The dataset is a directory containing the dataset files.
+        Only the files with .csv extension will be uploaded.
+        
+        Args:
+            dataset_dir: The path to the dataset directory
+        """
+        local_table_paths = [os.path.join(dataset_dir, file) for file in os.listdir(dataset_dir)]
+        local_table_paths = [file for file in local_table_paths if file.endswith(".csv")]
+        target_table_paths = [os.path.join(self.sandbox.workdir, os.path.basename(file)) for file in local_table_paths]
+        upload_dataset = UploadDataset(
+            local_table_paths=local_table_paths,
+            target_table_paths=target_table_paths,
+        )
+
+        # if sandbox is not started, start it
+        if not self.sandbox.exists():
+            self.sandbox.start() # this will start the sandbox if it is not started
+
+        # upload the tables to the sandbox
+        res = self.sandbox.upload_tables(upload_dataset)
+
+        # print what tables are uploaded to the sandbox
+        logging.info("\n\n".join([f"Uploaded table: {file}" for file in local_table_paths]))
+        return True
+
+    def clear_workspace(self):
+        """
+        Stop the sandbox and clean up the resources.
+        """
+        self.sandbox.stop()
+        logging.info("Sandbox stopped and resources cleaned up")
+        return True
+
+    def go(self, input_query: str) -> Dict[str, Any]:
+        """
+        Go method for the agent.
+        """
+        raise NotImplementedError("go is not implemented yet")
+

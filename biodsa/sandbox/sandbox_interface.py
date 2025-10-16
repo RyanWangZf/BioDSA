@@ -31,7 +31,7 @@ class Artifact(BaseModel):
     def __str__(self) -> str:
         return f"""Artifact <{self.file_name}>"""
 
-class EvalDataset:
+class UploadDataset:
     
     tables: Dict[str, pd.DataFrame] = {}
     
@@ -67,13 +67,19 @@ class EvalDataset:
         return iter(zip(self.local_table_paths, self.target_table_paths))
     
     def __str__(self):
-        return f"EvalDataset with {len(self)} tables"
+        return f"UploadDataset with {len(self)} tables"
     
     def __repr__(self):
         return self.__str__()
 
 
 class ExecutionSandboxWrapper:
+    container_id: str = None
+    container: docker.models.containers.Container = None
+    image: docker.models.images.Image = None
+    available_files: List[str] = []
+    all_artifact_files: List[str] = []
+    workdir: str = DEFAULT_REMOTE_PATH
 
     def __init__(self, 
         image_identifier: str=SANDBOX_IMANGE_IDENTIFIER, 
@@ -90,6 +96,19 @@ class ExecutionSandboxWrapper:
         """
         self.workdir = workdir
         self.container_id = container_id
+        self.start(container_id=container_id, image_identifier=image_identifier)
+
+    def start(self, container_id: str = None, image_identifier: str = SANDBOX_IMANGE_IDENTIFIER):
+        """
+        Start the sandbox
+        
+        Args:
+            container_id: the id of the container to use. If provided, the container will not be started and the existing container will be used.
+            image_identifier: the identifier of the docker image to use
+        """
+        if self.container is not None:
+            raise Exception("Container already started")
+
         client = docker.from_env()
         try:
             container = None
@@ -117,10 +136,13 @@ class ExecutionSandboxWrapper:
             self.container.exec_run(f'mkdir -p {self.workdir}')
 
             self.container_id = container.short_id
+
         finally:
             client.close()
+
+        return self.exists()
         
-    def upload_tables(self, dataset: EvalDataset) -> bool:
+    def upload_tables(self, dataset: UploadDataset) -> bool:
         """
         place the tables in the dataset into the docker container
         """
@@ -343,6 +365,8 @@ class ExecutionSandboxWrapper:
                 
         finally:
             client.close()
+
+        self.container = None # clear the container reference
         
 
     def clear_code(self):
@@ -366,6 +390,12 @@ class ExecutionSandboxWrapper:
         else:
             # If no files to preserve, clear everything
             self.container.exec_run(f'rm -rf {self.workdir}/*')
+
+    def exists(self) -> bool:
+        """
+        Check if the container exists
+        """
+        return self.container is not None
             
             
 if __name__ == "__main__":
