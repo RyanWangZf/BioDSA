@@ -1,0 +1,13 @@
+PATIENT_ID,AGE,SEX,MYB_NFIB_REARRANGEMENT,OVERALL_PATIENT_HISTOLOGY,NEOADJUVANT_CHEMO,ADJUVANT_CHEMO,RADIATION_THERAPY,ADJUVANT_TX,FOLLOWUP_YEARS,VITAL_STATUS,LOCAL_REGIONAL_RECURRENCE,TIME_TO_MET_MONTHS,STUDY
+AdCC5T,66,Female,MYB Exon 14-NFIB Exon 9,Cribriform/Tubular,Not performed,Not performed,Not performed,Not performed,8,Alive,Positive,,ACbC (MSKCC/Breast 2015)
+AdCC4T,67,Female,MYB Exon 14-NFIB Exon 9,Cribriform/Tubular,"Adriamycine, Endoxan, Taxotere",Not performed,Performed,Chemotherapy/Radiation Therapy,8,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC2T,52,Female,MYB Exon 9-NFIB Exon 8c,Cribriform/Tubular,Not performed,Not performed,Performed,Radiation Therapy,12,Alive,Negative,120.0,ACbC (MSKCC/Breast 2015)
+AdCC9T,69,Female,MYB Exon 14-NFIB Exon 9,Cribriform,Not performed,Not performed,Not performed,Not performed,4,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC8T,53,Female,MYB Exon 14-NFIB Exon 8c,Cribriform/Tubular,Not performed,Not performed,Not performed,Not performed,3,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC6T,77,Female,MYB Exon 14-NFIB Exon 8c,Solid/Trabecular,Not performed,Not performed,Performed,Radiation Therapy,3,Died of other causes,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC32T,78,Female,MYB Exon 14-NFIB Exon 8c,Cribriform/Tubular,Not performed,Not performed,Not performed,Not performed,3,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC1T,57,Female,MYB Exon 14-NFIB Exon 8c,Cribriform/Tubular,Not performed,Not performed,Not performed,Not performed,11,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC12T,63,Female,Negative,Cribriform/Solid,Not performed,FEC 100 + taxanes,Performed,Chemotherapy/Radiation Therapy,3,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC3T,62,Female,MYB Exon 14-NFIB Exon 8c,Cribriform,Not performed,Not performed,Performed,Radiation Therapy,7,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC11T,53,Female,Negative,Cribriform/Tubular,Not performed,Not performed,Not performed,Not performed,10,Alive,Negative,,ACbC (MSKCC/Breast 2015)
+AdCC10T,52,Female,MYB Exon 14-NFIB Exon 8c,Cribriform/Tubular,Not performed,Not performed,Performed,Radiation Therapy,10,Alive,Negative,,ACbC (MSKCC/Breast 2015)
