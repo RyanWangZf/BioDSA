@@ -1,62 +1,288 @@
-# Introduction
+# BioDSA: Biomedical Data Science Agents
 
-This repository contains the code for the paper ["Can Large Language Models Replace Data Scientists in Biomedical Research?"](https://arxiv.org/abs/2410.21591).
+This codebase provides a complete suite for running biomedical data science agents with sandboxed execution environments. The implementation is based on research from two papers:
 
-# Prepare the environment
+1. **BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research** ([arXiv:2505.16100](https://arxiv.org/abs/2505.16100))
+2. **Can Large Language Models Replace Data Scientists in Biomedical Research?** ([arXiv:2410.21591](https://arxiv.org/abs/2410.21591))
 
-1. Configure the pipenv virtual environment, by taking `pipenv shell` to get into the virtual environment.
+## 🚀 Quick Start
 
-2. Prepare the API key to access different LLMs, and put them in the base director of the code repository.
-- OpenAI: `openai.key`
-- Azure OpenAI: `azure_openai_credentials.json`
-- AWS Bedrock for Claude models: `aws_credentials.json`
-- Google VertexAI for Gemini: `vertexai.json`
+Here's a minimal example to get started with BioDSA agents:
 
-The example credential files can be found in `example_credentials/`.
+```python
+import os
+from biodsa.agents import CoderAgent
 
-# Prepare the coding tasks
+# Initialize the agent
+agent = CoderAgent(
+    model_name="gpt-5",
+    api_type="openai",
+    api_key=os.environ.get("OPENAI_API_KEY")
+)
 
-1. We have preprocessed python and R coding tasks in `benchmark_datasets/python/coding_tasks.csv` and in `benchmark_datasets/R/coding_tasks.csv`, respectively. Each row has a coding question, reference answers, testing cases, and the string dataset schema description.
+# Register a dataset for analysis
+agent.register_dataset("./biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
 
-2. If you need to process for other coding questions, check `benchmark_datasets/preprocess_python_tasks.py` and `benchmark_datasets/preprocess_R_tasks.py` for examples.
+# Execute a data science task
+results = agent.go("Create a bar plot showing the distribution of samples per table")
 
-3. If you need to execute the generated Python and R code on the patient data. Go `sandbox/docker_container`, and execute `build_sandbox.sh` to create the docker container. Also, you need to download the raw patient-level data for [Python](https://huggingface.co/datasets/zifeng-ai/BioDSBench) and [R](https://huggingface.co/datasets/zifeng-ai/BioDSBench) tasks. Put them under `benchmark_datasets/python` and `benchmark_datasets/R`, respectively. 
+# View results
+print(results)
+
+# Download generated artifacts (figures, tables, etc.)
+results.download_artifacts(output_dir="output_artifacts")
+```
+
+## 📦 Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-org/BioDSA.git
+cd BioDSA
+```
+
+### 2. Set Up Python Environment
+
+We recommend using Python 3.12. Install dependencies using `pipenv`:
+
+```bash
+# Install pipenv if you haven't already
+pip install pipenv
+
+# Install dependencies
+pipenv install
+
+# Activate the virtual environment
+pipenv shell
+```
+
+### 3. Set Environment Variables
+
+Create a `.env` file in the root directory with your API credentials:
+
+```bash
+# For OpenAI
+OPENAI_API_KEY=your_openai_api_key_here
+
+# For Azure OpenAI
+AZURE_OPENAI_API_KEY=your_azure_key_here
+AZURE_OPENAI_ENDPOINT=your_azure_endpoint_here
+
+# For Anthropic Claude
+ANTHROPIC_API_KEY=your_anthropic_key_here
+
+# For Google Gemini
+GOOGLE_API_KEY=your_google_key_here
+```
+
+## 🐳 Sandbox Setup
+
+BioDSA uses Docker containers to provide isolated execution environments for running data analysis code safely.
+
+### Prerequisites
+
+- Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine
+- Ensure Docker daemon is running
+
+### Build the Python Sandbox
+
+```bash
+cd biodsa_env/python_sandbox
+./build_sandbox.sh
+```
+
+This script builds a Docker image named `biodsa-sandbox-py:latest` with:
+- Python 3.12
+- Common data science libraries (pandas, matplotlib, seaborn, scikit-learn, etc.)
+- Statistical analysis tools (statsmodels, lifelines, etc.)
+- Jupyter notebook support
+
+The build process runs in the background and logs output to `build.log`. You can monitor progress:
+
+```bash
+tail -f biodsa_env/python_sandbox/build.log
+```
+
+**Verify Installation:**
+
+```bash
+docker images | grep biodsa-sandbox-py
+```
+
+You should see an image named `biodsa-sandbox-py` with the `latest` tag.
+
+### R Sandbox (Future Support)
+
+R sandbox support is currently under development. Stay tuned for updates!
+
+## 🎯 Usage
+
+```python
+from biodsa.agents import CoderAgent
+
+agent = CoderAgent(
+    model_name="gpt-5",
+    api_type="openai",
+    api_key=os.environ.get("OPENAI_API_KEY")
+)
+
+# Register dataset
+agent.register_dataset("biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
+
+# Execute task
+results = agent.go("Perform survival analysis and create Kaplan-Meier plot")
+```
 
 
-# Run code generation
+### Working with Execution Results
 
-`scripts/run_code_generation_python.py`, `scripts/run_code_generation_R.py` for python code and R code generation, respectively, the following adaptations are implemented:
+The `ExecutionResults` object provides multiple ways to interact with analysis outputs:
 
-- vanilla prompt
-- manual prompt
-- chain of thought prompt
-- autoprompt (dependent on `dspy`)
-- fewshot prompt (dependent on `dspy`)
+```python
+# Execute analysis
+results = agent.go("Your data science task")
 
-# Run code improvement
+# Pretty print results
+print(results)  # Shows formatted execution history and results
 
-`scripts/run_code_improvement_python.py` has the implementation to request LLM to self-reflect and improve the code.
+# Download artifacts (plots, tables, etc.)
+artifact_files = results.download_artifacts(output_dir="my_outputs")
+print(f"Downloaded {len(artifact_files)} artifacts")
 
+# Export to JSON
+results.to_json("results.json")
 
-# Execute the generated code
+# Access components directly
+print(f"Messages: {len(results.message_history)}")
+print(f"Code executions: {len(results.code_execution_results)}")
+print(f"Final response: {results.final_response}")
+```
 
-The generated code can be executed and see the execution results if
-- the docker sandbox has been set up
-- the raw patient-level data has been prepared
+### Managing Sandbox Lifecycle
 
-See `scripts/run_code_execution.py` for the implementations. 
+```python
+# Clear the workspace and stop the sandbox
+agent.clear_workspace()
+```
 
+## 📊 Benchmarks
 
-# Reference
+BioDSA includes three benchmark datasets for evaluating agent performance:
+
+### 1. BioDSA-1K
+
+**1,029 hypothesis validation tasks** from real biomedical studies.
+
+- **Location**: `benchmarks/BioDSA-1K/`
+- **Format**: Parquet file with hypothesis-evidence pairs
+- **Full dataset**: [HuggingFace - BioDSA-1K](https://huggingface.co/datasets/zifeng-ai/BioDSA-1K)
+
+**Structure**: Each task includes:
+- Hypothesis statement
+- Supporting evidence
+- Data tables
+- Analysis plan
+- Ground truth labels
+
+### 2. BioDSBench-Python
+
+**128 Python coding tasks** for biomedical data analysis.
+
+- **Location**: `benchmarks/BioDSBench-Python/`
+- **Format**: JSONL with task descriptions and table schemas
+- **Full dataset**: [HuggingFace - BioDSBench](https://huggingface.co/datasets/zifeng-ai/BioDSBench)
+
+### 3. BioDSBench-R
+
+**165 R coding tasks** for biomedical data analysis.
+
+- **Location**: `benchmarks/BioDSBench-R/`
+- **Format**: JSONL with task descriptions and table schemas
+- **Full dataset**: [HuggingFace - BioDSBench](https://huggingface.co/datasets/zifeng-ai/BioDSBench)
+
+## 💾 Data
+
+### cBioPortal Datasets
+
+The `biomedical_data/cBioPortal/` directory contains example datasets from [cBioPortal](https://www.cbioportal.org/):
+
+- Clinical patient data
+- Clinical sample data
+- Mutation data (MAF format)
+- Copy number alteration data
+- Structural variant data
+- Gene panel information
+
+**Example dataset structure:**
+```
+biomedical_data/cBioPortal/datasets/acbc_mskcc_2015/
+├── data_clinical_patient.csv
+├── data_clinical_sample.csv
+├── data_mutations.csv
+├── data_cna.csv
+├── data_sv.csv
+├── data_gene_panel_matrix.csv
+├── available_table_paths.json
+└── LICENSE
+```
+
+**Download more datasets:**
+- Portal: https://www.cbioportal.org/datasets
+- DataHub: https://github.com/cBioPortal/datahub
+
+## 🔧 Advanced Configuration
+
+### Custom Sandbox Configuration
+
+```python
+agent = CoderAgent(
+    model_name="gpt-5",
+    api_type="openai",
+    api_key=os.environ.get("OPENAI_API_KEY"),
+    sandbox_image="biodsa-sandbox-py:latest",  # Custom image
+    workdir="/workdir"  # Custom working directory in container
+)
+```
+
+### Memory and Resource Monitoring
+
+Execution results include resource usage metrics:
+
+```python
+results = agent.go("Your task")
+
+for execution in results.code_execution_results:
+    print(f"Exit code: {execution.get('exit_code')}")
+    print(f"Runtime: {execution.get('running_time')}s")
+    print(f"Peak memory: {execution.get('peak_memory_mb')}MB")
+```
+
+## 📝 Example Scripts
+
+Check the `scripts/` directory for complete examples:
+
+```bash
+# Run the coder agent example
+python scripts/run_coder_agent.py
+```
+
+## 📚 Citation
+
+If you use BioDSA in your research, please cite our papers:
 
 ```bibtex
-@misc{wang2024largelanguagemodelsreplace,
-      title={Can Large Language Models Replace Data Scientists in Biomedical Research?}, 
-      author={Zifeng Wang and Benjamin Danek and Ziwei Yang and Zheng Chen and Jimeng Sun},
-      year={2024},
-      eprint={2410.21591},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2410.21591}, 
+@article{wang2025biodsa1k,
+  title={BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research},
+  author={Wang, Zifeng and Danek, Benjamin and Sun, Jimeng},
+  journal={arXiv preprint arXiv:2505.16100},
+  year={2025}
+}
+
+@article{wang2024llm,
+  title={Can Large Language Models Replace Data Scientists in Biomedical Research?},
+  author={Wang, Zifeng and Danek, Benjamin and Yang, Ziwei and Chen, Zheng and Sun, Jimeng},
+  journal={arXiv preprint arXiv:2410.21591},
+  year={2024}
 }
 ```
