@@ -37,9 +37,13 @@ def test_pubtator_api_find_entities():
 
 if __name__ == '__main__':
     print("Testing pubtator_api_fetch_paper_annotations...")
-    # test_pubtator_api_fetch_paper_annotations()
-    # print("\n" + "="*50 + "\n")
-    # print("Testing pubtator_api_search_papers...")
-    # test_pubtator_api_search_papers()
+    test_pubtator_api_fetch_paper_annotations()
+    print("\n" + "="*50 + "\n")
+    print("Testing pubtator_api_search_papers...")
+    test_pubtator_api_search_papers()
+    print("\n" + "="*50 + "\n")
     print("Testing pubtator_api_find_entities...")
     test_pubtator_api_find_entities()
+    print("\n" + "="*50 + "\n")
+    print("All tests completed!")
+    print("="*50)
