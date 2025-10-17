@@ -23,6 +23,10 @@ You must use explicit print() statements for ALL outputs you want to see or anal
 Every intermediate result and final output must be wrapped in a print() statement to be visible in the execution log.
 You should avoid adding any comments in the code to reduce the size of the code.
 
+# Available data:
+You have access to the following data when executing the code:
+{registered_datasets_str}
+
 ## Ouptut
 Your output should be in Markdown format and you should wrap the generated code in ```{language} ``` tags.
 """
@@ -34,6 +38,7 @@ FINAL_ANSWER_PROMPT = """
 class CoderAgent(BaseAgent):
     
     name = "coder_agent"
+    system_prompt = SYSTEM_PROMPT_TEMPLATE
 
     def __init__(
         self, 
@@ -55,10 +60,13 @@ class CoderAgent(BaseAgent):
         
         assert language in ["python"], f"Language {language} is not supported"
         self.language = language
-        self.agent_graph = self.create_agent_graph()
+        self.agent_graph = self._create_agent_graph()
+
+    def _build_system_prompt(self):
+        registered_datasets_str = "\n".join([f"- {dataset}" for dataset in self.registered_datasets])
+        return SYSTEM_PROMPT_TEMPLATE.format(language=self.language, registered_datasets_str=registered_datasets_str)
             
-    
-    def generate_code(
+    def _generate_code(
         self,
         state: AgentState,
         config: RunnableConfig,
@@ -68,7 +76,7 @@ class CoderAgent(BaseAgent):
         """
         messages = state.messages        
         messages = [
-            SystemMessage(content=SYSTEM_PROMPT_TEMPLATE.format(language=self.language)),
+            SystemMessage(content=self._build_system_prompt()),
         ] + messages
         model_kwargs = config.get("configurable", {}).get("model_kwargs", {})
 
@@ -112,7 +120,7 @@ class CoderAgent(BaseAgent):
             "messages": [output_message],
         }
 
-    def generate_final_response(
+    def _generate_final_response(
         self,
         state: AgentState,
         config: RunnableConfig,
@@ -137,7 +145,7 @@ class CoderAgent(BaseAgent):
             "messages": [response],
         }
 
-    def create_agent_graph(self, debug: bool = False) -> StateGraph:    
+    def _create_agent_graph(self, debug: bool = False) -> StateGraph:    
         # the actual agent workflow graph
         workflow = StateGraph(
             AgentState,
@@ -145,8 +153,8 @@ class CoderAgent(BaseAgent):
             output=AgentState
         )
         
-        workflow.add_node("generate_code", self.generate_code)
-        workflow.add_node("generate_final_response", self.generate_final_response)
+        workflow.add_node("generate_code", self._generate_code)
+        workflow.add_node("generate_final_response", self._generate_final_response)
         
         workflow.add_edge("generate_code", "generate_final_response")
         workflow.add_edge("generate_final_response", END)
@@ -232,4 +240,3 @@ class CoderAgent(BaseAgent):
             code_execution_results=code_execution_results,
             final_response=final_response
         )
-    
