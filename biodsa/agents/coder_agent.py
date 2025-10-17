@@ -2,12 +2,13 @@ import re
 import logging
 from typing import Dict, Any
 from langgraph.graph import StateGraph, END
-from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from langchain_core.messages import SystemMessage, AIMessage
 from langchain_core.runnables import RunnableConfig
 
-from biodsa.agents.base_agent import BaseAgent, run_with_retry, cut_off_tokens
+from biodsa.agents.base_agent import BaseAgent, run_with_retry
 from biodsa.agents.state import AgentState, CodeExecutionResult
 from biodsa.sandbox.execution import ExecutionResults
+from biodsa.utils.token_utils import truncate_middle_tokens
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SYSTEM_PROMPT_TEMPLATE = """
@@ -98,7 +99,7 @@ class CoderAgent(BaseAgent):
                 language=self.language,
                 code=combined_code
             )
-            stdout = cut_off_tokens(output, 4096)
+            stdout = truncate_middle_tokens(output, 4096)
             peak_memory = peak_memory_mb
             
             # Log execution metrics
