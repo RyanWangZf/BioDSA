@@ -8,3 +8,4 @@ class DSWizardAgentState(BaseModel):
     messages: Annotated[Sequence[BaseMessage], add_messages]
     code_execution_results: List[CodeExecutionResult] = []
     analysis_plan: str = ""
+    user_query: str = ""
