@@ -3,7 +3,7 @@ import logging
 from typing import Dict, Any, Callable, Literal, List
 from langchain_core.language_models.base import BaseLanguageModel
 from langchain_anthropic import ChatAnthropic
-from langchain_together import Together
+# from langchain_together import Together
 from langchain_openai import ChatOpenAI
 from langchain_openai import AzureChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -100,7 +100,7 @@ class BaseAgent():
         Get the appropriate language model based on the API type
         
         Args:
-            api: The API provider ('together', 'anthropic', 'openai', 'google', 'azure')
+            api: The API provider ('anthropic', 'openai', 'google', 'azure')
             api_key: The API key for the provider
             model: The model name
             **kwargs: Additional arguments to pass to the model constructor
@@ -115,13 +115,7 @@ class BaseAgent():
                 del kwargs["max_completion_tokens"]
         
         llm = None
-        if (api == "together"):
-            llm = Together(
-                model=model_name,
-                together_api_key=api_key,
-                **kwargs
-            )
-        elif (api == "anthropic"):
+        if (api == "anthropic"):
             llm = ChatAnthropic(
                 model=model_name,
                 api_key=api_key,

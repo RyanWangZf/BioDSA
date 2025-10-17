@@ -49,6 +49,10 @@ class DeepEvidenceAgent(BaseAgent):
             )
 
         self.agent_graph = self._create_agent_graph()
+        # debug: visualize the agent graph
+        # graph_object = self.agent_graph.get_graph(xray=1)
+        # graph_object.draw_mermaid_png(output_file_path="deepevidence_graph.png", max_retries=5, retry_delay=2.0)
+        # graph_object.print_ascii()
 
     def _create_agent_graph(self, debug: bool = False):
         """
@@ -100,22 +104,49 @@ class DeepEvidenceAgent(BaseAgent):
             name="dfs_workflow"
         )
 
-        # main workflow
-        main_workflow = StateGraph(
+        # orchestrator
+        # decide if we go bfs or dfs research on graph right now
+        # decide which knowledge graph to do bfs and dfs research on
+        orchestrator_workflow = StateGraph(
             DeepEvidenceAgentState,
             input=DeepEvidenceAgentState,
             output=DeepEvidenceAgentState
         )
-        main_workflow.add_node("bfs_workflow", bfs_workflow)
-        main_workflow.add_node("dfs_workflow", dfs_workflow)
-        main_workflow.add_edge("bfs_workflow", "dfs_workflow")
-        main_workflow.add_edge("dfs_workflow", END)
-        main_workflow.set_entry_point("bfs_workflow")
-        main_workflow = main_workflow.compile(
-            debug=debug,
-            name=self.name
+        orchestrator_workflow.add_node("bfs_workflow", bfs_workflow)
+        orchestrator_workflow.add_node("dfs_workflow", dfs_workflow)
+        orchestrator_workflow.add_node("orchestrator_node", self._orchestrator_agent_node)
+        orchestrator_workflow.add_node("tool_node", self._tool_node)
+        orchestrator_workflow.add_conditional_edges(
+            "orchestrator_node",
+            self._should_go_which_sub_workflow,
+            {
+                "bfs_workflow": "bfs_workflow",
+                "dfs_workflow": "dfs_workflow",
+                "tool_node": "tool_node",
+                "end": END
+            }
         )
-        return main_workflow
+        orchestrator_workflow.add_edge("tool_node", "orchestrator_node")
+        orchestrator_workflow.add_edge("bfs_workflow", "orchestrator_node")
+        orchestrator_workflow.add_edge("dfs_workflow", "orchestrator_node")
+        orchestrator_workflow.set_entry_point("orchestrator_node")
+        orchestrator_workflow = orchestrator_workflow.compile(
+            debug=debug,
+            name="orchestrator_workflow"
+        )
+        return orchestrator_workflow
+
+    def _orchestrator_agent_node(self, state: DeepEvidenceAgentState) -> DeepEvidenceAgentState:
+        """
+        A function to execute the orchestrator agent.
+        """
+        pass
+
+    def _should_go_which_sub_workflow(self, state: DeepEvidenceAgentState) -> Literal["bfs_workflow", "dfs_workflow", "end"]:
+        """
+        A function to determine which sub-workflow to go to.
+        """
+        pass
 
     def _bfs_agent_node(self, state: DeepEvidenceAgentState) -> DeepEvidenceAgentState:
         """
