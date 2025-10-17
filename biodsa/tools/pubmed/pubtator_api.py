@@ -1,6 +1,7 @@
 import os
 import json
 import pdb
+from typing import List, Dict, Optional, Literal, Union, TypedDict
 from typing_extensions import Set
 import requests
 import time
@@ -14,6 +15,33 @@ PUBTATOR3_BASE_URL = "https://www.ncbi.nlm.nih.gov/research/pubtator3-api"
 PUBTATOR3_SEARCH_URL = f"{PUBTATOR3_BASE_URL}/search/"
 PUBTATOR3_FULLTEXT_URL = f"{PUBTATOR3_BASE_URL}/publications/export/biocjson"
 PUBTATOR3_AUTOCOMPLETE_URL = f"{PUBTATOR3_BASE_URL}/entity/autocomplete/"
+
+# Type definitions
+EntityType = Literal["GENE", "DISEASE", "CHEMICAL", "VARIANT", "SPECIES", "CELLLINE"]
+RelationType = Literal[
+    "ASSOCIATE", "CAUSE", "COMPARE", "COTREAT", "DRUG_INTERACT", 
+    "INHIBIT", "INTERACT", "NEGATIVE_CORRELATE", "POSITIVE_CORRELATE", 
+    "PREVENT", "STIMULATE", "TREAT", "ANY"
+]
+
+# Typed dictionary for relation parameter
+class RelationQuery(TypedDict):
+    """Type definition for relation-based search."""
+    relation_type: RelationType
+    entity1: Union[str, EntityType]  # Entity ID (starting with @) or EntityType
+    entity2: Union[str, EntityType]  # Entity ID (starting with @) or EntityType
+
+# Valid entity types for PubTator3
+VALID_ENTITY_TYPES = {
+    "GENE", "DISEASE", "CHEMICAL", "VARIANT", "SPECIES", "CELLLINE"
+}
+
+# Valid relation types for PubTator3
+VALID_RELATION_TYPES = {
+    "ASSOCIATE", "CAUSE", "COMPARE", "COTREAT", "DRUG_INTERACT", 
+    "INHIBIT", "INTERACT", "NEGATIVE_CORRELATE", "POSITIVE_CORRELATE", 
+    "PREVENT", "STIMULATE", "TREAT", "ANY"
+}
 
 
 # ===============================
@@ -165,6 +193,10 @@ def _fetch_pubtator_chunk(pmids_chunk, max_retries=3, rate_limiter: RateLimiter 
                 } for pmid in pmids_chunk]
 
 
+# ===============================
+# Main functions
+# ===============================
+
 def pubtator_api_fetch_paper_annotations(pmids, batch_size=50, max_retries=3, max_requests_per_second=3.0):
     """
     Fetch PubTator3 data for a batch of PMIDs and return parsed results.
@@ -198,44 +230,178 @@ def pubtator_api_fetch_paper_annotations(pmids, batch_size=50, max_retries=3, ma
     return all_results
 
 
-def pubtator_api_search_papers(text, page=1, max_retries=3, max_requests_per_second=3.0):
+def pubtator_api_search_papers(
+    boolean_query_text: Optional[str] = None,
+    relation_query: Optional[RelationQuery] = None,
+    page: int = 1,
+    max_retries: int = 3,
+    max_requests_per_second: float = 3.0
+) -> Optional[pd.DataFrame]:
     """
-    Search for relevant PubMed articles using entity IDs or relation queries.
+    Search for relevant PubMed articles using boolean queries or relation queries.
     
     Args:
-        text (str): Query text in the format: "relations:{relation}|{entityID_1}|{entityID_2}"
-                   Example: "relations:treat|@CHEMICAL_Doxorubicin|@DISEASE_Neoplasms"
+        boolean_query_text (Optional[str]): Boolean query with entity IDs / entity types /raw entity text, keywords, AND/OR operators,
+            and parentheses for grouping. This is the raw text format supported by PubTator3.
+            
+            Supported syntax:
+            - Entity IDs: @CHEMICAL_remdesivir, @DISEASE_Neoplasms
+            - Boolean operators: AND, OR
+            - Grouping: Use parentheses for complex queries
+            - Free-text keywords: Can be mixed with entity IDs
+            
+            Examples:
+            - Single entity: "@CHEMICAL_remdesivir"
+            - Multiple entities: "@CHEMICAL_Doxorubicin AND @DISEASE_Neoplasms"
+            - Complex boolean: "(@DISEASE_COVID_19 AND complications) OR @DISEASE_Post_Acute_COVID_19_Syndrome"
+            - Mixed: "@CHEMICAL_remdesivir AND (efficacy OR effectiveness)"
+            - Multiple drugs: "(@CHEMICAL_Doxorubicin OR @CHEMICAL_Cisplatin) AND @DISEASE_Neoplasms"
+        
+        relation_query  (Optional[RelationQuery]): Relation-based search dictionary with required keys:
+            - 'relation_type' (RelationType): One of the valid relation types:
+                ASSOCIATE, CAUSE, COMPARE, COTREAT, DRUG_INTERACT, INHIBIT, INTERACT,
+                NEGATIVE_CORRELATE, POSITIVE_CORRELATE, PREVENT, STIMULATE, TREAT, ANY
+            - 'entity1' (str): First entity, either:
+                * Entity ID (e.g., "@CHEMICAL_Doxorubicin")
+                * Entity type (EntityType): GENE, DISEASE, CHEMICAL, VARIANT, SPECIES, CELLLINE
+            - 'entity2' (str): Second entity, either:
+                * Entity ID (e.g., "@DISEASE_Neoplasms")
+                * Entity type (EntityType): GENE, DISEASE, CHEMICAL, VARIANT, SPECIES, CELLLINE
+        
         page (int): Page number for pagination (default: 1)
         max_retries (int): Maximum number of retry attempts for failed requests (default: 3)
         max_requests_per_second (float): Maximum number of requests per second (default: 3.0)
     
     Returns:
-        dict: Response containing search results with the following structure:
-            {
-                "results": [
-                    {
-                        "entityId": str,
-                        "entityName": str,
-                        "relationType": str,
-                        "relatedEntityId": str,
-                        "relatedEntityName": str
-                    },
-                    ...
-                ]
-            }
+        Optional[pd.DataFrame]: DataFrame containing search results with columns:
+            - PMID: PubMed ID
+            - PMCID: PubMed Central ID
+            - Title: Article title
+            - Journal: Journal name
+            - Date: Publication date
+            - Highlighted_Text: Highlighted text snippets
         Returns None if the request fails after all retries.
     
-    Example:
+    Relation Types:
+        - ASSOCIATE: General association between entities
+        - CAUSE: Entity1 causes entity2 (e.g., chemical-induced diseases)
+        - COMPARE: Effect comparison of two chemicals/drugs
+        - COTREAT: Two or more chemicals/drugs administered together
+        - DRUG_INTERACT: Pharmacodynamic interaction between two chemicals
+        - INHIBIT: Negative correlation (e.g., disease-gene, chemical-variant)
+        - INTERACT: Physical interaction (e.g., protein-binding, gene-gene)
+        - NEGATIVE_CORRELATE: Negative correlation (e.g., chemical-gene co-expression)
+        - POSITIVE_CORRELATE: Positive correlation (e.g., chemical-gene co-expression)
+        - PREVENT: Prevention relationship (e.g., variant-disease)
+        - STIMULATE: Stimulation relationship (e.g., disease-gene, disease-variant)
+        - TREAT: Chemical/drug treats a disease
+        - ANY: Any relation type
+    
+    Examples:
+        # Simple boolean query - single entity
         >>> results = pubtator_api_search_papers(
-        ...     text="relations:treat|@CHEMICAL_Doxorubicin|@DISEASE_Neoplasms",
-        ...     page=1
+        ...     boolean_query_text="@CHEMICAL_remdesivir"
+        ... )
+        
+        # Boolean query - multiple entities with AND
+        >>> results = pubtator_api_search_papers(
+        ...     boolean_query_text="@CHEMICAL_Doxorubicin AND @DISEASE_Neoplasms"
+        ... )
+        
+        # Complex boolean query with OR and parentheses
+        >>> results = pubtator_api_search_papers(
+        ...     boolean_query_text="(@DISEASE_COVID_19 AND complications) OR @DISEASE_Post_Acute_COVID_19_Syndrome"
+        ... )
+        
+        # Boolean query with mixed entities and keywords
+        >>> results = pubtator_api_search_papers(
+        ...     boolean_query_text="@CHEMICAL_remdesivir AND (efficacy OR effectiveness)"
+        ... )
+        
+        # Relation search with two entity IDs
+        >>> results = pubtator_api_search_papers(
+        ...     relation_query={
+        ...         'relation_type': 'TREAT',
+        ...         'entity1': '@CHEMICAL_Doxorubicin',
+        ...         'entity2': '@DISEASE_Neoplasms'
+        ...     }
+        ... )
+        
+        # Relation search with entity ID and entity type
+        >>> results = pubtator_api_search_papers(
+        ...     relation_query={
+        ...         'relation_type': 'ANY',
+        ...         'entity1': '@CHEMICAL_Doxorubicin',
+        ...         'entity2': 'DISEASE'
+        ...     }
+        ... )
+        
+        # Relation search with two entity types
+        >>> results = pubtator_api_search_papers(
+        ...     relation_query={
+        ...         'relation_type': 'INTERACT',
+        ...         'entity1': 'GENE',
+        ...         'entity2': 'CHEMICAL'
+        ...     }
         ... )
     """
+    # Build query text based on parameters
+    query_text = None
+    
+    if boolean_query_text is not None and relation_query is not None:
+        raise ValueError("Cannot specify both boolean_query_text and relation. Choose one search mode.")
+    
+    if boolean_query_text is not None:
+        # Boolean query mode - use as-is
+        if not isinstance(boolean_query_text, str):
+            raise ValueError("boolean_query_text must be a string")
+        if not boolean_query_text.strip():
+            raise ValueError("boolean_query_text cannot be empty")
+        query_text = boolean_query_text
+        
+    elif relation_query is not None:
+        # Relation-based search - strict validation
+        if not isinstance(relation_query, dict):
+            raise ValueError("relation must be a dictionary")
+        
+        required_keys = {'relation_type', 'entity1', 'entity2'}
+        if not required_keys.issubset(relation_query.keys()):
+            raise ValueError(f"relation dict must contain keys: {required_keys}")
+        
+        # Validate relation type
+        relation_type = relation_query['relation_type']
+        if relation_type not in VALID_RELATION_TYPES:
+            raise ValueError(
+                f"Invalid relation_type '{relation_type}'. "
+                f"Must be one of: {', '.join(sorted(VALID_RELATION_TYPES))}"
+            )
+        
+        # Validate entities (can be entity ID or entity type)
+        entity1 = relation_query['entity1']
+        entity2 = relation_query['entity2']
+        
+        # Check if entity is a type (not an ID), validate it
+        if not entity1.startswith('@') and entity1 not in VALID_ENTITY_TYPES:
+            raise ValueError(
+                f"Invalid entity1 '{entity1}'. "
+                f"Must be an entity ID (starting with @) or one of: {', '.join(sorted(VALID_ENTITY_TYPES))}"
+            )
+        
+        if not entity2.startswith('@') and entity2 not in VALID_ENTITY_TYPES:
+            raise ValueError(
+                f"Invalid entity2 '{entity2}'. "
+                f"Must be an entity ID (starting with @) or one of: {', '.join(sorted(VALID_ENTITY_TYPES))}"
+            )
+        
+        query_text = f"relations:{relation_type}|{entity1}|{entity2}"
+    else:
+        raise ValueError("Must provide either boolean_query_text or relation")
+    
     rate_limiter = RateLimiter(max_requests_per_second)
     
     # Prepare query parameters
     params = {
-        "text": text,
+        "text": query_text,
         "page": page
     }
     
@@ -259,9 +425,12 @@ def pubtator_api_search_papers(text, page=1, max_retries=3, max_requests_per_sec
             print(f"Successfully retrieved {len(data.get('results', []))} results")
             results = data.get('results', [])
             results_df = pd.DataFrame(results)
-            results_df = results_df[['pmid','pmcid','title','journal','date','text_hl']]
-            results_df.rename(columns={'pmid': 'PMID', 'pmcid': 'PMCID', 'title': 'Title', 'journal': 'Journal', 'date': 'Date', 'text_hl': 'Highlighted_Text'}, inplace=True)            
-            return results_df
+            if len(results_df) > 0:
+                results_df = results_df[['pmid','pmcid','title','journal','date','text_hl']]
+                results_df.rename(columns={'pmid': 'PMID', 'pmcid': 'PMCID', 'title': 'Title', 'journal': 'Journal', 'date': 'Date', 'text_hl': 'Highlighted_Text'}, inplace=True)            
+                return results_df
+            else:
+                return None
             
         except requests.exceptions.HTTPError as e:
             print(f"HTTP error (attempt {attempt + 1}/{max_retries}): {e}")
@@ -292,3 +461,160 @@ def pubtator_api_search_papers(text, page=1, max_retries=3, max_requests_per_sec
     
     return None
 
+
+def pubtator_api_find_entities(
+    query_text: str,
+    concept_type: Optional[EntityType] = None,
+    limit: int = 10,
+    max_retries: int = 3,
+    max_requests_per_second: float = 3.0
+) -> Optional[pd.DataFrame]:
+    """
+    Find and autocomplete entity names in the PubTator3 database using a query text.
+    
+    This function provides entity name suggestions/autocomplete based on partial text input.
+    Useful for finding entity IDs and normalized names for biomedical entities.
+    
+    Args:
+        query_text (str): Search query text (partial entity name).
+            Example: "remdesivir", "COVID", "BRCA1"
+        
+        concept_type (Optional[EntityType]): Restrict results to a specific entity type.
+            One of: GENE, DISEASE, CHEMICAL, VARIANT, SPECIES, CELLLINE
+            If None, searches across all entity types.
+        
+        limit (int): Maximum number of results to return (default: 10)
+        
+        max_retries (int): Maximum number of retry attempts for failed requests (default: 3)
+        max_requests_per_second (float): Maximum number of requests per second (default: 3.0)
+    
+    Returns:
+        Optional[pd.DataFrame]: DataFrame containing entity suggestions with columns:
+            - EntityID: PubTator3 entity identifier (e.g., "@CHEMICAL_D000068698")
+            - Name: Normalized entity name
+            - Type: Entity type (GENE, DISEASE, CHEMICAL, etc.)
+            - Score: Relevance score (if available)
+        Returns None if the request fails after all retries.
+    
+    Examples:
+        # Search for chemicals matching "remdesivir"
+        >>> results = pubtator_api_find_entities(
+        ...     query_text="remdesivir",
+        ...     concept_type="CHEMICAL",
+        ...     limit=5
+        ... )
+        
+        # Search for diseases matching "COVID"
+        >>> results = pubtator_api_find_entities(
+        ...     query_text="COVID",
+        ...     concept_type="DISEASE",
+        ...     limit=10
+        ... )
+        
+        # Search across all entity types
+        >>> results = pubtator_api_find_entities(
+        ...     query_text="BRCA1",
+        ...     limit=10
+        ... )
+        
+        # Search for genes
+        >>> results = pubtator_api_find_entities(
+        ...     query_text="insulin",
+        ...     concept_type="GENE",
+        ...     limit=5
+        ... )
+    """
+    if not query_text or not query_text.strip():
+        raise ValueError("query_text cannot be empty")
+    
+    if concept_type is not None and concept_type not in VALID_ENTITY_TYPES:
+        raise ValueError(
+            f"Invalid concept_type '{concept_type}'. "
+            f"Must be one of: {', '.join(sorted(VALID_ENTITY_TYPES))}"
+        )
+    
+    rate_limiter = RateLimiter(max_requests_per_second)
+    
+    # Prepare query parameters
+    params = {
+        "query": query_text.strip(),
+        "limit": limit
+    }
+    
+    # Add concept type if specified
+    if concept_type is not None:
+        params["concept"] = concept_type
+    
+    for attempt in range(max_retries):
+        try:
+            # Apply rate limiting
+            rate_limiter.wait_if_needed()
+            
+            # Add delay for retry attempts
+            if attempt > 0:
+                delay = rate_limiter.min_interval * attempt
+                print(f"Retry attempt {attempt + 1} after {delay} seconds...")
+                time.sleep(delay)
+            
+            # Make the GET request
+            response = requests.get(PUBTATOR3_AUTOCOMPLETE_URL, params=params, timeout=30)
+            response.raise_for_status()
+            
+            # Parse the JSON response
+            data = response.json()
+            
+            if not data or len(data) == 0:
+                print(f"No entities found for query: '{query_text}'")
+                return pd.DataFrame(columns=['EntityID', 'Name', 'Type', 'Score'])
+            
+            print(f"Successfully retrieved {len(data)} entity suggestions")
+            
+            # Parse results into a structured format
+            results = []
+            for item in data:
+                # Extract entity information
+                entity_id = item.get('_id', '')
+                name = item.get('name', '')
+                entity_type = item.get('biotype', '')
+                source_db = item.get('db', '')
+                source_db_id = item.get('db_id', '')
+                
+                results.append({
+                    'PubTator3_EntityID': entity_id,
+                    'Name': name,
+                    'Type': entity_type,
+                    'SourceDB': source_db,
+                    'ID_in_SourceDB': source_db_id,
+                })
+            
+            results_df = pd.DataFrame(results)
+            return results_df
+            
+        except requests.exceptions.HTTPError as e:
+            print(f"HTTP error (attempt {attempt + 1}/{max_retries}): {e}")
+            if e.response.status_code == 400:
+                print(f"Bad request - invalid input parameters: {params}")
+                return None
+            if attempt == max_retries - 1:
+                print(f"Failed to fetch data after {max_retries} attempts")
+                return None
+                
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed (attempt {attempt + 1}/{max_retries}): {e}")
+            if attempt == max_retries - 1:
+                print(f"Failed to fetch data after {max_retries} attempts")
+                return None
+                
+        except json.JSONDecodeError as e:
+            print(f"Failed to parse JSON response (attempt {attempt + 1}/{max_retries}): {e}")
+            if attempt == max_retries - 1:
+                print(f"Failed to parse response after {max_retries} attempts")
+                return None
+                
+        except Exception as e:
+            print(f"Unexpected error (attempt {attempt + 1}/{max_retries}): {e}")
+            if attempt == max_retries - 1:
+                print(f"Unexpected error after {max_retries} attempts")
+                return None
+    
+    return None
