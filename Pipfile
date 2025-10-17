@@ -43,6 +43,7 @@ openpyxl = "*"
 pyarrow = "*"
 networkx = "*"
 rank-bm25 = "*"
+reportlab = "*"
 
 [requires]
 python_version = "3.12"

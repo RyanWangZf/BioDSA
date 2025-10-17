@@ -20,4 +20,5 @@ agent.register_dataset(
 execution_results = agent.go("Make a clustering of the patients based on their genomic mutation data to maximize the separation of the prognostic survival outcomes.")
 print(execution_results)
 print(execution_results.download_artifacts(output_dir="test_artifacts"))
+print(execution_results.to_pdf(output_dir="test_artifacts"))
 agent.clear_workspace()
