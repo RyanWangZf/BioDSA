@@ -60,6 +60,9 @@ def cut_off_tokens(text: str, max_tokens: int, encoding_name: str = "gpt-4o"):
 
 class BaseAgent():
     
+    system_prompt: str = None
+    registered_datasets: List[str] = []
+    
     def __init__(
         self,
         api_type: Literal["azure"],
@@ -161,7 +164,23 @@ class BaseAgent():
         """
         Format the messages to the format expected by the agent graph.
         """
-        return [{"role": message.type, "content": message.content} for message in messages]
+        outputs = []
+        for message in messages:
+            msg_content = message.content
+            if hasattr(message, "tool_calls"):
+                msg_tool_calls = message.tool_calls
+                if msg_tool_calls is not None:
+                    if not isinstance(msg_tool_calls, list):
+                        msg_tool_calls = [msg_tool_calls]
+                    tool_call_strs = []
+                    for tool_call in msg_tool_calls:
+                        tool_call_strs.append(f"\nTool call: {tool_call['name']}\nTool call input: {tool_call['args']}")
+                    msg_content += "\n" + "\n".join(tool_call_strs)
+            outputs.append({
+                "role": message.type,
+                "content": msg_content
+            })
+        return outputs
 
     def _format_code_execution_results(self, code_execution_results: List[CodeExecutionResult]) -> List[Dict[str, str]]:
         """
@@ -229,6 +248,7 @@ class BaseAgent():
 
         # print what tables are uploaded to the sandbox
         logging.info("\n\n".join([f"Uploaded table: {file}" for file in local_table_paths]))
+        self.registered_datasets.extend(target_table_paths)
         return True
 
     def clear_workspace(self):

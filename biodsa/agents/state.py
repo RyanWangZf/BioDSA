@@ -2,19 +2,6 @@ from pydantic import BaseModel, Field
 from typing import List, Literal, Annotated, Sequence, TypedDict, Dict, Any
 
 from langgraph.graph.message import add_messages, BaseMessage
-# from langgraph.managed import IsLastStep, RemainingSteps
-
-# class UserRequest(TypedDict):
-#     input_query: str
-#     dataset_paths: str
-#     dataset_schema: str
-
-# class FinalResponse(BaseModel):
-#     final_answer: Literal["True", "False", "Not Verifiable"]
-#     executions: List[Dict[str, Any]]
-#     analysis: List[str]
-#     def __str__(self):
-#         return f"Final Answer: {self.final_answer}\nAnalysis: {"\n".join(self.analysis)}"
 
 class CodeExecutionResult(BaseModel):
     code: str

@@ -6,8 +6,8 @@ sys.path.append(REPO_BASE_DIR)
 from dotenv import load_dotenv
 load_dotenv(os.path.join(REPO_BASE_DIR, ".env"))
 
-from biodsa.agents import CoderAgent
-agent = CoderAgent(
+from biodsa.agents import ReactAgent
+agent = ReactAgent(
     model_name="gpt-5",
     api_type="azure",
     api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
@@ -20,3 +20,4 @@ execution_results = agent.go("Make bar plot showing the distribution samples per
 print(execution_results)
 print(execution_results.download_artifacts(output_dir="test_artifacts"))
 agent.clear_workspace()
+
