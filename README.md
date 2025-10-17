@@ -31,6 +31,9 @@ print(results)
 
 # Download generated artifacts (figures, tables, etc.)
 results.download_artifacts(output_dir="output_artifacts")
+
+# Generate structured PDF report
+results.to_pdf(output_dir="reports")
 ```
 
 ## 📦 Installation
@@ -152,6 +155,10 @@ print(f"Downloaded {len(artifact_files)} artifacts")
 
 # Export to JSON
 results.to_json("results.json")
+
+# Generate PDF report with embedded figures
+pdf_path = results.to_pdf(output_dir="reports")
+print(f"PDF report saved to: {pdf_path}")
 
 # Access components directly
 print(f"Messages: {len(results.message_history)}")

@@ -19,4 +19,5 @@ agent.register_dataset(
 execution_results = agent.go("Make bar plot showing the distribution samples per table and save it to a png file")
 print(execution_results)
 print(execution_results.download_artifacts(output_dir="test_artifacts"))
+print(execution_results.to_pdf(output_dir="test_artifacts"))
 agent.clear_workspace()
