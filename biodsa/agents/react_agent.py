@@ -1,16 +1,13 @@
 import re
-import logging
 from typing import Dict, Any, List, Literal
-from pydantic import BaseModel
 from langgraph.graph import StateGraph, END
-from langchain.tools import BaseTool
-from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, ToolMessage
+from langchain_core.messages import SystemMessage, AIMessage, ToolMessage
 from langchain_core.runnables import RunnableConfig
 
-from biodsa.agents.base_agent import BaseAgent, run_with_retry, cut_off_tokens
+from biodsa.agents.base_agent import BaseAgent, run_with_retry
 from biodsa.agents.state import AgentState, CodeExecutionResult
-from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper
 from biodsa.sandbox.execution import ExecutionResults
+from biodsa.tools.code_exec_tool import CodeExecutionTool
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,30 +26,6 @@ You should avoid adding any comments in the code to reduce the size of the code.
 You have access to the following data when executing the code:
 {registered_datasets_str}
 """
-
-class CodeExecutionTool(BaseTool):
-    name: str = "code_execution"
-    description: str = "Execute code to answer the user's question"
-    sandbox: ExecutionSandboxWrapper = None
-
-    def __init__(self, sandbox: ExecutionSandboxWrapper = None):
-        super().__init__()
-        self.sandbox = sandbox
-
-    def _run(self, code: str) -> str:
-        # execute the code
-        exit_code, output, artifacts, running_time, peak_memory_mb = self.sandbox.execute(
-            language="python",
-            code=code
-        )
-        stdout = cut_off_tokens(output, 4096)
-        return {
-            "exit_code": exit_code,
-            "stdout": stdout,
-            "artifacts": artifacts,
-            "running_time": running_time,
-            "peak_memory_mb": peak_memory_mb,
-        }
 
 class ReactAgent(BaseAgent):
     

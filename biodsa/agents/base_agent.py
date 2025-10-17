@@ -8,7 +8,6 @@ from langchain_openai import ChatOpenAI
 from langchain_openai import AzureChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph.message import BaseMessage
-import tiktoken
 from tenacity import retry, stop_after_attempt, wait_random_exponential, retry_if_exception_type
 
 from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper, UploadDataset
@@ -49,14 +48,6 @@ def run_with_retry(func: Callable, max_retries: int = 5, min_wait: float = 30.0,
             raise
         
     return wrapped_func()
-
-def cut_off_tokens(text: str, max_tokens: int, encoding_name: str = "gpt-4o"):
-    encoding = tiktoken.encoding_for_model(encoding_name)
-    tokens = encoding.encode(text)
-    if len(tokens) > max_tokens:
-        # cut off the last max_tokens tokens
-        return encoding.decode(tokens[-max_tokens:])
-    return text
 
 class BaseAgent():
     
