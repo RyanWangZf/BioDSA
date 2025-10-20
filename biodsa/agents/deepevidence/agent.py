@@ -20,6 +20,7 @@ from biodsa.agents.deepevidence.prompt import (
     BFS_SYSTEM_PROMPT_TEMPLATE,
     DFS_SYSTEM_PROMPT_TEMPLATE
 )
+from biodsa.agents.deepevidence.orchestrator_tool import GoBreadthFirstSearchTool, GoDepthFirstSearchTool
 
 class DeepEvidenceAgent(BaseAgent):
     name = "deepevidence"
@@ -151,7 +152,7 @@ class DeepEvidenceAgent(BaseAgent):
         return DFS_SYSTEM_PROMPT_TEMPLATE
 
     def _get_tools_for_orchestrator_agent(self):
-        return []
+        return [GoBreadthFirstSearchTool(), GoDepthFirstSearchTool()]
 
     def _get_tools_for_bfs_agent(self):
         return []
@@ -183,7 +184,17 @@ class DeepEvidenceAgent(BaseAgent):
         """
         A function to determine which sub-workflow to go to.
         """
-        pass
+        last_message = state.messages[-1]
+        tool_calls = last_message.tool_calls
+        if tool_calls is not None:
+            for tool_call in tool_calls:
+                if tool_call["name"] == "go_breadth_first_search":
+                    return "bfs_workflow"
+                elif tool_call["name"] == "go_depth_first_search":
+                    return "dfs_workflow"
+                else:
+                    return "tool_node"
+        return "end"
 
     def _bfs_agent_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
