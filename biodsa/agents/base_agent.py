@@ -2,6 +2,7 @@ import os
 import logging
 from typing import Dict, Any, Callable, Literal, List
 from langchain_core.language_models.base import BaseLanguageModel
+from langchain_core.tools import BaseTool
 from langchain_anthropic import ChatAnthropic
 # from langchain_together import Together
 from langchain_openai import ChatOpenAI
@@ -172,6 +173,25 @@ class BaseAgent():
         Format the code execution results to the format expected by the agent graph.
         """
         return [res.model_dump() for res in code_execution_results]
+
+    def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None) -> BaseMessage:
+        if tools is None:
+            tools = []
+        if model_kwargs is None:
+            model_kwargs = {}
+        llm = self._get_model(
+            api=self.api_type,
+            model_name=model_name,
+            api_key=self.api_key,
+            endpoint=self.endpoint,
+            **model_kwargs
+        )
+        if tools:
+            llm_with_tools = llm.bind_tools(tools)
+            response = run_with_retry(llm_with_tools.invoke, arg=messages)
+        else:
+            response = run_with_retry(llm.invoke, arg=messages)
+        return response
 
     def generate(self, **kwargs) -> Dict[str, Any]:
         """

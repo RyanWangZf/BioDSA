@@ -6,7 +6,7 @@ Wang, Z. et al. (2025). DeepEvidence: Empowering Biomedical Discovery with Deep 
 
 from typing import Literal, List, Dict, Any, Optional
 from langgraph.graph import StateGraph, END
-from langchain_core.messages import SystemMessage, AIMessage, ToolMessage, HumanMessage
+from langchain_core.messages import SystemMessage, AIMessage, ToolMessage, HumanMessage, BaseMessage
 from langchain_core.runnables import RunnableConfig
 
 from biodsa.agents.base_agent import BaseAgent, run_with_retry
@@ -15,12 +15,17 @@ from biodsa.tools.code_exec_tool import CodeExecutionTool
 
 from biodsa.agents.deepevidence.state import DeepEvidenceAgentState
 from biodsa.agents.deepevidence.execution import DeepEvidenceExecutionResults
+from biodsa.agents.deepevidence.prompt import (
+    ORCHESTRATOR_SYSTEM_PROMPT_TEMPLATE,
+    BFS_SYSTEM_PROMPT_TEMPLATE,
+    DFS_SYSTEM_PROMPT_TEMPLATE
+)
 
 class DeepEvidenceAgent(BaseAgent):
     name = "deepevidence"
     def __init__(
-        self, 
-        model_name: str, 
+        self,
+        model_name: str,
         api_type: str,
         api_key: str,
         endpoint: str,
@@ -136,11 +141,43 @@ class DeepEvidenceAgent(BaseAgent):
         )
         return orchestrator_workflow
 
-    def _orchestrator_agent_node(self, state: DeepEvidenceAgentState) -> DeepEvidenceAgentState:
+    def _build_system_prompt_for_orchestrator_agent(self):
+        return ORCHESTRATOR_SYSTEM_PROMPT_TEMPLATE
+
+    def _build_system_prompt_for_bfs_agent(self):
+        return BFS_SYSTEM_PROMPT_TEMPLATE
+
+    def _build_system_prompt_for_dfs_agent(self):
+        return DFS_SYSTEM_PROMPT_TEMPLATE
+
+    def _get_tools_for_orchestrator_agent(self):
+        return []
+
+    def _get_tools_for_bfs_agent(self):
+        return []
+
+    def _get_tools_for_dfs_agent(self):
+        return []
+
+    def _orchestrator_agent_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
         A function to execute the orchestrator agent.
         """
-        pass
+        messages = state.messages
+        system_prompt = self._build_system_prompt_for_orchestrator_agent()
+        messages = [
+            SystemMessage(content=system_prompt),
+        ] + messages
+        tools = self._get_tools_for_orchestrator_agent()
+        response = self._call_model(
+            model_name=self.model_name,
+            messages=messages,
+            tools=tools,
+            model_kwargs=config.get("configurable", {}).get("model_kwargs", {})
+        )
+        return {
+            "messages": [response],
+        }
 
     def _should_go_which_sub_workflow(self, state: DeepEvidenceAgentState) -> Literal["bfs_workflow", "dfs_workflow", "end"]:
         """
@@ -148,19 +185,47 @@ class DeepEvidenceAgent(BaseAgent):
         """
         pass
 
-    def _bfs_agent_node(self, state: DeepEvidenceAgentState) -> DeepEvidenceAgentState:
+    def _bfs_agent_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
         A function to execute the breadth-first search agent.
         """
-        pass
+        messages = state.messages
+        system_prompt = self._build_system_prompt_for_bfs_agent()
+        messages = [
+            SystemMessage(content=system_prompt),
+        ] + messages
+        tools = self._get_tools_for_bfs_agent()
+        response = self._call_model(
+            model_name=self.model_name,
+            messages=messages,
+            tools=tools,
+            model_kwargs=config.get("configurable", {}).get("model_kwargs", {})
+        )
+        return {
+            "messages": [response],
+        }
 
-    def _dfs_agent_node(self, state: DeepEvidenceAgentState) -> DeepEvidenceAgentState:
+    def _dfs_agent_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
         A function to execute the depth-first search agent.
         """
-        pass
+        messages = state.messages
+        system_prompt = self._build_system_prompt_for_dfs_agent()
+        messages = [
+            SystemMessage(content=system_prompt),
+        ] + messages
+        tools = self._get_tools_for_dfs_agent()
+        response = self._call_model(
+            model_name=self.model_name,
+            messages=messages,
+            tools=tools,
+            model_kwargs=config.get("configurable", {}).get("model_kwargs", {})
+        )
+        return {
+            "messages": [response],
+        }
 
-    def _tool_node(self, state: DeepEvidenceAgentState) -> DeepEvidenceAgentState:
+    def _tool_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
         A function to execute the tool node.
         """
@@ -196,18 +261,18 @@ class DeepEvidenceAgent(BaseAgent):
             List[Dict[str, Any]]: The result from the agent graph or an error dict
         """
         assert self.agent_graph is not None, "Agent graph is not set"
-        
+
         # Extract input_query from kwargs
         if input_query is None:
             return [{"error": "input_query is required"}]
-        
+
         try:
             all_results = []
             inputs = {
                 "messages": [("user", input_query)],
                 "user_query": input_query
             }
-        
+
             # Invoke the agent graph and return the result
             for stream_mode, chunk in self.agent_graph.stream(
                 inputs,
@@ -229,7 +294,7 @@ class DeepEvidenceAgent(BaseAgent):
                     print(f"{last_message.type}: \n\n{last_message.content}\n\n")
                 all_results.append(chunk)
             return all_results
-            
+
         except Exception as e:
             print(f"Error streaming response: {e}")
             raise e
@@ -241,7 +306,7 @@ class DeepEvidenceAgent(BaseAgent):
     ) -> DeepEvidenceExecutionResults:
         """
         A function to execute the agent and return the execution results.
-        
+
         Args:
             input_query: The user query to process
             verbose: Whether to print the verbose output
