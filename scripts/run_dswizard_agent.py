@@ -14,7 +14,7 @@ agent = DSWizardAgent(
     api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
     endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT"),
 )
-agent.register_dataset(
+agent.register_workspace(
     os.path.join(REPO_BASE_DIR, "biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
 )
 execution_results = agent.go("Make a clustering of the patients based on their genomic mutation data to maximize the separation of the prognostic survival outcomes.")

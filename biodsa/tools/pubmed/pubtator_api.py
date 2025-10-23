@@ -64,12 +64,14 @@ def _parse_pubtator_response_to_get_content_and_attributes_and_relations(pubtato
             if passage_type in ["title"]:
                 for annotation in annotations:
                     infons = annotation.get("infons", {})
-                    main_annotations[infons.get("type")].add(infons['name'])
+                    if infons.get("type") is not None and infons.get("name") is not None:
+                        main_annotations[infons.get("type")].add(infons['name'])
 
             if passage_type in ["abstract"]:
                 for annotation in annotations:
                     infons = annotation.get("infons", {})
-                    relevant_annotations[infons.get("type")].add(infons['name'])
+                    if infons.get("type") is not None and infons.get("name") is not None:
+                        relevant_annotations[infons.get("type")].add(infons['name'])
 
     # Process relations for additional chemicals and diseases
     if "relations" in pubtator_json:
@@ -159,6 +161,8 @@ def _fetch_pubtator_chunk(pmids_chunk, max_retries=3, rate_limiter: RateLimiter 
                                     
                 except Exception as e:
                     print(f"  Error parsing PMID {pmid}: {e}")
+                    import traceback
+                    traceback.print_exc()
                     # Still add empty result to maintain order
                     results.append({
                         "PMID": pmid,

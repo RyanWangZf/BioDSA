@@ -2,17 +2,26 @@ from typing import Literal, List, Dict, Any, Type, Optional
 from pydantic import BaseModel, Field
 from langchain_core.tools import BaseTool
 import pandas as pd
+import json
 
 from biodsa.tools.pubmed.pubmed_api import pubmed_api_get_paper_references
 from biodsa.tools.pubmed.pubtator_api import (
     pubtator_api_fetch_paper_annotations,
     pubtator_api_find_entities,
     pubtator_api_search_papers,
-    RelationQuery,
-    EntityType,
-    RelationType
 )
+from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper
 
+__all__ = [
+    "GetPaperReferencesTool",
+    "FetchPaperAnnotationsTool",
+    "FindEntitiesTool",
+    "SearchPapersTool",
+    "GetPaperReferencesToolInput",
+    "FetchPaperAnnotationsToolInput",
+    "FindEntitiesToolInput",
+    "SearchPapersToolInput",
+]
 
 # =====================================================
 # Tool 1: Get Paper References
@@ -55,7 +64,11 @@ class GetPaperReferencesTool(BaseTool):
         "Useful for finding related work and building citation networks."
     )
     args_schema: Type[BaseModel] = GetPaperReferencesToolInput
-    
+    sandbox: ExecutionSandboxWrapper = None
+    def __init__(self, sandbox: ExecutionSandboxWrapper = None):
+        super().__init__()
+        self.sandbox = sandbox
+
     def _run(
         self,
         pmids: List[str],
@@ -65,13 +78,15 @@ class GetPaperReferencesTool(BaseTool):
         rate_limit: float = 3.0
     ) -> List[Dict[str, Any]]:
         """Execute the tool to get paper references."""
-        return pubmed_api_get_paper_references(
+        search_results = pubmed_api_get_paper_references(
             pmids=pmids,
             batch_size=batch_size,
             mini_batch_size=mini_batch_size,
             max_workers=max_workers,
             rate_limit=rate_limit
         )
+        # TODO: upload the search results to the sandbox
+        return search_results
 
 
 # =====================================================
@@ -120,13 +135,16 @@ class FetchPaperAnnotationsTool(BaseTool):
         max_requests_per_second: float = 3.0
     ) -> List[Dict[str, Any]]:
         """Execute the tool to fetch paper annotations."""
-        return pubtator_api_fetch_paper_annotations(
+        search_results = pubtator_api_fetch_paper_annotations(
             pmids=pmids,
             batch_size=batch_size,
             max_retries=max_retries,
             max_requests_per_second=max_requests_per_second
         )
-
+        # TODO: upload the search results to the sandbox
+        # convert the search results to str
+        search_results_str = json.dumps(search_results, indent=4)
+        return search_results_str
 
 # =====================================================
 # Tool 3: Find Entities
@@ -135,7 +153,7 @@ class FindEntitiesToolInput(BaseModel):
     """Input schema for FindEntitiesTool."""
     query_text: str = Field(
         ...,
-        description="Search query text (partial entity name). Example: 'remdesivir', 'COVID', 'BRCA1'."
+        description="A single search term (partial entity name) to find entities in PubTator3. Example: 'remdesivir', 'COVID', 'BRCA1'."
     )
     concept_type: Optional[Literal["GENE", "DISEASE", "CHEMICAL", "VARIANT", "SPECIES", "CELLLINE"]] = Field(
         default=None,
@@ -239,6 +257,11 @@ class SearchPapersTool(BaseTool):
         "Returns paper metadata including PMID, title, journal, date, and highlighted text snippets."
     )
     args_schema: Type[BaseModel] = SearchPapersToolInput
+    sandbox: ExecutionSandboxWrapper = None
+
+    def __init__(self, sandbox: ExecutionSandboxWrapper = None):
+        super().__init__()
+        self.sandbox = sandbox
     
     def _run(
         self,
@@ -249,10 +272,16 @@ class SearchPapersTool(BaseTool):
         max_requests_per_second: float = 3.0
     ) -> Optional[pd.DataFrame]:
         """Execute the tool to search papers."""
-        return pubtator_api_search_papers(
+        search_results = pubtator_api_search_papers(
             boolean_query_text=boolean_query_text,
             relation_query=relation_query,
             page=page,
             max_retries=max_retries,
             max_requests_per_second=max_requests_per_second
         )
+        # TODO: upload the search results to the sandbox
+        if search_results is not None:
+            md_str = search_results.to_markdown()
+            return md_str
+        else:
+            return "No search results found. Please try again with different query."

@@ -186,6 +186,122 @@ class ExecutionSandboxWrapper:
             client.close()
 
         return self.exists()
+
+    def upload_file(
+        self, 
+        data: Union[str, bytes, pd.DataFrame] = None,
+        local_file_path: str = None, 
+        target_file_path: str = None, 
+    ) -> bool:
+        """
+        Upload a file to the docker container from various sources.
+        
+        This function supports multiple input modes:
+        1. From local file: provide local_file_path and target_file_path
+        2. From in-memory data: provide data and target_file_path
+        
+        Args:
+            data: In-memory data to upload. Can be:
+                  - str: text data
+                  - bytes: binary data
+                  - pd.DataFrame: will be saved in specified format (csv, parquet, json)
+            local_file_path: Path to file on local machine (alternative to data)
+            target_file_path: Full path where file should be saved in container (required)
+        
+        Returns:
+            True if the file is uploaded successfully
+            
+        Raises:
+            Exception: If sandbox is not started or invalid arguments provided
+            
+        Examples:
+            # Upload from local file
+            sandbox.upload_file(local_file_path="/tmp/data.csv", target_file_path="/workdir/data.csv")
+            
+            # Upload DataFrame as CSV
+            df = pd.DataFrame({'a': [1, 2, 3]})
+            sandbox.upload_file(data=df, target_file_path="/workdir/data.csv")
+            
+            # Upload DataFrame as Parquet
+            sandbox.upload_file(data=df, target_file_path="/workdir/data.parquet", df_format='parquet')
+            
+            # Upload DataFrame as JSON
+            sandbox.upload_file(data=df, target_file_path="/workdir/data.json", df_format='json')
+            
+            # Upload text/string
+            sandbox.upload_file(data="Hello World", target_file_path="/workdir/hello.txt")
+            
+            # Upload bytes
+            sandbox.upload_file(data=b"binary data", target_file_path="/workdir/data.bin")
+        """
+        if self.container is None:
+            raise Exception("the sandbox is not started")
+        
+        if target_file_path is None:
+            raise ValueError("target_file_path is required")
+        
+        # Determine the source of data
+        content_bytes: bytes = None
+        
+        # Priority: data > file_content > local_file_path
+        if data is not None:
+            # Handle pandas DataFrame
+            if isinstance(data, pd.DataFrame):
+                buffer = io.BytesIO()
+                target_file_path_basename = os.path.basename(target_file_path)
+                df_format = target_file_path_basename.split('.')[-1]
+                assert df_format in ['csv', 'parquet', 'json'], f"Unsupported DataFrame format: {df_format}. Use 'csv', 'parquet', or 'json'"
+                if df_format == 'csv':
+                    data.to_csv(buffer, index=False)
+                elif df_format == 'parquet':
+                    data.to_parquet(buffer, index=False)
+                elif df_format == 'json':
+                    data.to_json(buffer, orient='records', indent=2)
+                content_bytes = buffer.getvalue()
+            
+            # Handle string
+            elif isinstance(data, str):
+                content_bytes = data.encode('utf-8')
+            
+            # Handle bytes
+            elif isinstance(data, bytes):
+                content_bytes = data
+            
+            else:
+                raise TypeError(f"Unsupported data type: {type(data)}. Must be str, bytes, or pd.DataFrame")
+        
+        elif local_file_path is not None:
+            # Read from local file
+            with open(local_file_path, 'rb') as f:
+                content_bytes = f.read()
+        
+        else:
+            raise ValueError("Must provide one of: data, file_content, or local_file_path")
+        
+        # Create a tar archive in memory
+        tar_stream = io.BytesIO()
+        with tarfile.open(fileobj=tar_stream, mode='w') as tar:
+            # Get the file name from target path
+            file_name = os.path.basename(target_file_path)
+            
+            # Create TarInfo for the file
+            tarinfo = tarfile.TarInfo(name=file_name)
+            tarinfo.size = len(content_bytes)
+            tarinfo.mtime = int(datetime.now().timestamp())
+            
+            # Add file to tar archive
+            tar.addfile(tarinfo, io.BytesIO(content_bytes))
+        
+        # Get the directory path (without filename) for put_archive
+        target_dir = os.path.dirname(target_file_path)
+        if not target_dir:
+            target_dir = '/'
+        
+        # Reset stream position and upload
+        tar_stream.seek(0)
+        self.container.put_archive(target_dir, tar_stream)
+        
+        return True
         
     def upload_tables(self, dataset: UploadDataset) -> bool:
         """

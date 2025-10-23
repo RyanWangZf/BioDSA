@@ -1,6 +1,6 @@
 import os
 import logging
-from typing import Dict, Any, Callable, Literal, List
+from typing import Dict, Any, Callable, Literal, List, Tuple
 from langchain_core.language_models.base import BaseLanguageModel
 from langchain_core.tools import BaseTool
 from langchain_anthropic import ChatAnthropic
@@ -174,7 +174,7 @@ class BaseAgent():
         """
         return [res.model_dump() for res in code_execution_results]
 
-    def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None) -> BaseMessage:
+    def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None, parallel_tool_calls: bool=True) -> BaseMessage:
         if tools is None:
             tools = []
         if model_kwargs is None:
@@ -188,10 +188,16 @@ class BaseAgent():
         )
         if tools:
             llm_with_tools = llm.bind_tools(tools)
-            response = run_with_retry(llm_with_tools.invoke, arg=messages)
+            response = run_with_retry(llm_with_tools.invoke, arg=messages, parallel_tool_calls=parallel_tool_calls)
         else:
             response = run_with_retry(llm.invoke, arg=messages)
         return response
+
+    def _get_input_output_tokens(self, response: BaseMessage) -> Tuple[int, int]:
+        """
+        Get the input and output tokens from the response.
+        """
+        return response.usage_metadata.get("input_tokens", 0), response.usage_metadata.get("output_tokens", 0)
 
     def generate(self, **kwargs) -> Dict[str, Any]:
         """
@@ -227,33 +233,32 @@ class BaseAgent():
             logging.error(f"Error generating code: {e}")
             raise e
 
-    def register_dataset(self, dataset_dir: str):
+    def register_workspace(self, workspace_dir: str=None):
         """
-        Register a dataset to the agent.
-        The dataset is a directory containing the dataset files.
-        Only the files with .csv extension will be uploaded.
+        Register a workspace (a sandbox) to the agent.
+        The dataset (.csv) under the workspace_dir will be collected and uploaded to the sandbox.
         
         Args:
-            dataset_dir: The path to the dataset directory
+            workspace_dir: The path to the workspace directory in local machine
         """
-        local_table_paths = [os.path.join(dataset_dir, file) for file in os.listdir(dataset_dir)]
-        local_table_paths = [file for file in local_table_paths if file.endswith(".csv")]
-        target_table_paths = [os.path.join(self.sandbox.workdir, os.path.basename(file)) for file in local_table_paths]
-        upload_dataset = UploadDataset(
-            local_table_paths=local_table_paths,
-            target_table_paths=target_table_paths,
-        )
-
         # if sandbox is not started, start it
         if not self.sandbox.exists():
             self.sandbox.start() # this will start the sandbox if it is not started
 
         # upload the tables to the sandbox
-        res = self.sandbox.upload_tables(upload_dataset)
+        if workspace_dir is not None:
+            local_table_paths = [os.path.join(workspace_dir, file) for file in os.listdir(workspace_dir)]
+            local_table_paths = [file for file in local_table_paths if file.endswith(".csv")]
+            target_table_paths = [os.path.join(self.sandbox.workdir, os.path.basename(file)) for file in local_table_paths]
+            upload_dataset = UploadDataset(
+                local_table_paths=local_table_paths,
+                target_table_paths=target_table_paths,
+            )
+            res = self.sandbox.upload_tables(upload_dataset)
+            # print what tables are uploaded to the sandbox
+            logging.info("\n\n".join([f"Uploaded table: {file}" for file in local_table_paths]))
+            self.registered_datasets.extend(target_table_paths)
 
-        # print what tables are uploaded to the sandbox
-        logging.info("\n\n".join([f"Uploaded table: {file}" for file in local_table_paths]))
-        self.registered_datasets.extend(target_table_paths)
         return True
 
     def clear_workspace(self):
