@@ -16,7 +16,7 @@ agent = DeepEvidenceAgent(
 # register a workspace for the agent to use
 agent.register_workspace()
 execution_results = agent.go(
-    """
+"""
 Can you evaluate the effectiveness and safety of Palazestrant (OP-1250) for treating ER+/HER2- Metastatic Breast Cancer?
 What is the success rate of this drug will pass clinical trials and get approved by the FDA?
 """,

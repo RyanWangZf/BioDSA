@@ -4,13 +4,12 @@ Proposed by:
 Wang, Z. et al. (2025). DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research. In submission.
 """
 
-from typing import Literal, List, Dict, Any, Optional
+from typing import Literal, List, Dict, Any
 from langgraph.graph import StateGraph, END
-from langchain_core.messages import SystemMessage, AIMessage, ToolMessage, HumanMessage, BaseMessage
+from langchain_core.messages import SystemMessage, AIMessage, ToolMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
 
-from biodsa.agents.base_agent import BaseAgent, run_with_retry
-from biodsa.agents.state import CodeExecutionResult
+from biodsa.agents.base_agent import BaseAgent
 from biodsa.tools.code_exec_tool import CodeExecutionTool
 
 from biodsa.agents.deepevidence.state import (
@@ -238,10 +237,12 @@ class DeepEvidenceAgent(BaseAgent):
     def _build_system_prompt_for_orchestrator_agent(self):
         return ORCHESTRATOR_SYSTEM_PROMPT_TEMPLATE
 
-    def _build_system_prompt_for_bfs_agent(self):
+    def _build_system_prompt_for_bfs_agent(self, knowledge_bases: List[str]=None):
+        # TODO: add the guidance for the knowledge-base specific tool use
         return BFS_SYSTEM_PROMPT_TEMPLATE
 
-    def _build_system_prompt_for_dfs_agent(self):
+    def _build_system_prompt_for_dfs_agent(self, knowledge_base: str=None):
+        # TODO: add the guidance for the knowledge-base specific tool use
         return DFS_SYSTEM_PROMPT_TEMPLATE
 
     def _get_tools_for_orchestrator_agent(self, allowed_knowledge_bases: List[str] = None):
@@ -372,7 +373,7 @@ class DeepEvidenceAgent(BaseAgent):
         """
         messages = state.messages
         knowledge_base = state.knowledge_base
-        system_prompt = self._build_system_prompt_for_dfs_agent()
+        system_prompt = self._build_system_prompt_for_dfs_agent(knowledge_base=knowledge_base)
         messages = [
             SystemMessage(content=system_prompt),
         ] + messages
