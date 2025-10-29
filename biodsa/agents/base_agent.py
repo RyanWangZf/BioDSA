@@ -180,7 +180,10 @@ class BaseAgent():
     def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None, parallel_tool_calls: bool=True, api_type: str=None, api_key: str=None, endpoint: str=None) -> BaseMessage:
         if tools is None:
             tools = []
-        model_kwargs = self._set_model_kwargs(model_name)
+        if model_kwargs is None:
+            model_kwargs = self.model_kwargs
+        else:
+            model_kwargs = self._set_model_kwargs(model_name)
         if api_type is None:
             api_type = self.api_type
         if api_key is None:
