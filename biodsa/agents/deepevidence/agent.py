@@ -297,6 +297,7 @@ class DeepEvidenceAgent(BaseAgent):
         kg_tools = KNOWLEDGE_BASE_TO_TOOLS_MAP[knowledge_base]
         return kg_tools + [CodeExecutionTool(self.sandbox)]
 
+
     def _orchestrator_agent_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
         A function to execute the orchestrator agent.
@@ -307,6 +308,9 @@ class DeepEvidenceAgent(BaseAgent):
 
         # build the system prompt and call the model
         messages = state.messages
+
+        # TODO: remove the tool calls that do not have the ToolMessage with the same call_id
+        # because when the agent makes both bfs and dfs calls, the tool calls are not aligned with the ToolMessages
         system_prompt = self._build_system_prompt_for_orchestrator_agent(knowledge_bases=allowed_knowledge_bases)
         messages = [
             SystemMessage(content=system_prompt),

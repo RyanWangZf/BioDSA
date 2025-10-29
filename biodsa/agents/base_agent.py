@@ -187,8 +187,8 @@ class BaseAgent():
             **model_kwargs
         )
         if tools:
-            llm_with_tools = llm.bind_tools(tools)
-            response = run_with_retry(llm_with_tools.invoke, arg=messages, parallel_tool_calls=parallel_tool_calls)
+            llm_with_tools = llm.bind_tools(tools, parallel_tool_calls=parallel_tool_calls)
+            response = run_with_retry(llm_with_tools.invoke, arg=messages)
         else:
             response = run_with_retry(llm.invoke, arg=messages)
         return response
