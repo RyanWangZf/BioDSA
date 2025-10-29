@@ -85,8 +85,8 @@ class GetPaperReferencesTool(BaseTool):
             max_workers=max_workers,
             rate_limit=rate_limit
         )
-        # TODO: upload the search results to the sandbox
-        return search_results
+        search_results_str = json.dumps(search_results, indent=4)
+        return search_results_str
 
 
 # =====================================================
@@ -197,14 +197,21 @@ class FindEntitiesTool(BaseTool):
         max_requests_per_second: float = 3.0
     ) -> Optional[pd.DataFrame]:
         """Execute the tool to find entities."""
-        return pubtator_api_find_entities(
+        results = pubtator_api_find_entities(
             query_text=query_text,
             concept_type=concept_type,
             limit=limit,
             max_retries=max_retries,
             max_requests_per_second=max_requests_per_second
         )
-
+        if len(results) == 0:
+            return "No entities found. Please try again with different query."
+        else:
+            if isinstance(results, pd.DataFrame):
+                results_str = results.to_markdown()
+                return results_str
+            else:
+                return "No entities found. Please try again with different query."
 
 # =====================================================
 # Tool 4: Search Papers

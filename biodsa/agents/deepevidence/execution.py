@@ -1,6 +1,6 @@
 from typing import List, Dict
 from datetime import datetime
-
+import json
 from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper
 from biodsa.sandbox.execution import ExecutionResults
 
@@ -68,4 +68,23 @@ class DeepEvidenceExecutionResults(ExecutionResults):
                     story.append(Paragraph(self._escape_html(line), styles['body']))
         else:
             story.append(Paragraph("<i>No user query found</i>", styles['body']))
+
+    def to_json(self, output_path: str=None) -> str:
+        """
+        Convert the execution results to a JSON file
+        
+        Args:
+            output_path: Local path where the JSON file should be saved
+        """
+        json_data = {
+                    'total_input_tokens': self.total_input_tokens,
+                    'total_output_tokens': self.total_output_tokens,
+                    'message_history': self.message_history,
+                    'code_execution_results': self.code_execution_results,
+                    'final_response': self.final_response
+                }
+        if output_path is not None:
+            with open(output_path, 'w') as f:
+                json.dump(json_data, f)
+        return json_data
 

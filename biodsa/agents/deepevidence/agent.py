@@ -75,7 +75,14 @@ class DeepEvidenceAgent(BaseAgent):
         """
         print("called: bfs_workflow")
         parent_graph_message = state.messages[-1]
-        subgraph_tool_call_id = parent_graph_message.tool_calls[0]["id"]
+        parent_graph_message_tool_calls = parent_graph_message.tool_calls
+        # find the one with name "go_breadth_first_search"
+        for tool_call in parent_graph_message_tool_calls:
+            if tool_call["name"] == "go_breadth_first_search":
+                subgraph_tool_call_id = tool_call["id"]
+                break
+        else:
+            raise ValueError("No go_breadth_first_search tool call found in the parent graph message or the tool call does not have the required arguments")
 
         # build the inputs
         search_target = state.search_targets
@@ -119,7 +126,14 @@ class DeepEvidenceAgent(BaseAgent):
         """
         print("called: dfs_workflow")
         parent_graph_message = state.messages[-1]
-        subgraph_tool_call_id = parent_graph_message.tool_calls[0]["id"]
+        parent_graph_message_tool_calls = parent_graph_message.tool_calls
+        # find the one with name "go_depth_first_search"
+        for tool_call in parent_graph_message_tool_calls:
+            if tool_call["name"] == "go_depth_first_search":
+                subgraph_tool_call_id = tool_call["id"]
+                break
+        else:
+            raise ValueError("No go_depth_first_search tool call found in the parent graph message or the tool call does not have the required arguments")
 
         # trigger the subgraph
         search_targets = "\n\n".join(state.search_targets)
@@ -260,17 +274,17 @@ class DeepEvidenceAgent(BaseAgent):
         bfs_tool_class = create_bfs_tool(allowed_knowledge_bases)
         dfs_tool_class = create_dfs_tool(allowed_knowledge_bases)
 
-        return [bfs_tool_class(), dfs_tool_class(), CodeExecutionTool()]
+        return [bfs_tool_class(), dfs_tool_class(), CodeExecutionTool(self.sandbox)]
 
     def _get_tools_for_bfs_agent(self, knowledge_bases: List[str]):
         kg_tools = []
         for knowledge_base in knowledge_bases:
             kg_tools.extend(KNOWLEDGE_BASE_TO_TOOLS_MAP[knowledge_base])
-        return kg_tools + [CodeExecutionTool()]
+        return kg_tools + [CodeExecutionTool(self.sandbox)]
 
     def _get_tools_for_dfs_agent(self, knowledge_base: str):
         kg_tools = KNOWLEDGE_BASE_TO_TOOLS_MAP[knowledge_base]
-        return kg_tools + [CodeExecutionTool()]
+        return kg_tools + [CodeExecutionTool(self.sandbox)]
 
     def _orchestrator_agent_node(self, state: DeepEvidenceAgentState, config: RunnableConfig) -> DeepEvidenceAgentState:
         """
@@ -399,20 +413,23 @@ class DeepEvidenceAgent(BaseAgent):
         """
         messages = state.messages
         allowed_knowledge_bases = state.knowledge_bases if state.knowledge_bases else KNOWLEDGE_BASE_LIST
-        tool_call = messages[-1].tool_calls[0]
-        tool_name = tool_call["name"]
-        tool_input = tool_call["args"]
-        available_tools = self._get_tools_for_orchestrator_agent(allowed_knowledge_bases=allowed_knowledge_bases)
-        available_tools_dict = {tool.name: tool for tool in available_tools}
-        called_tool = available_tools_dict[tool_name]
-        tool_output = called_tool._run(**tool_input)
-        response = ToolMessage(
-            content=tool_output,
-            name=tool_name,
-            tool_call_id=tool_call["id"]
-        )
+        all_tool_calls = messages[-1].tool_calls
+        responses = []
+        for tool_call in all_tool_calls:
+            tool_name = tool_call["name"]
+            tool_input = tool_call["args"]
+            available_tools = self._get_tools_for_orchestrator_agent(allowed_knowledge_bases=allowed_knowledge_bases)
+            available_tools_dict = {tool.name: tool for tool in available_tools}
+            called_tool = available_tools_dict[tool_name]
+            tool_output = called_tool._run(**tool_input)
+            response = ToolMessage(
+                content=tool_output,
+                name=tool_name,
+                tool_call_id=tool_call["id"]
+            )
+            responses.append(response)
         return {
-            "messages": [response],
+            "messages": responses,
         }
 
     def _tool_node_for_bfs_agent(self, state: BFSAgentState, config: RunnableConfig) -> BFSAgentState:
@@ -420,20 +437,23 @@ class DeepEvidenceAgent(BaseAgent):
         A function to execute the tool node for the breadth-first search agent.
         """
         knowledge_bases = state.knowledge_bases
-        tool_call = state.messages[-1].tool_calls[0]
-        tool_name = tool_call["name"]
-        tool_input = tool_call["args"]
-        available_tools = self._get_tools_for_bfs_agent(knowledge_bases=knowledge_bases)
-        available_tools_dict = {tool.name: tool for tool in available_tools}
-        called_tool = available_tools_dict[tool_name]
-        tool_output = called_tool._run(**tool_input)
-        response = ToolMessage(
-            content=tool_output,
-            name=tool_name,
-            tool_call_id=tool_call["id"]
-        )
+        all_tool_calls = state.messages[-1].tool_calls
+        responses = []
+        for tool_call in all_tool_calls:
+            tool_name = tool_call["name"]
+            tool_input = tool_call["args"]
+            available_tools = self._get_tools_for_bfs_agent(knowledge_bases=knowledge_bases)
+            available_tools_dict = {tool.name: tool for tool in available_tools}
+            called_tool = available_tools_dict[tool_name]
+            tool_output = called_tool._run(**tool_input)
+            response = ToolMessage(
+                content=tool_output,
+                name=tool_name,
+                tool_call_id=tool_call["id"]
+            )
+            responses.append(response)
         return {
-            "messages": [response],
+            "messages": responses,
         }
 
     def _tool_node_for_dfs_agent(self, state: DFSAgentState, config: RunnableConfig) -> DFSAgentState:
@@ -441,20 +461,23 @@ class DeepEvidenceAgent(BaseAgent):
         A function to execute the tool node for the depth-first search agent.
         """
         knowledge_base = state.knowledge_base
-        tool_call = state.messages[-1].tool_calls[0]
-        tool_name = tool_call["name"]
-        tool_input = tool_call["args"]
-        available_tools = self._get_tools_for_dfs_agent(knowledge_base=knowledge_base)
-        available_tools_dict = {tool.name: tool for tool in available_tools}
-        called_tool = available_tools_dict[tool_name]
-        tool_output = called_tool._run(**tool_input)
-        response = ToolMessage(
-            content=tool_output,
-            name=tool_name,
-            tool_call_id=tool_call["id"]
-        )
+        all_tool_calls = state.messages[-1].tool_calls
+        responses = []
+        for tool_call in all_tool_calls:
+            tool_name = tool_call["name"]
+            tool_input = tool_call["args"]
+            available_tools = self._get_tools_for_dfs_agent(knowledge_base=knowledge_base)
+            available_tools_dict = {tool.name: tool for tool in available_tools}
+            called_tool = available_tools_dict[tool_name]
+            tool_output = called_tool._run(**tool_input)
+            response = ToolMessage(
+                content=tool_output,
+                name=tool_name,
+                tool_call_id=tool_call["id"]
+            )
+            responses.append(response)
         return {
-            "messages": [response],
+            "messages": responses,
         }
 
     def _should_continue_bfs_agent(self, state: BFSAgentState) -> Literal["bfs_agent_tool_node", "end"]:

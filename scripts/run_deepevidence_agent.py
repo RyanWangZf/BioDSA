@@ -15,12 +15,35 @@ agent = DeepEvidenceAgent(
 )
 # register a workspace for the agent to use
 agent.register_workspace()
-execution_results = agent.go(
-"""
-Can you evaluate the effectiveness and safety of Palazestrant (OP-1250) for treating ER+/HER2- Metastatic Breast Cancer?
-What is the success rate of this drug will pass clinical trials and get approved by the FDA?
-""",
-    knowledge_bases=["pubmed_papers"],
-)
-print(execution_results)
-execution_results.to_pdf(output_dir="test_artifacts")
+# execution_results = agent.go(
+# """
+# Can you evaluate the effectiveness and safety of Palazestrant (OP-1250) for treating ER+/HER2- Metastatic Breast Cancer?
+# What is the success rate of this drug will pass clinical trials and get approved by the FDA?
+# """,
+#     knowledge_bases=["pubmed_papers"],
+# )
+# execution_results = agent.go(
+# """
+# Your task is to identify the most promising variant associated wtih a given GWAS phenotype for futher examination. \nFrom the list, prioritize the top associated variant (matching one of the given variant). \nGWAS phenotype: Bradykinin\nVariants: rs7700133, rs1280, rs7651090, rs4253311, rs3738934, rs7385804, rs1367117, rs4808136, rs10087900, rs855791, rs12678919\n'
+# """,
+#     knowledge_bases=["pubmed_papers"],
+# )
+
+# execution_results = agent.go(
+# """
+# The following is a multiple choice question about biology.
+# Please answer by responding with the letter of the correct answer.
+
+# Question: Which of the following genes is most likely contained in the gene set CAHOY_NEURONAL, which contains genes up-regulated in neurons. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
+# Options:
+# A.RASL10A
+# B.Insufficient information to answer the question.
+# C.EVI2B
+# D.TCAF1
+# E.KIR3DL3
+
+# After explorations, return your final answer in the format of [Answer: <letter of the correct answer>]""",
+#     knowledge_bases=["pubmed_papers"],
+# )
+# print(execution_results)
+# execution_results.to_pdf(output_dir="test_artifacts")
