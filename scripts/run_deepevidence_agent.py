@@ -29,21 +29,19 @@ agent.register_workspace()
 #     knowledge_bases=["pubmed_papers"],
 # )
 
-# execution_results = agent.go(
-# """
-# The following is a multiple choice question about biology.
-# Please answer by responding with the letter of the correct answer.
+execution_results = agent.go(
+"""
+The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
 
-# Question: Which of the following genes is most likely contained in the gene set CAHOY_NEURONAL, which contains genes up-regulated in neurons. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
-# Options:
-# A.RASL10A
-# B.Insufficient information to answer the question.
-# C.EVI2B
-# D.TCAF1
-# E.KIR3DL3
-
-# After explorations, return your final answer in the format of [Answer: <letter of the correct answer>]""",
-#     knowledge_bases=["pubmed_papers"],
-# )
-# print(execution_results)
-# execution_results.to_pdf(output_dir="test_artifacts")
+Question: Which of the following genes is most likely contained in the gene set CAHOY_NEURONAL, which contains genes up-regulated in neurons. This gene set is a part of the C6 collection: oncogenic signature gene sets.
+A.RASL10A
+B.Insufficient information to answer the question.
+C.EVI2B
+D.TCAF1
+E.KIR3DL3
+""",
+    knowledge_bases=["gene_set"],
+)
+print(execution_results)
+execution_results.to_pdf(output_dir="test_artifacts")

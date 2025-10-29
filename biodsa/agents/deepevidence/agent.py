@@ -23,6 +23,9 @@ from biodsa.agents.deepevidence.prompt import (
     BFS_SYSTEM_PROMPT_TEMPLATE,
     DFS_SYSTEM_PROMPT_TEMPLATE
 )
+from biodsa.agents.deepevidence.prompt import (
+    GENE_SET_KB_PROMPT
+)
 from biodsa.agents.deepevidence.orchestrator_tool import (
     create_bfs_tool,
     create_dfs_tool
@@ -88,6 +91,7 @@ class DeepEvidenceAgent(BaseAgent):
         search_target = state.search_targets
         search_target = "\n\n".join(search_target)
         knowledge_bases = state.knowledge_bases
+            
         inputs = {
             "messages": [HumanMessage(content=search_target)],
             "knowledge_bases": knowledge_bases
@@ -248,16 +252,23 @@ class DeepEvidenceAgent(BaseAgent):
         )
         return orchestrator_workflow
 
-    def _build_system_prompt_for_orchestrator_agent(self):
-        return ORCHESTRATOR_SYSTEM_PROMPT_TEMPLATE
+    def _build_system_prompt_for_orchestrator_agent(self, knowledge_bases: List[str]=None):
+        system_prompt = ORCHESTRATOR_SYSTEM_PROMPT_TEMPLATE
+        if "gene_set" in knowledge_bases:
+            system_prompt += GENE_SET_KB_PROMPT
+        return system_prompt
 
     def _build_system_prompt_for_bfs_agent(self, knowledge_bases: List[str]=None):
-        # TODO: add the guidance for the knowledge-base specific tool use
-        return BFS_SYSTEM_PROMPT_TEMPLATE
+        system_prompt = BFS_SYSTEM_PROMPT_TEMPLATE
+        if "gene_set" in knowledge_bases:
+            system_prompt += GENE_SET_KB_PROMPT
+        return system_prompt
 
     def _build_system_prompt_for_dfs_agent(self, knowledge_base: str=None):
-        # TODO: add the guidance for the knowledge-base specific tool use
-        return DFS_SYSTEM_PROMPT_TEMPLATE
+        system_prompt = DFS_SYSTEM_PROMPT_TEMPLATE
+        if "gene_set" == knowledge_base:
+            system_prompt += GENE_SET_KB_PROMPT
+        return system_prompt
 
     def _get_tools_for_orchestrator_agent(self, allowed_knowledge_bases: List[str] = None):
         """
@@ -290,16 +301,16 @@ class DeepEvidenceAgent(BaseAgent):
         """
         A function to execute the orchestrator agent.
         """
-        # build the system prompt and call the model
-        messages = state.messages
-        system_prompt = self._build_system_prompt_for_orchestrator_agent()
-        messages = [
-            SystemMessage(content=system_prompt),
-        ] + messages
-
         # Get allowed knowledge bases from state (user-specified)
         allowed_knowledge_bases = state.knowledge_bases if state.knowledge_bases else KNOWLEDGE_BASE_LIST
         tools = self._get_tools_for_orchestrator_agent(allowed_knowledge_bases)
+
+        # build the system prompt and call the model
+        messages = state.messages
+        system_prompt = self._build_system_prompt_for_orchestrator_agent(knowledge_bases=allowed_knowledge_bases)
+        messages = [
+            SystemMessage(content=system_prompt),
+        ] + messages
 
         response = self._call_model(
             model_name=self.model_name,
@@ -360,8 +371,8 @@ class DeepEvidenceAgent(BaseAgent):
         A function to execute the breadth-first search agent.
         """
         messages = state.messages
-        knowledge_bases = state.knowledge_bases
-        system_prompt = self._build_system_prompt_for_bfs_agent()
+        knowledge_bases = state.knowledge_bases            
+        system_prompt = self._build_system_prompt_for_bfs_agent(knowledge_bases=knowledge_bases)
         messages = [
             SystemMessage(content=system_prompt),
         ] + messages
@@ -388,6 +399,7 @@ class DeepEvidenceAgent(BaseAgent):
         messages = state.messages
         knowledge_base = state.knowledge_base
         system_prompt = self._build_system_prompt_for_dfs_agent(knowledge_base=knowledge_base)
+
         messages = [
             SystemMessage(content=system_prompt),
         ] + messages
@@ -541,7 +553,7 @@ class DeepEvidenceAgent(BaseAgent):
                             "temperature": 1.0
                         }
                     },
-                    "recursion_limit": 20
+                    "recursion_limit": 100
                 }
             ):
                 chunk = streamed_chunk[-1]

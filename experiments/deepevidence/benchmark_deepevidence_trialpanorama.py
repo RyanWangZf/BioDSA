@@ -33,7 +33,7 @@ def evidence_synthesis():
 
     # specify the indices of the questions to answer
     to_process_indices = [
-        i for i in range(14, len(df))
+        i for i in range(33, len(df))
     ]
 
     for index, row in tqdm(df.iterrows(), desc="Processing questions", total=len(df)):

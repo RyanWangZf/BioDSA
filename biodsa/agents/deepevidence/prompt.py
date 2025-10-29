@@ -55,3 +55,16 @@ You should summarize your final findings in a concise but structured way, with i
 - For pubmed papers, the citations should be specific to their PubMed IDs.
 - For biomedical entities, the citations should be specific to their entity IDs in the corresponding knowledge base and the knowledge base name.
 """
+
+GENE_SET_KB_PROMPT = """
+# Gene set knowledge base tools
+- `get_pathway_for_gene_set`: 
+- `get_enrichment_for_gene_set`
+- `get_interactions_for_gene_set`
+- `get_complex_for_gene_set`
+- `get_gene_summary_for_single_gene`
+- `get_disease_for_single_gene`
+- `get_domain_for_single_gene`
+
+You should use these tools to query when encountering gene related questions.
+"""

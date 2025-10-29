@@ -42,7 +42,7 @@ def litqa2():
         row = row.to_dict()
         question = row['question']
         question_prompt = question_template.format(question=question)
-        execution_results = agent.go(question_prompt, knowledge_bases=["pubmed_papers"])
+        execution_results = agent.go(question_prompt, knowledge_bases=["pubmed_papers", "gene_set"])
         outputs = execution_results.to_json()
         outputs = {
             "outputs": outputs,
