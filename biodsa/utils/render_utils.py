@@ -51,9 +51,23 @@ def render_message_colored(message: BaseMessage, show_tool_calls: bool = True) -
         output_lines.append(header)
         output_lines.append("=" * 100)
         
-        # Show content
+        # Show content - handle both string and list formats
         if content:
-            output_lines.append(f"{TerminalColors.CYAN}{content}{TerminalColors.RESET}")
+            if isinstance(content, list):
+                # Content is a list of blocks (text and tool_use)
+                for block in content:
+                    if isinstance(block, dict):
+                        if block.get('type') == 'text':
+                            text_content = block.get('text', '')
+                            if text_content:
+                                output_lines.append(f"{TerminalColors.CYAN}{text_content}{TerminalColors.RESET}")
+                        elif block.get('type') == 'tool_use' and show_tool_calls:
+                            # Optionally show tool_use blocks inline
+                            # (usually these are also in message.tool_calls, so we might skip)
+                            pass
+            else:
+                # Content is a string
+                output_lines.append(f"{TerminalColors.CYAN}{content}{TerminalColors.RESET}")
         
         # Show tool calls if present
         if show_tool_calls and hasattr(message, 'tool_calls') and message.tool_calls:

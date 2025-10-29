@@ -177,8 +177,7 @@ class BaseAgent():
     def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None, parallel_tool_calls: bool=True) -> BaseMessage:
         if tools is None:
             tools = []
-        if model_kwargs is None:
-            model_kwargs = {}
+        model_kwargs = self._set_model_kwargs(model_name)
         llm = self._get_model(
             api=self.api_type,
             model_name=model_name,
@@ -198,6 +197,21 @@ class BaseAgent():
         Get the input and output tokens from the response.
         """
         return response.usage_metadata.get("input_tokens", 0), response.usage_metadata.get("output_tokens", 0)
+
+    def _set_model_kwargs(self, model_name: str) -> Dict[str, Any]:
+        """
+        A function to set the model kwargs for the agent.
+        """
+        model_kwargs = {}
+        if "claude" in model_name.lower():
+            model_kwargs["thinking"] = {"type": "enabled", "budget_tokens": 5000}
+            model_kwargs["max_tokens"] = 10000
+            model_kwargs.pop("reasoning_effort", None)
+        if "gpt" in model_name.lower():
+            model_kwargs["reasoning_effort"] = "low"
+            model_kwargs.pop("thinking", None)
+            model_kwargs["max_completion_tokens"] = 5000
+        return model_kwargs
 
     def generate(self, **kwargs) -> Dict[str, Any]:
         """

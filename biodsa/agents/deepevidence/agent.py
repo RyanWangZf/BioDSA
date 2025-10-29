@@ -41,7 +41,7 @@ class DeepEvidenceAgent(BaseAgent):
         model_name: str,
         api_type: str,
         api_key: str,
-        endpoint: str,
+        endpoint: str=None,
         container_id: str = None,
         small_model_name: str = None, # an optional smaller model to help complete the analysis plan and other tasks
         **kwargs
@@ -544,6 +544,7 @@ class DeepEvidenceAgent(BaseAgent):
                 "knowledge_bases": knowledge_bases
             }
 
+            model_kwargs = self._set_model_kwargs(self.model_name)
             # Invoke the agent graph and return the result
             for streamed_chunk in self.agent_graph.stream(
                 inputs,
@@ -551,11 +552,7 @@ class DeepEvidenceAgent(BaseAgent):
                 subgraphs=True,
                 config={
                     "configurable": {
-                        "model_kwargs": {
-                            "max_completion_tokens": 5000,
-                            "reasoning_effort": "minimal",
-                            "temperature": 1.0
-                        }
+                        "model_kwargs": model_kwargs
                     },
                     "recursion_limit": 100
                 }
