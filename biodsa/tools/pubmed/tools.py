@@ -4,7 +4,11 @@ from langchain_core.tools import BaseTool
 import pandas as pd
 import json
 
-from biodsa.tools.pubmed.pubmed_api import pubmed_api_get_paper_references
+from biodsa.tools.pubmed.pubmed_api import (
+    pubmed_api_get_paper_references,
+    get_pubmed_articles,
+    fetch_paper_content_by_pmid
+)
 from biodsa.tools.pubmed.pubtator_api import (
     pubtator_api_fetch_paper_annotations,
     pubtator_api_find_entities,
@@ -15,10 +19,12 @@ from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper
 __all__ = [
     "GetPaperReferencesTool",
     "FetchPaperAnnotationsTool",
+    "FetchPaperContentTool",
     "FindEntitiesTool",
     "SearchPapersTool",
     "GetPaperReferencesToolInput",
     "FetchPaperAnnotationsToolInput",
+    "FetchPaperContentToolInput",
     "FindEntitiesToolInput",
     "SearchPapersToolInput",
 ]
@@ -90,7 +96,83 @@ class GetPaperReferencesTool(BaseTool):
 
 
 # =====================================================
-# Tool 2: Fetch Paper Annotations
+# Tool 2: Fetch Paper Content
+# =====================================================
+class FetchPaperContentToolInput(BaseModel):
+    """Input schema for FetchPaperContentTool."""
+    pmid: str = Field(
+        ...,
+        description="A single PubMed ID (PMID) to fetch content for. Example: '36608654'"
+    )
+
+
+class FetchPaperContentTool(BaseTool):
+    """
+    Tool to fetch complete paper content for a single PMID from multiple sources.
+    
+    This tool:
+    1. Fetches title and abstract from PubMed API
+    2. Checks PubTator3 for full text availability
+    3. Attempts to fetch full open access text from PMC BioC JSON API
+    4. Returns the most complete content available
+    
+    Critical for extracting specific data, numbers, or detailed information from papers.
+    """
+    name: str = "fetch_paper_content"
+    description: str = (
+        "Fetch complete paper content for a single PubMed ID (PMID). "
+        "Tries three sources: (1) PubMed for title/abstract, (2) PubTator3 for full text, "
+        "(3) PMC BioC for open access full text. Returns the most complete content available. "
+        "CRITICAL USE: When you identify a relevant paper but need to extract specific data (numbers, statistics, "
+        "detailed methods, results, discussion, etc.), use this tool to get the actual paper content for extraction. "
+        "For open access papers, this provides complete full text including all sections."
+    )
+    args_schema: Type[BaseModel] = FetchPaperContentToolInput
+    
+    def _run(self, pmid: str) -> str:
+        """Execute the tool to fetch paper content."""
+        result = fetch_paper_content_by_pmid(pmid)
+        
+        # Format the result in a readable way
+        output_parts = []
+        output_parts.append(f"PMID: {result['pmid']}")
+        output_parts.append(f"=" * 80)
+        
+        if result.get('error'):
+            output_parts.append(f"ERROR: {result['error']}")
+        
+        if result.get('title'):
+            output_parts.append(f"\nTITLE:\n{result['title']}")
+        
+        if result.get('abstract'):
+            output_parts.append(f"\nABSTRACT:\n{result['abstract']}")
+        
+        # Show full text availability and source
+        has_full = result.get('has_full_text', False)
+        source = result.get('source', 'none')
+        
+        if has_full:
+            source_name = {
+                'pmc': 'PMC Open Access',
+                'pubtator': 'PubTator3',
+                'none': 'None'
+            }.get(source, source)
+            output_parts.append(f"\nFULL TEXT AVAILABLE: Yes (Source: {source_name})")
+        else:
+            output_parts.append(f"\nFULL TEXT AVAILABLE: No (Only abstract available)")
+        
+        if result.get('passages'):
+            output_parts.append(f"AVAILABLE SECTIONS: {', '.join(result['passages'])}")
+        
+        if result.get('full_content') and has_full:
+            source_label = "PMC OPEN ACCESS" if source == "pmc" else "PUBTATOR3"
+            output_parts.append(f"\n{'='*80}\nFULL CONTENT FROM {source_label}:\n{'='*80}\n{result['full_content']}")
+        
+        return "\n".join(output_parts)
+
+
+# =====================================================
+# Tool 3: Fetch Paper Annotations
 # =====================================================
 class FetchPaperAnnotationsToolInput(BaseModel):
     """Input schema for FetchPaperAnnotationsTool."""
@@ -147,7 +229,7 @@ class FetchPaperAnnotationsTool(BaseTool):
         return search_results_str
 
 # =====================================================
-# Tool 3: Find Entities
+# Tool 4: Find Entities
 # =====================================================
 class FindEntitiesToolInput(BaseModel):
     """Input schema for FindEntitiesTool."""
@@ -214,7 +296,7 @@ class FindEntitiesTool(BaseTool):
                 return "No entities found. Please try again with different query."
 
 # =====================================================
-# Tool 4: Search Papers
+# Tool 5: Search Papers
 # =====================================================
 class SearchPapersToolInput(BaseModel):
     """Input schema for SearchPapersTool."""

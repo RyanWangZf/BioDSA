@@ -6,12 +6,19 @@ import xml.etree.ElementTree as ET
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
+from xml.etree import ElementTree
 
 from .ratelimiter import RateLimiter
 
 PUBMED_BASE_URL = "https://pubmed.ncbi.nlm.nih.gov/"
 PUBMED_EU_UTILS_BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 PUBMED_API_KEY = os.environ.get("PUBMED_API_KEY")
+
+__all__ = [
+    "pubmed_api_get_paper_references",
+    "get_pubmed_articles",
+    "fetch_paper_content_by_pmid",
+]
 
 # ===============================
 # Helper functions
@@ -221,3 +228,259 @@ def pubmed_api_get_paper_references(
     
     return all_results
 
+def get_pubmed_articles(term):
+    base_url_pubmed = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    search_url = f"{base_url_pubmed}/esearch.fcgi"
+    fetch_url = f"{base_url_pubmed}/efetch.fcgi"
+    search_params = {
+        "db": "pubmed",
+        "term": term,
+        "retmode": "xml",
+        "retmax": "5",
+        "sort": "relevance"
+    }
+    search_response = requests.get(search_url, params=search_params)
+    try:
+        search_results = ElementTree.fromstring(search_response.content)
+        id_list = [id_tag.text for id_tag in search_results.findall('.//Id')]
+    except ElementTree.ParseError as e:
+        return f"Error parsing search results: {e}"
+    
+    if not id_list:
+        return "No articles found for the query."
+    
+    fetch_params = {
+        "db": "pubmed",
+        "id": ",".join(id_list),
+        "retmode": "xml"
+    }
+    fetch_response = requests.get(fetch_url, params=fetch_params)
+    
+    try:
+        articles = ElementTree.fromstring(fetch_response.content)
+    except ElementTree.ParseError as e:
+        return f"Error parsing fetch results: {e}"
+
+    results = [] 
+    for article in articles.findall('.//PubmedArticle'):
+        pmid_elem = article.find('.//PMID')
+        pmid = pmid_elem.text if pmid_elem is not None else "No PMID available"
+        title_elem = article.find('.//ArticleTitle')
+        title = title_elem.text if title_elem is not None else "No title available"
+        abstract_elem = article.find('.//Abstract/AbstractText')
+        abstract_text = abstract_elem.text if abstract_elem is not None else "No abstract available"
+        results.append(f"PMID: {pmid}\nTitle: {title}\nAbstract: {abstract_text}\n")
+    return "".join(results)
+
+
+get_pubmed_articles_doc = {
+    "name": "get_pubmed_articles",
+    "description": "Given a PubMed ID, return related PubMed articles containing titles and abstractions.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "term": {
+                "type": "string",
+                "description": "a pubmed ID to search.",
+            },
+        },
+        "required": ["term"],
+    },
+}
+
+
+def fetch_paper_content_by_pmid(pmid: str) -> Dict[str, Any]:
+    """
+    Fetch paper content for a single PMID from PubMed, PubTator3, and PMC BioC APIs.
+    
+    This function:
+    1. Fetches title and abstract from PubMed API
+    2. Fetches full content availability from PubTator3 API
+    3. Attempts to fetch full open access text from PMC BioC JSON API
+    4. Returns combined information with full text availability indicator
+    
+    Args:
+        pmid: A single PubMed ID (PMID) as string
+    
+    Returns:
+        Dictionary containing:
+        - pmid: The PMID
+        - title: Paper title from PubMed
+        - abstract: Paper abstract from PubMed
+        - has_full_text: Boolean indicating if full text is available
+        - passages: List of passage types available (from PubTator or PMC)
+        - full_content: Full text content if available
+        - pmc_full_text: Full text from PMC BioC if available (open access papers)
+        - source: Source of full text ('pubtator', 'pmc', or 'none')
+        - error: Error message if any
+    """
+    result = {
+        "pmid": pmid,
+        "title": None,
+        "abstract": None,
+        "has_full_text": False,
+        "passages": [],
+        "full_content": None,
+        "pmc_full_text": None,
+        "source": "none",
+        "error": None
+    }
+    
+    # Step 1: Fetch from PubMed API
+    base_url_pubmed = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    fetch_url = f"{base_url_pubmed}/efetch.fcgi"
+    
+    try:
+        fetch_params = {
+            "db": "pubmed",
+            "id": pmid,
+            "retmode": "xml"
+        }
+        if PUBMED_API_KEY:
+            fetch_params["api_key"] = PUBMED_API_KEY
+            
+        fetch_response = requests.get(fetch_url, params=fetch_params, timeout=30)
+        fetch_response.raise_for_status()
+        
+        articles = ElementTree.fromstring(fetch_response.content)
+        article = articles.find('.//PubmedArticle')
+        
+        if article is not None:
+            title_elem = article.find('.//ArticleTitle')
+            result["title"] = title_elem.text if title_elem is not None else "No title available"
+            
+            # Get abstract text (may have multiple AbstractText elements)
+            abstract_texts = []
+            for abstract_elem in article.findall('.//Abstract/AbstractText'):
+                label = abstract_elem.get('Label', '')
+                text = abstract_elem.text if abstract_elem is not None else ""
+                if label:
+                    abstract_texts.append(f"{label}: {text}")
+                else:
+                    abstract_texts.append(text)
+            
+            result["abstract"] = "\n".join(abstract_texts) if abstract_texts else "No abstract available"
+        else:
+            result["error"] = "Paper not found in PubMed"
+            
+    except requests.RequestException as e:
+        result["error"] = f"PubMed API error: {e}"
+    except ElementTree.ParseError as e:
+        result["error"] = f"PubMed XML parse error: {e}"
+    except Exception as e:
+        result["error"] = f"PubMed fetch error: {e}"
+    
+    # Step 2: Fetch from PubTator3 API to check full text availability
+    try:
+        pubtator_url = f"https://www.ncbi.nlm.nih.gov/research/pubtator3-api/publications/export/biocjson?pmids={pmid}"
+        pubtator_response = requests.get(pubtator_url, timeout=30)
+        pubtator_response.raise_for_status()
+        
+        pubtator_data = pubtator_response.json()
+        
+        if 'PubTator3' in pubtator_data and len(pubtator_data['PubTator3']) > 0:
+            pub_data = pubtator_data['PubTator3'][0]
+            passages = pub_data.get('passages', [])
+            
+            # Collect passage types and full content
+            passage_types = []
+            full_content_parts = []
+            
+            for passage in passages:
+                passage_type = passage.get('infons', {}).get('type', 'unknown')
+                passage_types.append(passage_type)
+                
+                # Collect text from all passages
+                text = passage.get('text', '')
+                if text:
+                    full_content_parts.append(f"[{passage_type.upper()}]\n{text}")
+            
+            result["passages"] = list(set(passage_types))
+            result["has_full_text"] = any(
+                ptype not in ['title', 'abstract', 'front'] 
+                for ptype in passage_types
+            )
+            
+            if full_content_parts:
+                result["full_content"] = "\n\n".join(full_content_parts)
+                if result["has_full_text"]:
+                    result["source"] = "pubtator"
+                
+    except requests.RequestException as e:
+        # Don't overwrite existing errors, just note PubTator issue
+        if not result["error"]:
+            result["error"] = f"PubTator API error: {e}"
+    except (json.JSONDecodeError, KeyError) as e:
+        if not result["error"]:
+            result["error"] = f"PubTator parse error: {e}"
+    except Exception as e:
+        if not result["error"]:
+            result["error"] = f"PubTator fetch error: {e}"
+    
+    # Step 3: Try to fetch full text from PMC BioC JSON API (for open access papers)
+    try:
+        pmc_bioc_url = f"https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_json/{pmid}/unicode"
+        pmc_response = requests.get(pmc_bioc_url, timeout=30)
+        pmc_response.raise_for_status()
+        
+        pmc_data = pmc_response.json()
+        
+        # Check if we got valid BioC data
+        if isinstance(pmc_data, list) and len(pmc_data) > 0:
+            bioc_collection = pmc_data[0]
+            
+            if bioc_collection.get('bioctype') == 'BioCCollection':
+                documents = bioc_collection.get('documents', [])
+                
+                if documents and len(documents) > 0:
+                    document = documents[0]
+                    passages = document.get('passages', [])
+                    
+                    if passages:
+                        # Collect all passages and their types
+                        pmc_passage_types = []
+                        pmc_content_parts = []
+                        
+                        for passage in passages:
+                            infons = passage.get('infons', {})
+                            section_type = infons.get('section_type', infons.get('type', 'unknown'))
+                            text = passage.get('text', '')
+                            
+                            if text:
+                                pmc_passage_types.append(section_type)
+                                pmc_content_parts.append(f"[{section_type.upper()}]\n{text}")
+                        
+                        # Check if we have substantial content beyond title/abstract
+                        has_pmc_full_text = any(
+                            ptype not in ['TITLE', 'ABSTRACT', 'front', 'abstract_title_1', 'abstract']
+                            for ptype in pmc_passage_types
+                        )
+                        
+                        if pmc_content_parts:
+                            pmc_full_content = "\n\n".join(pmc_content_parts)
+                            result["pmc_full_text"] = pmc_full_content
+                            
+                            # If PMC has more complete content, use it as primary source
+                            if has_pmc_full_text and len(pmc_full_content) > len(result.get("full_content") or ""):
+                                result["has_full_text"] = True
+                                result["full_content"] = pmc_full_content
+                                result["passages"] = list(set(pmc_passage_types))
+                                result["source"] = "pmc"
+                            elif not result["has_full_text"] and has_pmc_full_text:
+                                # If PubTator didn't have full text but PMC does
+                                result["has_full_text"] = True
+                                result["full_content"] = pmc_full_content
+                                result["passages"] = list(set(pmc_passage_types))
+                                result["source"] = "pmc"
+                                
+    except requests.RequestException:
+        # PMC full text not available (not an error, just not open access)
+        pass
+    except (json.JSONDecodeError, KeyError, IndexError):
+        # Invalid or unexpected response format from PMC
+        pass
+    except Exception:
+        # Any other exception - silently continue as PMC is optional
+        pass
+    
+    return result

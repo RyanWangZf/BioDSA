@@ -10,11 +10,13 @@ from tqdm import tqdm
 from collections import defaultdict
 
 from .ratelimiter import RateLimiter
+from xml.etree import ElementTree
 
 PUBTATOR3_BASE_URL = "https://www.ncbi.nlm.nih.gov/research/pubtator3-api"
 PUBTATOR3_SEARCH_URL = f"{PUBTATOR3_BASE_URL}/search/"
 PUBTATOR3_FULLTEXT_URL = f"{PUBTATOR3_BASE_URL}/publications/export/biocjson"
 PUBTATOR3_AUTOCOMPLETE_URL = f"{PUBTATOR3_BASE_URL}/entity/autocomplete/"
+PUBMED_EUTILS_BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 # Type definitions
 EntityType = Literal["GENE", "DISEASE", "CHEMICAL", "VARIANT", "SPECIES", "CELLLINE"]
@@ -47,6 +49,146 @@ VALID_RELATION_TYPES = {
 # ===============================
 # Helper functions
 # ===============================
+def _clean_query_for_pubmed(boolean_query_text: str) -> str:
+    """
+    Clean PubTator-specific syntax from query to make it compatible with PubMed.
+    
+    Removes:
+    - Entity IDs like @CHEMICAL_remdesivir, @DISEASE_COVID_19
+    - Extracts readable terms from entity IDs
+    
+    Args:
+        boolean_query_text: Original query with PubTator syntax
+        
+    Returns:
+        Cleaned query suitable for PubMed E-utilities
+    """
+    import re
+    
+    # Extract entity names from @TYPE_name format
+    # e.g., @CHEMICAL_remdesivir -> remdesivir
+    # e.g., @DISEASE_COVID_19 -> COVID-19
+    cleaned = re.sub(r'@[A-Z_]+_([A-Za-z0-9_\-]+)', r'\1', boolean_query_text)
+    
+    # Replace underscores with spaces in extracted entity names
+    cleaned = re.sub(r'([A-Za-z])_([A-Za-z])', r'\1 \2', cleaned)
+    
+    # Keep AND/OR operators but make them compatible
+    cleaned = cleaned.replace(' AND ', ' AND ')
+    cleaned = cleaned.replace(' OR ', ' OR ')
+    
+    # Remove extra spaces
+    cleaned = ' '.join(cleaned.split())
+    
+    return cleaned
+
+
+def _fallback_to_pubmed_search(boolean_query_text: str, max_results: int = 10) -> Optional[pd.DataFrame]:
+    """
+    Fallback to PubMed E-utilities when PubTator returns no results.
+    
+    Args:
+        boolean_query_text: Original query (will be cleaned for PubMed)
+        max_results: Maximum number of results to return
+        
+    Returns:
+        DataFrame with search results or None if search fails
+    """
+    try:
+        # Clean the query for PubMed
+        pubmed_query = _clean_query_for_pubmed(boolean_query_text)
+        print(f"Cleaned query for PubMed: {pubmed_query}")
+        
+        # Step 1: Search for PMIDs
+        search_url = f"{PUBMED_EUTILS_BASE_URL}/esearch.fcgi"
+        search_params = {
+            "db": "pubmed",
+            "term": pubmed_query,
+            "retmode": "xml",
+            "retmax": str(max_results),
+            "sort": "relevance"
+        }
+        
+        search_response = requests.get(search_url, params=search_params, timeout=30)
+        search_response.raise_for_status()
+        
+        search_results = ElementTree.fromstring(search_response.content)
+        pmids = [id_tag.text for id_tag in search_results.findall('.//Id')]
+        
+        if not pmids:
+            print("No results from PubMed E-utilities either")
+            return None
+        
+        print(f"Found {len(pmids)} results from PubMed E-utilities")
+        
+        # Step 2: Fetch article details
+        fetch_url = f"{PUBMED_EUTILS_BASE_URL}/efetch.fcgi"
+        fetch_params = {
+            "db": "pubmed",
+            "id": ",".join(pmids),
+            "retmode": "xml"
+        }
+        
+        fetch_response = requests.get(fetch_url, params=fetch_params, timeout=30)
+        fetch_response.raise_for_status()
+        
+        articles_tree = ElementTree.fromstring(fetch_response.content)
+        
+        # Step 3: Parse articles
+        results = []
+        for article in articles_tree.findall('.//PubmedArticle'):
+            pmid_elem = article.find('.//PMID')
+            pmid = pmid_elem.text if pmid_elem is not None else None
+            
+            title_elem = article.find('.//ArticleTitle')
+            title = title_elem.text if title_elem is not None else "No title available"
+            
+            # Try to find journal
+            journal_elem = article.find('.//Journal/Title')
+            if journal_elem is None:
+                journal_elem = article.find('.//Journal/ISOAbbreviation')
+            journal = journal_elem.text if journal_elem is not None else "Unknown"
+            
+            # Try to find publication date
+            pub_date = article.find('.//PubDate')
+            date = "Unknown"
+            if pub_date is not None:
+                year = pub_date.find('Year')
+                month = pub_date.find('Month')
+                if year is not None:
+                    date = year.text
+                    if month is not None:
+                        date = f"{year.text}-{month.text}"
+            
+            # Get abstract (concatenate multiple abstract text elements)
+            abstract_texts = []
+            for abstract_elem in article.findall('.//Abstract/AbstractText'):
+                label = abstract_elem.get('Label', '')
+                text = abstract_elem.text if abstract_elem is not None else ""
+                if text:
+                    if label:
+                        abstract_texts.append(f"{label}: {text}")
+                    else:
+                        abstract_texts.append(text)
+            
+            highlighted_text = "\n".join(abstract_texts) if abstract_texts else title
+            
+            results.append({
+                'PMID': pmid,
+                'PMCID': None,  # Not available from efetch
+                'Title': title,
+                'Journal': journal,
+                'Date': date,
+                'Highlighted_Text': highlighted_text
+            })
+        
+        return pd.DataFrame(results)
+        
+    except Exception as e:
+        print(f"PubMed fallback search failed: {e}")
+        return None
+
+
 def _parse_pubtator_response_to_get_content_and_attributes_and_relations(pubtator_json):
     """
     Parse PubTator3 JSON response to extract conditions and interventions from the content, attributes, and relations.
@@ -426,7 +568,7 @@ def pubtator_api_search_papers(
             
             # Parse and return the JSON response
             data = response.json()
-            print(f"Successfully retrieved {len(data.get('results', []))} results")
+            print(f"Successfully retrieved {len(data.get('results', []))} results from PubTator")
             results = data.get('results', [])
             results_df = pd.DataFrame(results)
             if len(results_df) > 0:
@@ -434,6 +576,10 @@ def pubtator_api_search_papers(
                 results_df.rename(columns={'pmid': 'PMID', 'pmcid': 'PMCID', 'title': 'Title', 'journal': 'Journal', 'date': 'Date', 'text_hl': 'Highlighted_Text'}, inplace=True)            
                 return results_df
             else:
+                # No results from PubTator - try fallback to PubMed API for boolean queries
+                if boolean_query_text is not None:
+                    print("No results from PubTator, trying fallback to PubMed API...")
+                    return _fallback_to_pubmed_search(boolean_query_text)
                 return None
             
         except requests.exceptions.HTTPError as e:

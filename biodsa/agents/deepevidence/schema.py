@@ -4,7 +4,8 @@ from biodsa.tools.pubmed.tools import (
     FetchPaperAnnotationsTool, 
     FindEntitiesTool, 
     SearchPapersTool, 
-    GetPaperReferencesTool
+    GetPaperReferencesTool,
+    FetchPaperContentTool
 )
 from biodsa.tools.gene_set.tools import (
     GetPathwayForGeneSetTool,
@@ -33,7 +34,7 @@ KNOWLEDGE_BASE_LIST = [
 ]
 
 KNOWLEDGE_BASE_TO_TOOLS_MAP = {
-    "pubmed_papers": [FetchPaperAnnotationsTool(), FindEntitiesTool(), SearchPapersTool(), GetPaperReferencesTool()],
+    "pubmed_papers": [FetchPaperAnnotationsTool(), FindEntitiesTool(), SearchPapersTool(), GetPaperReferencesTool(), FetchPaperContentTool()],
     "clinicaltrials": [],
     "gene_set": [GetPathwayForGeneSetTool(), GetEnrichmentForGeneSetTool(), GetInteractionsForGeneSetTool(), GetComplexForGeneSetTool(), GetGeneSummaryForSingleGeneTool(), GetDiseaseForSingleGeneTool(), GetDomainForSingleGeneTool()],
 }

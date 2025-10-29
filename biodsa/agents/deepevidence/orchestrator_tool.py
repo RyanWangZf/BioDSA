@@ -25,7 +25,14 @@ def create_bfs_tool(allowed_knowledge_bases: List[str]) -> Type[BaseTool]:
     class GoBreadthFirstSearchToolInput(BaseModel):
         search_target: str = Field(
             ..., 
-            description="A one sentence description of the target of this round of breadth-first search."
+            description=(
+                "Clear and informative research objective that must include: "
+                "(1) WHAT specific information or data is needed (e.g., percentages, residues, experimental conditions, evidence types), "
+                "(2) KEY ENTITIES to search for (e.g., gene names, protein names, disease names, chemical names, specific PMIDs if known), "
+                "(3) CONTEXT and constraints (e.g., cell types, species, experimental methods, study types), "
+                "(4) SUCCESS CRITERIA - what constitutes a complete answer (e.g., 'need exact percentage', 'need PMID with full experimental details', 'need specific residue ranges'). "
+                "Be concrete and specific so the sub-agent knows exactly what to look for and when to stop searching."
+            )
         )
         knowledge_bases: List[str] = Field(
             ..., 
@@ -81,7 +88,15 @@ def create_dfs_tool(allowed_knowledge_bases: List[str]) -> Type[BaseTool]:
     class GoDepthFirstSearchToolInput(BaseModel):
         search_target: str = Field(
             ..., 
-            description="A one sentence description of the target of this round of depth-first search."
+            description=(
+                "Clear and informative research objective that must include: "
+                "(1) WHAT specific information or data is needed (e.g., specific mutations, exact experimental results, citation chain to follow), "
+                "(2) KEY ENTITIES to search for (e.g., gene names, protein interactions, specific papers or authors), "
+                "(3) CONTEXT and constraints (e.g., cell types, species, experimental methods, publication timeframe), "
+                "(4) SUCCESS CRITERIA - what constitutes a complete answer (e.g., 'need primary paper with deletion mutant data', 'need full text to extract Table 2', 'trace citation to original source'). "
+                "For DFS, also specify: which papers to follow citations from, or which review papers to trace back to primary sources. "
+                "Be concrete and specific so the sub-agent knows exactly what to look for and when to stop searching."
+            )
         )
         knowledge_base: str = Field(
             ..., 

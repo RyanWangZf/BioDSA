@@ -54,5 +54,40 @@ def litqa2():
         print(outputs["outputs"]["final_response"])
         print("-" * 100)
 
+def dbqa():
+    df = pd.read_csv(os.path.join(REPO_BASE_DIR, "benchmarks/LabBench/DBQA_50.csv"))
+    agent = DeepEvidenceAgent(
+        model_name="gpt-5",
+        api_type="azure",
+        api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
+        endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT"),
+    )
+    # register a workspace for the agent to use
+    agent.register_workspace()
+
+    # specify the indices of the questions to answer
+    to_process_indices = [
+        i for i in range(len(df))
+    ]
+
+    for index, row in tqdm(df.iterrows(), desc="Processing questions", total=len(df)):
+        if index not in to_process_indices:
+            continue
+        row = row.to_dict()
+        question = row['question']
+        question_prompt = question_template.format(question=question)
+        execution_results = agent.go(question_prompt, knowledge_bases=["pubmed_papers", "gene_set"])
+        outputs = execution_results.to_json()
+        outputs = {
+            "outputs": outputs,
+        }
+        outputs.update(row)
+        with open(os.path.join(RESULTS_DIR, f"dbqa_{index}.json"), 'w') as f:
+            json.dump(outputs, f, indent=4)
+        print(outputs["answer"])
+        print(outputs["outputs"]["final_response"])
+        print("-" * 100)
+
 if __name__ == "__main__":
     litqa2()
+    # dbqa()
