@@ -36,6 +36,11 @@ from biodsa.utils.render_utils import render_message_colored
 
 class DeepEvidenceAgent(BaseAgent):
     name = "deepevidence"
+    small_model_name: str = None
+    small_model_kwargs: Dict[str, Any] = None
+    small_model_api_type: str = None
+    small_model_api_key: str = None
+    small_model_endpoint: str = None
     def __init__(
         self,
         model_name: str,
@@ -43,7 +48,12 @@ class DeepEvidenceAgent(BaseAgent):
         api_key: str,
         endpoint: str=None,
         container_id: str = None,
-        small_model_name: str = None, # an optional smaller model to help complete the analysis plan and other tasks
+        model_kwargs: Dict[str, Any] = None,
+        small_model_name: str = None,
+        small_model_kwargs: Dict[str, Any] = None,
+        small_model_api_type: str = None,
+        small_model_api_key: str = None,
+        small_model_endpoint: str = None,
         **kwargs
     ):
         super().__init__(
@@ -52,19 +62,20 @@ class DeepEvidenceAgent(BaseAgent):
             api_key=api_key,
             endpoint=endpoint,
             container_id=container_id,
+            model_kwargs=model_kwargs,
         )
         if small_model_name is None:
             self.small_model_name = self.model_name
-            self.small_llm = self.llm
+            self.small_model_kwargs = self.model_kwargs
+            self.small_model_api_type = self.api_type
+            self.small_model_api_key = self.api_key
+            self.small_model_endpoint = self.endpoint
         else:
             self.small_model_name = small_model_name
-            self.small_llm = self._get_model(
-                api=self.api_type,
-                model_name=self.small_model_name,
-                api_key=self.api_key,
-                endpoint=self.endpoint,
-                **kwargs
-            )
+            self.small_model_kwargs = small_model_kwargs
+            self.small_model_api_type = small_model_api_type
+            self.small_model_api_key = small_model_api_key
+            self.small_model_endpoint = small_model_endpoint
 
         self.agent_graph = self._create_agent_graph()
         # debug: visualize the agent graph
@@ -308,9 +319,6 @@ class DeepEvidenceAgent(BaseAgent):
 
         # build the system prompt and call the model
         messages = state.messages
-
-        # TODO: remove the tool calls that do not have the ToolMessage with the same call_id
-        # because when the agent makes both bfs and dfs calls, the tool calls are not aligned with the ToolMessages
         system_prompt = self._build_system_prompt_for_orchestrator_agent(knowledge_bases=allowed_knowledge_bases)
         messages = [
             SystemMessage(content=system_prompt),
@@ -320,7 +328,7 @@ class DeepEvidenceAgent(BaseAgent):
             model_name=self.model_name,
             messages=messages,
             tools=tools,
-            model_kwargs=config.get("configurable", {}).get("model_kwargs", {}),
+            model_kwargs=self.model_kwargs,
             parallel_tool_calls=False,
         )
 
@@ -382,10 +390,13 @@ class DeepEvidenceAgent(BaseAgent):
         ] + messages
         tools = self._get_tools_for_bfs_agent(knowledge_bases=knowledge_bases)
         response = self._call_model(
-            model_name=self.model_name,
+            model_name=self.small_model_name,
+            api_type=self.small_model_api_type,
+            api_key=self.small_model_api_key,
+            endpoint=self.small_model_endpoint,
             messages=messages,
             tools=tools,
-            model_kwargs=config.get("configurable", {}).get("model_kwargs", {})
+            model_kwargs=self.small_model_kwargs
         )
         input_tokens, output_tokens = self._get_input_output_tokens(response)
         total_input_tokens = state.total_input_tokens + input_tokens
@@ -409,10 +420,13 @@ class DeepEvidenceAgent(BaseAgent):
         ] + messages
         tools = self._get_tools_for_dfs_agent(knowledge_base=knowledge_base)
         response = self._call_model(
-            model_name=self.model_name,
+            model_name=self.small_model_name,
+            api_type=self.small_model_api_type,
+            api_key=self.small_model_api_key,
+            endpoint=self.small_model_endpoint,
             messages=messages,
             tools=tools,
-            model_kwargs=config.get("configurable", {}).get("model_kwargs", {})
+            model_kwargs=self.small_model_kwargs
         )
         input_tokens, output_tokens = self._get_input_output_tokens(response)
         total_input_tokens = state.total_input_tokens + input_tokens
@@ -544,16 +558,12 @@ class DeepEvidenceAgent(BaseAgent):
                 "knowledge_bases": knowledge_bases
             }
 
-            model_kwargs = self._set_model_kwargs(self.model_name)
             # Invoke the agent graph and return the result
             for streamed_chunk in self.agent_graph.stream(
                 inputs,
                 stream_mode = ["values"],
                 subgraphs=True,
                 config={
-                    "configurable": {
-                        "model_kwargs": model_kwargs
-                    },
                     "recursion_limit": 100
                 }
             ):

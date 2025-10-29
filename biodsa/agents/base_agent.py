@@ -63,6 +63,7 @@ class BaseAgent():
         endpoint: str=None,
         max_completion_tokens=5000,
         container_id: str = None,
+        model_kwargs: Dict[str, Any] = None,
         **kwargs
     ):
 
@@ -79,6 +80,8 @@ class BaseAgent():
         self.api_type = api_type
         
         self.max_completion_tokens = max_completion_tokens
+
+        self.model_kwargs = model_kwargs
         
         # get the model            
         self.llm = self._get_model(
@@ -174,15 +177,21 @@ class BaseAgent():
         """
         return [res.model_dump() for res in code_execution_results]
 
-    def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None, parallel_tool_calls: bool=True) -> BaseMessage:
+    def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None, parallel_tool_calls: bool=True, api_type: str=None, api_key: str=None, endpoint: str=None) -> BaseMessage:
         if tools is None:
             tools = []
         model_kwargs = self._set_model_kwargs(model_name)
+        if api_type is None:
+            api_type = self.api_type
+        if api_key is None:
+            api_key = self.api_key
+        if endpoint is None:
+            endpoint = self.endpoint
         llm = self._get_model(
-            api=self.api_type,
+            api=api_type,
             model_name=model_name,
-            api_key=self.api_key,
-            endpoint=self.endpoint,
+            api_key=api_key,
+            endpoint=endpoint,
             **model_kwargs
         )
         if tools:
@@ -208,7 +217,7 @@ class BaseAgent():
             model_kwargs["max_tokens"] = 10000
             model_kwargs.pop("reasoning_effort", None)
         if "gpt" in model_name.lower():
-            model_kwargs["reasoning_effort"] = "low"
+            model_kwargs["reasoning_effort"] = "medium"
             model_kwargs.pop("thinking", None)
             model_kwargs["max_completion_tokens"] = 5000
         return model_kwargs
