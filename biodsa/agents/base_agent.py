@@ -1,9 +1,10 @@
 import os
 import logging
-from typing import Dict, Any, Callable, Literal, List
+from typing import Dict, Any, Callable, Literal, List, Tuple
 from langchain_core.language_models.base import BaseLanguageModel
+from langchain_core.tools import BaseTool
 from langchain_anthropic import ChatAnthropic
-from langchain_together import Together
+# from langchain_together import Together
 from langchain_openai import ChatOpenAI
 from langchain_openai import AzureChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -62,6 +63,7 @@ class BaseAgent():
         endpoint: str=None,
         max_completion_tokens=5000,
         container_id: str = None,
+        model_kwargs: Dict[str, Any] = None,
         **kwargs
     ):
 
@@ -78,6 +80,8 @@ class BaseAgent():
         self.api_type = api_type
         
         self.max_completion_tokens = max_completion_tokens
+
+        self.model_kwargs = model_kwargs
         
         # get the model            
         self.llm = self._get_model(
@@ -100,7 +104,7 @@ class BaseAgent():
         Get the appropriate language model based on the API type
         
         Args:
-            api: The API provider ('together', 'anthropic', 'openai', 'google', 'azure')
+            api: The API provider ('anthropic', 'openai', 'google', 'azure')
             api_key: The API key for the provider
             model: The model name
             **kwargs: Additional arguments to pass to the model constructor
@@ -115,13 +119,7 @@ class BaseAgent():
                 del kwargs["max_completion_tokens"]
         
         llm = None
-        if (api == "together"):
-            llm = Together(
-                model=model_name,
-                together_api_key=api_key,
-                **kwargs
-            )
-        elif (api == "anthropic"):
+        if (api == "anthropic"):
             llm = ChatAnthropic(
                 model=model_name,
                 api_key=api_key,
@@ -179,6 +177,54 @@ class BaseAgent():
         """
         return [res.model_dump() for res in code_execution_results]
 
+    def _call_model(self, model_name: str, messages: List[BaseMessage], tools: List[BaseTool]=None, model_kwargs: Dict[str, Any]=None, parallel_tool_calls: bool=True, api_type: str=None, api_key: str=None, endpoint: str=None) -> BaseMessage:
+        if tools is None:
+            tools = []
+        if model_kwargs is None:
+            model_kwargs = self.model_kwargs
+        else:
+            model_kwargs = self._set_model_kwargs(model_name)
+        if api_type is None:
+            api_type = self.api_type
+        if api_key is None:
+            api_key = self.api_key
+        if endpoint is None:
+            endpoint = self.endpoint
+        llm = self._get_model(
+            api=api_type,
+            model_name=model_name,
+            api_key=api_key,
+            endpoint=endpoint,
+            **model_kwargs
+        )
+        if tools:
+            llm_with_tools = llm.bind_tools(tools, parallel_tool_calls=parallel_tool_calls)
+            response = run_with_retry(llm_with_tools.invoke, arg=messages)
+        else:
+            response = run_with_retry(llm.invoke, arg=messages)
+        return response
+
+    def _get_input_output_tokens(self, response: BaseMessage) -> Tuple[int, int]:
+        """
+        Get the input and output tokens from the response.
+        """
+        return response.usage_metadata.get("input_tokens", 0), response.usage_metadata.get("output_tokens", 0)
+
+    def _set_model_kwargs(self, model_name: str) -> Dict[str, Any]:
+        """
+        A function to set the model kwargs for the agent.
+        """
+        model_kwargs = {}
+        if "claude" in model_name.lower():
+            model_kwargs["thinking"] = {"type": "enabled", "budget_tokens": 5000}
+            model_kwargs["max_tokens"] = 10000
+            model_kwargs.pop("reasoning_effort", None)
+        if "gpt" in model_name.lower():
+            model_kwargs["reasoning_effort"] = "medium"
+            model_kwargs.pop("thinking", None)
+            model_kwargs["max_completion_tokens"] = 5000
+        return model_kwargs
+
     def generate(self, **kwargs) -> Dict[str, Any]:
         """
         Base method for generating code.
@@ -213,33 +259,32 @@ class BaseAgent():
             logging.error(f"Error generating code: {e}")
             raise e
 
-    def register_dataset(self, dataset_dir: str):
+    def register_workspace(self, workspace_dir: str=None):
         """
-        Register a dataset to the agent.
-        The dataset is a directory containing the dataset files.
-        Only the files with .csv extension will be uploaded.
+        Register a workspace (a sandbox) to the agent.
+        The dataset (.csv) under the workspace_dir will be collected and uploaded to the sandbox.
         
         Args:
-            dataset_dir: The path to the dataset directory
+            workspace_dir: The path to the workspace directory in local machine
         """
-        local_table_paths = [os.path.join(dataset_dir, file) for file in os.listdir(dataset_dir)]
-        local_table_paths = [file for file in local_table_paths if file.endswith(".csv")]
-        target_table_paths = [os.path.join(self.sandbox.workdir, os.path.basename(file)) for file in local_table_paths]
-        upload_dataset = UploadDataset(
-            local_table_paths=local_table_paths,
-            target_table_paths=target_table_paths,
-        )
-
         # if sandbox is not started, start it
         if not self.sandbox.exists():
             self.sandbox.start() # this will start the sandbox if it is not started
 
         # upload the tables to the sandbox
-        res = self.sandbox.upload_tables(upload_dataset)
+        if workspace_dir is not None:
+            local_table_paths = [os.path.join(workspace_dir, file) for file in os.listdir(workspace_dir)]
+            local_table_paths = [file for file in local_table_paths if file.endswith(".csv")]
+            target_table_paths = [os.path.join(self.sandbox.workdir, os.path.basename(file)) for file in local_table_paths]
+            upload_dataset = UploadDataset(
+                local_table_paths=local_table_paths,
+                target_table_paths=target_table_paths,
+            )
+            res = self.sandbox.upload_tables(upload_dataset)
+            # print what tables are uploaded to the sandbox
+            logging.info("\n\n".join([f"Uploaded table: {file}" for file in local_table_paths]))
+            self.registered_datasets.extend(target_table_paths)
 
-        # print what tables are uploaded to the sandbox
-        logging.info("\n\n".join([f"Uploaded table: {file}" for file in local_table_paths]))
-        self.registered_datasets.extend(target_table_paths)
         return True
 
     def clear_workspace(self):

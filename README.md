@@ -21,7 +21,7 @@ agent = CoderAgent(
 )
 
 # Register a dataset for analysis
-agent.register_dataset("./biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
+agent.register_workspace("./biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
 
 # Execute a data science task
 results = agent.go("Create a bar plot showing the distribution of samples per table")
@@ -131,7 +131,7 @@ agent = CoderAgent(
 )
 
 # Register dataset
-agent.register_dataset("biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
+agent.register_workspace("biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
 
 # Execute task
 results = agent.go("Perform survival analysis and create Kaplan-Meier plot")
