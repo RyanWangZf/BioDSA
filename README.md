@@ -5,6 +5,18 @@ This codebase provides a complete suite for running biomedical data science agen
 1. **BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research** ([arXiv:2505.16100](https://arxiv.org/abs/2505.16100))
 2. **Can Large Language Models Replace Data Scientists in Biomedical Research?** ([arXiv:2410.21591](https://arxiv.org/abs/2410.21591))
 
+## Update Log
+- **2025-11-25**: Major codebase refactoring and enhancement
+  - Restructured agent architecture for improved modularity and extensibility
+  - Added multiple agent implementations: `CoderAgent`, `ReactAgent`, and `DSWizardAgent` with specialized capabilities
+  - Introduced sandboxed execution environment with Docker integration for secure code execution
+  - Implemented comprehensive tool wrapper system for PubMed, Clinical Trials, and code execution
+  - Added memory graph system with BM25 indexing for enhanced context management
+  - Integrated benchmarks: BioDSA-1K, BioDSBench-Python, BioDSBench-R, HLE-Medicine, LabBench, SuperGPQA, TrialPanorama.
+  - Enhanced `ExecutionResults` API with PDF report generation, artifact management, and JSON export
+  - Included example cBioPortal datasets for quick start and testing
+  - Improved documentation with detailed setup guides, usage examples, and API references
+
 ## 🚀 Quick Start
 
 Here's a minimal example to get started with BioDSA agents:
