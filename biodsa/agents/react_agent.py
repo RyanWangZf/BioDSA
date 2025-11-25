@@ -7,7 +7,7 @@ from langchain_core.runnables import RunnableConfig
 from biodsa.agents.base_agent import BaseAgent, run_with_retry
 from biodsa.agents.state import AgentState, CodeExecutionResult
 from biodsa.sandbox.execution import ExecutionResults
-from biodsa.tools.code_exec_tool import CodeExecutionTool
+from biodsa.tool_wrappers.code_exec_tool import CodeExecutionTool
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

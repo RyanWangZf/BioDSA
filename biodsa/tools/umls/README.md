@@ -1,0 +1,1 @@
+Adapted from "https://github.com/palasht75/umls-python-client/tree/main".
