@@ -1,0 +1,851 @@
+id,question,answer
+283,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set CAHOY_NEURONAL, which contains genes up-regulated in neurons. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
+Options:
+A.RASL10A
+B.Insufficient information to answer the question.
+C.EVI2B
+D.TCAF1
+E.KIR3DL3
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+284,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set ESC_J1_UP_EARLY.V1_DN, which contains genes down-regulated during early stages of differentiation of embryoid bodies from J1 embryonic stem cells. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
+Options:
+A.ANXA3
+B.ZMYM5
+C.Insufficient information to answer the question.
+D.CHD7
+E.KCNMB1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+285,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be benign? <sequence>MPSSVSWGILLLAGLCCLVPVSLAEDPQGDAAQKTDTSHHDQDHPTFNKITPNLAEFAFSLYRQLAHQSNSTNIFFSPVSIATAFAMLSLGTKADTHDEILEGLNFNLTEIPEAQIHEGFQELLRTLNQPDSQLQLTTGNGLFLSEGLKLVDKFLEDVKKLYHSEAFTVNFGDTEEAKKQINDYVEKGTQGKIVDLVKELDRDTVFALVNYIFFKGKWERPFEVKDTEEEDFHVDQVTTVKVPMMKRLGMFNIQHCKKLSSWVLLMKYLGNATAIFFLPDEGKLQHLENELTHDIITKFLENEDRRSASLHLPKLSITGTYDLKSVLGQLGITKVFSNGADLSGVTEEAPLKLSKAVHKAVLTIDEKGTEAAGAMFLEAIPMSIPPEVKFNKPFVFLMIEQNTKSPLFMGKVVNPTQK</sequence> 
+Options:
+A.S77F
+B.E366K
+C.D280V
+D.E400D
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+286,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set THAKAR_PBMC_INACTIVATED_INFLUENZA_AGE_21_30YO_RESPONDERS_7DY_DN, which contains genes down-regulated in peripheral blood mononuclear cell 7d vs 0d in young adults (21-30) (responders) after exposure to Inactivated influenza vaccine , time point 7D. Comment: most (70-80%) of cohort were white. This gene set is a part of the C7 subcollection VAX: vaccine response gene sets. 
+Options:
+A.MROH1
+B.SLC39A13
+C.Insufficient information to answer the question.
+D.FARSB
+E.PPFIA4
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+287,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a DYRK1A binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.AGAP1
+B.RAMAC
+C.GRIN3B
+D.Insufficient information to answer the question.
+E.MACROD1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+288,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes encodes a protein that is predicted to interact with the viral protein Variola virus hypothetical protein (gene: N1L) according to the P-HIPSter database? 
+Options:
+A.IL17B
+B.Insufficient information to answer the question.
+C.OR2A12
+D.LHCGR
+E.BAG3
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",E
+289,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set THAKAR_PBMC_INACTIVATED_INFLUENZA_AGE_21_30YO_VS_70PLS_0DY_UP, which contains genes up-regulated in peripheral blood mononuclear cell young adults vs seniors in young adults (21-30), seniors (70+) after exposure to Inactivated influenza vaccine , time point 0D. This gene set is a part of the C7 subcollection VAX: vaccine response gene sets. 
+Options:
+A.AAK1
+B.SHFL
+C.EMC3-AS1
+D.MRPS23
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+290,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be benign? <sequence>MTADKDKDKDKEKDRDRDRDREREKRDKARESENSRPRRSCTLEGGAKNYAESDHSEDEDNDNNSATAEESTKKNKKKPPKKKSRYERTDTGEITSYITEDDVVYRPGDCVYIESRRPNTPYFICSIQDFKLVHNSQACCRSPTPALCDPPACSLPVASQPPQHLSEAGRGPVGSKRDHLLMNVKWYYRQSEVPDSVYQHLVQDRHNENDSGRELVITDPVIKNRELFISDYVDTYHAAALRGKCNISHFSDIFAAREFKARVDSFFYILGYNPETRRLNSTQGEIRVGPSHQAKLPDLQPFPSPDGDTVTQHEELVWMPGVNDCDLLMYLRAARSMAAFAGMCDGGSTEDGCVAASRDDTTLNALNTLHESGYDAGKALQRLVKKPVPKLIEKCWTEDEVKRFVKGLRQYGKNFFRIRKELLPNKETGELITFYYYWKKTPEAASSRAHRRHRRQAVFRRIKTRTASTPVNTPSRPPSSEFLDLSSASEDDFDSEDSEQELKGYACRHCFTTTSKDWHHGGRENILLCTDCRIHFKKYGELPPIEKPVDPPPFMFKPVKEEDDGLSGKHSMRTRRSRGSMSTLRSGRKKQPASPDGRTSPINEDIRSSGRNSPSAASTSSNDSKAETVKKSAKKVKEEASSPLKSNKRQREKVASDTEEADRTSSKKTKTQEISRPNSPSEGEGESSDSRSVNDEGSSDPKDIDQDNRSTSPSIPSPQDNESDSDSSAQQQMLQAQPPALQAPTGVTPAPSSAPPGTPQLPTPGPTPSATAVPPQGSPTASQAPNQPQAPTAPVPHTHIQQAPALHPQRPPSPHPPPHPSPHPPLQPLTGSAGQPSAPSHAQPPLHGQGPPGPHSLQAGPLLQHPGPPQPFGLPPQASQGQAPLGTSPAAAYPHTSLQLPASQSALQSQQPPREQPLPPAPLAMPHIKPPPTTPIPQLPAPQAHKHPPHLSGPSPFSMNANLPPPPALKPLSSLSTHHPPSAHPPPLQLMPQSQPLPSSPAQPPGLTQSQNLPPPPASHPPTGLHQVAPQPPFAQHPFVPGGPPPITPPTCPSTSTPPAGPGTSAQPPCSGAAASGGSIAGGSSCPLPTVQIKEEALDDAEEPESPPPPPRSPSPEPTVVDTPSHASQSARFYKHLDRGYNSCARTDLYFMPLAGSKLAKKREEAIEKAKREAEQKAREEREREKEKEKEREREREREREAERAAKASSSAHEGRLSDPQLSGPGHMRPSFEPPPTTIAAVPPYIGPDTPALRTLSEYARPHVMSPTNRNHPFYMPLNPTDPLLAYHMPGLYNVDPTIRERELREREIREREIRERELRERMKPGFEVKPPELDPLHPAANPMEHFARHSALTIPPTAGPHPFASFHPGLNPLERERLALAGPQLRPEMSYPDRLAAERIHAERMASLTSDPLARLQMFNVTPHHHQHSHIHSHLHLHQQDPLHQGSAGPVHPLVDPLTAGPHLARFPYPPGTLPNPLLGQPPHEHEMLRHPVFGTPYPRDLPGAIPPPMSAAHQLQAMHAQSAELQRLAMEQQWLHGHPHMHGGHLPSQEDYYSRLKKEGDKQL</sequence> 
+Options:
+A.L1256P
+B.N414H
+C.H1435Y
+D.Insufficient information to answer the question.
+E.P1476L
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+291,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be pathogenic? <sequence>MVQKSRNGGVYPGPSGEKKLKVGFVGLDPGAPDSTRDGALLIAGSEAPKRGSILSKPRAGGAGAGKPPKRNAFYRKLQNFLYNVLERPRGWAFIYHAYVFLLVFSCLVLSVFSTIKEYEKSSEGALYILEIVTIVVFGVEYFVRIWAAGCCCRYRGWRGRLKFARKPFCVIDIMVLIASIAVLAAGSQGNVFATSALRSLRFLQILRMIRMDRRGGTWKLLGSVVYAHSKELVTAWYIGFLCLILASFLVYLAEKGENDHFDTYADALWWGLITLTTIGYGDKYPQTWNGRLLAATFTLIGVSFFALPAGILGSGFALKVQEQHRQKHFEKRRNPAAGLIQSAWRFYATNLSRTDLHSTWQYYERTVTVPMYSSQTQTYGASRLIPPLNQLELLRNLKSKSGLAFRKDPPPEPSPSKGSPCRGPLCGCCPGRSSQKVSLKDRVFSSPRGVAAKGKGSPQAQTVRRSPSADQSLEDSPSKVPKSWSFGDRSRARQAFRIKGAASRQNSEEASLPGEDIVDDKSCPCEFVTEDLTPGLKVSIRAVCVMRFLVSKRKFKESLRPYDVMDVIEQYSAGHLDMLSRIKSLQSRVDQIVGRGPAITDKDRTKGPAEAELPEDPSMMGRLGKVEKQVLSMEKKLDFLVNIYMQRMGIPPTETEAYFGAKEPEPAPPYHSPEDSREHVDRHGCIVKIVRSSSSTGQKNFSAPPAAPPVQCPPSTSWQPQSHPRQGHGTSPVGDHGSLVRIPPPPAHERSLSAYGGGNRASMEFLRQEDTPGCRPPEGNLRDSDTSISIPSVDHEELERSFSGFSISQSKENLDALNSCYAAVAPCAKVRPYIAEGESDTDSDLCTPCGPPPRSATGEGPFGDVGWAGPRK</sequence> 
+Options:
+A.G418V
+B.P335A
+C.Y755C
+D.Insufficient information to answer the question.
+E.P777R
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+292,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a ZNF134 binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.Insufficient information to answer the question.
+B.IPO9
+C.POLDIP2
+D.NICOL1
+E.C6orf15
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+293,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set ATM_DN.V1_DN, which contains genes down-regulated in HEK293 cells (kidney fibroblasts) upon knockdown of ATM [GeneID=472] gene by RNAi. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
+Options:
+A.TNS3
+B.TMEM127
+C.Insufficient information to answer the question.
+D.ADRB3
+E.NAGK
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+294,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set MP_INCREASED_LYMPHOBLASTIC_LYMPHOMA_INCIDENCE, which contains mouse genes annotated to increased lymphoblastic lymphoma incidence (MP:0009320) retrieved from the Mouse Genome Informatics database via MouseMine 
+Options:
+A.Tal1
+B.Cebpb
+C.Insufficient information to answer the question.
+D.Suv39h1
+E.Stk4
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+295,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes is located at chr11q23 according to Ensembl Release 110? 
+Options:
+A.VPS11-DT
+B.OR5B1P
+C.EIF3F
+D.OR51F5P
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+296,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set GLI1_UP.V1_DN, which contains genes down-regulated in RK3E cells (kidney epithelium) over-expressing GLI1 [GeneID=2735]. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
+Options:
+A.FGF16
+B.UCK1
+C.Insufficient information to answer the question.
+D.SV2C
+E.PPIL1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",E
+297,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to contain a pathogenic variant? 
+Options:
+A.MSRRFTVTSLPPAGPARSPDPESRRHSVADPRHLPGEDVKGDGNPKESSPFINSTDTEKGKEYDGKNMALFEEEMDTSPMVSSLLSGLANYTNLPQGSREHEEAENNEGGKKKPVQAPRMGTFMGVYLPCLQNIFGVILFLRLTWVVGIAGIMESFCMVFICCSCTMLTAISMSAIATNGVVPAGGSYYMISRSLGPEFGGAVGLCFYLGTTFAGAMYILGTIEILLAYLFPAMAIFKAEDASGEAAAMLNNMRVYGTCVLTCMATVVFVGVKYVNKFALVFLGCVILSILAIYAGVIKSAFDPPNFPICLLGNRTLSRHGFDVCAKLAWEGNETVTTRLWGLFCSSRFLNATCDEYFTRNNVTEIQGIPGAASGLIKENLWSSYLTKGVIVERSGMTSVGLADGTPIDMDHPYVFSDMTSYFTLLVGIYFPSVTGIMAGSNRSGDLRDAQKSIPTGTILAIATTSAVYISSVVLFGACIEGVVLRDKFGEAVNGNLVVGTLAWPSPWVIVIGSFFSTCGAGLQSLTGAPRLLQAISRDGIVPFLQVFGHGKANGEPTWALLLTACICEIGILIASLDEVAPILSMFFLMCYMFVNLACAVQTLLRTPNWRPRFRYYHWTLSFLGMSLCLALMFICSWYYALVAMLIAGLIYKYIEYRGAEKEWGDGIRGLSLSAARYALLRLEEGPPHTKNWRPQLLVLVRVDQDQNVVHPQLLSLTSQLKAGKGLTIVGSVLEGTFLENHPQAQRAEESIRRLMEAEKVKGFCQVVISSNLRDGVSHLIQSGGLGGLQHNTVLVGWPRNWRQKEDHQTWRNFIELVRETTAGHLALLVTKNVSMFPGNPERFSEGSIDVWWIVHDGGMLMLLPFLLRHHKVWRKCKMRIFTVAQMDDNSIQMKKDLTTFLYHLRITAEVEVVEMHESDISAYTYEKTLVMEQRSQILKQMHLTKNEREREIQSITDESRGSIRRKNPANTRLRLNVPEETAGDSEEKPEEEVQLIHDQSAPSCPSSSPSPGEEPEGEGETDPEKVHLTWTKDKSVAEKNKGPSPVSSEGIKDFFSMKPEWENLNQSNVRRMHTAVRLNEVIVKKSRDAKLVLLNMPGPPRNRNGDENYMEFLEVLTEHLDRVMLVRGGGREVITIYS
+B.MSRRFTVTSLPPAGPARSPDPESRRHSVADPRHLPGEDVKGDGNPKESSPFINSTDTEKGKEYDGKNMALFEEEMDTSPMVSSLLSGLANYTNLPQGSREHEEAENNEGGKKKPVQAPRMGTFMGVYLPCLQNIFGVILFLRLTWVVGIAGIMESFCMVFICCSCTMLTAISMSAIATNGVVPAGGSYYMISRSLGPEFGGAVGLCFYLGTTFAGAMYILGTIEILLAYLFPAMAIFKAEDASGEAAAMLNNMRVYGTCVLTCMATVVFVGVKYVNKFALVFLGCVILSILAIYAGVIKSAFDPPNFPICLLGNRTLSRHGFDVCAKLAWEGNETVTTRLWGLFCSSRFLNATCDEYFTRNNVTEIQGIPGAASGLIKENLWSSYLTKGVIVERSGMTSVGLADGTAIDMDHPYVFSDMTSYFTLLVGIYFPSVTGIMAGSNRSGDLRDAQKSIPTGTILAIATTSAVYISSVVLFGACIEGVVLRDKFGEAVNGNLVVGTLAWPSPWVIVIGSFFSTCGAGLQSLTGAPRLLQAISRDGIVPFLQVFGHGKANGEPTWALLLTACICEIGILIASLDEVAPILSMFFLMCYMFVNLACAVQTLLRTPNWRPRFRYYHWTLSFLGMSLCLALMFICSWYYALVAMLIAGLIYKYIEYRGAEKEWGDGIRGLSLSAARYALLRLEEGPPHTKNWRPQLLVLVRVDQDQNVVHPQLLSLTSQLKAGKGLTIVGSVLEGTFLENHPQAQRAEESIRRLMEAEKVKGFCQVVISSNLRDGVSHLIQSGGLGGLQHNTVLVGWPRNWRQKEDHQTWRNFIELVRETTAGHLALLVTKNVSMFPGNPERFSEGSIDVWWIVHDGGMLMLLPFLLRHHKVWRKCKMRIFTVAQMDDNSIQMKKDLTTFLYHLRITAEVEVVEMHESDISAYTYEKTLVMEQRSQILKQMHLTKNEREREIQSITDESRGSIRRKNPANTRLRLNVPEETAGDSEEKPEEEVQLIHDQSAPSCPSSSPSPGEEPEGEGETDPEKVHLTWTKDKSVAEKNKGPSPVSSEGIKDFFSMKPEWENLNQSNVRRMHTAVRLNEVIVKKSRDAKLVLLNMPGPPRNRNGDENYMEFLEVLTEHLDRVMLVRGGGREVITIYS
+C.MSRRFTVTSLPPAGPARSPDPESRRHSVADPRHLPGEDVKGDGNPKESSPFINSTDTEKGKEYDGKNMALFEEEMDTSPMVSSLLSGLANYTNLPQGSREHEEAENNEGGKKKPVQAPRMGTFMGVYLPCLQNIFGVILFLRLTWVVGIAGIMESFCMVFICCSCTMLTAISMSAIATNGVVPAGGSYYMISRSLGPEFGGAVGLCFYLGTTFAGAMYILGTIEILLAYLFPAMAIFKAEDASGEAAAMLNNMRVYGTCVLTCMATVVFVGVKYVNKFALVFLGCVILSILAVYAGVIKSAFDPPNFPICLLGNRTLSRHGFDVCAKLAWEGNETVTTRLWGLFCSSRFLNATCDEYFTRNNVTEIQGIPGAASGLIKENLWSSYLTKGVIVERSGMTSVGLADGTPIDMDHPYVFSDMTSYFTLLVGIYFPSVTGIMAGSNRSGDLRDAQKSIPTGTILAIATTSAVYISSVVLFGACIEGVVLRDKFGEAVNGNLVVGTLAWPSPWVIVIGSFFSTCGAGLQSLTGAPRLLQAISRDGIVPFLQVFGHGKANGEPTWALLLTACICEIGILIASLDEVAPILSMFFLMCYMFVNLACAVQTLLRTPNWRPRFRYYHWTLSFLGMSLCLALMFICSWYYALVAMLIAGLIYKYIEYRGAEKEWGDGIRGLSLSAARYALLRLEEGPPHTKNWRPQLLVLVRVDQDQNVVHPQLLSLTSQLKAGKGLTIVGSVLEGTFLENHPQAQRAEESIRRLMEAEKVKGFCQVVISSNLRDGVSHLIQSGGLGGLQHNTVLVGWPRNWRQKEDHQTWRNFIELVRETTAGHLALLVTKNVSMFPGNPERFSEGSIDVWWIVHDGGMLMLLPFLLRHHKVWRKCKMRIFTVAQMDDNSIQMKKDLTTFLYHLRITAEVEVVEMHESDISAYTYEKTLVMEQRSQILKQMHLTKNEREREIQSITDESRGSIRRKNPANTRLRLNVPEETAGDSEEKPEEEVQLIHDQSAPSCPSSSPSPGEEPEGEGETDPEKVHLTWTKDKSVAEKNKGPSPVSSEGIKDFFSMKPEWENLNQSNVRRMHTAVRLNEVIVKKSRDAKLVLLNMPGPPRNRNGDENYMEFLEVLTEHLDRVMLVRGGGREVITIYS
+D.Insufficient information to answer the question.
+E.MSRRFTVTSLPPAGPARSPDPESRRHSVADPRHLPGEDVKGDGNPKESSPFINSTDTEKGKEYDGKNMALFEEEMDTSPMVSSLLSGLANYTNLPQGSREHEEAENNEGGKKKPVQAPRMGTFMGVYLPCLQNIFGVILFLRLTWVVGIAGIMESFCMVFICCSCTMLTAISMSAIATNGVVPAGGSYYMISRSLGPEFGGAVGLCFYLGTTFAGAMYILGTIEILLAYLFPAMAIFKAEDASGEAAAMLNNMRVYGTCVLTCMATVVFVGVKYVNKFALVFLGCVILSILAIYAGVIKSAFDPPNFPICLLGNRTLSRHGFDVCAKLAWEGNETVTTRLWGLFCSSRFLNATCDEYFTRNNVTEIQGIPGAASGLIKENLWSSYLTKGVIVERSGMTSVGLADGTPIDMDHPYVFSDMTSYFTLLVGIYFPSVTGIMAGSNRSGDLRDAQKSIPTGTILAIATTSAVYISSVVLFGACIEGVVLRDKFGEAVNGNLVVGTLAWPSPWVIVIGSFFSTCGAGLQSLTGAPRLLQAISRDGIVPFLQVFGHGKANGEPTWALLLTACICEIGILIASLDEVAPILSMFFLMCYMFVNLACAVQTLLRTPNWRPRFRYYHWTLSFLGMSLCLALMFICSWYYALVAMLIAGLIYKYIEYRGAEKEWGDGIRGLSLSAARYALLRLEEGPPHTKNWRPQLLVLVRVDQDQNVVHPQLLSLTSQLKAGKGLTIVGSVLEGTFLENHPQAQQAEESIRRLMEAEKVKGFCQVVISSNLRDGVSHLIQSGGLGGLQHNTVLVGWPRNWRQKEDHQTWRNFIELVRETTAGHLALLVTKNVSMFPGNPERFSEGSIDVWWIVHDGGMLMLLPFLLRHHKVWRKCKMRIFTVAQMDDNSIQMKKDLTTFLYHLRITAEVEVVEMHESDISAYTYEKTLVMEQRSQILKQMHLTKNEREREIQSITDESRGSIRRKNPANTRLRLNVPEETAGDSEEKPEEEVQLIHDQSAPSCPSSSPSPGEEPEGEGETDPEKVHLTWTKDKSVAEKNKGPSPVSSEGIKDFFSMKPEWENLNQSNVRRMHTAVRLNEVIVKKSRDAKLVLLNMPGPPRNRNGDENYMEFLEVLTEHLDRVMLVRGGGREVITIYS
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+298,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set MP_INCREASED_SMALL_INTESTINE_ADENOCARCINOMA_INCIDENCE, which contains mouse genes annotated to increased small intestine adenocarcinoma incidence (MP:0009309) retrieved from the Mouse Genome Informatics database via MouseMine 
+Options:
+A.Tes
+B.Tnfrsf1a
+C.Insufficient information to answer the question.
+D.Rnf8
+E.Smurf2
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",E
+299,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be pathogenic? <sequence>MAAPILKDVVAYVEVWSSNGTENYSKTFTTQLVDMGAKVSKTFNKQVTHVIFKDGYQSTWDKAQKRGVKLVSVLWVEKCRTAGAHIDESLFPAANMNEHLSSLIKKKRKCMQPKDFNFKTPENDKRFQKKFEKMAKELQRQKTNLDDDVPILLFESNGSLIYTPTIEINSRHHSAMEKRLQEMKEKRENLSPTSSQMIQQSHDNPSNSLCEAPLNISRDTLCSDEYFAGGLHSSFDDLCGNSGCGNQERKLEGSINDIKSDVCISSLVLKANNIHSSPSFTHLDKSSPQKFLSNLSKEEINLQRNIAGKVVTPDQKQAAGMSQETFEEKYRLSPTLSSTKGHLLIHSRPRSSSVKRKRVSHGSHSPPKEKCKRKRSTRRSIMPRLQLCRSEDRLQHVAGPALEALSCGESSYDDYFSPDNLKERYSENLPPESQLPSSPAQLSCRSLSKKERTSIFEMSDFSCVGKKTRTVDITNFTAKTISSPRKTGNGEGRATSSCVTSAPEEALRCCRQAGKEDACPEGNGFSYTIEDPALPKGHDDDLTPLEGSLEEMKEAVGLKSTQNKGTTSKISNSSEGEAQSEHEPCFIVDCNMETSTEEKENLPGGYSGSVKNRPTRHDVLDDSCDGFKDLIKPHEELKKSGRGKKPTRTLVMTSMPSEKQNVVIQVVDKLKGFSIAPDVCETTTHVLSGKPLRTLNVLLGIARGCWVLSYDWVLWSLELGHWISEEPFELSHHFPAAPLCRSECHLSAGPYRGTLFADQPAMFVSPASSPPVAKLCELVHLCGGRVSQVPRQASIVIGPYSGKKKATVKYLSEKWVLDGVSLCHQAGVCSDEISAHCNLHLLGSSDSSASAFPVAGITGPATMPRFHHPAQGLCP</sequence> 
+Options:
+A.D224G
+B.I264V
+C.A93E
+D.Insufficient information to answer the question.
+E.S496L
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",C
+300,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a NFKBIA binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.SECTM1
+B.TOMM40L
+C.FAAP20
+D.Insufficient information to answer the question.
+E.BICD1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+301,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is a computationally predicted human gene target of the miRNA MIR4795_5P according to miRDB v6.0? 
+Options:
+A.ATP5MGL
+B.UNC5C
+C.NTN3
+D.Insufficient information to answer the question.
+E.ITPA
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+302,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes is located at chr17p13 according to Ensembl Release 110? 
+Options:
+A.CSHL1
+B.SMG6
+C.Insufficient information to answer the question.
+D.AATK
+E.GAA
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+303,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to be benign? 
+Options:
+A.MAAPILKDVVAYVEVWSSNGTENYSKTFTTQLVDMGAKVSKTFNKQVTHVIFKDGYQSTWDKAQKRGVKLVSVLWVEKCRTAGAHIDESLFPEANMNEHLSSLIKKKRKCMQPKDFNFKTPENDKRFQKKFEKMAKELQRQKTNLDDDVPILLFESNGSLIYTPTIEINSRHHSAMEKRLQEMKEKRENLSPTSSQMIQQSHDNPSNSLCEAPLNISRDTLCSDEYFAGGLHSSFDDLCGNSGCGNQERKLEGSINDIKSDVCISSLVLKANNIHSSPSFTHLDKSSPQKFLSNLSKEEINLQRNIAGKVVTPDQKQAAGMSQETFEEKYRLSPTLSSTKGHLLIHSRPRSSSVKRKRVSHGSHSPPKEKCKRKRSTRRSIMPRLQLCRSEDRLQHVAGPALEALSCGESSYDDYFSPDNLKERYSENLPPESQLPSSPAQLSCRSLSKKERTSIFEMSDFSCVGKKTRTVDITNFTAKTISSPRKTGNGEGRATSSCVTSAPEEALRCCRQAGKEDACPEGNGFSYTIEDPALPKGHDDDLTPLEGSLEEMKEAVGLKSTQNKGTTSKISNSSEGEAQSEHEPCFIVDCNMETSTEEKENLPGGYSGSVKNRPTRHDVLDDSCDGFKDLIKPHEELKKSGRGKKPTRTLVMTSMPSEKQNVVIQVVDKLKGFSIAPDVCETTTHVLSGKPLRTLNVLLGIARGCWVLSYDWVLWSLELGHWISEEPFELSHHFPAAPLCRSECHLSAGPYRGTLFADQPAMFVSPASSPPVAKLCELVHLCGGRVSQVPRQASIVIGPYSGKKKATVKYLSEKWVLDGVSLCHQAGVCSDEISAHCNLHLLGSSDSSASAFPVAGITGPATMPRFHHPAQGLCP
+B.MAAPILKDVVAYVEVWSSNGTENYSKTFTTQLVDMGAKVSKTFNKQVIHVIFKDGYQSTWDKAQKRGVKLVSVLWVEKCRTAGAHIDESLFPAANMNEHLSSLIKKKRKCMQPKDFNFKTPENDKRFQKKFEKMAKELQRQKTNLDDDVPILLFESNGSLIYTPTIEINSRHHSAMEKRLQEMKEKRENLSPTSSQMIQQSHDNPSNSLCEAPLNISRDTLCSDEYFAGGLHSSFDDLCGNSGCGNQERKLEGSINDIKSDVCISSLVLKANNIHSSPSFTHLDKSSPQKFLSNLSKEEINLQRNIAGKVVTPDQKQAAGMSQETFEEKYRLSPTLSSTKGHLLIHSRPRSSSVKRKRVSHGSHSPPKEKCKRKRSTRRSIMPRLQLCRSEDRLQHVAGPALEALSCGESSYDDYFSPDNLKERYSENLPPESQLPSSPAQLSCRSLSKKERTSIFEMSDFSCVGKKTRTVDITNFTAKTISSPRKTGNGEGRATSSCVTSAPEEALRCCRQAGKEDACPEGNGFSYTIEDPALPKGHDDDLTPLEGSLEEMKEAVGLKSTQNKGTTSKISNSSEGEAQSEHEPCFIVDCNMETSTEEKENLPGGYSGSVKNRPTRHDVLDDSCDGFKDLIKPHEELKKSGRGKKPTRTLVMTSMPSEKQNVVIQVVDKLKGFSIAPDVCETTTHVLSGKPLRTLNVLLGIARGCWVLSYDWVLWSLELGHWISEEPFELSHHFPAAPLCRSECHLSAGPYRGTLFADQPAMFVSPASSPPVAKLCELVHLCGGRVSQVPRQASIVIGPYSGKKKATVKYLSEKWVLDGVSLCHQAGVCSDEISAHCNLHLLGSSDSSASAFPVAGITGPATMPRFHHPAQGLCP
+C.MAAPILKDVVAYVEVWSSNGTENYSKTFTTQLVDMGAKVSKTFNKQVTHVIFKDGYQSTWDKAQKRGVKLVSVLWVEKCRTAGAHIDESLFPAANMNEHLSSLIKKKRKCMQPKDFNFKTPENDKRFQKKFEKMAKELQRQKTNLDDDVPILLFESNGSLIYTPTIEINSRHHSAMEKRLQEMKEKRENLSPTSSQMIQQSHDNPSNSLCEAPLNISRDTLCSDEYFAGGLHSSFDDLCGNSGCGNQERKLEGSINDIKSDVCISSLVLKANNIHSSPSFTHLDKSSPQKFLSNLSKEEINLQRNIAGKVVTPDQKQAAGMSQETFEEKYRLSPTLSSTKGHLLIHSRPRSSSVKRKRVSHGSHSPPKEKCKRKRSTRRSIMPRLQLCRSEDRLQHVAGPALEALSCGESSYDDYFSPDNLKERYSENLPPESQLPSSPAQLSCRSLSKKERTSIFEMSDFSCVGKKTRTVDITNFTAKTISSPRKTGNGEGRATSSCVTSAPEEALRCCRQAGKEDACPEGNGFSYTIEDPALPKGHDDDLTPLEGSLEEMKEAVGLKSTQNKGTTSKISNSSEGEAQSEHEPCFIVDCNMETSTEEKENLPGGYSGSVKNRPTRHDVLDDSCDGFKDLIKPHEELKKSGRGKKPTRTLVMTSMPSEKQNVVIQVVDKLKGFSIAPDVCETTTHVLSGKPLRTLNVLLGIARGCWVLSYDWVLWSLELGHWISEEPFELSHHFPAAPLCRSECHLSAGPYRGTLFADQPAMFVSPASSPPVAKLCELVHLCGGRVSQVPRQASIVIGPYSGKKKATVKYLSEKWVLDGVSLCHQAGVCSDEISAHCNLHLLGSSDSSASAFPVAGITGPATMPRFHHPAQGLCP
+D.Insufficient information to answer the question.
+E.MAAPILKDVVAYVEVWSSNGTENYSKTFTTQLVDMGAKVSKTFNKQVTHVIFKDGYQSTWDKAQKRGVKLVLVLWVEKCRTAGAHIDESLFPAANMNEHLSSLIKKKRKCMQPKDFNFKTPENDKRFQKKFEKMAKELQRQKTNLDDDVPILLFESNGSLIYTPTIEINSRHHSAMEKRLQEMKEKRENLSPTSSQMIQQSHDNPSNSLCEAPLNISRDTLCSDEYFAGGLHSSFDDLCGNSGCGNQERKLEGSINDIKSDVCISSLVLKANNIHSSPSFTHLDKSSPQKFLSNLSKEEINLQRNIAGKVVTPDQKQAAGMSQETFEEKYRLSPTLSSTKGHLLIHSRPRSSSVKRKRVSHGSHSPPKEKCKRKRSTRRSIMPRLQLCRSEDRLQHVAGPALEALSCGESSYDDYFSPDNLKERYSENLPPESQLPSSPAQLSCRSLSKKERTSIFEMSDFSCVGKKTRTVDITNFTAKTISSPRKTGNGEGRATSSCVTSAPEEALRCCRQAGKEDACPEGNGFSYTIEDPALPKGHDDDLTPLEGSLEEMKEAVGLKSTQNKGTTSKISNSSEGEAQSEHEPCFIVDCNMETSTEEKENLPGGYSGSVKNRPTRHDVLDDSCDGFKDLIKPHEELKKSGRGKKPTRTLVMTSMPSEKQNVVIQVVDKLKGFSIAPDVCETTTHVLSGKPLRTLNVLLGIARGCWVLSYDWVLWSLELGHWISEEPFELSHHFPAAPLCRSECHLSAGPYRGTLFADQPAMFVSPASSPPVAKLCELVHLCGGRVSQVPRQASIVIGPYSGKKKATVKYLSEKWVLDGVSLCHQAGVCSDEISAHCNLHLLGSSDSSASAFPVAGITGPATMPRFHHPAQGLCP
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",C
+304,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is associated with Currarino syndrome (Currarino triad) according to DisGeNet but not according to OMIM?
+Options:
+A.HPGD
+B.MCTP1
+C.DECR1
+D.MNX1
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+305,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set HOWARD_NEUTROPHIL_INACT_MONOV_INFLUENZA_A_INDONESIA_05_2005_H5N1_AGE_18_49YO_1DY_DN, which contains genes down-regulated in neutrophil 1d vs 0d in adults (18-49) after exposure to inactivated monovalent influenza A/Indonesia/05/2005 H5N1 split-virus vaccine , time point 1D , administered i.m.. This gene set is a part of the C7 subcollection VAX: vaccine response gene sets. 
+Options:
+A.GINS4
+B.XYLT1
+C.MFSD14A
+D.Insufficient information to answer the question.
+E.HYAL3
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+306,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes encodes a protein that is predicted to interact with the viral protein Monkeypox virus Zaire-96-I-16 host-range protein (gene: D10L) according to the P-HIPSter database? 
+Options:
+A.GGT7
+B.GRB2
+C.ZC3H14
+D.Insufficient information to answer the question.
+E.ZNF610
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+307,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes is located at chr14q21 according to Ensembl Release 110? 
+Options:
+A.ACTN1
+B.FKBP1BP1
+C.SLC22A17
+D.Insufficient information to answer the question.
+E.OR11H4
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+308,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to contain a pathogenic variant? 
+Options:
+A.MVQKSRNGGVYPGPSGEKKLKVGFVGLDPGAPDSTRDGALLIAGSEAPKRGSILSKPRAGGAGAGKPPKRNAFYRKLQNFLYNVLERPRGWAFIYHAYVFLLVFSCLVLSVFSTIKEYEKSSEGALYILEIVTIVVFGVEYFVRIWAAGCCCRYRGWRGRLKFARKPFCVIDIMVLIASIAVLAAGSQGNVFATSALRSLRFLQILRMIRMDRRGGTWKLLGSVVYAHSKELVTAWYIGFLCLILASFLVYLAEKGENDHFDTYADALWWGLITLTTIGYGDKYPQTWNGRLLAATFTLIGVSFFALPAGILGSGFALKVQEQHRQKHFEKRRNPAAGLIQSAWRFYATNLSRTDLHSTWQYYERTVTVPMYSSQTQTYGASRLIPPLNQLELLRNLKSKSGLAFRKDPPPEPSPSKGSPCRGPLCGCCPGRSSQKVSLKDRVFSSPRGVAAKGKGSPQAQTVRRSPSADQSLEDSPSKVPKSWSFGDRSRARQAFRIKGAASRQNSEEASLPGEDIVDDKSCPCEFVTEDLTPGLKVSIRAVCVMRFLVSKRKFKESLRPYDVMDVIEQYSAGHLDMLSRIKSLQSRVDQIVGRGPAITDKDRTKGPAEAELPEDPSMMGRLGKVEKQVLSMEKKLDFLVNIYMQRMGIPPTETEAYFGAKEPEPAPPYHSPEDSREHVDRHGCIVKIVRSSSSTGQKNFSAPPAAPPVQCPPSTSWQPQSHPRQGHGTSPVGDHGSLVRIPPPPAHERSLSAYGGGNRASMEFLRQEDTPGCRPPEGNLRDSDTSISIPSVDHEELERSFSGFSISQSKENLDALNSCYAAVAPCAKVRPYIAEGESDTDSDLCTPCGPPPRSATGEGPFGDVGWAGPSK
+B.MVQKSRNGGVYPGPSGEKKLKVGFVGLDPGAPDSTRDGALLIAGSEAPKRGSILSKPRAGGAGAGKPPKRNAFYRKLQNFLYNVLERPRGWAFIYHAYVFLLVFSCLVLSVFSTIKEYEKSSEGALYILEIVTIVVFGVEYFVRIWAAGCCCRYRGWRGRLKFARKPFCVIDIMVLIASIAVLAAGSQGNVFATSALRSLRFLQILRMIRMDRRGGTWKLLGSVVYAHSKELVTAWYIGFLCLILASFLVYLAEKGENDHFDTYADALWWGLITLTTIGYGDKYPQTWNGRLLAATFTLIGVSFFALPAGILGSGFALKVQEQHRQKHFEKRRNPAAGLIQSAWRFYATNLSRTDLHSTWQYYERTVTVPMYSSQTQTYGASRLIPPLNQLELLRNLKSKSGLAFRKDPPPEPSPSKGSPCRGPLCGCCPGRSSQKVSLKDRVFSSPRGVAAKGKGSPQAQTVRRSPSADQSLEDSPSKVPKSWSFGDRSRARQAFRIKGAASRQNSEEASLPGEDIVDDKSCPCEFVTEDLTPGLKVSIRAVCVMRFLVSKRKFKESLRPYDVMDVIEQYSAGHLDMLSRIKSLQSRVDQIVGRGPAITDKDRTKGPAEAELPEDPSMMGRLGKVEKQVLSMEKKLDFLVNIYMQRMGIPPTETEAYFGAKEPEPAPPYHSPEDSREHVDRHGCIVKIVRSSSSTGQKNFSAPPAAPPVQCPPSTSWQPQSHPRQGHGTSPVGDHGSLVRIPPPPAHERSLSAYGGGNRASMEFLRQEDTPGCRPPEGNLRDSDTSISIPSVDHEELERSFSGFSISQSKENLDALNSCYAAVAPCAKVRPYIAEGESDTDSDLCTPCGPPPRSATGEGPFGDVGWAGPRK
+C.Insufficient information to answer the question.
+D.MVQKSRNGGVYPGPSGEKKLKVGFVGLDPGAPDSTRDGALLIAGSEAPKRGSILSKPRAGGAGAGKPPKRNAFYRKLQNFLYNVLERPRGWAFIYHAYVFLLVFSCLVLSVFSTIKEYEKSSEGALYILEIVTIVVFGVEYFVRIWAAGCCCRYRGWRGRLKFARKPFCVIDIMVLIASIAVLAAGSQGNVFATSALRSLRFLQILRMIRMDRRGGTWKLLGSVVYAHSKELVTAWYIGFLCLILASFLVYLAEKGENDHFDTYADALWWGLITLTTIGYGDKYPQTWNGRLLAATFTLIGVSFFALPAGILGSGFALKVQEQHRQKHFEKRRNPAAGLIQSAWRFYATNLSRTDLHSTWQYYERTVTVPMYSSQTQTYGASRLIPPLNQLELLRNLKSKSGLAFRKDPPPEPSPSKGSPCRGPLCGCCPGRSSQKVSLKDRVFSSPRGVAAKGKGSPQAQTVRRSPSADQSLEDSPSKVPKSWSFGDRSRARQAFRIKGAASRQNSEEASLPGEDIVDDKSCPCEFVTEDLTPGLKVSIRAVCVMRFLVSKRKFKESLRPYDVMDVIEQYSAGHLDMLSRIKSLQSRVDQIVGRGPAITDKDRTKGPAEVELPEDPSMMGRLGKVEKQVLSMEKKLDFLVNIYMQRMGIPPTETEAYFGAKEPEPAPPYHSPEDSREHVDRHGCIVKIVRSSSSTGQKNFSAPPAAPPVQCPPSTSWQPQSHPRQGHGTSPVGDHGSLVRIPPPPAHERSLSAYGGGNRASMEFLRQEDTPGCRPPEGNLRDSDTSISIPSVDHEELERSFSGFSISQSKENLDALNSCYAAVAPCAKVRPYIAEGESDTDSDLCTPCGPPPRSATGEGPFGDVGWAGPRK
+E.MVQKSRNGGVYPGPSGEKKLKVGFVGLDPGAPDSTRDGALLIAGSEAPKRGSILSKPRAGGAGAGKPPKRNAFYRKLQNFLYNVLERPRGWAFIYHAYVFLLVFSCLVLSVFSTIKEYEKSSEGALYILEIVTIVVFGVEYFVRIWAAGCCCRYRGWRGRLKFARKPFCVIDIMVLIASIAVLAAGSQGNVFATSALRSLRFLQILRMIRMDRRGGTWKLLGSVVYAHSKELVTAWYIGFLCLILASFLVYLAEKGENDHFDTYADALWWGLITLTTIGYGDKYPQTWNGRLLAATFTLIGVSFFALPAGILGSGFALKVQEQHRQKHFEKRRNPAAGLIQSAWRFYATNLSRTDLHSTWQYYERTVTVPMYSSQTQTYGASRLIPPLNQLELLRNLKSKSGLAFRKDPPPEPSPSKVSPCRGPLCGCCPGRSSQKVSLKDRVFSSPRGVAAKGKGSPQAQTVRRSPSADQSLEDSPSKVPKSWSFGDRSRARQAFRIKGAASRQNSEEASLPGEDIVDDKSCPCEFVTEDLTPGLKVSIRAVCVMRFLVSKRKFKESLRPYDVMDVIEQYSAGHLDMLSRIKSLQSRVDQIVGRGPAITDKDRTKGPAEAELPEDPSMMGRLGKVEKQVLSMEKKLDFLVNIYMQRMGIPPTETEAYFGAKEPEPAPPYHSPEDSREHVDRHGCIVKIVRSSSSTGQKNFSAPPAAPPVQCPPSTSWQPQSHPRQGHGTSPVGDHGSLVRIPPPPAHERSLSAYGGGNRASMEFLRQEDTPGCRPPEGNLRDSDTSISIPSVDHEELERSFSGFSISQSKENLDALNSCYAAVAPCAKVRPYIAEGESDTDSDLCTPCGPPPRSATGEGPFGDVGWAGPRK
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+309,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is a computationally predicted human gene target of the miRNA LET_7G_5P according to miRDB v6.0? 
+Options:
+A.FARP1
+B.RANBP2
+C.Insufficient information to answer the question.
+D.NR4A2
+E.CYSRT1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+310,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set BRCA1_DN.V1_DN, which contains genes down-regulated in MCF10A cells (breast cancer) upon knockdown of BRCA1 [GeneID=672] gene by RNAi. This gene set is a part of the C6 collection: oncogenic signature gene sets. 
+Options:
+A.PPP1R15B
+B.PLEC
+C.SPATA31A1
+D.Insufficient information to answer the question.
+E.SSX3
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",C
+311,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is associated with otofaciocervical syndrome according to DisGeNet but not according to OMIM?
+Options:
+A.EYA1
+B.BCL3
+C.Insufficient information to answer the question.
+D.PAX1
+E.VWA3B
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+312,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to contain a pathogenic variant? 
+Options:
+A.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDRSPCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGASMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+B.Insufficient information to answer the question.
+C.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDRSLCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGAAMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+D.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDGSPCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGAAMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+E.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDRSPCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGAAMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",E
+313,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a SETD7 binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.BFAR
+B.OR8A1
+C.ASCL5
+D.NOP56
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+314,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to contain a pathogenic variant? 
+Options:
+A.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDRSLCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGAAMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+B.Insufficient information to answer the question.
+C.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDRSPCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGAAMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+D.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDGSPCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGAAMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+E.MLLAVLYCLLWSFQTSAGHFPRACVSSKNLMEKECCPPWSGDRSPCGQLSGRGSCQNILLSNAPLGPQFPFTGVDDRESWPSVFYNRTCQCSGNFMGFNCGNCKFGFWGPNCTERRLLVRRNIFDLSAPEKDKFFAYLTLAKHTISSDYVIPIGTYGQMKNGSTPMFNDINIYDLFVWMHYYVSMDALLGGSEIWRDIDFAHEAPAFLPWHRLFLLRWEQEIQKLTGDENFTIPYWDWRDAEKCDICTDEYMGGQHPTNPNLLSPASFFSSWQIVCSRLEEYNSHQSLCNGTPEGPLRRNPGNHDKSRTPRLPSSADVEFCLSLTQYESGSMDKAANFSFRNTLEGFASPLTGIADASQSSMHNALHIYMNGTMSQVQGSANDPIFLLHHAFVDSIFEQWLRRHRPLQEVYPEANAPIGHNRESYMVPFIPLYRNGDFFISSKDLGYDYSYLQDSDPDSFQDYIKSYLEQASRIWSWLLGASMVGAVLTALLAGLVSLLCRHKRKQLPEEKQPLLMEKEDYHSLYQSHL
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",C
+315,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes encodes a protein that is predicted to interact with the viral protein Hepatitis C virus genotype 5 E2 protein according to the P-HIPSter database? 
+Options:
+A.TRGV3
+B.SLAIN1
+C.FOXK2
+D.Insufficient information to answer the question.
+E.GYS2
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+316,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to be benign? 
+Options:
+A.MGQGEPSQRSTGLAGLYAAPAASPVFIKGSGMDALGIKSCDFQAARNNEEHHTKALSSRRLFVRRGQPFTIILYFRAPVRAFLPALKKVALTAQTGEQPSKINRTQATFPISSLGDRKWWSAVVEERDAQSWTISVTTPADAVIGHYSLLLQVSGRKQLLLGQFTLLFNPWNREDAVFLKNEAQRMEYLLNQNGLIYLGTADCIQAESWDFGQFEGDVIDLSLRLLSKDKQVEKWSQPVHVARVLGALLHFLKEQRVLPTPQTQATQEGALLNKRRGSVPILRQWLTGRGRPVYDGQAWVLAAVACTVLRCLGIPARVVTTFASAQGTGGRLLIDEYYNEEGLQNGEGQRGRIWIFQTSTECWMTRPALPQGYDGWQILHPSAPNGGGVLGSCDLVPVRAVKEGTLGLTPAVSDLFAAINASCVVWKCCEDGTLELTDSNTKYVGNNISTKGVGSDRCEDITQNYKYPEGSLQEKEVLERVEKEKMEREKDNGIRPPSLETASPLYLLLKAPSSLPLRGDAQISVTLVNHSEQEKAVQLAIGVQAVHYNGVLAAKLWRKKLHLTLSANLEKIITIGLFFSNFERNPPENTFLRLTAMATHSESNLSCFAQEDIAICRPHLAIKMPEKAEQYQPLTASVSLQNSLDAPMEDCVISILGRGLIHRERSYRFRSVWPENTMCAKFQFTPTHVGLQRLTVEVDCNMFQNLTNYKSVTVVAPELSA
+B.MGQGEPSQRSTGLAGLYAAPAASPVFIKGSGMDALGIKSCDFQAARNNEEHHTKALSSRRLFVRRGQPFTIILYFRAPVRAFLPALKKVALTAQTGEQPSKINRTQATFPISSLGDRKWWSAVVEERDAQSWTISVTTPADAVIGHYSLLLQVSGRKQLLLGQFTLLFNPWNREDAVFLKNEAQRMEYLLNQNGLIYLGTADCIQAESWDFGQFEGDVIDLSLRLLSKDKQVEKWSQPVHVARVLGALLHFLKEQRVLPTPQTQATQEGALLNKRRGSVPILRQWLTGRGRPVYDGQAWVLAAVACTVLRCLGIPACVVTTFASAQGTGGRLLIDEYYNEEGLQNGEGQRGRIWIFQTSTECWMTRPALPQGYDGWQILHPSAPNGGGVLGSCDLVPVRAVKEGTLGLTPAVSDLFAAINASCVVWKCCEDGTLELTDSNTKYVGNNISTKGVGSDRCEDITQNYKYPEGSLQEKEVLERVEKEKMEREKDNGIRPPSLETASPLYLLLKAPSSLPLRGDAQISVTLVNHSEQEKAVQLAIGVQAVHYNGVLAAKLWRKKLHLTLSANLEKIITIGLFFSNFERNPPENTFLRLTAMATHSESNLSCFAQEDIAICRPHLAIKMPEKAEQYQPLTASVSLQNSLDAPMEDCVISILGRGLIHRERSYRFRSVWPENTMCAKFQFTPTHVGLQRLTVEVDCNMFQNLTNYKSVTVVAPELSA
+C.MGQGEPSQRSTGLAGLYAAPAASPVFIKGSGMDALGIKSCDFQAARNNEEHHTKALSSRRLFVRRGQPFTIILYFRAPVRAFLPALKKVALTAQTGEQPSKINRTQATFPISSLGDRKWWSAVVEERDAQSWTISVTTPADAVIGHYSLLLQVSGRKQLLLGQFTLLFNPWNREYAVFLKNEAQRMEYLLNQNGLIYLGTADCIQAESWDFGQFEGDVIDLSLRLLSKDKQVEKWSQPVHVARVLGALLHFLKEQRVLPTPQTQATQEGALLNKRRGSVPILRQWLTGRGRPVYDGQAWVLAAVACTVLRCLGIPARVVTTFASAQGTGGRLLIDEYYNEEGLQNGEGQRGRIWIFQTSTECWMTRPALPQGYDGWQILHPSAPNGGGVLGSCDLVPVRAVKEGTLGLTPAVSDLFAAINASCVVWKCCEDGTLELTDSNTKYVGNNISTKGVGSDRCEDITQNYKYPEGSLQEKEVLERVEKEKMEREKDNGIRPPSLETASPLYLLLKAPSSLPLRGDAQISVTLVNHSEQEKAVQLAIGVQAVHYNGVLAAKLWRKKLHLTLSANLEKIITIGLFFSNFERNPPENTFLRLTAMATHSESNLSCFAQEDIAICRPHLAIKMPEKAEQYQPLTASVSLQNSLDAPMEDCVISILGRGLIHRERSYRFRSVWPENTMCAKFQFTPTHVGLQRLTVEVDCNMFQNLTNYKSVTVVAPELSA
+D.MGQGEPSQRSTGLAGLYAAPAASPVFIKGSGMDALGIKSCDFQAARNNEEHHTKALSSRRLFVRRGQPFTIILYFRAPVRAFLPALKKVALTAQTGEQPSKINRTQATFPISSLGDRKWWSAVVEERDAQSWTISVTTPADAVIGHYSLLLQVSGRKQLLLGQFTLLFNPWNREDAVFLKNEAQRMEYLLNQNGLIYLGTADCIQAESWDFGQFEGDVIDLSLRLLSKDKQVEKWSQPVHVARVLGALLHFLKEQRVLPTPQTQATQEGALLNKRRGSVPILRQWLTGRGRPVYDGQAWVLAAVACTLLRCLGIPARVVTTFASAQGTGGRLLIDEYYNEEGLQNGEGQRGRIWIFQTSTECWMTRPALPQGYDGWQILHPSAPNGGGVLGSCDLVPVRAVKEGTLGLTPAVSDLFAAINASCVVWKCCEDGTLELTDSNTKYVGNNISTKGVGSDRCEDITQNYKYPEGSLQEKEVLERVEKEKMEREKDNGIRPPSLETASPLYLLLKAPSSLPLRGDAQISVTLVNHSEQEKAVQLAIGVQAVHYNGVLAAKLWRKKLHLTLSANLEKIITIGLFFSNFERNPPENTFLRLTAMATHSESNLSCFAQEDIAICRPHLAIKMPEKAEQYQPLTASVSLQNSLDAPMEDCVISILGRGLIHRERSYRFRSVWPENTMCAKFQFTPTHVGLQRLTVEVDCNMFQNLTNYKSVTVVAPELSA
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+317,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is a computationally predicted human gene target of the miRNA MIR3190_3P according to miRDB v6.0? 
+Options:
+A.ZFPL1
+B.AMMECR1
+C.SERTAD3
+D.Insufficient information to answer the question.
+E.CIMAP1B
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",C
+318,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be pathogenic? <sequence>MPVRRGHVAPQNTFLDTIIRKFEGQSRKFIIANARVENCAVIYCNDGFCELCGYSRAEVMQRPCTCDFLHGPRTQRRAAAQIAQALLGAEERKVEIAFYRKDGSCFLCLVDVVPVKNEDGAVIMFILNFEVVMEKDMVGSPAHDTNHRGPPTSWLAPGRAKTFRLKLPALLALTARESSVRSGGAGGAGAPGAVVVDVDLTPAAPSSESLALDEVTAMDNHVAGLGPAEERRALVGPGSPPRSAPGQLPSPRAHSLNPDASGSSCSLARTRSRESCASVRRASSADDIEAMRAGVLPPPPRHASTGAMHPLRSGLLNSTSDSDLVRYRTISKIPQITLNFVDLKGDPFLASPTSDREIIAPKIKERTHNVTEKVTQVLSLGADVLPEYKLQAPRIHRWTILHYSPFKAVWDWLILLLVIYTAVFTPYSAAFLLKETEEGPPATECGYACQPLAVVDLIVDIMFIVDILINFRTTYVNANEEVVSHPGRIAVHYFKGWFLIDMVAAIPFDLLIFGSGSEELIGLLKTARLLRLVRVARKLDRYSEYGAAVLFLLMCTFALIAHWLACIWYAIGNMEQPHMDSRIGWLHNLGDQIGKPYNSSGLGGPSIKDKYVTALYFTFSSLTSVGFGNVSPNTNSEKIFSICVMLIGSLMYASIFGNVSAIIQRLYSGTARYHTQMLRVREFIRFHQIPNPLRQRLEEYFQHAWSYTNGIDMNAVLKGFPECLQADICLHLNRSLLQHCKPFRGATKGCLRALAMKFKTTHAPPGDTLVHAGDLLTALYFISRGSIEILRGDVVVAILGKNDIFGEPLNLYARPGKSNGDVRALTYCDLHKIHRDDLLEVLDMYPEFSDHFWSSLEITFNLRDTNMIPGSPGSTELEGGFSRQRKRKLSFRRRTDKDTEQPGEVSALGPGRAGAGPSSRGRPGGPWGESPSSGPSSPESSEDEGPGRSSSPLRLVPFSSPRPPGEPPGGEPLMEDCEKSSDTCNPLSGAFSGVSNIFSFWGDSRGRQYQELPRCPAPTPSLLNIPLSSPGRRPRGDVESRLDALQRQLNRLETRLSADMATVLQLLQRQMTLVPPAYSAVTTPGPGPTSTSPLLPVSPLPTLTLDSLSQVSQFMACEELPPGAPELPQEGPTRRLSLPGQLGALTSQPLHRHGSDPGS</sequence> 
+Options:
+A.G306W
+B.Insufficient information to answer the question.
+C.E978K
+D.K897T
+E.G873S
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+319,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes encodes a protein that is predicted to interact with the viral protein Human adenovirus 12 virus encoded endoprotease (Late protein 3) according to the P-HIPSter database? 
+Options:
+A.MS4A2
+B.AKIRIN2
+C.TECR
+D.SUMO2
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+320,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes is located at chr16q22 according to Ensembl Release 110? 
+Options:
+A.Insufficient information to answer the question.
+B.NUTF2
+C.NPIPA9
+D.IL9RP3
+E.PYCARD-AS1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+321,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be pathogenic? <sequence>MSAPSEEEEYARLVMEAQPEWLRAEVKRLSHELAETTREKIQAAEYGLAVLEEKHQLKLQFEELEVDYEAIRSEMEQLKEAFGQAHTNHKKVAADGESREESLIQESASKEQYYVRKVLELQTELKQLRNVLTNTQSENERLASVAQELKEINQNVEIQRGRLRDDIKEYKFREARLLQDYSELEEENISLQKQVSVLRQNQVEFEGLKHEIKRLEEETEYLNSQLEDAIRLKEISERQLEEALETLKTEREQKNSLRKELSHYMSINDSFYTSHLHVSLDGLKFSDDAAEPNNDAEALVNGFEHGGLAKLPLDNKTSTPKKEGLAPPSPSLVSDLLSELNISEIQKLKQQLMQMEREKAGLLATLQDTQKQLEHTRGSLSEQQEKVTRLTENLSALRRLQASKERQTALDNEKDRDSHEDGDYYEVDINGPEILACKYHVAVAEAGELREQLKALRSTHEAREAQHAEEKGRYEAEGQALTEKVSLLEKASRQDRELLARLEKELKKVSDVAGETQGSLSVAQDELVTFSEELANLYHHVCMCNNETPNRVMLDYYREGQGGAGRTSPGGRTSPEARGRRSPILLPKGLLAPEAGRADGGTGDSSPSPGSSLPSPLSDPRREPMNIYNLIAIIRDQIKHLQAAVDRTTELSRQRIASQELGPAVDKDKEALMEEILKLKSLLSTKREQITTLRTVLKANKQTAEVALANLKSKYENEKAMVTETMMKLRNELKALKEDAATFSSLRAMFATRCDEYITQLDEMQRQLAAAEDEKKTLNSLLRMAIQQKLALTQRLELLELDHEQTRRGRAKAAPKTKPATPSVSHTCACASDRAEGTGLANQVFCSEKHSIYCD</sequence> 
+Options:
+A.S5L
+B.D417G
+C.A326V
+D.E187G
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+322,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a TBX3 binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.Insufficient information to answer the question.
+B.DGAT2-DT
+C.CD302
+D.UTP18
+E.CALML3
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+323,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a AHRR binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.RHOA
+B.Insufficient information to answer the question.
+C.R3HDM1
+D.L1CAM
+E.OBSL1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+324,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is associated with Meesmann corneal dystrophy according to DisGeNet but not according to OMIM?
+Options:
+A.Insufficient information to answer the question.
+B.MIR5681A
+C.KRT3
+D.KRT12
+E.SECTM1
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",E
+325,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be pathogenic? <sequence>MANFLLPRGTSSFRRFTRESLAAIEKRMAEKQARGSTTLQESREGLPEEEAPRPQLDLQASKKLPDLYGNPPQELIGEPLEDLDPFYSTQKTFIVLNKGKTIFRFSATNALYVLSPFHPIRRAAVKILVHSLFNMLIMCTILTNCVFMAQHDPPPWTKYVEYTFTAIYTFESLVKILARGFCLHAFTFLRDPWNWLDFSVIIMAYTTEFVDLGNVSALRTFRVLRALKTISVISGLKTIVGALIQSVKKLADVMVLTVFCLSVFALIGLQLFMGNLRHKCVRNFTALNGTNGSVEADGLVWESLDLYLSDPENYLLKNGTSDVLLCGNSSDAGTCPEGYRCLKAGENPDHGYTSFDSFAWAFLALFRLMTQDCWERLYQQTLRSAGKIYMIFFMLVIFLGSFYLVNLILAVVAMAYEEQNQATIAETEEKEKRFQEAMEMLKKEHEALTIRGVDTVSRSSLEMSPLAPVNSHERRSKRRKRMSSGTEECGEDRLPKSDSEDGPRAMNHLSLTRGLSRTSMKPRSSRGSIFTFRRRDLGSEADFADDENSTAGESESHHTSLLVPWPLRRTSAQGQPSPGTSAPGHALHGKKNSTVDCNGVVSLLGAGDPEATSPGSHLLRPVMLEHPPDTTTPSEEPGGPQMLTSQAPCVDGFEEPGARQRALSAVSVLTSALEELEESRHKCPPCWNRLAQRYLIWECCPLWMSIKQGVKLVVMDPFTDLTITMCIVLNTLFMALEHYNMTSEFEEMLQVGNLVFTGIFTAEMTFKIIALDPYYYFQQGWNIFDSIIVILSLMELGLSRMSNLSVLRSFRLLRVFKLAKSWPTLNTLIKIIGNSVGALGNLTLVLAIIVFIFAVVGMQLFGKNYSELRDSDSGLLPRWHMMDFFHAFLIIFRILCGEWIETMWDCMEVSGQSLCLLVFLLVMVIGNLVVLNLFLALLLSSFSADNLTAPDEDREMNNLQLALARIQRGLRFVKRTTWDFCCGLLRQRPQKPAALAAQGQLPSCIATPYSPPPPETEKVPPTRKETRFEEGEQPGQGTPGDPEPVCVPIAVAESDTDDQEEDEENSLGTEEESSKQQESQPVSGGPEAPPDSRTWSQVSATASSEAEASASQADWRQQWKAEPQAPGCGETPEDSCSEGSTADMTNTAELLEQIPDLGQDVKDPEDCFTEGCVRRCPCCAVDTTQAPGKVWWRLRKTCYHIVEHSWFETFIIFMILLSSGALAFEDIYLEERKTIKVLLEYADKMFTYVFVLEMLLKWVAYGFKKYFTNAWCWLDFLIVDVSLVSLVANTLGFAEMGPIKSLRTLRALRPLRALSRFEGMRVVVNALVGAIPSIMNVLLVCLIFWLIFSIMGVNLFAGKFGRCINQTEGDLPLNYTIVNNKSQCESLNLTGELYWTKVKVNFDNVGAGYLALLQVATFKGWMDIMYAAVDSRGYEEQPQWEYNLYMYIYFVIFIIFGSFFTLNLFIGVIIDNFNQQKKKLGGQDIFMTEEQKKYYNAMKKLGSKKPQKPIPRPLNKYQGFIFDIVTKQAFDVTIMFLICLNMVTMMVETDDQSPEKINILAKINLLFVAIFTGECIVKLAALRHYYFTNSWNIFDFVVVILSIVGTVLSDIIQKYFFSPTLFRVIRLARIGRILRLIRGAKGIRTLLFALMMSLPALFNIGLLLFLVMFIYSIFGMANFAYVKWEAGIDDMFNFQTFANSMLCLFQITTSAGWDGLLSPILNTGPPYCDPTLPNSNGSRGDCGSPAVGILFFTTYIIISFLIVVNMYIAIILENFSVATEESTEPLSEDDFDMFYEIWEKFDPEATQFIEYSVLSDFADALSEPLRIAKPNQISLINMDLPMVSGDRIHCMDILFAFTKRVLGESGEMDALKIQMEEKFMAANPSKISYEPITTTLRRKHEEVSAMVIQRAFRRHLLQRSLKHASFLFRQQAGSGLSEEDAPEREGLIAYVMSENFSRPLGPPSSSSISSTSFPPSYDSVTRATSDNLQVRGSDYSHSEDLADFPPSPDRDRESIV</sequence> 
+Options:
+A.A1326S
+B.T455A
+C.A286S
+D.A572D
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+326,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is a computationally predicted human gene target of the miRNA MIR29B_1_5P according to miRDB v6.0? 
+Options:
+A.ZNF280A
+B.PNISR
+C.ZNF571
+D.B4GALT7
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",B
+327,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following sequences is most likely to be benign? 
+Options:
+A.MADEKTFRIGFIVLGLFLLALGTFLMSHDRPQVYGTFYAMGSVMVIGGIIWSMCQCYPKITFVPADSDFQGILSPKAMGLLENGLAAEMKSPSPQPPYVRLWEEAAYDQSLPDFSHIQMKVMSYSEDHRSLLAPEMGQPKLGTSDGGEGGPGDVQAWMEAAVVIHKGSDESEGERRLTQSWPGPLACPQGPAPLASFQDDLDMDSSEGSSPNASPHDREEACSPQQEPQGCRCPLDRFQDFALIDAPTLEDEPQEGQQWEIALPNNWQRYPRTKVEEKEASDTGGEEPEKEEEDLYYGLPDGAGDLLPDKELGFEPDTQG
+B.MADEKTFRIGFIVLGLFLLALGTFLMSHDRPQVYGTFYAMGSVMVIRGIIWSMCQCYPKITFVPADSDFQGILSPKAMGLLENGLAAEMKSPSPQPPYVRLWEEAAYDQSLPDFSHIQMKVMSYSEDHRSLLAPEMGQPKLGTSDGGEGGPGDVQAWMEAAVVIHKGSDESEGERRLTQSWPGPLACPQGPAPLASFQDDLDMDSSEGSSPNASPHDREEACSPQQEPQGCRCPLDRFQDFALIDAPTLEDEPQEGQQWEIALPNNWQRYPRTKVEEKEASDTGGEEPEKEEEDLYYGLPDGAGDLLPDKELGFEPDTQG
+C.MADEKTFWIGFIVLGLFLLALGTFLMSHDRPQVYGTFYAMGSVMVIGGIIWSMCQCYPKITFVPADSDFQGILSPKAMGLLENGLAAEMKSPSPQPPYVRLWEEAAYDQSLPDFSHIQMKVMSYSEDHRSLLAPEMGQPKLGTSDGGEGGPGDVQAWMEAAVVIHKGSDESEGERRLTQSWPGPLACPQGPAPLASFQDDLDMDSSEGSSPNASPHDREEACSPQQEPQGCRCPLDRFQDFALIDAPTLEDEPQEGQQWEIALPNNWQRYPRTKVEEKEASDTGGEEPEKEEEDLYYGLPDGAGDLLPDKELGFEPDTQG
+D.MADEKTFRIGFIVLGLFLLALGTFLMSHDRPQLYGTFYAMGSVMVIGGIIWSMCQCYPKITFVPADSDFQGILSPKAMGLLENGLAAEMKSPSPQPPYVRLWEEAAYDQSLPDFSHIQMKVMSYSEDHRSLLAPEMGQPKLGTSDGGEGGPGDVQAWMEAAVVIHKGSDESEGERRLTQSWPGPLACPQGPAPLASFQDDLDMDSSEGSSPNASPHDREEACSPQQEPQGCRCPLDRFQDFALIDAPTLEDEPQEGQQWEIALPNNWQRYPRTKVEEKEASDTGGEEPEKEEEDLYYGLPDGAGDLLPDKELGFEPDTQG
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+328,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes has a ZNF282 binding site located within its promoter region (-1000,+100 bp around its TSS) according to the Gene Transcription Regulation Database? 
+Options:
+A.BSG
+B.Insufficient information to answer the question.
+C.TRIM6
+D.S100A6
+E.KIAA0825
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",C
+329,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set MP_INCREASED_MELANOMA_INCIDENCE, which contains mouse genes annotated to increased melanoma incidence (MP:0010275) retrieved from the Mouse Genome Informatics database via MouseMine 
+Options:
+A.Pgr
+B.Insufficient information to answer the question.
+C.Cav2
+D.Cd1d1
+E.Braf
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",E
+330,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: According to ClinVar, which of the following variants to the following sequence (bracketed by xml tags) is most likely to be pathogenic? <sequence>MIVFVRFNSSHGFPVEVDSDTSIFQLKEVVAKRQGVPADQLRVIFAGKELRNDWTVQNCDLDQQSIVHIVQRPWRKGQEMNATGGDDPRNAAGGCEREPQSLTRVDLSSSVLPGDSVGLAVILHTDSRKDSPPAGSPAGRSIYNSFYVYCKGPCQRVQPGKLRVQCSTCRQATLTLTQGPSCWDDVLIPNRMSGECQSPHCPGTSAEFFFKCGAHPTSDKETSVALHLIATNSRNITCITCTDVRSPVLVFQCNSRHVICLDCFHLYCVTRLNDRQFVHDPQLGYSLPCVAGCPNSLIKELHHFRILGEEQYNRYQQYGAEECVLQMGGVLCPRPGCGAGLLPEPDQRKVTCEGGNGLGCGFAFCRECKEAYHEGECSAVFEASGTTTQAYRVDERAAEQARWEAASKETIKKTTKPCPRCHVPVEKNGGCMHMKCPQPQCRLEWCWNCGCEWNRVCMGDHWFDV</sequence> 
+Options:
+A.V56E
+B.Q34R
+C.Insufficient information to answer the question.
+D.A46T
+E.V380L
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A
+331,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following human genes encodes a protein that is predicted to interact with the viral protein Yaba-like disease virus 14L protein (gene: 14L) according to the P-HIPSter database? 
+Options:
+A.Insufficient information to answer the question.
+B.ZNF593OS
+C.SYTL5
+D.CDK2
+E.CYP1A2
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",D
+332,"The following is a multiple choice question about biology.
+Please answer by responding with the letter of the correct answer.
+
+Question: Which of the following genes is most likely contained in the gene set MP_INCREASED_CARCINOMA_INCIDENCE, which contains mouse genes annotated to increased carcinoma incidence (MP:0002038) retrieved from the Mouse Genome Informatics database via MouseMine 
+Options:
+A.Cdkn2a
+B.Plg
+C.Tnfrsf14
+D.Ggta1
+E.Insufficient information to answer the question.
+
+You MUST include the letter of the correct answer within the following tags:
+[ANSWER] and [/ANSWER]. For example, '[ANSWER]<answer>[/ANSWER]',
+where <answer> is the correct letter. Always answer in exactly this format
+of a single letter between the two tags, even if you are unsure.
+We require this because we use automatic parsing.
+            ",A

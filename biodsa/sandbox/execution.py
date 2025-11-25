@@ -8,7 +8,6 @@ import json
 import os
 import tempfile
 from datetime import datetime
-from pathlib import Path
 
 class ExecutionResults:
     def __init__(self, 
@@ -74,19 +73,23 @@ class ExecutionResults:
         """Concise representation for debugging"""
         return f"ExecutionResults(messages={len(self.message_history)}, executions={len(self.code_execution_results)}, has_sandbox={self.sandbox is not None})"
 
-    def to_json(self, output_path: str) -> str:
+    def to_json(self, output_path: str=None) -> str:
         """
         Convert the execution results to a JSON file
         
         Args:
             output_path: Local path where the JSON file should be saved
         """
-        with open(output_path, 'w') as f:
-            json.dump({
-                'message_history': self.message_history,
-                'code_execution_results': self.code_execution_results,
-                'final_response': self.final_response
-            }, f)
+        json_data = {
+                    'message_history': self.message_history,
+                    'code_execution_results': self.code_execution_results,
+                    'final_response': self.final_response
+                }
+        if output_path is not None:
+            with open(output_path, 'w') as f:
+                json.dump(json_data, f)
+        return json_data
+
 
     def download_artifacts(self, output_dir: str) -> List[str]:
         """

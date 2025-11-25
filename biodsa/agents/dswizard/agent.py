@@ -13,7 +13,7 @@ from biodsa.agents.state import CodeExecutionResult
 from biodsa.agents.dswizard.state import DSWizardAgentState
 from biodsa.sandbox.execution import ExecutionResults
 
-from biodsa.tools.code_exec_tool import CodeExecutionTool
+from biodsa.tool_wrappers.code_exec_tool import CodeExecutionTool
 from biodsa.agents.dswizard.analysis_plan_tool import AnalysisPlanTool
 
 PLAN_AGENT_SYSTEM_PROMPT_TEMPLATE = """

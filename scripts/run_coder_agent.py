@@ -13,7 +13,7 @@ agent = CoderAgent(
     api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
     endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT"),
 )
-agent.register_dataset(
+agent.register_workspace(
     os.path.join(REPO_BASE_DIR, "biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
 )
 execution_results = agent.go("Make bar plot showing the distribution samples per table and save it to a png file")
