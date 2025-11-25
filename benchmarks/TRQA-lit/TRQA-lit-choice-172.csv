@@ -1,0 +1,1897 @@
+data_id,question,answer
+TRQA-lit-0,"
+Question: Which cardiovascular complications are directly associated with FGF23 excess?
+
+Options:
+A. Atherosclerosis
+B. Left ventricular hypertrophy
+C. Atrial fibrillation
+D. Heart failure
+
+Choose the correct answers from the options (can be one or more).
+",BCD
+TRQA-lit-1,"
+Question: Which miRNA directly targets DNMT1 and reactivates tumor suppressor genes like KLF4 and E-cadherin in PDAC cells?
+
+Options:
+A. miR-152
+B. miR-148a
+C. miR-377
+D. miR-17-92
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-2,"
+Question: Which factors contribute to impaired nuclear translocation of GRα in secondary GCR?
+
+Options:
+A. Increased FKBP51 expression
+B. Reduced MUC1 levels
+C. Overexpression of PP2A
+D. Elevated HSP90 in the cytoplasm
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-3,"
+Question: Which therapy reduces mast cell burden by targeting CD117?
+
+Options:
+A. Omalizumab
+B. Barzolvolimab
+C. Lirentelimab
+D. Cladribine
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-4,"
+Question: Which genomic alterations are associated with hyperactivation of the CDK4/6 pathway in cancer?
+
+Options:
+A. CCND1 amplification
+B. CDKN2A deletion
+C. CDK6 mutations
+D. RB1 amplification
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-5,"
+Question: Which domain of PIK3CA is mutated most frequently in endometrial cancer compared to other cancers?
+
+Options:
+A. Kinase domain
+B. Helical domain
+C. Adaptor-binding domain (ABD)
+D. C2 domain
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-6,"
+Question: What effects does AMD3100 have in preclinical fibrosis models?
+
+Options:
+A. Reduces collagen deposition
+B. Increases regulatory T cells
+C. Worsens hepatic necrosis
+D. Improves diastolic function
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-7,"
+Question: Which malignancies are associated with IDH1 mutations? Select all that apply.
+
+Options:
+A. Chondrosarcoma
+B. Melanoma
+C. Thyroid cancer
+D. Colorectal cancer
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-8,"
+Question: Which of the following AR agonists are steroid-based?
+
+Options:
+A. Testosterone
+B. Dihydrotestosterone (DHT)
+C. Oxandrolone
+D. Methyl testosterone
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-9,"
+Question: In which cellular compartment is hCD33m predominantly localized?
+
+Options:
+A. Cell surface
+B. Lysosomes
+C. Peroxisomes
+D. Nucleus
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-10,"
+Question: Which PPAR agonist is currently in Phase III trials for NASH? [as of 2023]
+
+Options:
+A. Saroglitazar
+B. Lanifibranor
+C. Elafibranor
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-11,"
+Question: Which DRD2 inhibitor is associated with bronchospasm risk?
+
+Options:
+A. Loxapine
+B. Haloperidol
+C. Olanzapine
+D. Risperidone
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-12,"
+Question: Toxicities commonly associated with pan-PI3K inhibitors include: (Select all that apply)
+
+Options:
+A. Hyperglycemia
+B. Pneumonitis
+C. Hypertension
+D. Rash
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-13,"
+Question: What is the key metabolic pathway affected by TRPV1 modulation?
+
+Options:
+A. Glycolysis
+B. Purine metabolism
+C. Fatty acid oxidation
+D. Urea cycle
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-14,"
+Question: Which of the following is a therapeutic vulnerability of IDH1-mutant cells?
+
+Options:
+A. High NADPH levels
+B. Reduced NAD+ levels
+C. Enhanced DNA repair capacity
+D. Increased glutamine dependency
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-15,"
+Question: Which cytokine's production is increased in EZH2-deficient Tregs?
+
+Options:
+A. IL-10
+B. IFN-γ
+C. TGF-β
+D. IL-2
+
+Choose the correct answers from the options (can be one or more).
+",BD
+TRQA-lit-16,"
+Question: In castration-resistant prostate cancer (CRPC), MAOA expression is upregulated by approximately?
+
+Options:
+A. 2-fold
+B. 4-fold
+C. 10-fold
+D. Equal to HSPC
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-17,"
+Question: Which factors complicate the amyloid hypothesis? (Select all that apply.)
+
+Options:
+A. Coexisting TDP-43 pathology
+B. APOE ε4 genotype
+C. Neuroinflammation
+D. Host resilience/resistance
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-18,"
+Question: Which FAK inhibitors are classified as dual FAK/PYK2 inhibitors? (Select all that apply)
+
+Options:
+A. Defactinib (VS-6063)
+B. IN10018
+C. PF-562,271
+D. GSK2256098
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-19,"
+Question: Which BTK isoform is implicated in cisplatin resistance in ovarian cancer?
+
+Options:
+A. BTK-A
+B. p65BTK
+C. BTK-C
+D. All isoforms
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-20,"
+Question: Which CYP2D6 phenotype is MOST likely to experience toxicity from codeine?
+
+Options:
+A. PM
+B. IM
+C. NM
+D. UM
+
+Choose the correct answers from the options (can be one or more).
+",D
+TRQA-lit-21,"
+Question: Which biomarkers are discussed as potential predictors of immunotherapy response in TNBC? (Select all that apply)
+
+Options:
+A. Microsatellite instability (MSI)
+B. Tumor-infiltrating lymphocytes (TILs)
+C. BRCA1/2 mutations
+D. Androgen receptor expression
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-22,"
+Question: (As of 2023) Which biomarkers are used to assess CFTR modulator efficacy?
+
+Options:
+A. Sweat chloride levels
+B. Nasal potential difference
+C. Sputum neutrophil elastase
+D. Intestinal organoid swelling
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-23,"
+Question: Which diseases are linked to DRD2 dysfunction?
+
+Options:
+A. Schizophrenia
+B. Alzheimer’s disease
+C. Bipolar disorder
+D. Parkinson’s disease
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-24,"
+Question: Which KRAS G12C inhibitors are currently in clinical development (as of 2024)?
+
+Options:
+A. Sotorasib
+B. Adagrasib
+C. Divarasib
+D. MRTX1133
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-25,"
+Question: As of 2022, which diseases are potential therapeutic targets for ADORA2A antagonists? (Select all that apply.)
+
+Options:
+A. Parkinson’s disease
+B. Alzheimer’s disease
+C. Atrial fibrillation
+D. Asthma
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-26,"
+Question: Which resistance mechanisms to KRAS G12C inhibitors are observed in clinical studies? (Select all that apply)
+
+Options:
+A. Secondary KRAS mutations (e.g., Y96D)
+B. Amplification of wild-type RAS isoforms
+C. Activation of bypass RTKs (e.g., EGFR)
+D. Loss of PD-L1 expression
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-27,"
+Question: What is a key safety feature of Dau-d4?
+
+Options:
+A. Systemic absorption
+B. Gut-restricted activity
+C. Broad-spectrum antimicrobial effects
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-28,"
+Question: Which DRD2 inhibitors are associated with metabolic syndrome risks? [as of 2024]
+
+Options:
+A. Olanzapine
+B. Ziprasidone
+C. Quetiapine
+D. Lurasidone
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-29,"
+Question: Which drug is under investigation for chronic urticaria and induces systemic mast cell ablation [as of 2024]? (select one)
+
+Options:
+A. Lirentelimab
+B. Barzolvolimab
+C. Omalizumab
+D. Remibrutinib
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-30,"
+Question: Which FLT3 mutation confers resistance to both Type I and Type II inhibitors?
+
+Options:
+A. FLT3-ITD
+B. D835Y
+C. F691L
+D. NPM1 co-mutation
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-31,"
+Question: What is the primary mechanism by which CTLA-4+ ILC3s regulate CD80 expression on myeloid cells in the intestine?
+
+Options:
+A. Direct degradation of CD80 via enzymatic activity
+B. Trogocytosis-mediated reduction of CD80
+C. Transcriptional suppression of CD80 genes
+D. Blocking CD80 synthesis through cytokine secretion
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-32,"
+Question: In atrial fibrillation, abnormal calcium handling in human cardiomyocytes is linked to:
+
+Options:
+A. Downregulation of ADORA2A
+B. Upregulation of ADORA2A
+C. Loss of ADORA1 expression
+D. Activation of ADA1
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-33,"
+Question: What is the primary enzymatic role of DNMT1 in pancreatic cancer?
+
+Options:
+A. Establish de novo DNA methylation patterns
+B. Maintain DNA methylation during replication
+C. Demethylate tumor suppressor genes
+D. Degrade methylated DNA regions
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-34,"
+Question: Which CD19 loop is contacted by FMC63’s VL domain?
+
+Options:
+A. Loop 1
+B. Loop 2
+C. Loop 3
+D. None
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-35,"
+Question: Which FLT3 inhibitor is irreversibly bound to C695?
+
+Options:
+A. FF-10101
+B. CG806
+C. HM43239
+D. Gilteritinib
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-36,"
+Question: Which TKIs are in phase 2/3 trials for non-advanced systemic mastocytosis? [as of 2024]
+
+Options:
+A. Elenestinib
+B. Bezualestinib
+C. Imatinib
+D. Masitinib
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-37,"
+Question: Which cellular processes are disrupted by mutant IDH1? Select all that apply.
+
+Options:
+A. Epigenetic regulation
+B. Glycolysis
+C. Cellular differentiation
+D. NADPH production
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-38,"
+Question: What is the primary mechanism of Maraviroc in Alzheimer's disease models?
+
+Options:
+A. Inhibits Aβ production
+B. Blocks CCR5-mediated neuroinflammation
+C. Enhances Tau degradation
+D. Promotes microglial apoptosis
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-39,"
+Question: Which antipsychotics show significant 5-HT2AR antagonism? (Select all that apply.)
+
+Options:
+A. Haloperidol
+B. Clozapine
+C. Risperidone
+D. Amisulpride
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-40,"
+Question: Which mitochondrial proteins are regulated by IGF1R to reduce oxidative stress?
+
+Options:
+A. UCP3
+B. CPT1A
+C. Mul1
+D. NADPH oxidase
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-41,"
+Question: Which assay is most commonly used for PD-L1 testing in NSCLC trials?
+
+Options:
+A. Ventana SP142
+B. Dako 22C3
+C. Ventana SP263
+D. Dako 28-8
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-42,"
+Question: In which cell type is NOD2 NOT expressed?
+
+Options:
+A. Macrophages
+B. Endothelial cells
+C. Neurons
+D. Pancreatic beta cells
+
+Choose the correct answers from the options (can be one or more).
+",D
+TRQA-lit-43,"
+Question: Which of the following polymorphisms in NR3C1 is associated with INCREASED glucocorticoid sensitivity?
+
+Options:
+A. ER22/23EK
+B. N363S
+C. GR-9β
+D. BclI
+
+Choose the correct answers from the options (can be one or more).
+",BD
+TRQA-lit-44,"
+Question: Which TKI primarily targets wild-type KIT?
+
+Options:
+A. Avapritinib
+B. Masitinib
+C. Midostaurin
+D. Imatinib
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-45,"
+Question: Which VWD subtype is characterized by a gain-of-function mutation in the VWF A1 domain?
+
+Options:
+A. Type 2A
+B. Type 2B
+C. Type 2M
+D. Type 2N
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-46,"
+Question: Which clinical manifestations are associated with primary GCR due to NR3C1 mutations? (Select all apply)
+
+Options:
+A. Hypertension
+B. Hypokalemic alkalosis
+C. Obesity
+D. Hirsutism
+E. Hyperglycemia
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-47,"
+Question: Which factor contributes to the heterogeneous response to sitagliptin in T2D patients?
+
+Options:
+A. Variability in hDPP4 expression
+B. Differences in gut microbial DPP4 activity
+C. Dietary habits of patients
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-48,"
+Question: What is the primary challenge in CA4 monotherapy?
+
+Options:
+A. Rapid metabolism
+B. Residual viable tumor rim post-treatment
+C. High production cost
+D. Poor oral bioavailability
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-49,"
+Question: Which of the following are resistance mechanisms to mutant IDH1 inhibitors? Select all that apply.
+
+Options:
+A. Loss of heterozygosity (LOH) of the mutant allele
+B. Emergence of second-site IDH1 mutations
+C. Upregulation of wild-type IDH1
+D. Isoform switching to IDH2 mutations
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-50,"
+Question: Which molecules interact with NOD2 to regulate its signaling?
+
+Options:
+A. ATG16L1
+B. RIP2
+C. HSP70
+D. p53
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-51,"
+Question: Which kinases are co-targeted with BTK in dual inhibitors to treat AML? (Select all that apply)
+
+Options:
+A. FLT3
+B. NR3C1
+C. MNK
+D. DNMT1
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-52,"
+Question: Which miRNAs directly target PDCD1 mRNA?
+
+Options:
+A. miR-28
+B. miR-138
+C. miR-21
+D. miR-374b
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-53,"
+Question: Which PARP inhibitor is approved for adjuvant breast cancer therapy? [as of 2024]
+
+Options:
+A. Talazoparib
+B. Niraparib
+C. Olaparib
+D. Veliparib
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-54,"
+Question: Which COMT inhibitor requires dose adjustment in patients with severe renal impairment (creatinine clearance <30 mL/min)?
+
+Options:
+A. Tolcapone
+B. Entacapone
+C. Opicapone
+D. None of the above
+
+Choose the correct answers from the options (can be one or more).
+",D
+TRQA-lit-55,"
+Question: Which processes contribute to ABCA1 suppression in obesity (as of 2022)?
+
+Options:
+A. Reduced adiponectin levels
+B. Increased PEST domain activity
+C. Downregulation of ABCG1
+D. Elevated TNFα signaling
+
+Choose the correct answers from the options (can be one or more).
+",AD
+TRQA-lit-56,"
+Question: Which off-target kinases are inhibited by ibrutinib? (Select all that apply)
+
+Options:
+A. EGFR
+B. JAK3
+C. PI3K
+D. ITK
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-57,"
+Question: Which molecular form of AChE is predominant in non-AD adult brains?
+
+Options:
+A. G1 (monomeric)
+B. G2 (dimeric)
+C. G4 (tetrameric)
+D. G0 (inactive)
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-58,"
+Question: Which cell types express NOD2 in cardiovascular diseases?
+
+Options:
+A. Macrophages
+B. Vascular smooth muscle cells (VSMCs)
+C. Cardiomyocytes
+D. Microglia
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-59,"
+Question: Which transcription factors repress PD-1 expression?
+
+Options:
+A. T-bet
+B. Blimp-1
+C. STAT5
+D. Eomes
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-60,"
+Question: Which mechanisms reduce GRα/GRβ ratio in secondary GCR?
+
+Options:
+A. Pro-inflammatory cytokines (e.g., IL-17)
+B. Elevated HSP90 in the nucleus
+C. Polymorphisms increasing GRβ stability
+D. miR-124 overexpression
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-61,"
+Question: Which KIT-targeting TKI is FDA-approved for indolent systemic mastocytosis (ISM)? [as of 2024]
+
+Options:
+A. Imatinib
+B. Midostaurin
+C. Avapritinib
+D. Masitinib
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-62,"
+Question: Which transcription factors directly regulate ABCA1 gene expression (as of 2022)? (Select all that apply)
+
+Options:
+A. Liver-X-Receptor (LXR)
+B. Nuclear Factor-κB (NF-κB)
+C. Sterol-Responsive Element Binding Protein 2 (SREBP2)
+D. Peroxisome Proliferator-Activated Receptor γ (PPARγ)
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-63,"
+Question: Which biomarkers are associated with improved responses to PD-1/PD-L1 inhibitors in TNBC?
+
+Options:
+A. High TMB
+B. TP53 mutations
+C. Stromal tumor-infiltrating lymphocytes (sTILs)
+D. Estrogen receptor expression
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-64,"
+Question: Which DRD2 inhibitor was approved by the FDA in 2019?
+
+Options:
+A. Aripiprazole
+B. Lumateperone
+C. Haloperidol
+D. Quetiapine
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-65,"
+Question: Which diagnostic techniques are validated for detecting MET exon 14 skipping alterations?
+
+Options:
+A. Amplicon-based NGS
+B. Hybrid capture-based NGS
+C. RNA sequencing
+D. Immunohistochemistry (IHC)
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-66,"
+Question: Which enzymes are E3 ubiquitin ligases for PD-1?
+
+Options:
+A. FBW7
+B. USP5
+C. KLHL22
+D. c-Cbl
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-67,"
+Question: Which domain of FAK is responsible for its localization to focal adhesions?
+
+Options:
+A. FERM domain
+B. Kinase domain
+C. FAT domain
+D. SH2 domain
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-68,"
+Question: Which medications can be used to lower FGF23 levels in CKD? [as of 2024]
+
+Options:
+A. Vitamin D analogs
+B. Calcimimetics
+C. Tenapanor
+D. Anti-FGF23 antibodies (burosumab)
+E. Non-calcium phosphate binders
+
+Choose the correct answers from the options (can be one or more).
+",BCE
+TRQA-lit-69,"
+Question: Which signaling pathway is activated when ADORA2A is stimulated?
+
+Options:
+A. Decreased intracellular cAMP
+B. Increased intracellular cAMP
+C. Activation of Gi proteins
+D. Inhibition of Gs proteins
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-70,"
+Question: Which FGF receptor is predominantly involved in FGF23-mediated cardiac hypertrophy?
+
+Options:
+A. FGFR1
+B. FGFR3
+C. FGFR4
+D. FGFR2
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-71,"
+Question: Which of the following F3 SNPs has been associated with preterm birth?
+
+Options:
+A. rs3917643
+B. rs958587
+C. rs610277
+D. rs1361600
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-72,"
+Question: Which cancers are associated with PIK3CA amplification (as of 2020)?
+
+Options:
+A. Ovarian carcinoma
+B. Bladder cancer
+C. Breast cancer
+D. Gastrointestinal stromal tumors
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-73,"
+Question: Which adverse event is specifically associated with ivosidenib therapy in AML?
+
+Options:
+A. Neuropathy
+B. QTc prolongation
+C. Hypothyroidism
+D. Pancreatitis
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-74,"
+Question: Which inhibitor blocks CXCL12/CXCR4 to reduce megakaryocyte migration in pulmonary fibrosis?
+
+Options:
+A. Candesartan
+B. WZ811
+C. Sorafenib
+D. AMD3100
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-75,"
+Question: Which IDH1 inhibitor is currently FDA-approved for advanced cholangiocarcinoma (as of 2022)?
+
+Options:
+A. Enasidenib
+B. BAY1436032
+C. Ivosidenib
+D. Olutasidenib
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-76,"
+Question: Which cancer type has the highest estimated prevalence of IDH1 mutations as of 2022?
+
+Options:
+A. Cholangiocarcinoma
+B. Gliomas
+C. Acute myeloid leukemia (AML)
+D. Chondrosarcoma
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-77,"
+Question: Which experimental models demonstrated the role of CTLA-4+ ILC3s in regulating CD80? (Select all that apply)
+
+Options:
+A. C. rodentium infection
+B. Anti-CD40-induced colitis
+C. Naive T cell transfer colitis
+D. Germ-free mouse models
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-78,"
+Question: Which of the following AChE inhibitors is an allosteric modulator of nicotinic receptors?
+
+Options:
+A. Donepezil
+B. Rivastigmine
+C. Galantamine
+D. Memantine
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-79,"
+Question: Which cell line modeled low CD19 expression (~200 molecules/cell)?
+
+Options:
+A. NALM6/WT
+B. NALM6/12-39
+C. NALM6/12-4
+D. Raji
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-80,"
+Question: Which PPAR agonists have shown renal effects in clinical trials?
+
+Options:
+A. Fenofibrate
+B. Lanifibranor
+C. Elafibranor
+D. Rosiglitazone
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-81,"
+Question: What tumor-intrinsic effects are induced by EZH2 inhibition?
+
+Options:
+A. Apoptosis via ERV re-expression
+B. Increased tumor cell proliferation
+C. ULBP1 upregulation (NK ligand)
+D. Enhanced DNA repair capacity
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-82,"
+Question: Which biological processes are regulated by MAOA in prostate cancer?
+
+Options:
+A. Epithelial-mesenchymal transition (EMT)
+B. Angiogenesis
+C. Autophagy
+D. DNA repair
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-83,"
+Question: Which physiological effects are observed when ADORA2A is blocked in cancer therapy?
+
+Options:
+A. Increased intracellular cAMP
+B. Enhanced T-cell-mediated tumor killing
+C. Reduced immunosuppression in the tumor microenvironment
+D. Activation of HIF-1α signaling
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-84,"
+Question: Which structural domain of PDE5 regulates catalytic activity and dimerization?
+
+Options:
+A. Catalytic domain
+B. GAF domains
+C. C-terminal domain
+D. Kinase domain
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-85,"
+Question: Which pathways are regulated by DNMT1 in TNBC CSCs?
+
+Options:
+A. ISL1 suppression
+B. BCL11A interaction
+C. CD80 activation
+D. ERα hypermethylation
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-86,"
+Question: Which factors stimulate FGF23 production in CKD?
+
+Options:
+A. Dietary phosphate intake
+B. Iron deficiency
+C. Elevated serum calcium
+D. Inflammation
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-87,"
+Question: What biomarkers correlate with EZH2 inhibition efficacy in preclinical models?
+
+Options:
+A. High PD-1 expression on stromal T cells
+B. Increased H3K27me3 levels
+C. Elevated CXCL9/CXCL10 in TME
+D. Reduced CDKN2A expression
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-88,"
+Question: Which miRNAs are implicated in glucocorticoid resistance by targeting GRα?
+
+Options:
+A. miR-124
+B. miR-142-3p
+C. miR-77
+D. miR-96
+E. miR-131
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-89,"
+Question: Which type of solid malignancies has an estimated highest prevalence of PIK3CA mutations?
+
+Options:
+A. Bladder cancer
+B. Endometrial cancer
+C. Breast cancer
+D. Colorectal cancer
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-90,"
+Question: Which neurodegenerative diseases are directly linked to MAO-B overexpression? (Select all that apply)
+
+Options:
+A. Alzheimer’s disease (AD)
+B. Parkinson’s disease (PD)
+C. Myocardial infarction
+D. Leukemia
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-91,"
+Question: Which mutation in hsTYR is associated with complete suppression of its monophenolase activity, leading to oculocutaneous albinism type 1 (OCA1)?
+
+Options:
+A. H304A
+B. S380P
+C. K306R
+D. R308K
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-92,"
+Question: In which cancer type does IDH1 mutation confer a survival advantage?
+
+Options:
+A. Low-grade glioma
+B. AML
+C. Chondrosarcoma
+D. Glioblastoma
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-93,"
+Question: Which of the following risk stratification tools are included in current prostate cancer early detection strategies? (Select all that apply)
+
+Options:
+A. PSA velocity
+B. PSA density
+C. Family history
+D. Risk calculators
+E. Multiparametric MRI
+F. Prostate Imaging–Reporting and Data System (PI-RADS)
+
+Choose the correct answers from the options (can be one or more).
+",BCDEF
+TRQA-lit-94,"
+Question: What advantages does Dau-d4 have over sitagliptin?
+
+Options:
+A. Selectively inhibits mDPP4
+B. Binds hDPP4 with high affinity
+C. Improves glucose tolerance in diabetic mice
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-95,"
+Question: Which tissues/organs express high levels of BChE?
+
+Options:
+A. Plasma
+B. Liver
+C. Skeletal muscle
+D. Brain
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-96,"
+Question: Which of the following diseases is NOT strongly associated with NOD2 mutations?
+
+Options:
+A. Crohn’s disease
+B. Blau syndrome
+C. Guillain-Barré syndrome
+D. Type 1 diabetes
+
+Choose the correct answers from the options (can be one or more).
+",D
+TRQA-lit-97,"
+Question: Which of the following outcomes occur when CTLA-4+ ILC3s are absent in mice? (Select all that apply)
+
+Options:
+A. Increased CD80 on myeloid cells
+B. Reduced PD-L1 bioavailability
+C. Enhanced Treg cell activity
+D. Elevated colonic neutrophils
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-98,"
+Question: In human studies, CTLA-4+ ILC3s were altered in which conditions? (Select all that apply)
+
+Options:
+A. Crohn’s disease
+B. Ulcerative colitis
+C. Cholangiocarcinoma
+D. Acute bacterial infections
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-99,"
+Question: The interaction between CD80 and PD-L1 on myeloid cells occurs in which manner?
+
+Options:
+A. Trans-interaction
+B. Cis-interaction
+C. Paracrine signaling
+D. Autocrine signaling
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-100,"
+Question: Which of the following AR mutations are associated with resistance to prostate cancer therapies?
+
+Options:
+A. F877L
+B. T878A
+C. G1010L
+D. Y121S
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-101,"
+Question: Which PPAR agonist showed reduced stroke risk in the IRIS trial?
+
+Options:
+A. Fenofibrate
+B. Pioglitazone
+C. Lanifibranor
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-102,"
+Question: Which of the following adverse events of ibrutinib is likely associated with its inhibition of TEC kinase?
+
+Options:
+A. Rash
+B. Atrial fibrillation
+C. Bleeding
+D. Diarrhea
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-103,"
+Question: Which BAFF-targeting drugs failed in phase III trials? [as of 2021] (select all that apply)
+
+Options:
+A. Belimumab
+B. Tabalumab
+C. Atacicept
+D. Blisibimod
+
+Choose the correct answers from the options (can be one or more).
+",BCD
+TRQA-lit-104,"
+Question: Which therapies are being investigated in combination with mutant IDH1 inhibitors for AML? [as of 2021] Select all that apply.
+
+Options:
+A. Azacitidine
+B. Venetoclax
+C. PARP inhibitors
+D. Nivolumab
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-105,"
+Question: (As of 2023)Which CFTR mutation class is characterized by impaired channel gating?
+
+Options:
+A. Class I
+B. Class II
+C. Class III
+D. Class IV
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-106,"
+Question: Which natural compound inhibits the PI3K-Akt-mTOR pathway by reducing p-Akt and p-mTOR levels in non-small cell lung cancer?
+
+Options:
+A. Curcumin
+B. Vitexin
+C. Oridonin
+D. Arctigenin
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-107,"
+Question: Which mechanism differentiates CTLA-4 inhibitors from PD-1/PD-L1 inhibitors?
+
+Options:
+A. Targeting later-stage T-cell activation
+B. Inhibiting myeloid suppressor cells
+C. Blocking initial T-cell priming
+D. Enhancing antigen presentation
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-108,"
+Question: Which mutations are linked to ibrutinib resistance?
+
+Options:
+A. BTK C481S
+B. EGFR L858R
+C. MYC overexpression
+D. CCND1 mutations
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-109,"
+Question: Which factors complicate the standardization of MET amplification diagnostics?
+
+Options:
+A. Variability in assay cut-off values
+B. Tumor heterogeneity
+C. Lack of consensus on NGS vs. FISH thresholds
+D. High cost of testing
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-110,"
+Question: What is the primary mechanism by which first- and second-generation BTK inhibitors like ibrutinib and acalabrutinib bind to BTK?
+
+Options:
+A. Non-covalent interaction with the ATP-binding pocket
+B. Covalent binding to cysteine 481 (C481)
+C. Degradation via proteolysis-targeting chimera (PROTAC)
+D. Inhibition of post-translational modifications
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-111,"
+Question: Which mechanisms are implicated in IGF1R-mediated reduction of oxidative stress in liver fibrosis?
+
+Options:
+A. activate MAPK/ERK1/2 signaling pathway
+B. Inhibition of miR-1
+C. Activation of NOX enzymes
+D. activate IGF1R/PI3K/AKT signaling pathway
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-112,"
+Question: What mechanisms does daratumumab use to target CD38 in autoimmune diseases?
+
+Options:
+A. Inhibits NAD hydrolysis
+B. Promotes antibody-dependent cellular cytotoxicity (ADCC)
+C. Blocks CD38 adhesion function
+D. Restores NK cell cytotoxic function
+E. Enhances mitochondrial autophagy
+
+Choose the correct answers from the options (can be one or more).
+",BD
+TRQA-lit-113,"
+Question: Which signaling pathway is activated by XOR-derived ROS to promote angiogenesis?
+
+Options:
+A. TGF-β
+B. NF-κB
+C. JAK-STAT
+D. Wnt/β-catenin
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-114,"
+Question: Which domains are part of the BTK protein structure?
+
+Options:
+A. Tyrosine kinase (TK) domain
+B. Pleckstrin homology (PH) domain
+C. Nuclear localization signal (NLS) domain
+D. Src homology 2 (SH2) domain
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-115,"
+Question: Which of the following cyclins partners with CDK4 to drive G1-S phase progression?
+
+Options:
+A. Cyclin A
+B. Cyclin B
+C. Cyclin D
+D. Cyclin E
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-116,"
+Question: Which FLT3 inhibitor is approved in Japan for relapsed/refractory AML but not by the FDA? [as of 2021]
+
+Options:
+A. Midostaurin
+B. Quizartinib
+C. Crenolanib
+D. Sorafenib
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-117,"
+Question: Which of the following cancer types is MAOA significantly DOWNREGULATED in?
+
+Options:
+A. Prostate cancer
+B. Liver cancer
+C. Classic Hodgkin’s lymphoma
+D. Breast cancer
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-118,"
+Question: Which stromal components express MAOA and contribute to prostate cancer progression?
+
+Options:
+A. Tumor-associated macrophages (TAMs)
+B. Intratumoral T cells
+C. Cancer-associated fibroblasts (CAFs)
+D. Endothelial cell
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-119,"
+Question: What downstream effects are triggered by AChE-derived peptides?
+
+Options:
+A. Calcium influx
+B. Aβ release
+C. Tau dephosphorylation
+D. AChE compensatory release
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-120,"
+Question: Which assay is recommended over VWF:RCo for measuring VWF activity in the 2021 guidelines?
+
+Options:
+A. VWF:GPIBR
+B. VWF:CB
+C. FVIII:C
+D. RIPA
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-121,"
+Question: Which multikinase inhibitor has the highest selectivity for VEGFR2 over RET?
+
+Options:
+A. Cabozantinib
+B. Vandetanib
+C. Lenvatinib
+D. Motesanib
+
+Choose the correct answers from the options (can be one or more).
+",D
+TRQA-lit-122,"
+Question: In chronic viral infections, which factor sustains PD-1 expression by opposing T-bet?
+
+Options:
+A. Blimp-1
+B. FoxO1
+C. Eomes
+D. NF-Κb
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-123,"
+Question: Which signaling pathway interacts with DNMT1 to sustain PDAC tumorigenesis?
+
+Options:
+A. Wnt/β-catenin
+B. Hedgehog
+C. NF-κB
+D. MAPK/ERK
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-124,"
+Question: Which DRD2 inhibitors are approved for bipolar disorder? [as of 2024] (Select all that apply)
+
+Options:
+A. Lumateperone
+B. Thioridazine
+C. Asenapine
+D. Pramipexole
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-125,"
+Question: Which pathways are involved in IL-23-mediated CTLA-4 induction on ILC3s?
+
+Options:
+A. FOXO1
+B. STAT3
+C. NF-κB
+D. MAPK
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-126,"
+Question: Which patient populations show significant benefit from PARP inhibitors beyond germline BRCA1/2 mutations? [as of 2024]
+
+Options:
+A. Somatic BRCA1/2 variants
+B. Germline PALB2 alterations
+C. ATM-associated tumors
+D. CHEK2-associated tumors
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-127,"
+Question: Which molecular changes occur in the NAc after chronic cocaine exposure? (Select all that apply)
+
+Options:
+A. Increased GluN2B-containing NMDARs
+B. Insertion of GluA2-lacking AMPARs
+C. Reduced LTD capacity
+D. Enhanced LTP induction
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-128,"
+Question: Which CD19 residues are critical for binder interactions? (Select all that apply)
+
+Options:
+A. Arg163
+B. Lys220
+C. Pro222
+D. Leu174
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-129,"
+Question: In TNBC, DNMT1 overexpression is driven by:
+
+Options:
+A. Hypomethylation of oncogenes
+B. Mutations in ESR1
+C. circ-DNMT1-mediated autophagy
+D. All of the above
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-130,"
+Question: Which KIT-targeting TKIs inhibit both wild-type and D816V-mutated KIT? (Select all that apply)
+
+Options:
+A. Imatinib
+B. Midostaurin
+C. Avapritinib
+D. Elenestinib
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-131,"
+Question: Which mutation is strongly associated with de novo resistance to CDK4/6 inhibitors?
+
+Options:
+A. TP53
+B. RB1
+C. BRCA1
+D. KRAS
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-132,"
+Question: Which structural features of PCSK9 are critical for its interaction with LDLR?
+
+Options:
+A. Catalytic domain (CD)
+B. C-terminal CHRD domain
+C. Prodomain
+D. Signal peptide
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-133,"
+Question: What are the secondary effects of AChE inhibitors in preclinical models of Alzheimer’s disease?
+
+Options:
+A. Reduced amyloid production
+B. Increased neurogenesis
+C. Enhanced mitochondrial dysfunction
+D. Attenuated neuroinflammation
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-134,"
+Question: Which approaches are currently being explored to treat Alzheimer’s disease? [as of 2023] (Select all that apply)
+
+Options:
+A. Amyloid-lowering therapies
+B. Tau-targeted therapies
+C. Neuroinflammation modulation
+D. Gene therapy targeting amyloid precursor protein (APP)
+E. Lifestyle modification
+
+Choose the correct answers from the options (can be one or more).
+",ABCE
+TRQA-lit-135,"
+Question: Which natural products exhibit PDE5 inhibitory activity?
+
+Options:
+A. Icariin (from Epimedium species)
+B. Curcumin (from turmeric)
+C. Leonurine (from Leonurus artemisia)
+D. Quercetin (from Nymphaea pubescens)
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-136,"
+Question: What are the dual roles of uric acid in cancer (select all that apply)?
+
+Options:
+A. Antioxidant defense
+B. Pro-oxidant activity
+C. Immune suppression
+D. Enhancing glycolysis
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-137,"
+Question: Which DRD2 inhibitors act as partial agonists?
+
+Options:
+A. Aripiprazole
+B. Haloperidol
+C. Cariprazine
+D. Lumateperone
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-138,"
+Question: Which of the following compounds have been shown to target ITGβ1 in breast cancer cells? (Select all that apply)
+
+Options:
+A. Tubeimoside V
+B. Pimozide
+C. Matrine
+D. Excisanin A
+E. Cisplatin
+
+Choose the correct answers from the options (can be one or more).
+",ABCD
+TRQA-lit-139,"
+Question: Which biomarkers are under investigation to predict PARP inhibitor response beyond BRCA1/2 status?
+
+Options:
+A. RAD51 foci formation
+B. BRCA1 promoter methylation
+C. PD-L1 expression
+D. HRD score on circulating tumor DNA (ctDNA)
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-140,"
+Question: Which signaling pathway is NOT directly regulated by DRD2 activation?
+
+Options:
+A. cAMP/PKA
+B. PI3K/Akt
+C. NF-κB
+D. MAPK
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-141,"
+Question: Which VWD subtype is inherited recessively?
+
+Options:
+A. Type 2A
+B. Type 2N
+C. Type 2M
+D. Type 1
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-142,"
+Question: What mechanisms link AChE to Aβ pathology in Alzheimer’s disease? (Select all that apply)
+
+Options:
+A. AChE promotes Aβ fibrilization via its peripheral anionic site
+B. AChE inhibits α7 nicotinic receptor activity
+C. AChE suppresses insulin signaling
+D. AChE overexpression upregulates PS-1-mediated amyloidogenic processing
+
+Choose the correct answers from the options (can be one or more).
+",AD
+TRQA-lit-143,"
+Question: Which mutation is estimated to be present in >90% of patients with primary MCAS?
+
+Options:
+A. KIT D816V
+B. JAK2 V617F
+C. BRAF V600E
+D. EGFR T790M
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-144,"
+Question: Which biomarkers are used to assess KIT-targeting therapy efficacy in MCAS?
+
+Options:
+A. Serum tryptase
+B. Urinary LTE₄
+C. CD117 expression
+D. MRGPRX2 levels
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-145,"
+Question: Which pathological hallmarks of AD are directly linked to AChE activity?
+
+Options:
+A. Senile plaques
+B. Neurofibrillary tangles
+C. Astrogliosis
+D. Synaptic loss
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-146,"
+Question: Which biomarkers are currently lacking validation for novel immune-checkpoint inhibitors?
+
+Options:
+A. PD-L1 expression
+B. TIGIT expression
+C. TIM-3 expression
+D. Tumor mutational burden
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-147,"
+Question: Which therapies are used for von Willebrand disease management? [as of 2024] (Select all that apply)
+
+Options:
+A. Desmopressin
+B. Recombinant VWF concentrates
+C. Emicizumab
+D. Platelet transfusions
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-148,"
+Question: Which mechanisms contribute to type 1 VWD pathogenesis?
+
+Options:
+A. Enhanced VWF clearance
+B. Impaired VWF storage/secretion
+C. Autoantibodies against VWF
+D. Reduced VWF synthesis
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-149,"
+Question: Which of the following mechanisms activate RET in human cancers? (Select all that apply)
+
+Options:
+A. Chromosomal rearrangements fusing RET kinase domain with dimerization partners
+B. Germline missense mutations in the extracellular cysteine-rich domain
+C. Somatic mutations at the V804 gatekeeper residue
+D. Ligand-independent activation via GDNF binding
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-150,"
+Question: Which mechanisms contribute to PARP inhibitor resistance?
+
+Options:
+A. Upregulation of ABC transporters
+B. BRCA1 promoter demethylation
+C. Overexpression of RAD51
+D. Increased PARP1 trapping
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-151,"
+Question: What recommendation did the United States Preventive Services Task Force (USPSTF) make regarding PSA screening in 2012?
+
+Options:
+A. Recommended PSA screening for all men over 40
+B. Recommended against screening for all men
+C. Recommended screening only for men with family history
+D. Recommended individualized testing in well-informed men
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-152,"
+Question: Ketamine’s inhibition of sucrose-seeking behavior is associated with decreased expression of which receptor in the NAc?
+
+Options:
+A. GluN2B
+B. mGluR5
+C. GluA1
+D. GluN2A
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-153,"
+Question: Which of the following biomarkers are used in the diagnosis of Alzheimer's disease? (Select all that apply)
+
+Options:
+A. Amyloid β (Aβ42)
+B. Tau (pTau181)
+C. Glial fibrillary acidic protein (GFAP)
+D. Neuroinflammation markers
+E. Total tau
+
+Choose the correct answers from the options (can be one or more).
+",ABE
+TRQA-lit-154,"
+Question: Which proline-rich motif in CD2’s cytoplasmic domain binds Lck?
+
+Options:
+A. P1
+B. P2
+C. P3
+D. P4
+
+Choose the correct answers from the options (can be one or more).
+",D
+TRQA-lit-155,"
+Question: Which of the following are limitations of using mushroom tyrosinase (abTYR) to model human tyrosinase (hsTYR) inhibition? (Select all that apply)
+
+Options:
+A. Divergence in active-site residues
+B. Lack of glycosylation in abTYR
+C. Similar inhibition values for kojic acid and hydroquinone
+D. High structural conservation of the 302–310 loop
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-156,"
+Question: What downstream effects occur when the HTR1A/cAMP pathway is inhibited?
+
+Options:
+A. Increased neuronal apoptosis
+B. Enhanced neuroprotective processes
+C. Reduced PKA activity
+D. Elevated inflammatory cytokines (e.g., TNF-α, IL-6)
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-157,"
+Question: Which therapies are mutation-agnostic?
+
+Options:
+A. CFTR modulators
+B. TMEM16A activators
+C. Gene editing
+D. Antisense oligonucleotides
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-158,"
+Question: Which adverse effects are common to both first- and second-generation DRD2 inhibitors?
+
+Options:
+A. metabolic syndrome
+B. Tardive dyskinesia
+C. EPS
+D. Anaphylactic shock
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-159,"
+Question: Which glutamate receptor subunit is specifically increased in the VTA 3 hours after a single cocaine injection?
+
+Options:
+A. GluA1
+B. GluA2
+C. GluN2A
+D. GluN2C
+
+Choose the correct answers from the options (can be one or more).
+",A
+TRQA-lit-160,"
+Question: Which signaling pathway is directly inhibited by AG8?
+
+Options:
+A. Wnt
+B. ET-1/ETA/YAP
+C. Notch
+D. TGF-β
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-161,"
+Question: Which glutamate receptor types are directly involved in metaplasticity phenomena in addiction? (Select all that apply)
+
+Options:
+A. NMDA receptors (NMDARs)
+B. AMPA receptors (AMPARs)
+C. Metabotropic glutamate receptors (mGluRs)
+D. Kainate receptors
+
+Choose the correct answers from the options (can be one or more).
+",ABC
+TRQA-lit-162,"
+Question: Which DNMT1 polymorphisms are associated with increased TNBC risk?
+
+Options:
+A. rs2288349 (C > T in intron 27)
+B. rs16999593 (T > C in exon 4)
+C. rs2228611 (AG genotype)
+D. rs2228612 (GG phenotype)
+
+Choose the correct answers from the options (can be one or more).
+",AB
+TRQA-lit-163,"
+Question: Which of the following is a validated biomarker for CA4 therapy?
+
+Options:
+A. β-Galactosidase activity
+B. HER2 expression
+C. Hypoxia-inducible factors
+D. PD-L1 levels
+
+Choose the correct answers from the options (can be one or more).
+",AC
+TRQA-lit-164,"
+Question: Which AChE-derived peptide is most potent in inducing calcium influx?
+
+Options:
+A. T15
+B. T14
+C. T30
+D. Aβ
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-165,"
+Question: Which of the following mechanisms is responsible for PCSK9-mediated LDLR degradation?
+
+Options:
+A. Ubiquitination of LDLR
+B. Direct enzymatic cleavage of LDLR
+C. Trafficking LDLR to lysosomes via CAP-1 binding
+D. Inhibition of LDLR recycling to the cell surface
+
+Choose the correct answers from the options (can be one or more).
+",C
+TRQA-lit-166,"
+Question: Which cellular mechanisms are implicated in SCN5A-associated DCM (select all that apply)?
+
+Options:
+A. Increased late sodium current
+B. Fibrofatty infiltration of the myocardium
+C. Intracellular calcium overload
+D. Conduction slowing due to Na+ channel loss
+
+Choose the correct answers from the options (can be one or more).
+",ACD
+TRQA-lit-167,"
+Question: Which biomarker predicts PARP inhibitor sensitivity better than genomic scars?
+
+Options:
+A. BRCA1 promoter methylation
+B. RAD51 foci formation
+C. HRD score
+D. BRCA2 somatic mutations
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-168,"
+Question: Which pathways are directly activated by IGF1R signaling in liver fibrosis?
+
+Options:
+A. Wnt/β-catenin
+B. PI3K/AKT
+C. MAPK/ERK
+D. TGF-β/Smad
+
+Choose the correct answers from the options (can be one or more).
+",BC
+TRQA-lit-169,"
+Question: Which residue in MAO-B acts as a 'gate' controlling substrate specificity?
+
+Options:
+A. Tyr326
+B. Ile199
+C. Phe168
+D. Cys172
+
+Choose the correct answers from the options (can be one or more).
+",B
+TRQA-lit-170,"
+Question: Which of the following AR mutations are commonly found in drug-resistant prostate cancer?
+
+Options:
+A. F877L
+B. T878A
+C. Y121S
+D. W742L
+
+Choose the correct answers from the options (can be one or more).
+",ABD
+TRQA-lit-171,"
+Question: In human IBD patients, the frequency of CTLA-4+ ILC3s correlates with which myeloid cell feature?
+
+Options:
+A. Increased CD80 expression
+B. Reduced α7 nicotinic receptor activity
+C. Elevated free PD-L1 levels
+D. Enhanced IL-23 production
+
+Choose the correct answers from the options (can be one or more).
+",C

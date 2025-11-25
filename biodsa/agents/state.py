@@ -6,11 +6,9 @@ from langgraph.graph.message import add_messages, BaseMessage
 class CodeExecutionResult(BaseModel):
     code: str
     console_output: str
-    running_time: float
-    peak_memory: float
 
     def __str__(self):
-        return f"Code: {self.code}\nConsole Output: {self.console_output}\nRunning Time: {self.running_time}\nPeak Memory: {self.peak_memory}"
+        return f"Code: {self.code}\nConsole Output: {self.console_output}"
 
 class AgentState(BaseModel):
     """The state of the agent."""
