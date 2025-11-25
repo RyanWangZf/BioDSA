@@ -205,13 +205,11 @@ class DSWizardAgent(BaseAgent):
         code_result = None
         analysis_plan = None
         if tool_name == "code_execution":
-            content = tool_output["stdout"]
+            content = tool_output
             # update the code results
             code_result = CodeExecutionResult(
                 code=tool_input["code"],
-                console_output=tool_output["stdout"],
-                running_time=tool_output["running_time"],
-                peak_memory=tool_output["peak_memory_mb"],
+                console_output=tool_output,
             )
         elif tool_name == "create_analysis_plan":
             content = tool_output
