@@ -1,0 +1,2980 @@
+data_id,question,answer,raw_answer,subfield,uuid
+SuperGPQA-medicine-0,"
+Question: A 23-year-old female has had acute tonsillitis for 3 weeks. She wakes up with eyelid edema and a urine output of 500 ml/day. The type of water and sodium metabolic disorder that the patient is more likely to develop is
+
+Options:
+A. Hypovolemic hypernatremia
+B. Hypervolemic hyponatremia with decreased urine output
+C. Hypovolemic hypernatremia with decreased urine output
+D. Hypervolemic hypernatremia with decreased urine output
+E. Hypervolemic hypernatremia
+F. Hypovolemic hyponatremia
+G. Normovolemic hypernatremia
+H. Hypervolemic hyponatremia
+I. Normovolemic hyponatremia
+J. Hypervolemic hypernatremia with increased urine output
+
+Choose the correct answer from the options.
+",H,Hypervolemic hyponatremia,Internal Medicine,4f3e7e91fb0340989b1fef4188f602be
+SuperGPQA-medicine-1,"
+Question: A 30-year-old female patient was admitted to the hospital with fever, excessive sweating, and joint pain for one month. One month ago, she developed fever without obvious cause, with a body temperature of 38-39°C, intermittent fever, profuse sweating after fever, and migratory pain in large joints. Half a month later, the pain was localized to both knee joints. She had been intermittently treated with cephalosporin antibiotics, but it was ineffective. The patient's occupation involves collecting animal hides (mainly from cattle and sheep). Physical examination: T 38.7°C, clear consciousness, enlarged lymph nodes in the neck, inguinal, and submandibular regions without tenderness, soft abdomen, liver 3 cm below the costal margin, spleen 1 cm below the costal margin. Laboratory tests: Complete blood count: WBC 4.5×10^9/L, L 45%, Hb 110g/L; Liver function: ALT 350U/L, AST 140U/L. To rapidly confirm the diagnosis, which of the following tests should be performed immediately?
+
+Options:
+A. ASO
+B. Brucella agglutination test with cross-reactivity control
+C. Blood culture + sensitivity
+D. Brucella agglutination test
+E. Brucella agglutination test with false-positive control
+F. ESR
+G. Brucella PCR test
+H. PPD test
+I. Brucella serology
+J. Brucella agglutination test with false-negative control
+
+Choose the correct answer from the options.
+",D,Brucella agglutination test,Internal Medicine,eb16cc9cbefa4aab8436048518fe4a45
+SuperGPQA-medicine-2,"
+Question: A 58-year-old male. He experienced sudden chest pain for 2 hours while working in poverty alleviation in a mountainous area, which did not subside. An ECG at the local health center showed: ST-segment elevation of 0.2-0.5mV in leads V1-V6. He has a history of long-term heavy smoking, but no history of hypertension or diabetes. The local health center is 3 hours away from the nearest cardiovascular interventional treatment unit. The diagnosis is
+
+Options:
+A. acute coronary syndrome
+B. acute ST-segment elevation myocardial infarction with ST-segment resolution
+C. acute ST-segment elevation myocardial infarction with pericarditis
+D. acute ST-segment elevation myocardial ischemia
+E. ST-segment elevation myocardial infarction
+F. acute ST-segment elevation myocardial infarction
+G. aortic dissection
+H. acute pericarditis
+I. acute non-ST-segment elevation myocardial infarction
+J. acute
+
+Choose the correct answer from the options.
+",E,ST-segment elevation myocardial infarction,Internal Medicine,228c004b39c0459183d59aa8b06e2395
+SuperGPQA-medicine-3,"
+Question: A 43-year-old female presented with severe right upper quadrant pain that worsened intermittently over 3 days, accompanied by chills, high fever, nausea, and vomiting. Physical examination revealed jaundice, a temperature of 39°C, a pulse rate of 120 beats per minute, and a blood pressure of 80/60 mmHg. The patient was delirious and confused, with muscle tension in the left of the epigastrium, the liver palpable 2 cm below the costal margin, a white blood cell count of 15×10^9/L, 80% neutrophils, and a total serum bilirubin level of 50 μmol/L. The preferred treatment for this case is
+
+Options:
+A. cholecystectomy and common bile duct decompression
+B. cholecystectomy and abdominal drainage
+C. cholecystectomy and common bile duct exploration
+D. common bile duct decompression and cholecystostomy
+E. common bile duct decompression and cholecystectomy
+F. anti-shock and anti-infection treatment
+G. common bile duct decompression and drainage
+H. cholecystostomy
+I. common bile duct decompression and anti-infection treatment
+J. common bile duct exploration and drainage
+
+Choose the correct answer from the options.
+",G,common bile duct decompression and drainage,Surgery,f0c9e385134242a389ec8e570d8876b1
+SuperGPQA-medicine-4,"
+Question: pt. with acute onset of left side weakness and loss of sensation over left side of body with facial sparing. on protrusion of tongue , detes to the right side which aery involved ?
+
+Options:
+A. V Tuberculum PICA
+B. CAROTID AERY
+C. PICA
+D. AICA
+E. PIAL AERY
+F. V Tee PICA
+G. V waist PICA
+H. V AERY
+I. VEEBRAL AERY
+J. APCA
+
+Choose the correct answer from the options.
+",C,PICA,Neurology,7fd85f3aa80449cfbf3d0f3272eb110b
+SuperGPQA-medicine-5,"
+Question: A patient presented with thunder clap headache followed by unconsciousness with pregressive HI ranial nerve palsy. Likely diagnosis is -
+
+Options:
+A. Cluster headache
+B. Basilar migraine
+C. Subarachnoid hemorrhage due to hypertension
+D. Atherosclerotic subarachnoid hemorrhage
+E. Extradural hemorrhage
+F. Aneurysmal subarachnoid hemorrhage
+G. Subarachnoid hemorrhage due to vasculitis
+H. Aneurysmal intracerebral hemorrhage
+I. Subarachnoid hemorrhage due to aneurysmal rupture
+J. Intracerebral hemorrhage
+
+Choose the correct answer from the options.
+",F,Aneurysmal subarachnoid hemorrhage,Neurology,ac63b6fef710475eaaf334b8c53a582c
+SuperGPQA-medicine-6,"
+Question: A 47yrs old female c/o headache, changes in vision, seizures from past 2yrs. Now she has developed weakness . side of body. A CT scan was being ordered by the physician which showed well circumscribed mass abutting the skull in left hemisphere. On contrast enhanced MRI shows -. What is the next step in management of this patient?
+
+Options:
+A. Preoperative chemotherapy followed by surgical excision
+B. Chemotherapy with Adriamycin
+C. Surgical excision
+D. Preoperative embolization followed by radiation therapy
+E. Cerebral angiography with tumor embolization
+F. Preoperative embolization and surgical excision
+G. Preoperative embolization followed by chemotherapy with Adriamycin
+H. Preoperative embolization and radiation therapy followed by surgical excision
+I. Preoperative radiation therapy followed by surgical excision
+J. Preoperative embolization followed by surgical excision
+
+Choose the correct answer from the options.
+",C,Surgical excision,Imaging and Nuclear Medicine,25d3fa50393b4ea0b83f1791c36927ff
+SuperGPQA-medicine-7,"
+Question: A 70-year-old male presents with loss of sensation in external auditory meatus (Hitselberger sign positive). The likely diagnosis is:
+
+Options:
+A. Cholesteatoma
+B. Acoustic Neuroma
+C. Vestibular Schwannoma
+D. Mastoiditis
+E. Bell's palsy
+
+Choose the correct answer from the options.
+",C,Vestibular Schwannoma,Otorhinolaryngology,066f23e3439043cfbc588a7477efad2e
+SuperGPQA-medicine-8,"
+Question: A 60-year-old diabetic male presents to your clinic for right ear pain. The patient reports noting worsening right ear pain for three weeks, purulent otorrhea initially which has resolved, and facial asymmetry for the past several days. He reports being poorly compliant with his diabetes medication regimen. His temperature is 100.4 deg F (38 deg C), blood pressure is 140/90 mmHg, pulse is 90/min, and respirations are 18/min. On physical exam, the patient's right external auditory canal is noted to have granulation tissue at the bony cartilaginous junction. He is also noted to have right facial droop. Which of the following is the best next step in treatment?
+
+Options:
+A. Intravenous ciprofloxacin for 5 weeks
+B. Surgical intervention
+C. Intravenous ciprofloxacin for 7 weeks
+D. Oral amoxicillin-clavulanic acid for 10 days
+E. Intravenous ciprofloxacin for 10 weeks
+F. Intravenous ciprofloxacin for 4 weeks
+G. Topical polymyxin and neosporin for 14 days
+H. Intravenous ciprofloxacin for 8 weeks
+I. Intravenous ciprofloxacin for 6 weeks
+J. Hyperbaric oxygen treatment for 4 weeks
+
+Choose the correct answer from the options.
+",I,Intravenous ciprofloxacin for 6 weeks,Otorhinolaryngology,3f58e5fb0a50491392a448c8f1bf9878
+SuperGPQA-medicine-9,"
+Question: Examination of a 2-day-old neonate reveals numerous blisters on the trunk and extremities. Skin biopsy discloses separation of the basal layer of the epidermis from its basement membrane and is devoid of inflammatory cells. No antibody deposits are identified by immunofluorescence microscopy. Which of the following is the most likely diagnosis?
+
+Options:
+A. Epidermolysis bullosa
+B. Bullous pemphigoid
+C. Epidermolysis bullosa dystrophica
+D. Dermatitis herpetiformis
+E. Ichthyosis vulgaris
+F. Epidermolysis bullosa simplex
+G. Epidermolysis bullosa junctional
+H. Epidermolysis bullosa acquisita
+
+Choose the correct answer from the options.
+",A,Epidermolysis bullosa,Dermatology and Venereology,2a1f8c1e5e2d4d9c8b29bb47b7f1f112
+SuperGPQA-medicine-10,"
+Question: In 7 year old posterior fossa mass with cyst formation, hypodense on CT, hyper intense on T2WI and showing post gadolinium nodule enhancement is
+
+Options:
+A. Astrocytoma
+B. Cysticercous
+C. Oligodendroglioma
+D. Medulloblastoma
+E. Ependymoma
+F. Pilocytic Astrocytoma
+G. Glioma
+H. Glioblastoma
+I. Oligoastrocytoma
+
+Choose the correct answer from the options.
+",A,Astrocytoma,Imaging and Nuclear Medicine,e1e8a807d594468ba31abb6442ee1d66
+SuperGPQA-medicine-11,"
+Question: Unilateral proptosis with bilateral VIth nerve palsy, diagnosis is:
+
+Options:
+A. Retinoblastoma
+B. Cavernous sinus thrombosis
+C. Pseudotumour of orbit
+D. Orbital pseudotumor with cavernous sinus involvement
+E. Orbital pseudotumor with cavernous sinus thrombosis
+F. Orbital cellulitis
+G. Carotid-cavernous fistula
+H. Grave's disease
+
+Choose the correct answer from the options.
+",B,Cavernous sinus thrombosis,Ophthalmology,4490060d4abe45a984c1f8965bf10633
+SuperGPQA-medicine-12,"
+Question: The first-time woman was 24 years old, 40 weeks of intrauterine pregnancy, and paroxysmal abdominal pain for 10 hours. The blood pressure was normal, the extrapelvic measurement was normal, the official height was 34cm, the fetal heart rate was 132/min, the contractions were 25~30s/5~6min, the intensity was medium and weak, the head presented first, the uterine opening was 3cm, S=-1, the amniotic sac was bulging, the fetal weight was estimated to be 3400g, and there was no obvious progress in the 2-hour labor process. What is the current diagnosis?
+
+Options:
+A. Prolonged latent phase
+B. Primary uterine inertia
+C. Premature rupture of membranes
+D. Secondary uterine inertia
+E. Complete placenta previa
+F. Macrosomia with dystocia
+G. Fetal distress syndrome
+H. Posterior occiput position
+I. Preterm premature labor
+J. Cephalopelvic disproportion
+
+Choose the correct answer from the options.
+",D,Secondary uterine inertia,Obstetrics and Gynecology,273cd87dfb7c4096878a0560f2b6f355
+SuperGPQA-medicine-13,"
+Question: Female, 34 years old. Increased purulent vaginal discharge with dysuria and dyspareunia for 1 week, examination showed urethral urethral urethral erythema, cervix was obviously congested and edematous, with purulent secretion from the cervical orifice, and the uterus and both adnexa had no pressure pain. Gram staining of the cervical secretion revealed gram-negative diplococci and neutrophils >30/high-power field of view. The correct treatment for this is ____.
+
+Options:
+A. ceftriaxone 250mg, single dose at once
+B. doxycycline 100mg, twice daily for 7 days
+C. cefpodoxime 200mg, single dose at once
+D. levofloxacin 500mg, single dose at once
+E. ciprofloxacin 250mg, twice daily for 3 days
+F. azithromycin 1g, single dose at once
+G. cefuroxime 500mg, single dose at once
+H. metronidazole 500mg, twice daily for 7 days
+I. amoxicillin 500mg, three doses daily for 7 days
+J. cefixime 400mg, single dose at once
+
+Choose the correct answer from the options.
+",J,"cefixime 400mg, single dose at once",Obstetrics and Gynecology,e013884965d443059cc09afd4c1ac4e0
+SuperGPQA-medicine-14,"
+Question: Female, 25 years old. Married for 4 years without pregnancy, she presented with secondary amenorrhea for 8 months. Examination of the uterus was slightly small. Intramuscular progesterone injection was given daily for 5 days and no vaginal bleeding was seen after stopping the drug. Vaginal bleeding was observed on estrogen-progestin sequential test. FSH values were normal by radioimmunoassay. This case should be diagnosed as ____.
+
+Options:
+A. hypothalamic amenorrhea
+B. ovarian dysfunction
+C. endometrial hyperplasia
+D. pituitary amenorrhea
+E. ovarian amenorrhea
+F. uterine dysplasia
+G. uterine amenorrhea
+H. endometrial atrophy
+I. fallopian tube block
+J. cervical dysplasia
+
+Choose the correct answer from the options.
+",E,ovarian amenorrhea,Obstetrics and Gynecology,7e00e4ea88e5449abee9e7cc15c487fc
+SuperGPQA-medicine-15,"
+Question: A primiparous woman, 36 weeks pregnant, has had continuous abdominal pain and slight vaginal bleeding for 4 hours. Physical examination: the uterus is hard like a board, with tenderness (+), fetal position is unclear, fetal heart sounds are not heard; BP is 160/100 mmHg, proteinuria (++). The most appropriate diagnosis for this case is:
+
+Options:
+A. Placenta previa
+B. Severe pre-eclampsia with threatened abortion
+C. Severe pre-eclampsia with placental abruption and fetal distress
+D. Severe pre-eclampsia with placental abruption
+E. Severe pre-eclampsia with placental insufficiency and fetal distress
+F. Severe pre-eclampsia with fetal distress
+G. Severe pre-eclampsia with placental insufficiency
+H. Threatened uterine rupture
+I. Severe pre-eclampsia
+J. Severe pre-eclampsia with placental abruption and threatened uterine rupture
+
+Choose the correct answer from the options.
+",D,Severe pre-eclampsia with placental abruption,Obstetrics and Gynecology,fcf0398d2e66474085fc8764120cd11f
+SuperGPQA-medicine-16,"
+Question: After Mr. Li was hospitalized, a physical examination suggested that the left supraclavicular lymph node was enlarged, about 1cm in diameter, hard in texture, and poorly mobile. Which of the following diseases is most likely?
+
+Options:
+A. Adenocarcinoma of the Esophagus
+B. Thyroid Cancer
+C. Signet Ring Cell Carcinoma of the Stomach
+D. Adenocarcinoma of the Lung
+E. Small Cell Lung Cancer
+F. Malignant Melanoma of the Skin
+G. Gastric Ulcer
+H. Adenocarcinoma of the Colon
+I. Esophageal Ulcer
+J. Adenocarcinoma of the Stomach
+
+Choose the correct answer from the options.
+",C,Signet Ring Cell Carcinoma of the Stomach,Oncology,2da92a03d32a413da6915868a4fa8796
+SuperGPQA-medicine-17,"
+Question: A 52-year-old male. He has had paroxysmal palpitations for 3 years and was diagnosed with paroxysmal atrial fibrillation. In the past 4 months, the episodes have become more frequent, and he feels dizzy when the atrial fibrillation terminates, with severe cases presenting with blackouts, but no syncope. His sinus rhythm is around 50 beats/min. The most likely type of arrhythmia in this patient is:
+
+Options:
+A. Atrial fibrillation with complete left bundle branch block
+B. Atrial fibrillation with short runs of ventricular tachycardia
+C. Sick sinus syndrome (slow-fast type)
+D. Atrial fibrillation with intermittent heart block
+E. Atrial fibrillation with sinus node dysfunction and pauses
+F. Atrial fibrillation with sinus node dysfunction and frequent pauses
+G. Atrial fibrillation with bradycardia and pauses
+H. Atrial fibrillation with sinus node dysfunction and frequent bradycardia episodes
+I. Atrial fibrillation with Wolff-Parkinson-White syndrome
+J. Atrial fibrillation with sinus node dysfunction and intermittent heart block
+
+Choose the correct answer from the options.
+",C,Sick sinus syndrome (slow-fast type),Internal Medicine,d637308b16d4406f8d467e25c2b9ed4b
+SuperGPQA-medicine-18,"
+Question: A 33-year-old woman has had normal sexual activity for 7 years without pregnancy, with progressively worsening dysmenorrhea. Gynecological examination: the uterus is in a posterior position, normal size, a painful nodule the size of a soybean can be palpated at the uterosacral ligament, and a 5cm mass can be palpated in the right adnexal area, with poor mobility. The most effective diagnostic plan is:
+
+Options:
+A. Hysteroscopy
+B. Hysteroscopy + histopathological examination
+C. Laparoscopy + CA125 measurement
+D. Laparoscopy + hysteroscopy
+E. Laparoscopy + diagnostic curettage
+F. Diagnostic curettage
+G. CA125 measurement
+H. Laparoscopy + CA125 measurement + histopathological examination
+I. Ultrasound
+J. Laparoscopy + histopathological examination
+
+Choose the correct answer from the options.
+",J,Laparoscopy + histopathological examination,Obstetrics and Gynecology,f9319681714c4a6e9b3b7697e2ba717d
+SuperGPQA-medicine-19,"
+Question: A 23-year-old female presents to the emergency department with monocular blindness. She states that early this morning she lost her vision seemingly ""out of nowhere."" She denies trauma or any precipitating factors. She does state though that over the past year she has had occasional episodes of weakness and even an episode of urinary incontinence, which always resolve on their own. On exam, pain is elicited with eye movement and nystagmus is appreciated. The emergency physician performs a lumbar puncture. What is most likely to be observed in the CSF of this patient?
+
+Options:
+A. Increased protein level with oligoclonal bands
+B. Increased lymphocyte count
+C. Oligoclonal bands
+D. Oligoclonal bands with normal protein levels
+E. Elevated protein level with normal cell count
+F. Increased opening pressure
+G. Normal findings
+H. Albuminocytologic dissociation
+I. Elevated protein level with increased cell count
+J. Decreased glucose level
+
+Choose the correct answer from the options.
+",C,Oligoclonal bands,Neurology,f4f3e8dc385b4d82870581cb2cead59c
+SuperGPQA-medicine-20,"
+Question: A 68-year-old man is brought to the physician by his wife because she is concerned about his speech being irregular. Specifically, she says that over the last 8 months, her husband has been saying increasingly nonsensical statements at home. In addition, he is no longer able to perform basic verbal tasks such as ordering from a menu or giving directions even though he was an English teacher prior to retirement. She also reports that he has recently started attempting to kiss strangers and urinate in public. Finally, she has also noticed that he has been frequently binge eating sweets even though he was previously very conscientious about his health. When asked about these activities, the patient does not have insight into his symptoms. Which of the following would most likely be seen in this patient?
+
+Options:
+A. Hyperphosphorylated tau clusters
+B. Intracellular hyperphosphorylated tau fibrils
+C. Perivascular inflammation
+D. Intracellular hyperphosphorylated tau inclusions
+E. Intracellular hyperphosphorylated tau proteins
+F. Alpha-synuclein
+G. Large intracellular vacuoles
+H. Intracellular hyperphosphorylated tau aggregates
+I. Intracellular hyperphosphorylated tau complexes
+J. Hyperphosphorylated tau inclusion bodies
+
+Choose the correct answer from the options.
+",J,Hyperphosphorylated tau inclusion bodies,Neurology,233e7c6de5904e588538ccb86b9ea437
+SuperGPQA-medicine-21,"
+Question: A 33-year-old African American woman presents to the office complaining of blurry vision and headache for the past 2 weeks. She states that she has not been feeling herself lately and also fell down once after a dizzy episode. Her medical history is remarkable for hypertension and pulmonary sarcoidosis treated with hydralazine and prednisone respectively. She had a recent bout of acute optic neuritis, requiring high-dose IV methylprednisolone. Her temperature is 37°C (98.6°F), the blood pressure is 112/76 mm Hg, the pulse is 78/min, and the respirations are 14/min. On examination, the patient is mildly disoriented. Head and neck examination reveals a soft, supple neck and a right-sided facial droop. There is 5/5 muscle strength in all extremities. VDRL test is negative. A head MRI is pending. What is the most appropriate next step in the management of this patient?
+
+Options:
+A. Heparin
+B. Plasmapheresis
+C. Methylprednisolone and azathioprine
+D. Methylprednisolone and mycophenolate
+E. Methylprednisolone and methotrexate
+F. Methotrexate and azathioprine
+G. Methylprednisolone and cyclophosphamide
+H. Methotrexate
+I. Methylprednisolone and rituximab
+J. Methylprednisolone and cyclosporine
+
+Choose the correct answer from the options.
+",E,Methylprednisolone and methotrexate,Neurology,043aff093ccf4bd1b707341fef257bb5
+SuperGPQA-medicine-22,"
+Question: A 65-year-old man is brought to the emergency department with a complaint of right-sided numbness for 5 hours. The numbness started in the right-side of the face and has progressed to the same side arm and leg within 30 minutes. He denies limb weakness, walking difficulty, vision problem, or vertigo. He had similar symptoms 5 months ago that were resolved within 10 minutes. The past medical history includes type 2 diabetes mellitus, hypertension, dyslipidemia, and hyperuricemia. The medication list includes allopurinol, amlodipine, aspirin, glimepiride, lisinopril, and rosuvastatin. The blood pressure is 165/102 mm Hg, and the rest of the vital signs are within normal limits. On examination, there are no facial droop and slurring of the speech noted. The muscle strength is normal in all 4 limbs with a normal tone and deep tendon reflexes. There is a decreased pinprick sensation and proprioception on the right arm and leg. The gait is normal. The blood sugar is 221 mg/dL. The CT scan of the head is normal. The MRI of the head with diffusion-weighted imaging reveals a 15 mm diffusion restriction in the left thalamus. Which of the following is the most crucial in the development of this patient's condition?
+
+Options:
+A. Lipohyalinosis of small penetrating arteries due to chronic diabetes mellitus
+B. Emboli from the left ventricle of the heart
+C. Lipohyalinosis of small penetrating arteries due to chronic hypertension
+D. Lipohyalinosis of small penetrating arteries due to chronic hyperglycemia and hypertension
+E. Significant stenosis of the left carotid artery
+F. Lipohyalinosis of small penetrating arteries due to chronic hyperglycemia
+G. Lipohyalinosis of small penetrating arteries due to chronic hyperlipidemia
+H. Emboli from deep leg veins with a patent foramen ovale
+I. Lipohyalinosis of small penetrating arteries due to chronic hyperuricemia
+J. Leakage of blood from intracranial vessel due to uncontrolled hypertension
+
+Choose the correct answer from the options.
+",C,Lipohyalinosis of small penetrating arteries due to chronic hypertension,Neurology,78fc7df3d59c45899f347a77b2e93713
+SuperGPQA-medicine-23,"
+Question: Thirty minutes after surgical nasal polyp removal for refractory rhinitis, a 40-year-old man has retrosternal chest tightness and shortness of breath in the post-anesthesia care unit. The surgical course was uncomplicated and the patient was successfully extubated before arrival to the unit. He received 0.5 L of lactated Ringer's solution intraoperatively. The patient was given morphine and ketorolac for postoperative pain. He has a history of obstructive sleep apnea, asthma, hypertension, and sensitivity to aspirin. His daily medications include metoprolol and lisinopril. He has smoked a pack of cigarettes daily for 20 years. Pulse oximetry shows an oxygen concentration of 97% with support of 100% oxygen via face mask. Bilateral wheezes are heard in both lungs. Breath sounds are decreased. The patient's face appears flushed. ECG shows no abnormalities. Which of the following is the most likely underlying cause of this patient's symptoms?
+
+Options:
+A. Bradykinin-induced bronchial irritation
+B. Anaphylactic reaction
+C. Non-ST elevation myocardial infarction
+D. Bradykinin-induced angioedema with bronchial irritation
+E. Type 1 hypersensitivity reaction
+F. Alveolar rupture
+G. Bradykinin-induced angioedema
+H. Pseudoallergic reaction
+I. Excessive beta-adrenergic blockade
+J. Prinzmetal angina
+
+Choose the correct answer from the options.
+",H,Pseudoallergic reaction,Otorhinolaryngology,c748278dd42240999e886f14b6595d19
+SuperGPQA-medicine-24,"
+Question: A 14-year-old girl is brought to the emergency department because of occipital headache, nausea, and vomiting for the last 2 hours. She has a multi-year history of frequent left ear infections and discharge, with poor response to antimicrobial therapy. She has muffled hearing in the left ear. Her blood pressure is 134/78 mm Hg, the pulse is 83/min, the respiratory rate is 16/min, and the temperature is 36.5°C (97.7°F). She is alert and oriented. Physical examination of the left ear shows perforation of the tympanic membrane, granulation tissue, and white keratinaceous debris in the posterosuperior quadrant of the tympanic membrane. An MRI shows evidence of sigmoid sinus thrombosis on the left side and a hyperintense area in the middle ear on. Which of the following is the most likely underlying cause of this patient's current condition?
+
+Options:
+A. Acoustic neuroma
+B. Chronic suppurative otitis media with mastoiditis
+C. Chronic suppurative otitis media with cholesteatoma and mastoiditis
+D. Chronic suppurative otitis media with cholesteatoma and sigmoid sinus thrombosis
+E. Chronic suppurative otitis media
+F. Cholesteatoma
+G. Meningioma
+H. Chronic suppurative otitis media with facial nerve paralysis
+I. Chronic serous otitis media
+J. Chronic suppurative otitis media with cholesteatoma
+
+Choose the correct answer from the options.
+",F,Cholesteatoma,Otorhinolaryngology,09fbf9b2295642aa84cbb5a736da47c6
+SuperGPQA-medicine-25,"
+Question: A 10 year old girl is brought to the dermatologist by her parents. She has many freckles on her face, necks, arms and hands and parents repo that she is unusually sensitive to sunlight. Two basal cell carcinomas are identified on her face. Which of the following processes is most likely to be defective in this patient?
+
+Options:
+A. Repair of thymine dimers from RNA
+B. Removal of uracil from DNA.
+C. Repair of thymine dimers from DNA
+D. Removal of mismatched bases from the 3' end of Okazaki fragments
+E. Removal of pyrimidine dimers from DNA
+F. Repair of single-stranded breaks
+G. Repair of double stranded breaks
+
+Choose the correct answer from the options.
+",E,Removal of pyrimidine dimers from DNA,Dermatology and Venereology,2db4422912784041ad0425ac7d2f4349
+SuperGPQA-medicine-26,"
+Question: A 17-year-old female visits the family dermatologist because of severe facial acne. During physical examination it was found that there was a rather obvious and painful lesion on the side of her nose. The patient was given antibiotics and warned not to press or pick at the large, inflamed swelling. If she were to squeeze, prick, or incise such a lesion in the area between the eye and the upper lip, or between the eye and the side of the nose, the infection could spread to the cavernous sinus. Which of the following pathways of spread of infection would be most typical?
+
+Options:
+A. Nasal venous tributary to angular vein, to inferior ophthalmic vein, then to superior ophthalmic vein, then to cavernous sinus
+B. Dorsal nasal vein to superior petrosal vein, then inferior ophthalmic vein to cavernous sinus
+C. Nasal venous tributary to angular vein, to inferior ophthalmic vein, then to cavernous sinus
+D. Nasal venous tributary to angular vein, to superior ophthalmic vein, then to cavernous sinus
+E. Retromandibular vein to supraorbital vein, then to inferior ophthalmic vein, then to cavernous sinus
+F. Facial vein to maxillary vein, then middle meningeal vein to cavernous sinus
+
+Choose the correct answer from the options.
+",D,"Nasal venous tributary to angular vein, to superior ophthalmic vein, then to cavernous sinus",Dermatology and Venereology,f96862e7e1c04817a27060adc1442d9f
+SuperGPQA-medicine-27,"
+Question: A previously healthy 30-year-old woman comes to the physician because of a 6-month history of a recurring rash that typically occurs on exposure to the sun and affects only the face. She also has noticed several nonpainful ulcers on the roof of her mouth. She is sexually active with one male partner and they use condoms inconsistently. Her mother has end-stage renal disease. The patient does not smoke or drink alcohol. Her vital signs are within normal limits. Physical examination shows an erythematous rash across the cheeks that spares the nasolabial folds. There are three small ulcers on the hard palate. Laboratory studies show:
+Leukocyte count 3,000/mm3
+Platelet count 70,000/mm3
+Erythrocyte sedimentation rate 80 mm/h
+Serum
+Antinuclear antibodies 1:320
+Anti-Smith antibodies positive
+Urine
+Protein 3+
+RBC casts negative
+RBCs none
+WBCs 10-15/hpf
+Which of the following is the most appropriate next step in management?""
+
+Options:
+A. Urine culture
+B. Rapid HIV test
+C. Renal biopsy
+D. Skin biopsy
+E. Pathergy skin testing
+F. Administration of azathioprine
+G. UV phototherapy
+H. Administration of hydroxychloroquine
+I. Administration of prednisolone
+
+Choose the correct answer from the options.
+",C,Renal biopsy,Dermatology and Venereology,3d28fee8bfa34a5186ff18521309a203
+SuperGPQA-medicine-28,"
+Question: Chest X-ray revealed bilateral, symmetrical interstitial infiltrates in a 30-year old HIV positive patient who presented with fever, dyspnoea, non-productive cough, and cyanosis. The MOST likely diagnosis is:
+
+Options:
+A. Cryptococcosis
+B. Tuberculosis
+C. Pneumocystis jirovecii pneumonia
+D. Pneunocystis carinii pneumonia
+E. Toxoplasmosis
+
+Choose the correct answer from the options.
+",D,Pneunocystis carinii pneumonia,Imaging and Nuclear Medicine,a05f6c987cdb4da8807b7a1ba7651839
+SuperGPQA-medicine-29,"
+Question: A patient is to undergo angiography for unstable angina. His routine evaluation revealed his serum creatinine to be elevated. All of the following can be used to prevent contrast nephropathy, EXCEPT:
+
+Options:
+A. 1/2 N saline
+B. Ascorbic acid
+C. Haemofiltration
+D. Mannitol
+E. N-acetylcysteine
+F. Hydralazine
+G. Fenoldopam
+
+Choose the correct answer from the options.
+",G,Fenoldopam,Imaging and Nuclear Medicine,c49b009470fc4827af8a4fc8cf5cfb5d
+SuperGPQA-medicine-30,"
+Question: A 34-year-old woman is brought to the emergency department following a motor vehicle accident. She was walking on the sidewalk when a car traveling at high speed knocked her off her feet. She did not sustain any obvious injury but has painful breathing. An X-ray of the chest is taken to exclude a rib fracture and contusion of the lungs. The X-ray is found to be normal except for a solitary calcified nodule located in the left hilar region. The physician then asks the patient if she is or was a smoker, or has any pertinent medical history to explain the nodule. Her past medical history is insignificant, including any previous lung infections. Physical examination does not reveal any significant signs indicative of a tumor. A chest CT is ordered and a solitary nodule of 0.5 cm is confirmed. Which of the following is the most appropriate next step in the management of this patient?
+
+Options:
+A. Repeat chest CT scan in 12 months
+B. Sputum cytology
+C. Repeat chest CT scan in 4 months
+D. Repeat chest CT scan in 5 months
+E. Mediastinoscopy
+F. Repeat chest CT scan in 3 months
+G. Repeat chest CT scan in 6 months
+H. CT scan of abdomen
+I. Repeat chest CT scan in 8 months
+J. Positron emission scan
+
+Choose the correct answer from the options.
+",G,Repeat chest CT scan in 6 months,Imaging and Nuclear Medicine,cb1f3d75e5a9402a9bb7755b6f6a029c
+SuperGPQA-medicine-31,"
+Question: A 69-year-old man with a history of recurrent pancreatitis treated with corticosteroids now has increasing fatigue for 2 years. He does not drink alcohol and has no evidence of gallbladder disease. On examination, there are no abnormalities. Laboratory studies show his serum creatinine is 5 mg/dL and urea nitrogen is 48 mg/ dL. His serum IgG4 is elevated. Ultrasound imaging shows bilateral hydronephrosis. What is abdominal CT imaging most likely to show in this man?
+
+Options:
+A. Periaortic fibrosis
+B. Polypoid cystitis
+C. Periaortic fibrosis with hydronephrosis
+D. Perinephric abscess
+E. Retroperitoneal fibrosis
+F. Periaortic inflammation
+G. Renal cell carcinoma
+H. Nephrolithiasis
+I. Retroperitoneal fibrosis with renal vein thrombosis
+J. Retroperitoneal fibrosis with hydronephrosis
+
+Choose the correct answer from the options.
+",E,Retroperitoneal fibrosis,Imaging and Nuclear Medicine,11d3436a78cd4b0cb1f1a37020835e8c
+SuperGPQA-medicine-32,"
+Question: A 24-year-old patient presents with redness, foreign body sensation, excessive tears in the eyes along with corneal ulcers following the use of contact lens. The saline mount preparation of the corneal scrapping shows polygonal cysts. What would be the most probable cause?
+
+Options:
+A. Giardia
+B. Acanthamoeba
+C. Naegleria
+D. Entameoba
+E. Acanthamoeba spp.
+F. Acanthamoeba castellanii
+G. Naegleria fowleri
+H. Naegleria gruberi
+I. Acanthamoeba culbertsoni
+J. Acanthamoeba polyphaga
+
+Choose the correct answer from the options.
+",B,Acanthamoeba,Ophthalmology,839fe51584e14edda9cfc09aade2bb64
+SuperGPQA-medicine-33,"
+Question: A 4-month-old boy is brought to the physician for a well-child examination. He was born at 36 weeks' gestation. The mother has had no prenatal care. His 6-year-old sister has a history of osteosarcoma. He is exclusively breast fed. He is at the 60th percentile for height and weight. Vital signs are within normal limits. Examination shows inward deviation of the right eye. Indirect ophthalmoscopy shows a white reflex in the right eye and a red reflex in the left eye. Which of the following is the most appropriate next step in management?
+
+Options:
+A. Occlusion therapy
+B. Visual training exercises
+C. MRI of the brain
+D. Ultrasound of the eye
+E. Fundus examination
+F. CT scan of the eye
+G. CT scan of the head
+H. Serum rubella titers
+I. Observation
+J. Screen for galactosemia
+
+Choose the correct answer from the options.
+",E,Fundus examination,Ophthalmology,92108014772645f692a2b3bbe764bfa8
+SuperGPQA-medicine-34,"
+Question: A 19 year old young girl with previous history of repeated pain over medial canthus and chronic use of nasal decongestants, presented with abrupt onset of fever with chills & rigor, diplopia on lateral gaze, moderate proptosis & chemosis. On examination optic disc is congested. Most likely diagnosis is:
+
+Options:
+A. Orbital cellulitis with orbital apex involvement
+B. Orbital cellulitis with cavernous sinus thrombosis
+C. Acute Ethmoidal sinusitis
+D. Orbital cellulitis
+E. Orbital cellulitis with cavernous sinus involvement
+F. Cavernous sinus thrombosis
+G. Orbital cellulitis with cavernous sinus thrombosis and orbital apex involvement
+H. Orbital apex syndrome
+I. Orbital inflammatory syndrome
+J. Orbital abscess
+
+Choose the correct answer from the options.
+",F,Cavernous sinus thrombosis,Ophthalmology,1a02bce824604cb2835ee25eacdc8f39
+SuperGPQA-medicine-35,"
+Question: A patient with history of running nose and pain over medial aspect of the eye presents with sudden onset of high grade fever, prostration, chemosis, proptosis and diplopia on lateral gaze with congestion of the optic disc. Which of the following is the most likely diagnosis?
+
+Options:
+A. Acute orbital inflammation
+B. Orbital cellulitis
+C. Acute frontal sinusitis
+D. Orbital apex syndrome
+E. Acute ethmoidal sinusitis with cavernous sinus inflammation
+F. Acute ethmoidal sinusitis
+G. Cavernous sinus thrombosis
+H. Acute ethmoidal sinusitis with orbital involvement
+I. Acute ethmoidal sinusitis with cavernous sinus involvement
+J. Acute sphenoidal sinusitis
+
+Choose the correct answer from the options.
+",G,Cavernous sinus thrombosis,Ophthalmology,90bc8559d4184ecf83384e8efc355eb3
+SuperGPQA-medicine-36,"
+Question: One day after undergoing total knee replacement for advanced degenerative osteoarthritis, a 66-year-old man has progressive lower abdominal pain. The surgery was performed under general anesthesia and the patient was temporarily catheterized for perioperative fluid balance. Several hours after the surgery, the patient began to have decreasing voiding volumes, nausea, and progressive, dull lower abdominal pain. He has Sjögren syndrome. He is sexually active with his wife and one other woman and uses condoms inconsistently. He does not smoke and drinks beer occasionally. Current medications include pilocarpine eye drops. He appears uncomfortable and is diaphoretic. His temperature is 37.3°C (99.1°F), pulse is 90/min, and blood pressure is 130/82 mm Hg. Abdominal examination shows a pelvic mass extending to the umbilicus. It is dull on percussion and diffusely tender to palpation. His hemoglobin concentration is 13.9 g/dL, leukocyte count is 9,000/mm3, a platelet count is 230,000/mm3. An attempt to recatheterize the patient transurethrally is unsuccessful. Which of the following is the most likely underlying cause of this patient's symptoms?
+
+Options:
+A. Acute prostatitis
+B. Urethral stricture
+C. Benign prostatic enlargement
+D. Chronic prostatitis
+E. Adverse effect of pilocarpine
+F. Acute urinary retention
+G. Neurogenic bladder
+H. Prostate cancer
+""
+I. Cystolithiasis
+
+Choose the correct answer from the options.
+",C,Benign prostatic enlargement,Geriatric Medicine,3cbdc660bb014628bd47c5cfad63051a
+SuperGPQA-medicine-37,"
+Question: A 27 year old female patient presented with painful and difficulty swallowing,on indireet laryngoscopy, there is pooling of saliva in right pyriform sinus with swollen right arytenoid, the most likely diagnosis is().
+
+Options:
+A. Squamous cell carcinoma of posterior pharyngeal wall
+B. Neural compression of cricothyroid muscle
+C. Papillomatosis affecting pyriform structure
+D. Squamous cell carcinoma of larynx
+E. Lymphatic malformation of arytenoid cartilage
+F. Squamous cell carcinoma of pyriform sinus.
+G. Squamous cell carcinoma of Postcricoid
+H. Reactive hyperplasia of pharyngeal mucosa
+I. Chronic inflammation of laryngeal vestibule
+J. Granulomatous disease of pharyngeal wall
+
+Choose the correct answer from the options.
+",G,Squamous cell carcinoma of Postcricoid,Otorhinolaryngology,d0fe7c1a74314662ac5ed5f2538e7b13
+SuperGPQA-medicine-38,"
+Question: What is the most likely diagnosis for a child who eats peanuts and suddenly becomes panicked, short of breath, and exhibits severe inspiratory difficulty and the ""three recessions"" sign upon being rushed to the emergency room?
+
+Options:
+A. Vocal cord dysfunction
+B. Acute anxiety reaction
+C. Environmental fright
+D. Sudden acute bronchitis
+E. Seasonal allergic reaction
+F. Throat muscle spasms
+G. Asthma attack
+H. Pediatric pneumonia
+I. Tracheal foreign body
+J. Pleurisy
+
+Choose the correct answer from the options.
+",I,Tracheal foreign body,Emergency Medicine,70a468ea15a34286b415a1532ce1c4f0
+SuperGPQA-medicine-39,"
+Question: Compared to longitudinal fractures, transverse fractures are more likely to cause what?
+
+Options:
+A. Cerebrospinal fluid leakage
+B. Bone deformity, mainly affecting limb alignment
+C. Conductive hearing loss and low-frequency tinnitus
+D. Mixed hearing loss
+E. Limited range of motion, particularly in adjacent joints
+F. Chronic pain and muscle spasms, often localized around the fracture site
+G. Severe infection, with symptoms of redness and swelling
+H. Numbness and tingling, predominantly in extremities
+I. Dural tear
+J. Sensorineural hearing loss, with tinnitus often being high-frequency
+
+Choose the correct answer from the options.
+",J,"Sensorineural hearing loss, with tinnitus often being high-frequency",Otorhinolaryngology,c02bdc589b28470f9e8c9ebaf715cfd0
+SuperGPQA-medicine-40,"
+Question: A 40-year-old man with paranoid schizophrenia is transferred to the emergency department from the residential facility where he lives 2 hours after having swallowed a nail. The patient says he does not have any symptoms. Medical history is otherwise unremarkable. His only current medication is haloperidol. The patient is not in acute distress. Vital signs are normal. Physical examination shows no abnormalities. Mental status examination discloses a flat affect, distractibility, and derailment of thoughts. X-ray of the abdomen is obtained and shows a 4-cm nail in the left upper quadrant. No free air is visible. After admitting the patient to the hospital, which of the following is the most appropriate management?
+
+Options:
+A. Open laparotomy and removal of the nail through a gastrotomy incision
+B. Use of a magnet to draw out the nail
+C. Administering a laxative to expedite the passage of the nail
+D. Observation to allow passage of the nail via normal peristalsis
+E. Insertion of a nasogastric tube to suction out the nail
+F. Administration of a barium swallow to track the nail's passage
+G. Removal of the nail through endoscopic esophagogastroscopy
+H. Administration of activated charcoal to bind the nail and facilitate its removal
+I. Immediate surgery to remove the nail from the abdomen
+J. Administration of ipecac to induce vomiting and expectoration of the nail
+
+Choose the correct answer from the options.
+",G,Removal of the nail through endoscopic esophagogastroscopy,Emergency Medicine,574e34f129bb4c98a087b3be13852921
+SuperGPQA-medicine-41,"
+Question: A 10-year-old boy was admitted to the hospital due to ""edema, oliguria, and darkened urine for one week, accompanied by irritability and dyspnea for one day."" Physical examination: temperature 36.6°C, blood pressure 150/100 mmHg, sitting up to breathe, slightly cyanotic lips, heart rate 110 beats per minute, few fine moist rales at the lung bases, liver 2.5 cm below the costal margin, hemoglobin 108 g/L, white blood cells normal. Urine protein (++), red blood cells 20-30/HP, white blood cells 0-2/HP. Blood urea nitrogen 5.8 mmol/L, blood cholesterol 5.2 mmol/L. The diagnosis to consider is:
+
+Options:
+A. Viral nephritis with pneumonia
+B. Acute glomerulonephritis with cardiac failure
+C. Nephrotic nephritis with pneumonia
+D. Acute glomerulonephritis, circulatory congestion
+E. Acute glomerulonephritis with hypertensive encephalopathy
+F. Acute exacerbation of chronic nephritis
+G. Acute glomerulonephritis with renal failure
+H. Acute glomerulonephritis with mild pulmonary edema
+I. Acute glomerulonephritis with pneumonia
+J. Acute glomerulonephritis with pulmonary edema
+
+Choose the correct answer from the options.
+",D,"Acute glomerulonephritis, circulatory congestion",Internal Medicine,3ace924b7bb94b6b932b0926c8769fad
+SuperGPQA-medicine-42,"
+Question: A 60-year-old male patient with a 10-year history of hypertension and hyperlipidemia. His blood pressure is generally well-controlled with nifedipine, fluctuating around 130~150/70~90mmHg. In the past six months, his blood pressure has significantly increased, and it is poorly controlled with multiple antihypertensive drugs. Physical examination reveals a vascular murmur in the abdomen. The best diagnostic test to confirm the diagnosis is ()
+
+Options:
+A. Abdominal ultrasound
+B. Renal venous angiography
+C. Renal function test
+D. Renal artery ultrasound
+E. Renal Doppler ultrasound
+F. Renal artery Doppler ultrasound
+G. Renal venous Doppler ultrasound
+H. Lipid profile
+I. Renal arteriography
+J. Renal venography
+
+Choose the correct answer from the options.
+",I,Renal arteriography,Internal Medicine,a5d6edefc01448bb8aa5a8e8d65ad8cc
+SuperGPQA-medicine-43,"
+Question: A primigravida with regular menstrual cycles is now at 32 weeks of gestation. In the past 3 weeks, there has been no significant increase in weight, and the uterine height is 23 cm. Type B ultrasound suggests oligohydramnios (amniotic fluid index is 43 mm). The management plan for this case is:
+
+Options:
+A. Actively promote fetal lung maturity and then terminate the pregnancy
+B. Wait until 34 weeks and then immediately terminate the pregnancy
+C. Immediate termination of pregnancy
+D. Wait for spontaneous delivery
+E. Actively promote fetal lung maturity and wait until 33 weeks to terminate the pregnancy
+F. Actively promote fetal lung maturity and wait until 36 weeks to terminate the pregnancy
+G. Actively promote fetal lung maturity and wait until 35 weeks to terminate the pregnancy
+H. Actively promote fetal lung maturity and wait until 34 weeks to terminate the pregnancy
+I. Actively promote fetal lung maturity and wait until 32 weeks to terminate the pregnancy
+J. Wait until full term and then immediately terminate the pregnancy
+
+Choose the correct answer from the options.
+",A,Actively promote fetal lung maturity and then terminate the pregnancy,Obstetrics and Gynecology,2fbb335d9144491da36f525024d4fa4a
+SuperGPQA-medicine-44,"
+Question: A 59-year-old man is brought to the emergency department by a coworker for right arm weakness and numbness. The symptoms started suddenly 2 hours ago. His coworker also noticed his face appears to droop on the right side and his speech is slurred. He has a history of hypertension, hyperlipidemia, type 2 diabetes, and peripheral arterial disease. He works as a partner at a law firm and has been under more stress than usual lately. His father died of a stroke at age 70. The patient has smoked a pack of cigarettes daily for the last 40 years. He drinks two pints (750 mL) of whiskey each week. He takes aspirin, atorvastatin, lisinopril, and metformin daily. He is 167.6 cm (5 ft 6 in) tall and weighs 104.3 kg (230 lb); BMI is 37 kg/m2. His temperature is 37.1°C (98.8°F), pulse is 92/min, respirations are 15/min, and blood pressure is 143/92 mm Hg. He is fully alert and oriented. Neurological examination shows asymmetry of the face with droop of the lips on the right. There is 3/5 strength in right wrist flexion and extension, and right finger abduction. Sensation to light touch and pinprick is reduced throughout the right arm. Which of the following is the strongest predisposing factor for this patient's condition?
+
+Options:
+A. Aspirin use
+B. Hypertension
+C. Increased stress
+D. Excessive alcohol intake
+E. Type 2 diabetes mellitus
+F. Hyperlipidemia
+G. Positive family history
+H. Obesity
+I. Positive family history of stroke
+J. Tobacco use
+
+Choose the correct answer from the options.
+",B,Hypertension,Emergency Medicine,933f999d89984b4ea9c59bffad3405ef
+SuperGPQA-medicine-45,"
+Question: A patient with suspected subarachnoid haemorrhage presents with blood isolated in the fourth ventricle on a CT scan. Aneurysmal rupture is likely to have resulted from -
+
+Options:
+A. Superior Cerebellar Artery Aneurysm
+B. Inferior Cerebellar Artery Aneurysm
+C. Posterior Communicating Artery Aneurysm
+D. Anterior Inferior Cerebellar Artery Aneurysm
+E. Posterior Inferior Cerebellar Artery Aneurysm
+F. Middle Cerebral Artery Aneurysm
+G. Basilar Artery Tip Aneurysm
+H. Posterior Cerebral Artery Aneurysm
+I. Vertebral Artery Aneurysm
+J. Anterior Communicating Artery Aneurysm
+
+Choose the correct answer from the options.
+",E,Posterior Inferior Cerebellar Artery Aneurysm,Neurology,f89ec3f159cd40c385b7f26813b62486
+SuperGPQA-medicine-46,"
+Question: A 61-year-old female presents to the emergency room for a headache and vision loss. She reports a 3-hour history of acute-onset dull headache. She also says she cannot see out of part of her eye. Her past medical history is notable for hypertension, hyperlipidemia, and a prior myocardial infarction. She takes enalapril, atorvastatin, aspirin, and metoprolol. On exam, she is alert and oriented to person, place, and time. She has 5/5 strength and full sensation to light touch in her bilateral upper and lower extremities. Her brachioradialis, triceps, patellar, and Achilles reflexes are symmetric and 2+ bilaterally. Fundoscopic examination reveals a normal retina. Visual field examination demonstrates an inability to see in the superior right visual field. This patient's condition is likely due to a lesion in which of the following locations?
+
+Options:
+A. Parietal lobe
+B. Optic nerve
+C. Optic tract
+D. Inferior colliculus
+E. Occipital-temporal junction
+F. Frontal lobe
+G. Parietal-temporal junction
+H. Pituitary gland
+I. Temporal lobe
+J. Occipital lobe
+
+Choose the correct answer from the options.
+",I,Temporal lobe,Neurology,4dda10cb93584a568f1fbd36794dab49
+SuperGPQA-medicine-47,"
+Question: A 21-year-old woman is diagnosed with a rare subtype of anti-NMDA encephalitis. During the diagnostic workup, she was found to have an ovarian teratoma. Her physician is curious about the association between anti-NMDA encephalitis and ovarian teratomas. A causal relationship between this subtype of anti-NMDA encephalitis and ovarian teratomas is suspected. The physician aims to identify patients with anti-NMDA encephalitis and subsequently evaluate them for the presence of ovarian teratomas. Which type of study design would be the most appropriate?
+
+Options:
+A. Case-control study
+B. Case-control study with a confirmatory randomized controlled trial
+C. Cohort study
+D. Case series
+E. Cross-sectional study with a follow-up to evaluate the presence of anti-NMDA encephalitis
+F. Randomized controlled trial
+G. Retrospective cohort study
+H. Cross-sectional study with a follow-up to evaluate the presence of ovarian teratomas
+I. Cross-sectional study
+J. Prospective cohort study
+
+Choose the correct answer from the options.
+",A,Case-control study,Neurology,6c1f63ad06fc4270946a14002b32ed8b
+SuperGPQA-medicine-48,"
+Question: A 25-year-old male is hospitalized for acute agitation, photophobia, and dysphagia. His parents report that he has been experiencing flu-like symptoms for one week prior to hospital admission. Five weeks ago, the patient was in Mexico, where he went on several spelunking expeditions with friends. The patient ultimately becomes comatose and dies. Autopsy of brain tissue suggests a viral infection. The likely causal virus spreads to the central nervous system (CNS) in the following manner:
+
+Options:
+A. Retrograde migration up spinal nerve roots
+B. Retrograde migration up peripheral nerve axons
+C. Reactivation of virus previously latent in dorsal root ganglia
+D. Infection of oligodendrocytes and astrocytes
+E. Hematogenous dissemination to the meninges
+F. Retrograde migration up sensory nerve fibers
+G. Entrance via cribiform plate
+H. Retrograde migration up motor nerve fibers
+I. Retrograde migration up spinal nerve axons
+J. Retrograde migration up motor nerve axons
+
+Choose the correct answer from the options.
+",B,Retrograde migration up peripheral nerve axons,Neurology,5c0a4d3395934ee28ec19bd04962e550
+SuperGPQA-medicine-49,"
+Question: A 45-year-old man is brought to the trauma bay by emergency services after a motorbike accident in which the patient, who was not wearing a helmet, hit a pole of a streetlight with his head. When initially evaluated by the paramedics, the patient was responsive, albeit confused, opened his eyes spontaneously, and was able to follow commands. An hour later, upon admission, the patient only opened his eyes to painful stimuli, made incomprehensible sounds, and assumed a flexed posture. The vital signs are as follows: blood pressure 140/80 mm Hg; heart rate 59/min; respiratory rate 11/min; temperature 37.0°C (99.1℉), and SaO2, 95% on room air. The examination shows a laceration and bruising on the left side of the head. There is anisocoria with the left pupil 3 mm more dilated than the right. Both pupils react sluggishly to light. There is an increase in tone and hyperreflexia in the right upper and lower extremities. The patient is intubated and mechanically ventilated, head elevated to 30°, and sent for a CT scan. Which of the following management strategies should be used in this patient, considering his most probable diagnosis?
+
+Options:
+A. Middle meningeal artery embolization
+B. Decompressive craniotomy with surgical evacuation
+C. Decompressive craniectomy
+D. Decompressive craniotomy
+E. Decompressive hemicraniectomy
+F. Neurosurgical monitoring with conservative treatment
+G. Surgical evacuation
+H. Decompressive craniectomy with middle meningeal artery embolization
+I. Ventricular drainage
+J. Conservative management with hyperosmolar solutions
+
+Choose the correct answer from the options.
+",G,Surgical evacuation,Emergency Medicine,d5eb22189c3d42cfb38be8630e911793
+SuperGPQA-medicine-50,"
+Question: A young male is brought unconscious to the hospital with external injuries. CT brain showed No midline shift. Basal cistern were compressed with multiple small Haemorrhages. What is the likely diagnosis?
+
+Options:
+A. Diffuse Axonal injury with scattered hemorrhages
+B. Subdural hematoma
+C. Cerebral laceration
+D. Cerebral contusion
+E. Cerebral contusion with scattered hemorrhages
+F. Multiple infarcts
+G. Concussion with secondary hemorrhages
+H. Diffuse cerebral edema with scattered hemorrhages
+I. Diffuse Axonal injuries
+J. Diffuse cerebral edema with multiple hemorrhages
+
+Choose the correct answer from the options.
+",I,Diffuse Axonal injuries,Neurology,ef80021c70404add9c86a9cf3d51c7fa
+SuperGPQA-medicine-51,"
+Question: A 40-year-old tailor complains of pain, numbness, and weakness of the right hand for the last three months. On examination, there is hypoaesthesia and atrophy of thenar eminence. Which one of the following nerves is likely to be involved?
+
+Options:
+A. Musculocutaneous
+B. Median (C7-C8)
+C. Median
+D. Median (C6-C7)
+E. Median (C6-C8)
+F. Axillary
+G. Ulnar
+H. Ulnar (C8-T1)
+I. Radial
+J. Median (C5-C6)
+
+Choose the correct answer from the options.
+",C,Median,Internal Medicine,7aace60251a14c5dab3a837e72af00b2
+SuperGPQA-medicine-52,"
+Question: A 35-year-old female presents to her primary care physician because of chronic fatigue that has stopped her from gardening and walking with her friends. Upon further questioning, she elaborates that she feels fine after waking up but gradually becomes more tired and weak as the day progresses. This appears to be particularly problematic when she is engaged in physical activity or when eating. Review of systems elicits that she occasionally experiences double vision after spending a prolonged period looking at a computer screen. Testing confirms the diagnosis and the patient is prescribed a long-acting medication to alleviate her symptoms. The products of the enzyme that is inhibited by the prescribed drug are transported by a protein that is sensitive to which of the following chemicals?
+
+Options:
+A. Botulinum
+B. Hemicholinium-3
+C. Resoftenine
+D. Resperimine
+E. Vesamicol
+F. Guanethidine
+G. Hemilithium
+H. Hemicholinium
+I. Reserpine
+J. Hemicholinium-4
+
+Choose the correct answer from the options.
+",H,Hemicholinium,Neurology,c82366610899447da765fc61e6302816
+SuperGPQA-medicine-53,"
+Question: Paralysis of 3rd, 4th, 6th nerves with involvement of ophthalmic division of 5th nerve, localizes the lesion to:
+
+Options:
+A. Superior orbital fissure
+B. Orbital fissure
+C. Cavernous sinus
+D. Orbital fissure syndrome
+E. Apex of orbit
+F. Orbital apex
+G. Brainstem
+H. Base of skull
+I. Orbital apex syndrome
+J. Superior orbital fissure syndrome
+
+Choose the correct answer from the options.
+",C,Cavernous sinus,Neurology,71b7b5388afc4c68a91b300318227a4d
+SuperGPQA-medicine-54,"
+Question: A 26-year-old woman experiences severe back pain from an automobile accident. CT scan shows that the L5 vertebral foramen is completely obliterated by the collapsed L5 laminae and pedicles. In this injury, which of the following structures is crushed
+
+Options:
+A. Spinal cord
+B. Vertebral artery
+C. Cauda equine
+D. Filum terminale
+E. Vertebral venous plexus
+F. Spinal nerve root
+G. Filum terminale externum
+H. Denticulate ligament
+
+Choose the correct answer from the options.
+",C,Cauda equine,Surgery,61a55db487f349d391989179c39d6abf
+SuperGPQA-medicine-55,"
+Question: A 56-year-old man presents to the physician for the evaluation of excess snoring over the past year. He has no history of a serious illness and takes no medications. He does not smoke. His blood pressure is 155/95 mm Hg. BMI is 49 kg/m2. Oropharyngeal examination shows an enlarged uvula. Examination of the nasal cavity shows no septal deviation or polyps. Examination of the lungs and heart shows no abnormalities. Polysomnography shows an apnea-hypopnea index of 2 episodes/h with a PCO2 of 51 mm Hg during REM sleep. Arterial blood gas analysis in room air shows:
+pH 7.33
+PCO2 50 mm Hg
+PO2 92 mm Hg
+HCO3− 26 mEq/L
+Which of the following best explains these findings?
+
+Options:
+A. Central hypoventilation syndrome with obstructive sleep apnea
+B. Obesity hypoventilation syndrome
+C. Obesity hypoventilation syndrome with mild central hypoventilation
+D. Central hypoventilation syndrome
+E. Obesity hypoventilation syndrome with mild obstructive sleep apnea
+F. Obstructive sleep apnea-hypopnea syndrome
+G. Obesity hypoventilation syndrome with mild central sleep apnea
+H. Obesity hypoventilation syndrome with obstructive sleep apnea
+
+Choose the correct answer from the options.
+",B,Obesity hypoventilation syndrome,Otorhinolaryngology,b6bf7ee6e3584c649fdad0b72ad1d190
+SuperGPQA-medicine-56,"
+Question: A sexually active 23-year-old man with multiple sex partners has dysuria and a yellow urethral exudate. Gram stain of the exudate shows numerous neutrophils, many that contain intracellular gram-negative diplococci. He has had three similar episodes of urethritis over the past 2 years. Which of the following properties of the infecting organism best explains the reinfection?
+
+Options:
+A. Both Antigenic variation and High genetic variability are correct
+B. High mutation rate
+C. Catalase
+D. Inhibition of T-lymphocyte function
+E. Production of exotoxins
+F. Suppression of host immune response
+G. High genetic variability
+H. Ability to form biofilms
+I. Inhibition of B-lymphocyte function
+J. Antigenic variation
+
+Choose the correct answer from the options.
+",A,Both Antigenic variation and High genetic variability are correct,Dermatology and Venereology,5db0070191a8433f907ea65783855e95
+SuperGPQA-medicine-57,"
+Question: A 26 year old male presents to OPD with a circular, itchy, inflamed, slightly raised skin lesion He gives a history of his pet dog sleeps next to him. His dog has had some localized areas of hair loss. The patient has no other symptom. What would be expected on a KOH of skin scrapings?
+
+Options:
+A. Clusters of yeastlike cells and sho curved septate hyphae
+B. Hyphae with little branching and some arthroconidia that are not breaking up
+C. Hyphae with little branching but possibly with some hyphae breaking up into ahroconidia
+D. Hyphae with frequent branching and no arthroconidia
+E. Hyphae with frequent branching and some arthroconidia breaking up into smaller segments
+F. Budding yeasts with some pseudohyphae and true hyphae
+G. Hyphae with frequent branching and some arthroconidia
+H. Hyphae with little branching and some arthroconidia breaking up into smaller segments
+I. Filariform larvae
+J. Hyphae with little branching and no arthroconidia
+
+Choose the correct answer from the options.
+",C,Hyphae with little branching but possibly with some hyphae breaking up into ahroconidia,Dermatology and Venereology,74e6ac2189dc4375adea280e2ef6a889
+SuperGPQA-medicine-58,"
+Question: A 51-year-old man presents to his primary care provider complaining of fatigue, weight loss, and intermittent fevers for the past 6 months. He has had sexual intercourse with multiple men and women over the past year and does not use barrier protection. His last screen for sexually transmitted diseases was 10 years ago and was normal. His past medical history is notable for well-controlled asthma. He was involved in a motorcycle accident 2 years ago and suffered multiple fractured bones in his upper and lower extremities, all of which have healed. He has a distant history of cocaine abuse. He drinks 5-6 glasses of wine per week. His temperature is 100.8°F (38.2°C), blood pressure is 130/75 mmHg, pulse is 85/min, and respirations are 20/min. On examination, he appears cachectic but is pleasant and appropriately interactive. An HIV differentiation assay and follow-up Western blot are performed and are positive. The patient is started on tenofovir, abacavir, and efavirenz. However, the patient develops a hypersensitivity reaction to abacavir, so the decision is made to replace this medication with ritonavir. Which of the following adverse effects is this patient at greatest risk for as a result of this change in medication regimen?
+
+Options:
+A. Hypercholesterolemia
+B. Hyperglycemia
+C. Hyperkalemia
+D. Myelosuppression
+E. Megaloblastic anemia
+F. Hyperlipidemia
+G. Hypertriglyceridemia
+H. Peripheral neuropathy
+I. Lipodystrophy
+J. Hepatotoxicity
+
+Choose the correct answer from the options.
+",I,Lipodystrophy,Dermatology and Venereology,e25dd5105ccd4d7db103400e52ec64a4
+SuperGPQA-medicine-59,"
+Question: A 40-year-old man presents with a rash, oral lesions, and vision problems for 5 days. He says the rash started as a burning feeling on his face and the upper part of his torso, but soon red spots appeared in that same distribution. The spots grew in size and spread to his upper extremities. The patient says the spots are painful but denies any associated pruritus. He says the painful oral lesions appeared about the same time as the rash. For the past 3 days, he also says he has been having double vision and dry, itchy eyes. He reports that he had a mild upper respiratory infection for a few days that preceded his current symptoms. The patient denies any chills, hematuria, abdominal or chest pain, or similar symptoms in the past. Past medical history is significant for a severe urinary tract infection diagnosed 3 weeks ago for which he has been taking trimethoprim-sulfamethoxazole. The vital signs include: temperature 38.3°C (101.0℉), blood pressure 110/60 mm Hg, respiratory rate 20/min, and pulse 108/min. On physical examination, the patient has severe painful erosions of the oral mucosa. There are multiple fluid-filled vesicles and bullae averaging 3 mm in diameter with a surrounding erythematous ring that involve only the upper torso and extensor surfaces of upper extremities. Several of the lesions have ruptured, resulting in sloughing off of the epidermal layer. There is a prominent conjunctival injection present. Ophthalmic examination reveals mild bilateral corneal abrasions without any evidence of frank ulceration. Laboratory findings are significant for the following:
+White blood cell (WBC) count 8,500/mm3
+Red blood cell (RBC) count 4.20 x 106/mm3
+Hematocrit 41.5%
+Hemoglobin 14.0 g/dL
+Platelet count 215,000/mm3
+C-reactive protein (CRP) 86 mg/L
+Urine and blood cultures are pending. Which of the following would confirm the most likely diagnosis in this patient?
+
+Options:
+A. Urine collection (24-hour)
+B. Biopsy and histopathologic analysis of skin lesions
+C. Biopsy and histopathologic analysis of conjunctival lesions
+D. Gram stain and culture of perilesional skin biopsy
+E. Flow cytometry
+F. Direct immunofluorescence analysis of skin lesions
+G. Biopsy and histopathologic analysis of oral lesions
+H. Biopsy and histopathologic analysis of perilesional skin biopsy
+I. Gram stain and culture of skin sample
+J. Direct immunofluorescence analysis of perilesional skin biopsy
+
+Choose the correct answer from the options.
+",B,Biopsy and histopathologic analysis of skin lesions,Dermatology and Venereology,4068f6cb89214b0a86c16c2497caeb6e
+SuperGPQA-medicine-60,"
+Question: A 40-year-old man presents to the physician for a pre-employment medical check-up. He has no symptoms and his past medical history is insignificant. He is a non-smoker. His temperature is 36.9°C (98.4°F), the heart rate is 76/min, the blood pressure is 124/82 mm Hg, and the respiratory rate is 16/min. His general and systemic examination does not reveal any abnormality. Laboratory evaluation is completely normal; however, his chest radiogram shows a single irregularly shaped nodule in the upper lobe of his right lung. The nodule has circumscribed margins and appears to be surrounded by normally aerated lung parenchyma. The nodule is approx. 7 mm (0.28 in) in diameter. The pattern of calcification is nonspecific and there are no signs of atelectasis or pneumonitis. The physician compares the radiogram with another radiogram which was obtained 5 years back. However, there was no pulmonary nodule in the previous radiogram. No other radiograms are available for comparison. Which of the following is the next best step in the diagnostic evaluation of this patient?
+
+Options:
+A. Positron emission tomography (PET) scan
+B. Transbronchial needle aspiration (TBNA)
+C. High-resolution computed tomography (HRCT) of the chest
+D. Single-photon emission CT (SPECT) scan
+E. CT-guided transthoracic needle aspiration (TTNA)
+F. Thin-section computed tomography (CT) through the nodule
+G. CT-guided transthoracic needle biopsy (CT-TTNB)
+H. High-resolution computed tomography (HRCT) through the nodule
+
+Choose the correct answer from the options.
+",F,Thin-section computed tomography (CT) through the nodule,Imaging and Nuclear Medicine,3cbadcc8669544798b024d60a9ddaaff
+SuperGPQA-medicine-61,"
+Question: A 70-year-old female presents to you for an office visit with complaints of forgetfulness. The patient states that over the last several years, the patient has stopped cooking for herself even though she lives alone. Recently, she also forgot how to drive back home from the grocery store and has difficulty paying her bills. The patient says she has been healthy over her whole life and does not take any medications. Her vitals are normal and her physical exam does not reveal any focal neurological deficits. Her mini-mental status exam is scored 19/30 and her MRI reveals diffuse cortical atrophy. What is the best initial treatment for this patient's condition?
+
+Options:
+A. Galantamine
+B. Bromocriptine
+C. Pramipexole
+D. Tacrine
+E. Ropinirole
+F. Rivastigmine 5 mg daily
+G. Donepezil
+H. Rivastigmine 10 mg daily
+I. Memantine
+J. Rivastigmine
+
+Choose the correct answer from the options.
+",J,Rivastigmine,Geriatric Medicine,e0944735ca3b46429169d8dd9bb3df39
+SuperGPQA-medicine-62,"
+Question: A 60-year-old woman presents to the Emergency Department with right-sided pleuritic chest pain and mild shortness of breath for two days. The patient denies any coughing, fevers, syncope, chest trauma, recent travel or sick contacts, recent surgeries or hospitalizations, known history of cancer, hormone use, or prior history of deep vein thrombosis (DVT) or pulmonary embolism (PE). Her medical history includes hypertension and diabetes. On examination, her temperature is 37ᵒC, blood pressure 140/90 mmHg, pulse 108 beats/min, respiratory rate 20 breaths/min, and oxygen saturation is 97% on room air. A portable chest X-ray shows no acute findings. An EKG shows sinus tachycardia with no ischemic abnormalities. The patient remains tachycardic despite IV fluids and relocating the patient to a calm environment.
+Which of the following is the best course of action to further evaluate for a diagnosis of pulmonary embolism?
+
+Options:
+A. Perform a V/Q scan
+B. Initiate bedside echocardiography
+C. Give lorazepam
+D. Prescribe broad-spectrum antibiotics
+E. Conduct an arterial blood gas
+F. Draw a D-Dimer test
+G. Perform a coronary angiography
+H. Perform a CT Pulmonary Angiogram
+I. Recommend a stress echocardiogram
+J. Administer intravenous diuretics
+
+Choose the correct answer from the options.
+",F,Draw a D-Dimer test,Emergency Medicine,7d09ef0797ce4e5985bf74b721552ca7
+SuperGPQA-medicine-63,"
+Question: Male, 21 years old, suddenly experienced left chest pain while lifting a barbell 2 hours ago, accompanied by difficulty breathing, sweating, and palpitations. The pulse is weak at 120 beats per minute. Breathing is shallow and rapid, 24-30 breaths per minute, blood pressure is 90/60. He quickly went to the campus hospital, lying on his right side with an elevated pillow, and exhibited cyanosis of the lips and distended neck veins. The main diagnosis of the patient's condition is ().
+
+Options:
+A. Spontaneous Pneumonia
+B. Acute Bronchitis
+C. Chronic Obstructive Disease
+D. Aortic Dissection
+E. Cardiac Tamponade
+F. Pulmonary Embolism
+G. Tension Hemothorax
+H. Congestive Heart Failure
+I. Pneumothorax
+J. Myocardial Infarction
+
+Choose the correct answer from the options.
+",I,Pneumothorax,Internal Medicine,4ad7d364598045beaba1f030abcb2d4a
+SuperGPQA-medicine-64,"
+Question: Female, 26 years old, experiencing fatigue and skin bruising for 2 weeks, diagnosed with acute myeloid leukemia and admitted for treatment. Blood routine tests show white blood cells at $15 \times 10^9$/L, platelets at 15 or $10^9$/L, and hemoglobin at 83 g/L. Bone marrow examination reveals 65% blasts, 2% promyelocytes, 18% other cells, and 12% monocytes. If a chromosomal examination is conducted, the correct finding is _____.
+
+Options:
+A. $$
+\mathfrak{t} ( 1 1 ; 2 0 ) \left( \mathsf{q 1 3} ; \mathsf{q 2 5} \right)
+$$
+B. $$
+\mathfrak{t} ( 9 ; 2 2 ) \left( \mathsf{q 2 3} ; \mathsf{q 1 1} \right)
+$$
+C. $$
+\mathfrak{t} ( 6 ; 1 8 ) \left( \mathsf{q 2 1} ; \mathsf{q 1 5} \right)
+$$
+D. $$
+\mathfrak{t} ( 5 ; 5 ) \left( \mathsf{q 2 4} ; \mathsf{q 2 0} \right)
+$$
+E. $$
+\mathfrak{t} ( 1 4 ; 1 5 ) \left( \mathsf{q 1 2} ; \mathsf{q 2 3} \right)
+$$
+F. $$
+\mathfrak{t} ( 1 5 ; 1 7 ) \left( \mathsf{q 2 2} ; \mathsf{q 2 1} \right)
+$$
+G. $$
+\mathfrak{t} ( 3 ; 3 ) \left( \mathsf{q 4 2} ; \mathsf{q 1 1} \right)
+$$
+H. $$
+\mathfrak{t} ( 7 ; 1 3 ) \left( \mathsf{q 1 1} ; \mathsf{q 3 3} \right)
+$$
+I. $$
+\mathfrak{t} ( 8 ; 2 1 ) \left( \mathsf{q 3 2} ; \mathsf{q 2 2} \right)
+$$
+J. $$
+\mathfrak{t} ( 1 0 ; 2 3 ) \left( \mathsf{q 2 5} ; \mathsf{q 1 0} \right)
+$$
+
+Choose the correct answer from the options.
+",F,"$$
+\mathfrak{t} ( 1 5 ; 1 7 ) \left( \mathsf{q 2 2} ; \mathsf{q 2 1} \right)
+$$",Internal Medicine,c801c7e862564763917fcbb5dfd43df2
+SuperGPQA-medicine-65,"
+Question: Estimate the arterial blood pressure in the head and feet when a person is in a handstand position.
+
+Options:
+A. $$
+1 7. 9 6 ( \mathrm{~ k P a ~} ) ;
+1.05 ( \mathrm{~ k P a ~} )
+$$
+B. $$
+1 8. 5 4 ( \mathrm{~ k P a ~} ) ;
+0.94 ( \mathrm{~ k P a ~} )
+$$
+C. $$
+1 7. 4 8 ( \mathrm{~ k P a ~} ) ;
+0.88 ( \mathrm{~ k P a ~} )
+$$
+D. $$
+1 5. 3 7 ( \mathrm{~ k P a ~} ) ;
+0.99 ( \mathrm{~ k P a ~} )
+$$
+E. $$
+1 8. 8 8 ( \mathrm{~ k P a ~} ) ;
+1.15 ( \mathrm{~ k P a ~} )
+$$
+F. $$
+1 9. 2 3 ( \mathrm{~ k P a ~} ) ;
+1.02 ( \mathrm{~ k P a ~} )
+$$
+G. $$
+1 6. 0 0 ( \mathrm{~ k P a ~} ) ;
+0.91 ( \mathrm{~ k P a ~} )
+$$
+H. $$
+2 2. 0 9 ( \mathrm{~ k P a ~} ) ;
+1.25 ( \mathrm{~ k P a ~} )
+$$
+I. $$
+2 0. 1 5 ( \mathrm{~ k P a ~} ) ;
+1.10 ( \mathrm{~ k P a ~} )
+$$
+J. $$
+2 3. 4 4 ( \mathrm{~ k P a ~} ) ;
+0.97 ( \mathrm{~ k P a ~} )
+$$
+
+Choose the correct answer from the options.
+",B,"$$
+1 8. 5 4 ( \mathrm{~ k P a ~} ) ;
+0.94 ( \mathrm{~ k P a ~} )
+$$",Internal Medicine,59cdebeb8a294bc194469e6abda70916
+SuperGPQA-medicine-66,"
+Question: Female, 28 years old. Married for 4 years without contraception and infertile. Regular menstruation, moderate amount, dysmenorrhea for 2 years, need to take pain medication. Sudden onset of severe right lower abdominal pain at the time of her last menstrual period. Gynecological examination: the uterus was posteriorly positioned and slightly large with poor mobility, and cystic encapsulation was palpable in the adnexa bilaterally, about 6cmx4cmx4cm in size, with obvious pressure pain on the right side. The right uterosacral ligament could be touched with 2 hard nodules of soybean size with tenderness. This case should fist be considered ____.
+
+Options:
+A. benign uterine fibroids
+B. inflamed ovarian follicles
+C. inflamed pelvic lymph nodes
+D. twisted fallopian tube
+E. unilateral tubal ectopic pregnancy
+F. twisted ovarian cyst
+G. chronic endometriosis
+H. chronic ovarian torsion
+I. ruptured chocolate cyst
+J. acute appendicit
+
+Choose the correct answer from the options.
+",I,ruptured chocolate cyst,Obstetrics and Gynecology,805dee575d234a649c7d7bedd80b16bf
+SuperGPQA-medicine-67,"
+Question: Female, 43 years old. Prolonged menstrual cycle for 2 years. Menstruation comes about once in 2 months, with a period of 8-10 days and a heavy menstrual flow. In order to define the abnormal uterine bleeding typology, the most valuable adjunctive test in the late luteal phase should be ____.
+
+Options:
+A. transvaginal ultrasound scan
+B. pelvic ultrasound examination
+C. serum progesterone measurement
+D. cervical smear test
+E. abdominal CT scan evaluation
+F. serum hormone levels analysis
+G. fasting glucose level test
+H. thyroid function test
+I. endometrial biopsy
+J. complete blood count test
+
+Choose the correct answer from the options.
+",I,endometrial biopsy,Obstetrics and Gynecology,ccbc50a0f4fd46c484c90fb238107cae
+SuperGPQA-medicine-68,"
+Question: A 42-year-old male experienced sudden severe back pain after diving, with a sense of impending death, lasting for 2 hours without relief. He has a 5-year history of hypertension, which has not been well controlled. Physical examination: blood pressure in the right upper limb is 170/100 mmHg, in the left upper limb is 110/60 mmHg, clear breath sounds in both lungs, no murmurs heard in the precordium, ECG shows left ventricular hypertension. The most likely diagnosis is:
+
+Options:
+A. Hypertensive emergency
+B. Thoracic aortic dissection
+C. Thoracic aortic aneurysm
+D. Pulmonary embolism
+E. Myocarditis
+F. Aortic dissection
+G. Aortic aneurysm with dissection
+H. Aortic aneurysm
+I. Myocardial infarction
+J. Ruptured abdominal aortic aneurysm
+
+Choose the correct answer from the options.
+",F,Aortic dissection,Emergency Medicine,9e1bcf2bff0944de9e8ace1c34755558
+SuperGPQA-medicine-69,"
+Question: A 30-year-old female reports that 2 days ago, she underwent an abortion at a private clinic after a positive urine pregnancy test, with no relevant records, and the aspirated material is unknown. She has experienced severe pain for 3 hours after eating raw food, accompanied by nausea and vomiting, without diarrhea, and with a small amount of vaginal bleeding. Physical examination: T37.2°C, BP80/50mmHg, pale face, obvious tenderness and rebound tenderness in the abdomen. Gynecological examination shows a full posterior fornix of the vagina and significant cervical motion tenderness. Both adnexa could not be clearly palpated due to abdominal muscle tension. The most likely diagnosis to consider in this case is
+
+Options:
+A. Acute pelvic abscess
+B. Retained products of conception
+C. Ectopic pregnancy
+D. Ruptured ovarian cyst
+E. Uterine perforation
+F. Ruptured fallopian tube
+G. Acute gastroenteritis
+H. Acute appendicitis
+I. Pelvic inflammatory disease
+J. Missed abortion
+
+Choose the correct answer from the options.
+",C,Ectopic pregnancy,Obstetrics and Gynecology,330db4ec8c05484087dc6c6ff109df7f
+SuperGPQA-medicine-70,"
+Question: A 36-year-old female was admitted to the hospital with high fever, cough with sputum, and numerous petechiae on her limbs for one week. Physical examination: temperature 39.6°C, appearance of anemia, purpura on the skin, no superficial lymphadenopathy, liver and spleen not palpable. Blood profile: Hb 60g/L, RBC 2.20×10^12/L, WBC 1.10×10^9/L, neutrophils 38%, lymphocytes 62%, Plt 25×10^9/L. Bone marrow examination: decreased granulocytic and erythroid series, increased proportion of lymphoid series, mainly mature lymphocytes; 1 megakaryocyte seen throughout the slide; increased reticular cells, plasma cells, and histiocytes; increased neutrophil alkaline phosphatase activity. The most likely diagnosis for this patient is ()
+
+Options:
+A. Hypersplenism
+B. Acute leukemia
+C. Hypocellular myelodysplastic syndrome
+D. Aplastic anemia
+E. Agranulocytosis
+F. Hypocellular aplastic anemia
+G. Chronic lymphocytic leukemia
+H. Malignant histiocytosis
+I. Iron deficiency anemia
+J. Chronic myeloid leukemia
+
+Choose the correct answer from the options.
+",D,Aplastic anemia,Internal Medicine,930f1df7410d4f978b809ec2bf8d6c0e
+SuperGPQA-medicine-71,"
+Question: A 59-year-old female patient has had irregular fever for two weeks, accompanied by significant fatigue and dizziness. She has a 10-year history of hypertension and takes amlodipine 5mg qd. Physical examination reveals anemic appearance, blood pressure of 150/90 mmHg, heart rate of 100 beats/min, regular rhythm, and a diastolic sighing murmur at the third left sternal border. Laboratory tests show white blood cells of 12×10^9/L, N87%, and X-ray examination shows slight leftward enlargement of the heart. ECG shows only T wave flattening. Two hours ago, she suddenly developed right-sided hemiplegia and aphasia. The most likely diagnosis for this patient is ()
+
+Options:
+A. Systemic lupus erythematosus
+B. Acute myocardial infarction
+C. Subacute infective endocarditis
+D. Acute bacterial endocarditis
+E. Acute cerebrovascular accident
+F. Acute cerebral infarction
+G. Subacute bacterial endocarditis
+H. Rheumatic heart disease
+I. Aortic dissection
+J. Infective endocarditis
+
+Choose the correct answer from the options.
+",J,Infective endocarditis,Internal Medicine,b955efc304184f7e8b659c97dd1c98b6
+SuperGPQA-medicine-72,"
+Question: A 62-year-old man is brought to the emergency department because of right-sided weakness and subjective decreased sensation that started 30 minutes ago. The patient reports that his symptoms started to ease 5 minutes after onset and have now completely resolved. He has hypertension, hyperlipidemia, and type 2 diabetes mellitus. He has smoked one pack of cigarettes daily for 40 years. His current medications include lisinopril, metformin, and sitagliptin. He is 183 cm (6 ft 0 in) tall and weighs 105 kg (220 lb); BMI is 32 kg/m2. He appears well. His temperature is 36.5°C (97.7°F), pulse is 80/min, and blood pressure is 150/88 mm Hg. Neurological examination shows no abnormalities. Cardiac examination shows regular rate and rhythm and a left-sided carotid bruit. Complete blood count, serum glucose, and electrolytes are within the reference ranges. An ECG shows sinus rhythm and left axis deviation. A CT scan of the head without contrast shows no abnormalities. Carotid doppler ultrasound shows 45% stenosis in the left carotid artery and 15% stenosis in the right. Which of the following is the most appropriate next step in management?
+
+Options:
+A. Transthoracic echocardiogram
+B. Intramuscular alteplase therapy
+C. Antiplatelet therapy
+D. Intravenous aspirin therapy
+E. Carotid artery stenting
+""
+F. Oral aspirin therapy
+G. Carotid endarterectomy
+H. Reassurance and follow-up in 2 weeks
+I. Oral anticoagulant therapy
+J. Intravenous alteplase therapy
+
+Choose the correct answer from the options.
+",C,Antiplatelet therapy,Emergency Medicine,d2aba86ff77f4e24ac58473bc831dc7b
+SuperGPQA-medicine-73,"
+Question: A rugby player hit his head on the post whilst involved in a tackle. He was unconscious for 5 min but regained full consciousness and sat on the sideline until the end of the game. He was then noted to be drowsy and over the past 30 min became confused and no longer obeyed commands. Most likely diagnosis is:
+
+Options:
+A. Epidural hematoma
+B. Extradural hematoma
+C. Epidural hemorrhage
+D. Subdural hematoma
+E. Subarachnoid hemorrhage
+F. Intracranial hematoma
+G. Cerebral edema
+H. Subarachnoid hematoma
+I. Subdural hemorrhage
+J. Intracerebral hematoma
+
+Choose the correct answer from the options.
+",B,Extradural hematoma,Neurology,6e0e050d51604dcc9912d3c65498cae4
+SuperGPQA-medicine-74,"
+Question: A pateint presented with sho lasting episodic behavioural changes which includes agitation & dream like state with thrashing movements of his limbs. He does not recall of these episodes & no precipitating factor is likely. The most likely diagnosis is:
+
+Options:
+A. Panic episodes
+B. Psychogenic nonepileptic seizures
+C. Schizophrenia
+D. Complex partial seizures
+E. Dissociative disorder
+F. Parietal lobe epilepsy
+G. Psychogenic non-epileptic seizures
+H. Occipital lobe epilepsy
+I. Temporal lobe epilepsy
+J. Frontal lobe epilepsy
+
+Choose the correct answer from the options.
+",I,Temporal lobe epilepsy,Neurology,efe39ce40b2443d1b5c30b5efd5efe9d
+SuperGPQA-medicine-75,"
+Question: A 70-year-old man with hypertension and type 2 diabetes mellitus is admitted to the hospital 8 hours after the onset of impaired speech and right-sided weakness. Two days after admission, he becomes confused and is difficult to arouse. His pulse is 64/min and blood pressure is 166/96 mm Hg. Pulse oximetry on room air shows an oxygen saturation of 95%. Fundoscopic examination shows bilateral optic disc swelling. He is intubated and mechanically ventilated. A CT scan of the brain shows hypoattenuation in the territory of the left middle cerebral artery with surrounding edema and a 1-cm midline shift to the right. Which of the following interventions is most likely to result in a decrease in this patient's intracranial pressure?
+
+Options:
+A. Decrease the heart rate
+B. Decrease the tidal volume
+C. Increase the exhaled oxygen fraction
+D. Decrease the blood pressure
+E. Increase the inspiratory time
+F. Decrease the respiratory rate
+G. Increase the positive end-expiratory pressure
+H. Increase the tidal volume
+I. Increase the respiratory rate
+J. Increase the fraction of inhaled oxygen
+
+Choose the correct answer from the options.
+",I,Increase the respiratory rate,Neurology,1a42db04dd7b41e6ab9e48ac9443c739
+SuperGPQA-medicine-76,"
+Question: A 64-year-old man is evaluated because of weakness and difficulty in weaning from mechanical ventilation. The patient had been admitted to the intensive care unit 2 weeks ago because of septic shock related to alcoholism, pneumonia, and Klebsiella bacteremia. He had developed respiratory failure requiring intubation and mechanical ventilation as well as acute kidney injury. His pulmonary infiltrates had responded to appropriate intravenous antibiotics and his hypotension had responded to intravenous norepinephrine. Now the patient is alert and responsive to verbal commands, is afebrile with blood pressure of 114/74 but has not tolerated several trials of weaning from the ventilator. On physical examination, the patient is cooperative. Cranial nerves are normal. Muscle strength is poor, especially in distal musculature, where he displays only 2/5 strength in the hands and feet. Proximal strength is 3/5. Ankle and knee reflexes are unobtainable. Sensory examination is difficult because of problems communicating with the patient but suggests distal sensory loss in the lower extremities. Laboratory studies show that his creatinine level has spontaneously improved to 2.4 mg/dL. Electrolytes are normal, and the patient has a mild normochromic normocytic anemia with resolving leukocytosis. Serum creatine kinase is 78 units/L (normal <140). What is the most likely cause of his weakness?
+
+Options:
+A. Muscle degeneration with loss of myosin in myocytes
+B. Axonal degeneration of peripheral nerves with increased myelin sheath integrity
+C. Muscle degeneration with denervation potentials in peripheral nerves
+D. Thiamine depletion from intravenous glucose administration
+E. Axonal degeneration of peripheral nerves with reduced myelin sheath integrity
+F. Persistent neuromuscular blockade due to aminoglycoside use
+G. Muscle atrophy due to prolonged immobilization and malnutrition
+H. Axonal degeneration of peripheral nerves with hyperexcitability in myocytes
+I. Axonal degeneration of peripheral nerves with denervation potentials in myocytes
+J. Axonal degeneration of peripheral nerves with denervation potentials in motor neurons
+
+Choose the correct answer from the options.
+",I,Axonal degeneration of peripheral nerves with denervation potentials in myocytes,Internal Medicine,183b555049f445fc9bfd3c3fee18e3ee
+SuperGPQA-medicine-77,"
+Question: A 45-year-old woman comes to the physician for a 3-week history of intermittent episodes of dizziness. The episodes last for hours at a time and are characterized by the sensation that the room is spinning. The patient also reports that she has started using her cell phone with her left ear because she hears better on that side. She has experienced intermittent ringing and fullness in her right ear. She has no history of serious medical conditions. She does not smoke or drink alcohol. She takes no medications. Her temperature is 37.1°C (98.8°F) pulse is 76/min respirations are 18/min, and blood pressure is 130/76 mm Hg. Cardiopulmonary examination shows no abnormalities. There is horizontal nystagmus to the right. Motor strength is 5/5 in all extremities, and sensory examination shows no abnormalities. Finger-to-nose and heel-to-shin testing are normal bilaterally. Weber test shows lateralization to the left ear. The Rinne test is positive bilaterally. Which of the following is the most likely cause of this patient's symptoms?
+
+Options:
+A. Increased production of endolymph
+B. Dislodged otoliths
+C. Obstruction of the anterior inferior cerebellar artery
+D. Decreased production of endolymph
+E. Increased resorption of endolymph
+F. Demyelinating plaques
+G. Cerebellopontine angle tumor
+H. Occlusion of the posterior inferior cerebellar artery
+I. Reduced resorption of endolymph
+
+Choose the correct answer from the options.
+",I,Reduced resorption of endolymph,Otorhinolaryngology,19a15ee70ad24e5abbf94d1d3445341e
+SuperGPQA-medicine-78,"
+Question: A previously healthy 59-year-old man comes to the physician with a 6-month history of worsening headaches, difficulty chewing, and progressive hearing loss. Examination shows a mildly tender, 1-cm, hard swelling over the left maxilla. The remainder of the examination shows no abnormalities. Serum studies show a calcium concentration of 8.5 mg/dL, alkaline phosphatase activity of 112 U/L, and parathyroid hormone concentration of 310 pg/mL. Audiometry shows bilateral mixed conductive and sensorineural hearing loss. Which of the following processes is the most likely cause of this patient's condition?
+
+Options:
+A. Increased activity of nuclear factor-κB receptor activator
+B. Increased activity of nuclear factor-κB
+C. Increased activity of nuclear factor-κB inhibitor
+D. Decreased activity of carbonic anhydrase II
+""
+E. Decreased expression of menin protein
+F. Increased activity of nuclear factor-κB receptor activator ligand
+G. Increased activity of nuclear factor-κB receptor
+H. Defective synthesis of type I collagen
+I. Increased activity of nuclear factor-κB ligand
+J. Defective synthesis of dynein
+
+Choose the correct answer from the options.
+",B,Increased activity of nuclear factor-κB,Otorhinolaryngology,ab92e419856043a0961c56a6110c360b
+SuperGPQA-medicine-79,"
+Question: A 35-year-old woman consulted a dermatologist because of a persistent facial rash. Physical examination demonstrates an erythematous rash, without blistering or ulceration, involving both cheeks and the nose. The nasolabial folds are relatively spared. The dermatologist also notes scattered erythematous, firm, maculopapular lesions elsewhere on the woman's face and on exposed areas of the neck, upper chest, and elbows. Careful examination of the scalp demonstrates a few areas of focal alopecia. On questioning, the woman repos that she has had the rash more or less continuously for about six months, and that it gets much worse when she is exposed to sunlight. Which of the following autoimmune diseases would MOST likely produce this patient's skin problems?
+
+Options:
+A. Chronic cutaneous lupus erythematosus
+B. Subacute cutaneous lupus erythematosus
+C. Cutaneous lupus erythematosus
+D. Dermatomyositis
+E. Acute cutaneous lupus erythematosus
+F. Discoid lupus erythematosus
+G. Sjögren's syndrome
+H. Rheumatoid ahritis
+I. Systemic lupus erythematosus
+J. Progressive systemic sclerosis
+
+Choose the correct answer from the options.
+",I,Systemic lupus erythematosus,Dermatology and Venereology,a83c9f0333454d429f51fb8c177765ae
+SuperGPQA-medicine-80,"
+Question: A 60-year-old woman presents to the dermatologist with a lesion on her lower eyelid. She noticed it a month ago and looked like a pimple. She says that it has been bleeding lately with minimal trauma which alarmed her. She says the lesion has not grown in size and is not associated with pain or pruritus. No significant past medical history. Physical examination reveals a 0.5 cm lesion that has a pearly appearance with telangiectasia and central ulceration and curled borders. The lesion is biopsied. Histopathology reveals peripheral palisading cells with large, hyperchromatic nuclei and a high nuclear: cytoplasmic ratio. Which of the following mechanisms best describes the most common mode of spread of this patient's neoplasm?
+
+Options:
+A. Lymphatic spread
+B. Seeding
+C. Local invasion via elastase
+D. Local invasion via collagenase
+E. Local invasion via hyaluronidase
+F. Local invasion via lipase
+G. Local invasion via matrix metalloproteinase
+H. Hematogenous spread
+I. Does not spread (tumor is typically benign)
+J. Local invasion via protease
+
+Choose the correct answer from the options.
+",D,Local invasion via collagenase,Dermatology and Venereology,d7a5306bc6c64e2888dfac86c09f4ab4
+SuperGPQA-medicine-81,"
+Question: During a humanitarian medical mission in rural Vietnam, a medical resident encounters a 50-year-old man with a year-long history of a pruritic rash on his upper body and face, along with numbness and tingling sensation of both of his palms. He mostly works on his family's rice farm, where he also takes care of livestock. A physical examination revealed multiple erythematous macules and papules on the face, arms, chest, and back, as well as thinning of the eyebrows and loss of some eyelashes. Additional findings include hypopigmented macules around the elbows, which are insensitive to light touch, temperature, and pinprick. The grip strength is slightly diminished bilaterally with the conservation of both bicipital reflexes. What is the most likely diagnosis?
+
+Options:
+A. Sporotrichosis
+B. Hansen's disease (early stage)
+C. Cutaneous leishmaniasis (chronic stage)
+D. Cutaneous leishmaniasis (early stage)
+E. Scrofula
+F. Cutaneous leishmaniasis
+G. Tinea corporis
+H. Hansen's disease
+I. Leprosy
+J. Cutaneous tuberculosis
+
+Choose the correct answer from the options.
+",I,Leprosy,Dermatology and Venereology,6e16faaee0974265a1ebc405493242b8
+SuperGPQA-medicine-82,"
+Question: A 56-year-old man has painful weeping rashes over the upper eyelid and forehead for the last 2 days along with ipsilateral acute punctuate keratopathy. About a year back, he had chemotherapy for Non-Hodgkin's lymphoma. There is no other abnormality. Which of the following is the most likely diagnosis?
+
+Options:
+A. Pyoderma gangrenosum
+B. Impetigo
+C. Herpes Zoster Ophthalmicus
+D. Herpes Zoster
+E. Systemic Lupus Erythematosus
+F. Herpes Simplex
+
+Choose the correct answer from the options.
+",D,Herpes Zoster,Dermatology and Venereology,1e7051c9b9ea458baefef65b96aaf7ce
+SuperGPQA-medicine-83,"
+Question: A 25 year old male presents to the clinic with a lesion on his penis. On examination he was noted to have a beefy red ulcer on the glans which bled when touched. Smear taken from the ulcer showed gram-negative intracytoplasmic cysts filled with deeply staining bodies that had a safety-pin appearance. What is he most likely suffering from?
+
+Options:
+A. Granuloma inguinale
+B. Chancroid
+C. HSV infection
+D. Syphilis
+E. Lymphogranuloma venereum
+F. Donovanosis
+
+Choose the correct answer from the options.
+",A,Granuloma inguinale,Dermatology and Venereology,658582ce12d343aa84c3c8766a98084b
+SuperGPQA-medicine-84,"
+Question: A 22-year-old man presents to a physician with a single painless ulcer on his glans penis that he first noticed 2 weeks ago. He mentions that he is sexually active with multiple partners. There is no history of fevers. Initially, he thought that the ulcer would go away on its own, but decided to come to the clinic because the ulcer persisted. On palpation of the ulcer, the edge and base are indurated. There is no purulence. Multiple painless, firm, and non-fixed lymph nodes are present in the inguinal regions bilaterally. The physician orders a Venereal Disease Research Laboratory (VDRL) test, which is positive. The Treponema pallidum particle agglutination assay is also positive. Upon discussing the diagnosis, the patient informs the physician that he has a severe allergy to penicillin and he declines treatment with an injectable medicine. Which of the following drugs is most appropriate for this patient?
+
+Options:
+A. Metronidazole
+B. Ceftriaxone
+C. Azithromycin
+D. Ciprofloxacin
+E. Erythromycin
+F. Chloramphenicol
+G. Trimethoprim-sulfamethoxazole
+H. Doxycycline
+I. Amoxicillin
+
+Choose the correct answer from the options.
+",C,Azithromycin,Dermatology and Venereology,6fecca6b3e464a348756df60b90ab361
+SuperGPQA-medicine-85,"
+Question: A 50-year-old man presents to his primary care doctor following an inguinal hernia repair. The patient reports no pain in his lower abdomen or groin, no constipation, and states that he enjoys his usual diet. He denies any use of alcohol, tobacco, or illicit drugs. He has returned to work as a cruise ship attendant. Preoperative workup included chest radiography which demonstrated an opacification in his right middle lobe. The patient agrees to undergo computed tomography (CT) of his chest without contrast for further evaluation. The radiologist reports an 8 mm nodule in the patient's peripheral right middle lobe that has regular margins and appears calcified. One year later, the patient obtains another chest CT without contrast that reports the nodule size as 10 mm with similar characteristics. What is the most appropriate next step in management?
+
+Options:
+A. CT chest with contrast in 6 months
+B. Positive emission tomography (PET) of chest now
+C. Right middle lobectomy now
+D. CT chest without contrast in 12 months
+E. CT chest with contrast in 12 months
+F. Bronchoscopy-guided biopsy now
+G. CT chest without contrast in 24 months
+
+Choose the correct answer from the options.
+",B,Positive emission tomography (PET) of chest now,Imaging and Nuclear Medicine,ff041cc5c74c4ef58f68f3e80e9ed52c
+SuperGPQA-medicine-86,"
+Question: A 3-week-old male infant is brought to the physician for follow-up. He was delivered at 30 weeks' gestation via Cesarean section and was cyanotic at birth, requiring resuscitation and a neonatal intensive care unit hospitalization. His mother received no prenatal care; she has diabetes mellitus type II and hypertension. She was not tested for sexually transmitted infections during the pregnancy. The infant appears well. Ophthalmologic examination shows tortuous retinal vessels. There are well-demarcated areas of non-vascularized retina in the periphery. This patient's retinal findings are most likely a result of which of the following?
+
+Options:
+A. Syphilis infection
+B. Oxygen toxicity
+C. Hypoxia and hyperoxia
+D. Glucocorticoid deficiency
+E. Hyperglycemia
+F. Chlamydia infection
+G. Hypoxia
+H. Non-accidental trauma
+I. Hyperoxia
+J. Retinal malignancy
+
+Choose the correct answer from the options.
+",B,Oxygen toxicity,Ophthalmology,ecbdd9947fd94b588f3873caed11ffeb
+SuperGPQA-medicine-87,"
+Question: A 58-year-old woman is brought to the emergency room by her husband complaining, ""I can't see out of my right eye."" She was watching television last night when she covered her left eye due to an itch and discovered that she could not see. The patient denies any precipitating event, pain, swelling, flashes, floaters, or headaches. Her past medical history is significant for uncontrolled hypertension and angina. Her medications include hydrochlorothiazide, lisinopril, atorvastatin, and nitroglycerin as needed. Her physical examination is unremarkable. Fundus examination demonstrates generalized pallor and slight disc edema with no hemorrhages. What is the most likely explanation for this patient's symptoms?
+
+Options:
+A. Optic neuritis
+B. Occlusion of the central retinal artery by embolus
+C. Detachment of the retina
+D. Inflammation of the temporal artery
+E. Occlusion of the central retinal vein by embolus
+F. Occlusion of the ophthalmic artery by embolus
+G. Occlusion of the ophthalmic vein by embolus
+H. Occlusion of the anterior ciliary artery by embolus
+I. Occlusion of the posterior ciliary artery by embolus
+J. Acute increase in pressure of the eye
+
+Choose the correct answer from the options.
+",F,Occlusion of the ophthalmic artery by embolus,Ophthalmology,d775e9d091ea433f84d3006cfba4ea2f
+SuperGPQA-medicine-88,"
+Question: An 82-year-old woman is brought to the physician by her nephew, who lives with her because she has a pessimistic attitude and has displayed overall distrust of her nephew for 1 year. She frequently argues with her nephew and embarrasses him in front of his friends. She had a Colles' fracture 2 months ago and has had hypertension for 18 years. Her medications include hydrochlorothiazide and nortriptyline. She has a quantity of each leftover since her previous visit 2 months ago and has not requested new prescriptions, which she would need if she were taking them as prescribed. She appears untidy. Her blood pressure is 155/98 mm Hg. She mumbles in response to questions, and her nephew insists on being at her side during the entire visit because she cannot express herself clearly. She has a sore on her ischial tuberosity and bruises around her ankles. Which of the following is the most appropriate action in patient care?
+
+Options:
+A. Referral to a geriatrician for a comprehensive assessment
+B. Reporting possible elder abuse by phone
+C. Referral to a geriatrician for a comprehensive assessment and emphasizing compliance with medication and follow-up in 1 month
+D. Emphasizing compliance with medication and follow-up in 1 month
+E. Referral to a psychiatrist
+F. Referral to a social worker for home care assessment
+G. Discussing advance directives
+H. Referral to a geriatrician for a comprehensive assessment and reporting possible elder abuse in writing
+I. Referral to a geriatrician for a comprehensive assessment and reporting possible elder abuse by phone
+J. Referral for hospice care
+
+Choose the correct answer from the options.
+",B,Reporting possible elder abuse by phone,Geriatric Medicine,0e8f1d421fe344d6bd4d88d92ee1cceb
+SuperGPQA-medicine-89,"
+Question: A 66-year old man comes to the physician because of fatigue for 6 months. He says that he wakes up every morning feeling tired. Most days of the week he feels sleepy during the day and often takes an afternoon nap for an hour. His wife says he snores in the middle of the night. He has a history of heart failure and atrial fibrillation. His medications include aspirin, atorvastatin, lisinopril, metoprolol, and warfarin. He drinks 1-2 glasses of wine daily with dinner; he does not smoke. He is 175 cm (5 ft 9 in) tall and weighs 96 kg (212 lb); BMI is 31.3 kg/m2. His blood pressure is 142/88 mm Hg, pulse is 98/min, and respirations are 22/min. Examination of the oral cavity shows a low-lying palate. Cardiac examination shows an irregularly irregular rhythm and no murmurs. The remainder of the examination shows no abnormalities. Which of the following is the most appropriate next step in management?
+
+Options:
+A. Overnight pulse oximetry
+B. ENT evaluation
+C. Home sleep apnea testing
+D. Echocardiography
+E. In-laboratory polysomnography
+F. Overnight polysomnography with CPAP titration
+G. Continuous positive airway pressure (CPAP) trial
+
+Choose the correct answer from the options.
+",E,In-laboratory polysomnography,Geriatric Medicine,cb5f71cc997e49dabe827b9a9730344b
+SuperGPQA-medicine-90,"
+Question: A 70-year-old man with a 2 year history of Alzheimer disease presents is brought in from his nursing facility with altered mental status and recurrent falls during the past few days. Current medications include donepezil and galantamine. His vital signs are as follows: temperature 36.0°C (96.8°F), blood pressure 90/60 mm Hg, heart rate 102/min, respiratory rate 22/min. Physical examination reveals several lacerations on his head and extremities. He is oriented only to the person. Urine and blood cultures are positive for E. coli. The patient is admitted and initial treatment with IV fluids, antibiotics, and subcutaneous prophylactic heparin. On the second day of hospitalization, diffuse bleeding from venipuncture sites and wounds is observed. His blood test results show thrombocytopenia, prolonged PT and PTT, and a positive D-dimer. Which of the following is the most appropriate next step in the management of this patient's condition?
+
+Options:
+A. Cryoprecipitate, FFP and moderate dose SC heparin with vitamin K supplementation
+B. Cryoprecipitate, FFP and low dose IV heparin
+C. Cryoprecipitate, FFP and high dose IV heparin
+D. Splenectomy
+E. Cryoprecipitate, FFP and moderate dose IV heparin
+F. Urgent plasma exchange
+G. Cryoprecipitate, FFP and low dose SC heparin
+H. Immediately cease heparin therapy and prescribe an alternative anticoagulant
+I. Cryoprecipitate, FFP and moderate dose SC heparin
+J. Start prednisone therapy
+
+Choose the correct answer from the options.
+",G,"Cryoprecipitate, FFP and low dose SC heparin",Geriatric Medicine,10ef74cba12b4d538a87b95645cf4ebc
+SuperGPQA-medicine-91,"
+Question: A 76-year-old man presents to the Emergency Department with altered mental status. The pre-hospital providers state that the patient's wife called for an ambulance as the patient has been increasingly somnolent and confused over the last 1.5 weeks. There is no history of fever, vomiting, headaches, or trauma. The patient's medical history includes Type-2 diabetes, hypertension, and hyperlipidemia. On examination, his temperature is 37ᵒC, blood pressure 140/90 mmHg, pulse 109 beats/min, respira- tory rate 18 breaths/min, oxygen saturation is 98% on room air, and glucose level is 700mg/dL (39 mmol/L). The patient is somnolent, moans when his name is called, and responds to painful stimuli appropriately in all extremities. Pupils are 4mm bilaterally and reactive to light. Which of the following is the most appropriate next step in management for this patient's condition?
+
+Options:
+A. IV insulin continuous infusion
+B. IV hypertonic 3% NaCl
+C. IV heparin loading dose
+D. IV dopamine infusion
+E. IV sodium bicarbonate drip
+F. IV lactated Ringer's infusion
+G. IV 5% dextrose bolus
+H. IV insulin bolus
+I. IV calcium gluconate push
+J. IV 0.9% NaCl bolus
+
+Choose the correct answer from the options.
+",J,IV 0.9% NaCl bolus,Emergency Medicine,5432e2b7c6014d90b1f979352cb35788
+SuperGPQA-medicine-92,"
+Question: Male, 58 years old, presented with ""episodes of darkness in the left eye for 2 days, recurring with weakness of the right side of the limb for 12 hours"". He had hypertension, diabetes mellitus, carotid atherosclerosis with plaque formation. Examination: BP160/95mmHg, clear, speech not fluent, gross visual acuity, visual field not abnormal. Right central facial paralysis, right limb muscle strength grade IV, right tendon reflexes more active than the left, right Babinski's sign (+). No hemorrhage was seen on head CT. The most likely diagnosis for this patient and the responsible vessel is ____.
+
+Options:
+A. Cerebral infarction, right middle cerebral artery
+B. Cerebral infarction, right internal carotid artery
+C. Ischemic stroke, right anterior cerebral artery
+D. Brain tumor, left anterior cerebral artery
+E. Cerebral hemorrhage, right posterior cerebral artery
+F. Brain tumor, right middle cerebral artery
+G. Cerebral hemorrhage, left internal carotid artery
+H. Ischemic stroke, left middle cerebral artery
+I. Cerebral hemorrhage, left middle cerebral artery
+J. Cerebral infarction, left internal carotid artery
+
+Choose the correct answer from the options.
+",J,"Cerebral infarction, left internal carotid artery",Neurology,bd79bd7e40e34b5bba83b85a513000dd
+SuperGPQA-medicine-93,"
+Question: A 23-year-old female experiences nausea and vomiting after consuming dried fish fillets and beer. A few hours later, she complains of numbness in the lips, weakness in the limbs, followed by difficulty breathing and coma. The most likely diagnosis is __.
+
+Options:
+A. Scombroid fish intoxication
+B. Insecticide fish contamination
+C. Botulism
+D. Cyanobacteria fish hazard
+E. Acute alcohol poisoning
+F. Histamine fish poisoning
+G. Marine biotoxin exposure
+H. Pufferfish (fugu) poisoning
+I. Anaphylactic shock
+J. Heavy metal fish toxicity
+
+Choose the correct answer from the options.
+",H,Pufferfish (fugu) poisoning,Emergency Medicine,48de38a79dd148da89ca4bf92c8bddd1
+SuperGPQA-medicine-94,"
+Question: A 36-year-old man comes to the office because of headaches that began 2 weeks ago. The headaches are moderately severe, are present when he awakens in the morning, and are relieved with over-the-counter analgesics. He has no prior history of headaches. He tells you he was promoted to an upper-level managerial position in his accounting firm about 8 months ago, which necessitated relocating. Physical examination now discloses no abnormalities except for blurring of the optic disc margins bilaterally. Which of the following is the most appropriate next step?
+
+Options:
+A. Order MRI of the head
+B. Refer him for consultation with a neurologist
+C. Prescribe over-the-counter analgesics for long term use
+D. Begin a trial of an anti-inflammatory medication
+E. Begin a trial of a β-blocking medication
+F. Order CT scan of the head
+G. Order EEG
+H. Advise him to reduce stress and monitor symptoms
+I. Refer him for consultation with an ophthalmologist
+J. Refer him for consultation with a psychiatrist
+
+Choose the correct answer from the options.
+",F,Order CT scan of the head,Neurology,cd30976ef17748819f04e65423ef8b9f
+SuperGPQA-medicine-95,"
+Question: A 65-year-old male with an 8-year history of hypertension presents with headache, anxiety, nausea, restlessness, palpitations, sweating, pallor, intermittent flushing, blurred vision, a blood pressure of 260/120 mmHg, a heart rate of 54 beats per minute, and wet rales at the lung bases. Urinalysis shows protein (++) and glucose (+). Blood tests reveal a creatinine level of 120 umol/L, total cholesterol (TC) of 4.6 mmol/L, LDL-C of 4.5 mmol/L, triglycerides (TG) of 1.7 mmol/L, and HDL-C of 0.9 mmol/L. The patient is conscious but despite treatment, his blood pressure remains at 202/120 mmHg, and he is dyspneic and unable to lie flat. What is the correct treatment at this time?
+
+Options:
+A. Intravenous infusion of Sodium Nitroprusside and a rapid diuretic
+B. Intravenous infusion of Nitroglycerin and Sodium Nitroprusside
+C. Intravenous infusion of Nitroglycerin
+D. Intravenous infusion of Lidocaine
+E. Intravenous infusion of Sodium Nitroprusside and Digoxin (Lanoxin)
+F. Intravenous injection of a rapid diuretic
+G. Intravenous infusion of Sodium Nitroprusside and Lidocaine
+H. Intravenous infusion of Sodium Nitroprusside
+I. Intravenous injection of Digoxin (Lanoxin)
+J. Intravenous infusion of Nitroglycerin and a rapid diuretic
+
+Choose the correct answer from the options.
+",H,Intravenous infusion of Sodium Nitroprusside,Internal Medicine,ee2e9f9c37304c7daa4e536e97fbac93
+SuperGPQA-medicine-96,"
+Question: A patient, Wang XX, was admitted to the hospital with the chief complaint of ""fever and headache for 4 days."" Physical examination: pharyngeal redness, no enlargement of tonsils, scattered petechiae on the soft palate, and erythema on the neck and anterior chest. The patient had been living in Thailand for half a year before the onset of the disease and returned to Xi'an from Thailand a week ago. Laboratory tests: white blood cells 18×10^9/L, platelets 31×10^9/L, proteinuria 3+, and both IgM and IgG antibodies for hemorrhagic fever with renal syndrome were negative. What should be the primary diagnosis for this patient?
+
+Options:
+A. Chikungunya fever
+B. Malaria
+C. Leptospirosis with proteinuria
+D. Leptospirosis with thrombocytopenia
+E. Upper respiratory tract infection
+F. Leptospirosis
+G. Zika virus infection
+H. Lyme disease
+I. Dengue fever
+J. Leptospirosis with thrombocytopenia and proteinuria
+
+Choose the correct answer from the options.
+",I,Dengue fever,Internal Medicine,c7bb04ea969349d6b9061cffd2a0b87b
+SuperGPQA-medicine-97,"
+Question: A 26-year-old female, 50 days amenorrhea followed by slight vaginal bleeding and mild pain in the right lower abdomen. This morning, she suddenly experienced a tearing pain in the right lower abdomen. Examination: blood pressure 90/60mHg, pale face, slightly distended lower abdomen, obvious tenderness in the right lower abdomen, no significant muscle tension, positive shifting dullness on percussion. Gynecological examination: slightly enlarged and soft uterus, a tender mass in the right adnexal area with unclear boundaries, slightly full posterior fornix of the vagina, and tenderness. Laboratory tests: positive urine pregnancy test, Hb 96g/L. At this time, the most valuable auxiliary examination method is
+
+Options:
+A. posterior fornix puncture of the vagina
+B. ultrasound examination
+C. ultrasound examination with Doppler
+D. ultrasound examination with Doppler and transabdominal probe
+E. ultrasound examination with transabdominal probe
+F. ultrasound examination with transvaginal probe
+G. ultrasound examination with Doppler and transvaginal probe
+H. blood routine and CRP examination
+I. diagnostic curettage
+J. abdominal X-ray examination
+
+Choose the correct answer from the options.
+",A,posterior fornix puncture of the vagina,Obstetrics and Gynecology,2bed6133cc184e83988a5181fc5bfeda
+SuperGPQA-medicine-98,"
+Question: A 40-year-old male. 20 years ago, he had tuberculosis, otherwise healthy. In the past 3 months, he has had a stimulating cough, occasionally with blood streaks in sputum, and sometimes fever. X-ray shows: a 2C.m×2.5C.m mass shadow in the anterior segment of the right upper lobe, with irregular and lobulated margins. Sputum cytology was negative on three occasions. The primary diagnosis to consider is
+
+Options:
+A. Lung adenocarcinoma
+B. Lung abscess
+C. Lung metastasis
+D. Lung cyst
+E. Tuberculosis
+F. Tuberculoma
+G. Bronchitis
+H. Lung cancer
+I. Pulmonary fibrosis
+J. Lung carcinoma
+
+Choose the correct answer from the options.
+",H,Lung cancer,Oncology,b5e6eddbf60b40309a766457dd4be45c
+SuperGPQA-medicine-99,"
+Question: A 34-year-old woman, 33 weeks pregnant, has experienced chest tightness and shortness of breath for 2 weeks, which worsened over the past 3 days. She has a history of primary hypertension for more than 10 years and has been taking antihypertensive medication during pregnancy, with blood pressure fluctuating between 140-170/80-100 mmHg. Two weeks ago, she developed palpitations and shortness of breath, which worsened over the past 3 days, making it impossible for her to lie flat. Her blood pressure was measured at 159/89 mmHg; heart rate was 122 beats per minute; she was in a semi-reclining position, with bilateral lower limb edema (++). Fetal heart rate was 135 beats per minute. The appropriate management for this patient currently is:
+
+Options:
+A. Wait for fetal lung maturity before terminating the pregnancy
+B. Actively correct heart failure and terminate the pregnancy at 34 weeks
+C. Actively correct heart failure and consider cesarean section if no improvement
+D. Continue expectant management until 35 weeks after correcting heart failure
+E. Correct heart failure while performing an emergency cesarean section
+F. Actively correct heart failure and wait for spontaneous labor
+G. Immediate cesarean section
+H. Actively correct heart failure and terminate the pregnancy
+I. Actively correct heart failure and terminate the pregnancy at 32 weeks
+J. Actively correct heart failure and terminate the pregnancy at 33 weeks
+
+Choose the correct answer from the options.
+",H,Actively correct heart failure and terminate the pregnancy,Obstetrics and Gynecology,0a54c2b945334030a39aa4cef5e646c9
+SuperGPQA-medicine-100,"
+Question: A 57-year-old woman presents to an outpatient clinic with lower extremity weakness and lower back pain. The patient says that her symptoms began 2 weeks ago when she was working in her garden and have progressively worsened to the extent she currently is unable to walk on her own. She describes the pain as sharp, severe and descending bilaterally from her lower back to her lateral ankles along the posterior surface of her thighs and legs. She also states that she has had several episodes of urinary incontinence for the past couple of days. The patient denies having any similar pain or incontinence in the past. No other significant past medical history. Current medications are alendronate 5 mg orally daily and a daily multivitamin. Her temperature is 37.0°C (98.6℉), the blood pressure is 110/70 mm Hg, the pulse is 72/min, the respiratory rate is 15/min, and oxygen saturation is 99% on room air. On physical examination, the patient appears to be in significant distress. Strength is ⅗ in her thighs bilaterally and ⅖ in the legs bilaterally left greater than right. Muscle tone is decreased in the lower extremities. The patellar reflex is 1+ bilaterally and plantar reflex is 0+ bilaterally. Fine touch and pain and temperature sensation are decreased in the lower extremities bilaterally, left greater than right. Saddle anesthesia is present. Which of the following is the next, best step in the management of this patient?
+
+Options:
+A. Immediate transfer to the emergency department for imaging studies and initiation of muscle relaxants and analgesics
+B. Outpatient management with a 3-day course of meloxicam and tolperisone and reassess
+C. Immediate transfer to the emergency department for imaging studies and outpatient follow-up in one week
+D. Immediate transfer to the emergency department for imaging studies and follow-up in one week
+E. Immediate transfer to the emergency department for imaging studies and initiation of steroid therapy
+F. Outpatient management with a 3-day course of diclofenac and gabapentin and reassess
+G. Immediate transfer to the emergency department for imaging studies and inpatient observation for 48 hours
+H. Recommend non-emergent inpatient spinal manipulation program
+I. Outpatient management with 3 days of strict bed rest and reassess
+J. Immediate transfer to the emergency department for management
+
+Choose the correct answer from the options.
+",J,Immediate transfer to the emergency department for management,Neurology,446a87ff64474fe2a33eac241eaa4513
+SuperGPQA-medicine-101,"
+Question: Shanti, aged 27 yrs presented with complaints of difficulty in reading near print. There is ptosis and diplopia in all directions. She is having-
+
+Options:
+A. III CN palsy with ptosis but without diplopia
+B. III CN palsy with ptosis and intermittent diplopia
+C. III CN palsy
+D. III CN palsy with ptosis and diplopia
+E. Presbyopia
+F. IV CN palsy
+G. III CN palsy with ptosis and intermittent diplopia in some directions
+H. III CN palsy with ptosis and constant diplopia
+I. VI CN palsy
+J. Myasthenia gravis
+
+Choose the correct answer from the options.
+",J,Myasthenia gravis,Neurology,49167a43d7484becab7b6617cf48d5cf
+SuperGPQA-medicine-102,"
+Question: For Contralateral weakness and sensory loss, worse in face and arm; homonymous hemianopsia; aphasia or neglect syndrome select the site of the lesion of cerebrovascular disease,
+
+Options:
+A. Internal carotid aery
+B. Middle cerebral aery (damaged lateral branch)
+C. Middle cerebral aery (damaged posterior branch)
+D. Middle cerebral aery
+E. Middle cerebral artery (damaged anterior branch)
+F. Anterior cerebral aery
+G. Midbasilar aery
+H. Posterior cerebral aery
+I. Penetrating branch, middle cerebral aery
+
+Choose the correct answer from the options.
+",D,Middle cerebral aery,Neurology,eafcd86892c845cbaabd15f986af3e6c
+SuperGPQA-medicine-103,"
+Question: Fluent aphasia without weakness occurs due to which of the following culprit arteries?
+
+Options:
+A. PCA (nondominant lobe)
+B. Superior division of MCA (nondominant lobe)
+C. Middle division of MCA (dominant lobe)
+D. Superior division of PCA (dominant lobe)
+E. Superior division of MCA (dominant lobe)
+F. Hubner's branch of ACA
+G. Inferior division of MCA
+H. Superior division of PCA (nondominant lobe)
+I. Inferior division of MCA (nondominant lobe)
+J. Middle division of MCA (nondominant lobe)
+
+Choose the correct answer from the options.
+",G,Inferior division of MCA,Neurology,8deac00ba78e4105abfbb4b5d62d2c60
+SuperGPQA-medicine-104,"
+Question: A patient was surgically treated for bilateral pheochromocytoma. He has staed developing gait abnormality hence MRI head was done. What is the probable diagnosis?
+
+Options:
+A. Von Hippel Landau Disorder
+B. Multiple endocrine neoplasia type 3
+C. Multiple endocrine neoplasia type 2B
+D. Multiple endocrine neoplasia type 2A
+E. Von Hippel Landau disease
+F. Von Recklinghausen Disease
+G. Autoimmune polyglandular syndrome
+H. Multiple endocrine neoplasia type 4
+I. Von Hippel Landau Syndrome
+J. Neurofibromatosis type 1
+
+Choose the correct answer from the options.
+",I,Von Hippel Landau Syndrome,Internal Medicine,ce1158a451ac42a6a86be3f8d7885dcf
+SuperGPQA-medicine-105,"
+Question: A middle aged female presents with prolonged history of back pain followed by slowly progressive weakness of both lower limbs, spasticity and recent onset difficulty in micturation. On neurological examination there is evidence of dorsal myelopathy. MRI scan of spine shows a well-defined mid-dorsal intradural homogenous contrast enhancing mass lesion. The likely diagnosis is:
+
+Options:
+A. Intramedullary schwannoma
+B. Intramedullary neuroma
+C. Intradural Lipoma
+D. Intramedullary meningioma
+E. Intradural schwannoma
+F. Intramedullary ependymoma
+G. Dermoid cyst
+H. Intradural meningioma
+I. Spinal meningioma
+J. Epidermoid cyst
+
+Choose the correct answer from the options.
+",I,Spinal meningioma,Neurology,448694a7efe1422483dc04b170bb7952
+SuperGPQA-medicine-106,"
+Question: A 59-year-old woman with a past medical history of atrial fibrillation currently on warfarin presents to the emergency department for acute onset dizziness. She was watching TV in the living room when she suddenly felt the room spin around her as she was getting up to go to the bathroom. She denies any fever, weight loss, chest pain, palpitations, shortness of breath, lightheadedness, or pain but reports difficulty walking and hiccups. A physical examination is significant for rotary nystagmus and decreased pin prick sensation throughout her left side. A magnetic resonance image (MRI) of the head is obtained and shows ischemic changes of the right lateral medulla. What other symptoms would you expect to find in this patient?
+
+Options:
+A. Left-sided facial paralysis
+B. Paralysis of the right lower limb
+C. Decreased sensation in the right arm and leg
+D. Language impairment
+E. Decreased sensation in the right side of the face
+F. Increased gag reflex
+G. Right-sided facial paralysis
+H. Left-sided tongue deviation
+I. Right-sided tongue deviation
+J. Decreased gag reflex
+
+Choose the correct answer from the options.
+",J,Decreased gag reflex,Neurology,55143bc7a1864d20b33ae0bb078d6a85
+SuperGPQA-medicine-107,"
+Question: A 51-year-old man presents to his dermatologist because of severe stomatitis and superficial skin erosions over his trunk. His condition started 2 months ago and was unresponsive to oral antibiotics and antiherpetic medications. He has no history of a similar rash. His medical history is remarkable for type 2 diabetes mellitus and essential hypertension. The physical examination reveals numerous flaccid blisters and bullae which rupture easily. Nikolsky's sign is positive. Which of the following best represents the etiology of this patient's condition?
+
+Options:
+A. Anti-desmoglein-1 and -3 antibodies
+B. Anti-desmoglein-2 antibodies
+C. Increased mitotic activity of basal and suprabasal cells
+D. Cutaneous T cell lymphoma
+E. Anti-desmoglein-3 antibodies
+F. Dermatophyte infection
+G. Anti-desmoglein-4 antibodies
+H. Anti-hemidesmosome antibodies
+I. Anti-desmoglein-1 and -2 antibodies
+J. Anti-desmoglein-1 antibodies
+
+Choose the correct answer from the options.
+",E,Anti-desmoglein-3 antibodies,Dermatology and Venereology,799aa4dd2d8c4719a0c63a9dfe919b07
+SuperGPQA-medicine-108,"
+Question: A young woman complains of a red eye and associated pain above the eye. The patient's mother has chronic open-angle glaucoma and the patient wants to know whether she has the same thing. The patient describes several bouts of having a red, painful, eye that is relieved by sleeping.Examination reveals irregular pupil. This would be more consistent with which of the following?
+
+Options:
+A. Conjunctivitis
+B. Acute iritis with secondary glaucoma
+C. Chronic closed-angle glaucoma
+D. Chronic open-angle glaucoma
+E. Iridocyclitis
+F. Acute angle-closure glaucoma
+G. Keratitis sicca
+H. Acute iritis
+
+Choose the correct answer from the options.
+",E,Iridocyclitis,Ophthalmology,38c32c11ef414dc28560716bbd79cb83
+SuperGPQA-medicine-109,"
+Question: The Ortho Provue reports a type
+on a woman who is 6 weeks pregnant with
+vaginal bleeding as O negative. The woman
+tells the emergency department physician she is
+O positive and presents a blood donor card. The
+medical laboratory scientist performs a test for
+weak D and observes a 1+ reaction in AHG
+phase. A Kleihauer-Betke test is negative. Is
+this woman a candidate for RhIg?
+
+Options:
+A. No, she is Rh positive
+B. No, the Kleihauer-Betke was positive
+C. No, there is no evidence of a fetal bleed
+D. No, antibodies are present in AHG
+E. Yes, she requires a blood transfusion
+F. Yes, she is a genetic weak D
+G. Yes, her genotype shows O negative
+H. Yes, she has a variant D antigen
+I. Yes, based upon the Provue results
+J. No, she is naturally Rh positive
+
+Choose the correct answer from the options.
+",F,"Yes, she is a genetic weak D",Clinical Laboratory Diagnostics,55a0e6fe8ddd45aa8ad5416d6369ec6e
+SuperGPQA-medicine-110,"
+Question: A 32-year-old pregnant woman, 2 months into pregnancy, experiences chest tightness, shortness of breath, and palpitations after doing housework. Over the past week, she often wakes up at night due to chest tightness. Physical examination: heart rate 116/min, respiratory rate 22/min, heart border expanded to the left, a grade III systolic murmur heard at the apex, moist rales at the lung bases, and edema in the lower limbs (+). The management should be ().
+
+Options:
+A. Labor Induction with Inotropic Support
+B. Surgical Valve Replacement within First Trimester
+C. Antenatal Vitamins with Low-Sodium Diet
+D. Oxygen Therapy with Diuretic Administration
+E. Echocardiogram Monitoring and Iron Supplementation
+F. Abortion Procedure Following Heart Failure Control
+G. Low-Dose Aspirin and Regular Rest Periods
+H. Mild Exercise and Dietary Modifications
+I. Antihypertensive Therapy and Bed Rest Only
+J. Emergency Cesarean Section Immediately Recommended
+
+Choose the correct answer from the options.
+",F,Abortion Procedure Following Heart Failure Control,Obstetrics and Gynecology,9af20ac611394be69ea789dbe30876a1
+SuperGPQA-medicine-111,"
+Question: A 26-year-old primigravida, now at 40 weeks' gestation, presented to the hospital with a headache and dizziness for the past half-month, and this morning presented with a severe headache and vomiting twice. Listening to the fetal heartbeat reveals 176 beats/min, the appropriate management at this time should be____.
+
+Options:
+A. gradual oral intake of glucose tablets
+B. immediate subcutaneous insulin injection
+C. swift oral intake of ibuprofen capsules
+D. gradual intravenous hydration therapy
+E. prompt oral administration of paracetamol
+F. slow intramuscular vitamin K injection
+G. rapid intravenous mannitol drip
+H. sudden oral consumption of aspirin tablets
+I. dast rectal insertion of magnesium sulfate
+J. quick oral consumption of hydration fluids
+
+Choose the correct answer from the options.
+",G,rapid intravenous mannitol drip,Obstetrics and Gynecology,f45fd213f8e64d8888fe104f07860013
+SuperGPQA-medicine-112,"
+Question: Ten minutes after delivery of the fetus, there is heavy vaginal bleeding and prolongation of the exposed umbilical cord, a sign that ____.
+
+Options:
+A. displacement of the cervix
+B. relaxation of the uterine muscles
+C. constriction of the uterine arteries
+D. extension of the pelvic floor
+E. inflammation of the amniotic sac
+F. engorgement of pelvic veins
+G. rupture of the uterine wall
+H. effacement of the cervical os
+I. abruption of the placenta
+J. inversion of the uterine wall
+
+Choose the correct answer from the options.
+",I,abruption of the placenta,Obstetrics and Gynecology,fc03b5a563824c868e5b96db6412a42c
+SuperGPQA-medicine-113,"
+Question: In order to study whether there is any difference in the efficacy of a certain therapy for patients with different types of gastric ulcers, a hospital used the therapy to treat 108 cases of general types of ulcer patients, 85 cases were cured; 105 cases of patients with special types of gastric ulcers were treated, 33 cases were cured. After hypothesis testing,, P=0.005 (at the =0.05 level), the conclusion at this point is ( ).
+
+Options:
+A. Accepted, Rejected, the difference is not statistically significant and it can be inferred that the therapeutic outcomes are consistent across both types of gastric ulcers
+B. Rejected, Accepted, the difference is not statistically significant and it may be concluded that the cure rates are alike in both ulcer types
+C. Accepted, Rejected, the difference is statistically significant and it should be presumed that the cure rates vary between the ulcer types
+D. Accepted, Rejected, the difference is not statistically significant and it cannot be assumed that the cure rate is different for the two ulcer types
+E. Accepted, Not applicable, the difference is statistically significant but it is unclear if the therapy effects
+F. Accepted, Rejected, the difference is statistically significant and it cannot be assumed that the overall cure rate of the therapy is consistent across the two ulcer types
+G. Accepted, Rejected, the difference is statistically significant and it could be inferred that the treatment results vary significantly between the ulcer types
+H. Rejected, Accepted, the difference is statistically significant and it can be assumed that the overall cure rate of the therapy is different for the two types of gastric ulcer patients
+I. Accepted, Rejected, the difference is not statistically significant and it can be assumed that the overall cure rate of the therapy is different for the two types of gastric ulcer patients
+J. Accepted, Rejected, the difference is statistically significant and it must be presumed that the cure rate is uniform across both types of gastric ulcers
+
+Choose the correct answer from the options.
+",H,"Rejected, Accepted, the difference is statistically significant and it can be assumed that the overall cure rate of the therapy is different for the two types of gastric ulcer patients",Clinical Laboratory Diagnostics,6135bf01acdc45cd966eab352ad30dab
+SuperGPQA-medicine-114,"
+Question: A patient with acute leukemia had 100% positive MPO, NAS-DCE, NAS-DAE, and PAS staining, with strong positivity for the first three, 0% for NAS-DAE plus NaF inhibitor, and diffuse positivity for PAS: 0%, and diffuse positivity for PAS. What disease is considered first?
+
+Options:
+A. Acute lymphoblastic leukemia
+B. Chronic myelomonocytic leukemia
+C. Chronic myeloid leukemia
+D. Chronic neutrophilic leukemia
+E. Acute myeloblastic leukemia
+F. Chronic lymphocytic leukemia
+G. Chronic eosinophilic leukemia
+H. Acute myelomonocytic leukemia
+I. Acute promyelocytic leukemia
+J. Acute monocytic leukemia
+
+Choose the correct answer from the options.
+",I,Acute promyelocytic leukemia,Clinical Laboratory Diagnostics,4da6b094f021432e9f07bcff16c36b4e
+SuperGPQA-medicine-115,"
+Question: The patient's inability to close his right eye, the angle of his mouth deviating to the left when he shows his teeth, the shallow nasolabial sulcus on the right, the atrophy of the temporalis and masticatory muscles on the right, and the deviation of the lower jaw to the right when he opens his mouth suggests that ___.
+
+Options:
+A. Right facial nerve with right trigeminal nerve palsy
+B. Left facial nerve with left trigeminal nerve palsy
+C. Right trigeminal nerve with right facial nerve palsy
+D. Left facial nerve with right trigeminal nerve palsy
+E. Left trigeminal nerve with left facial nerve palsy
+F. Left facial nerve with bilateral trigeminal nerve palsy
+G. Right facial nerve with upper motor neuron palsy
+H. Right facial nerve with bilateral trigeminal nerve palsy
+I. Right facial nerve with left trigeminal nerve palsy
+J. Left facial nerve with upper motor neuron palsy
+
+Choose the correct answer from the options.
+",A,Right facial nerve with right trigeminal nerve palsy,Neurology,37b15839d59b40ea91c6d92341f49b95
+SuperGPQA-medicine-116,"
+Question: In a study concerning a new treatment of a certain disease, two groups of 25 participants in each were followed for five years. Those in one group took the old treatment and those in the other took the new treatment. The theoretical dropout rate for an individual was $50 \%$ in both groups over that 5 -year period. Let $X$ be the number that dropped out in the first group and $Y$ the number in the second group. Assuming independence where needed, give the sum that equals the probability that $Y \geq X+2$. HINT: What is the distribution of $Y-X+25$ ?
+
+Options:
+A. $0.1745$
+B. $0.4583$
+C. $0.4256$
+D. $0.3751$
+E. $0.6118$
+F. $0.3926$
+G. $0.3359$
+H. $0.2197$
+I. $0.5012$
+J. $0.2872$
+
+Choose the correct answer from the options.
+",G,$0.3359$,Clinical Laboratory Diagnostics,1ef4a31257b049ef9143e9e3783bb6bb
+SuperGPQA-medicine-117,"
+Question: A patient with hemorrhagic fever with renal syndrome has increased urine output from anuria to 1500ml, body temperature rises again to 38.5°C, cold extremities, BP 70/50mmHg, P 145 beats/min, R 32 breaths/min, WBC 12.5×109/L, N 85%, Hb 119g/L, BUN, Cr decreased and then increased again. At this moment, the most important treatment is
+
+Options:
+A. Hemostatic therapy
+B. Fluid resuscitation
+C. Antishock therapy
+D. Emergency hemodialysis
+E. Cardiotonic agents
+F. Antibiotic therapy
+G. Cardiotonic diuresis
+H. Antishock
+I. Antishock and cardiotonic diuresis
+J. Cardiotonic diuresis and fluid resuscitation
+
+Choose the correct answer from the options.
+",H,Antishock,Emergency Medicine,26c46314d83a46b98e0c384a2f5eb90e
+SuperGPQA-medicine-118,"
+Question: A 63-year-old woman with a history of adult polycystic kidney disease and COPD presents to her optometrist after having difficulty watching a movie. She has no other complaints. She is accompanied by her daughter, who notes that her mother hasn't been able to look at her since the previous day. On exam, her right eye has full range of motion, but her left eye is fixed in a down and outward position. What is the most likely cause of her symptoms?
+
+Options:
+A. Migraine with ophthalmoplegia
+B. Impaired dopaminergic neurons
+C. Intracranial aneurysm
+D. Intracranial hemorrhage
+E. Demyelinating disease
+F. Vascular abnormality
+G. Intracranial vasculitis
+H. Brainstem tumor
+I. Seizure
+J. Transient ischemic attack
+
+Choose the correct answer from the options.
+",F,Vascular abnormality,Neurology,2024487a36ef48ea8425cd84d4997644
+SuperGPQA-medicine-119,"
+Question: A 29-year-old woman comes to the physician for the evaluation of progressive loss of vision in her left eye and gradual blurring of vision in her right eye over the past 2 months. She also says that she has had occasional headaches and has noticed a decrease in her sense of smell lately. The patient's only medication is fexofenadine for seasonal allergies. She is 158 cm (5 ft 2 in) tall and weighs 61 kg (135 lbs); BMI is 24.7 kg/m2. Vital signs are within normal limits. Visual acuity is 20/40 in the right eye and there is minimal light perception in the left eye. In the swinging flashlight test, both of her eyes dilate as the light moves from the right to left eye. Fundoscopy shows papilledema in the right optic disc and a pale left optic disc. The remainder of the examination shows no abnormalities. Which of the following is the most likely diagnosis?
+
+Options:
+A. Pseudotumor cerebri
+B. Optic neuropathy due to cranial arteritis
+C. Hereditary optic neuropathy
+D. Optic neuropathy due to pituitary adenoma
+E. Malignant glioma
+F. Optic neuritis
+G. Anterior ischemic optic neuropathy
+H. Multiple sclerosis
+I. Meningioma
+
+Choose the correct answer from the options.
+",I,Meningioma,Neurology,35d73d8a27574412ba929905a73da467
+SuperGPQA-medicine-120,"
+Question: An 15-year-old boy is brought to the emergency department after he passed out in the hallway. On presentation, he is alert but confused about why he is in the hospital. He says that he remembers seeing flashes of light to his right while walking out of class but cannot recall what happened next. His next memory is being woken up by emergency responders who wheeled him into an ambulance. A friend who was with him at the time says that he seemed to be swallowing repeatedly and staring out into space. He has never had an episode like this before, and his past medical history is unremarkable. Which of the following characteristics is most likely true of the cause of this patient's symptoms?
+
+Options:
+A. Starts in the right occipital lobe and remains focal
+B. Starts in the right occipital lobe and remains localized
+C. Episodes with 3-4 hertz spike and wave discharges
+D. Starts in the right occipital lobe and generalizes to the left
+E. Demonstrates quick and repetitive jerks of extremities
+F. Starts in the left occipital lobe and remains focal
+G. Starts in the left occipital lobe and then generalizes
+H. Isolated to the left occipital lobe
+I. Begins with 10-15 seconds of muscle contraction
+
+Choose the correct answer from the options.
+",G,Starts in the left occipital lobe and then generalizes,Emergency Medicine,19b9620fe0104fc59d4834d9270641af
+SuperGPQA-medicine-121,"
+Question: A 60-year old female presented with decreased movements for the last 2 years with rigidity and veical large square wave jerks. The most likely diagnosis is:
+
+Options:
+A. Corticobasal degeneration with rigidity and large square wave jerks
+B. Multiple system atrophy
+C. Parkinson's disease
+D. Multisystem atrophy with rigidity and large square wave jerks
+E. Multisystem atroph
+F. Corticobasal degeneration
+G. Lewy body dementia
+H. Progressive supranuclear palsy with rigidity and square wave jerks
+I. Corticobasal syndrome
+J. Progressive supranuclear palsy
+
+Choose the correct answer from the options.
+",J,Progressive supranuclear palsy,Neurology,5815579d2e014a25a879ba9065a5b66b
+SuperGPQA-medicine-122,"
+Question: A 13-year-old boy is brought to the emergency room by his mother for a generalized tonic-clonic seizure that occurred while attending a laser light show. His mother says that he has been otherwise healthy but ""he often daydreams"". Over the past several months, he has reported recurrent episodes of jerky movements of his fingers and arms. These episodes usually occurred shortly after waking up in the morning. He has not lost consciousness during these episodes. Which of the following is the most appropriate treatment for this patient's condition?
+
+Options:
+A. Ethosuximide
+B. Valproic Acid
+C. Valproate
+D. Vigabatrin
+E. Levetiracetam
+F. Phenobarbital
+G. Carbamazepine
+H. Diazepam
+""
+I. Tiagabine
+J. Phenytoin
+
+Choose the correct answer from the options.
+",C,Valproate,Neurology,390b41e27e944128afd503bb2fcab092
+SuperGPQA-medicine-123,"
+Question: A 15-year-old boy is brought to the emergency department by his parents because of a 2-hour history of confusion and agitation. He also has had fever, headache, stiff neck, and vomiting since he returned from summer camp 2 days ago. His parents say he does not use illicit drugs. On arrival, he is combative and there is evidence of hallucinations. His temperature is 40°C (104°F), pulse is 80/min, respirations are 17/min, and blood pressure is 100/70 mm Hg. A lumbar puncture is performed. Results of cerebrospinal fluid analysis show cysts and trophozoites. The most likely portal of pathogen entry into this patient's central nervous system is which of the following?
+
+Options:
+A. Facial nerve
+B. Both Olfactory nerve and Nasal cavity (via cribriform plate) are correct
+C. Nasal cavity
+D. Vertebral canal
+E. Optic nerve
+F. Oral cavity
+G. Nasal cavity (via cribriform plate)
+H. Frontal sinus
+I. Mastoid sinus
+J. Eustachian tube
+
+Choose the correct answer from the options.
+",B,Both Olfactory nerve and Nasal cavity (via cribriform plate) are correct,Neurology,081cbfbcff624485ae450fb1d4cadb31
+SuperGPQA-medicine-124,"
+Question: An 87-year-old woman is admitted to the intensive care unit after a neighbor found her lying on the floor at her home. Her respirations are 13/min and shallow. Despite appropriate therapy, the patient dies. Gross examination of the brain at autopsy shows neovascularization and liquefactive necrosis without cavitation in the distribution of the left middle cerebral artery. Histological examination of a brain tissue sample from the left temporal lobe shows proliferation of neural cells that stain positive for glial fibrillary acidic protein. Based on these findings, approximately how much time has most likely passed since the initial injury in this patient?
+
+Options:
+A. 2 hours
+B. 25 days
+C. 14 days
+D. 5 days
+E. 12 days
+F. 7 days
+G. 2 days
+H. 12 hours
+I. 17 days
+J. 10 days
+
+Choose the correct answer from the options.
+",J,10 days,Neurology,a2c0e993bc584e72b34fdd7600742005
+SuperGPQA-medicine-125,"
+Question: A 36-year-old woman comes to the physician because of blurred vision and difficulty keeping her eyes open. She also has occasional difficulty chewing, especially when eating meat or other foods that require prolonged chewing. The symptoms are worse at the end of the day. Physical examination shows bilateral drooping of the eyelids, which becomes more pronounced when she is asked to look upwards for 30 seconds. Which of the following is the most likely cause of this patient's symptoms?
+
+Options:
+A. Impaired end-plate potential propagation
+B. Inhibition of calcium release from the sarcoplasmic reticulum
+C. Interrupted transmission of T-tubule depolarization
+D. Sustained blockade of actin myosin-binding sites
+E. Reduced activity of acetylcholinesterase at the neuromuscular junction
+F. Inhibited release of acetylcholine into the synaptic cleft
+G. Decreased response of muscle fibers to end plate potential
+H. Impaired end-plate potential synthesis
+I. Decreased generation of end plate potential
+J. Impaired flow of calcium ions between gap junctions
+
+Choose the correct answer from the options.
+",I,Decreased generation of end plate potential,Neurology,8fa4bfa220da44408f46683d85576efb
+SuperGPQA-medicine-126,"
+Question: A 55-year-old man presents with bloody nasal secretions and shortness of breath. He reports he has lost 4 kg (8.8 lb) in the last two months with no changes in his diet. He has also been suffering from mild to moderate joint pain in the left knee for the last year. His past medical history is unremarkable. His vitals include: blood pressure 120/70 mm Hg, temperature 37.0°C (98.6℉), pulse 70/min, respiratory rate 14/min. Physical examination is significant for nasal ulcers. Diffuse crackles are present over all lobes of the lung bilaterally. Laboratory findings are significant for the following:
+Hemoglobin 12.9 g/dL
+Hematocrit 37.7%
+Leukocyte count 5500/mm3
+Neutrophils 65%
+Lymphocytes 30%
+Monocytes 5%
+Mean corpuscular volume 82.2 μm3
+Platelet count 190,000/mm3
+Erythrocyte sedimentation rate 35 mm/h
+C-reactive protein 14 mg/dL
+Creatinine 3.09 mg/dL
+The patient is prescribed a corticosteroid nasal spray and oral antibiotics but returns in 2 weeks without any clinical improvement. Which of the following would most likely confirm the diagnosis in this patient?
+
+Options:
+A. Anti-neutrophil cytoplasmic antibodies (ANCA) with strongly positive staining pattern
+B. Anti-neutrophil cytoplasmic antibodies (ANCA) with atypical staining pattern
+C. Anti-Ro
+D. Anti-neutrophil cytoplasmic antibodies (ANCA) with positive staining pattern
+E. Anti-neutrophil cytoplasmic antibodies (ANCA) with negative staining pattern
+F. Anti-histone bodies
+G. Anti-neutrophil cytoplasmic antibodies (ANCA) with weakly positive staining pattern
+H. Anti-citrullinated protein antibodies
+I. Erythrocyte sedimentation rate
+J. Antineutrophil cytoplasmic antibodies
+
+Choose the correct answer from the options.
+",J,Antineutrophil cytoplasmic antibodies,Otorhinolaryngology,0120017e012642288081447b50a5d504
+SuperGPQA-medicine-127,"
+Question: A 38-year-old man comes to the physician because of a 3-week history of a painful rash affecting his left foot. For the past 2 years, he has had recurrent episodes of color changes in his fingers when exposed to the cold; his fingers first turn white and then progress to blue and red before spontaneously resolving. He has smoked two packs of cigarettes daily for 20 years. His blood pressure is 115/78 mm Hg. Physical examination shows multiple tender, dark purple nodules on the lateral surface of the left foot with surrounding erythema that follow the course of the lateral marginal vein. There are dry ulcers on the tip of his right index finger and on the distal aspect of his right hallux. Serum lipid studies show no abnormalities. Biopsy of the dorsalis pedis artery will most likely show which of the following findings?
+
+Options:
+A. Transmural inflammation with fibrinoid necrosis of the vessel wall
+B. Segmental thrombosing inflammation with partial sparing of the internal elastic lamina
+C. Segmental thrombosing inflammation with complete involvement of the internal elastic lamina
+D. Segmental thrombosing inflammation with partial involvement of the internal elastic lamina
+E. Intraluminal fibrin clot predominantly composed of red blood cells
+F. Segmental thrombosing inflammation with sparing of the internal elastic lamina
+G. Segmental thrombosing inflammation with involvement of the internal elastic lamina
+H. Granulomatous inflammation with narrowing of the vessel lumen
+I. Calcification of the tunica media with foam cells and fibrous cap formation
+
+Choose the correct answer from the options.
+",F,Segmental thrombosing inflammation with sparing of the internal elastic lamina,Dermatology and Venereology,7d5a9a915e65404ba977b4a364e06c3f
+SuperGPQA-medicine-128,"
+Question: A 34-year-old man comes to the physician for a 1-week history of fever and generalized fatigue. Yesterday, he developed a rash all over his body. Two months ago, he had a painless lesion on his penis that resolved a few weeks later without treatment. He has asthma. Current medications include an albuterol inhaler. He is currently sexually active with 3 different partners. He uses condoms inconsistently. Vital signs are within normal limits. He has a diffuse maculopapular rash involving the trunk, extremities, palms, and soles. An HIV test is negative. Rapid plasma reagin (RPR) and fluorescent treponemal antibody absorption test (FTA-ABS) are positive. The patient receives a dose of intramuscular benzathine penicillin G. Two hours later, he complains of headache, myalgias, and chills. His temperature is 38.8°C (101.8°F) , pulse is 105/min, respirations are 24/min, and blood pressure is 98/67 mm Hg. Which of the following is the most appropriate pharmacotherapy?
+
+Options:
+A. Phenylephrine
+B. Ibuprofen
+C. Ceftriaxone
+D. Acetaminophen
+E. Epinephrine
+F. Methylprednisolone
+G. Naproxen
+
+Choose the correct answer from the options.
+",B,Ibuprofen,Dermatology and Venereology,e6eafca5cead4c65aa2900f2cf44448c
+SuperGPQA-medicine-129,"
+Question: A 24-year-old man comes to the physician for the evaluation of a severely pruritic skin rash. Physical examination shows a symmetrical rash over the knees and elbows with tense, grouped vesicles, and several excoriation marks. Microabscesses in the papillary dermis are seen on light microscopy. Immunofluorescence shows deposits of immunoglobulin A at the tips of dermal papillae. This patient's skin findings are most likely associated with which of the following?
+
+Options:
+A. White dermographism
+B. Mite eggs and fecal pellets
+C. Gluten-sensitive enteropathy
+D. Gliadin-independent hypersensitivity
+E. Gliadin-dependent hypersensitivity
+F. Positive Nikolsky sign
+G. Multinucleated giant cells
+H. Nail pitting
+
+Choose the correct answer from the options.
+",E,Gliadin-dependent hypersensitivity,Dermatology and Venereology,a442d9b31c2748f3915889f2266387dc
+SuperGPQA-medicine-130,"
+Question: A 35-year-old man presents to the general practitioner with a skin rash that has been present for 2 days. The rash appeared suddenly and has progressively gotten worse. It started off as an erythematous lesion on the back of his hands and also over his nose. The lesions over his hands have become bullous and tense. He has never experienced similar symptoms before. He just got back from a canoeing trip during a very hot and sunny weekend. Physical exam is significant for erythematous, vesicular lesions over the nape of the neck and bridge of the nose as well as tense bullae over the dorsum of both hands. The attending physician suspects a defect in the synthesis of heme and orders some blood tests. Which of the following precursors will most likely be elevated in this patient?
+
+Options:
+A. Uroporphyrinogen III
+B. δ-Aminolevulinic acid
+C. Uroporphyrinogen II
+D. Hydroxymethylbilane
+E. Porphobilinogen
+F. Protoporphyrin IX
+G. Uroporphyrinogen I
+H. Uroporphyrinogen IV
+
+Choose the correct answer from the options.
+",A,Uroporphyrinogen III,Dermatology and Venereology,59a9c864125441a89b1824dd6f9e16f2
+SuperGPQA-medicine-131,"
+Question: A 6 year old child has fever, excessive sweating, and skin lesions characterized by flaking of skin. Oral changes include a metallic taste and ulcerative stomatitis. The child has been using teeth whitening gels bought from market since one month. The most likely diagnosis is?
+
+Options:
+A. Acrodynia
+B. Erosive lichen planus
+C. Mercury toxicity
+D. Mercury poisoning
+E. Darier's disease
+F. Epidermolysis bullosa
+
+Choose the correct answer from the options.
+",A,Acrodynia,Dermatology and Venereology,88e4aa6c260c4c1c8b5047644fef38b5
+SuperGPQA-medicine-132,"
+Question: CT scan of a patient with history of head injury shows a biconvex hyperdense lesion displacing the grey-white matter interface. The most likely diagnosis is:
+
+Options:
+A. Intracerebral hematoma
+B. Subarachnoid hemorrhage
+C. Hemorrhagic contusion
+D. Epidural hematoma
+E. Subdural hematoma
+F. Intracranial aneurysm
+G. Diffuse axonal injury
+H. Extradural hematoma
+
+Choose the correct answer from the options.
+",H,Extradural hematoma,Imaging and Nuclear Medicine,87203ad96d42488da3838394bc3b02f7
+SuperGPQA-medicine-133,"
+Question: A young man presented to you with night blindness and tubular vison. On examination the findings are IOP is 18mm, normal anterior segment, fundus examination shows waxy, pallor of disc, attenuation of aeriole, bony corpuscles like spicules of pigmentation in midperipheral retina. Perimetry test shows a ring scotoma with subnormal ERG. What is the your most likely diagnosis?
+
+Options:
+A. Pigmented retinal dystrophy
+B. Retinal pigment epithelial dystrophy
+C. Retinitis pigmentosa
+D. Paving stone degeneration of retina
+E. Retinal pigment epithelial atrophy
+F. Primary closed angle glaucoma
+G. Lattice degeneration of retina
+
+Choose the correct answer from the options.
+",A,Pigmented retinal dystrophy,Ophthalmology,d64856ca870f4220924bc661d70468c8
+SuperGPQA-medicine-134,"
+Question: A 68-year-old man comes to the physician because of double vision and unilateral right eye pain that began this morning. His vision improves when he covers either eye. He has hypertension, mild cognitive impairment, and type 2 diabetes mellitus. The patient has smoked two packs of cigarettes daily for 40 years. His current medications include lisinopril, donepezil, metformin, and insulin with meals. His temperature is 37°C (98.6°F), pulse is 85/minute, respirations are 12/minute, and blood pressure is 132/75 mm Hg. His right eye is abducted and depressed with slight intorsion. He can only minimally adduct the right eye. Visual acuity is 20/20 in both eyes. Extraocular movements of the left eye are normal. An MRI of the head shows no abnormalities. His fingerstick blood glucose concentration is 325 mg/dL. Further evaluation is most likely to show which of the following?
+
+Options:
+A. Ptosis with mild anisocoria and mydriasis
+B. Diplopia with convergence insufficiency
+C. Bitemporal hemianopsia
+D. Ptosis
+E. Dilated and fixed pupil
+F. Ptosis with mild anisocoria
+G. Miosis and anhidrosis
+H. Positive swinging-flashlight test
+""
+I. Ptosis with mild anisocoria and miosis
+
+Choose the correct answer from the options.
+",D,Ptosis,Ophthalmology,1139ca21600244a38321cecb567a9495
+SuperGPQA-medicine-135,"
+Question: A 61-year-old man comes to the emergency department because of a 3-hour history of pain and redness of both eyes. He has new blurry vision and difficulty opening his eyes in bright surroundings. He has not had any recent trauma. He uses contact lenses daily. He had surgery on his left eye 6 months ago after a penetrative trauma caused by a splinter. His vital signs are within normal limits. Physical examination shows congestion of the perilimbal conjunctivae bilaterally. Visual acuity is decreased bilaterally. Ocular movements are normal. Slit-lamp examination shows a cornea with normal contours and leukocytes in the anterior chambers of both eyes. The eyelids, eyelashes, and lacrimal ducts show no abnormalities. Which of the following is the most likely cause of this patient's condition?
+
+Options:
+A. Autoimmune reaction against vitreous antigens
+B. Age-related denaturation of lens proteins
+C. Autoimmune reaction against optic nerve antigens
+D. Autoimmune reaction against scleral antigens
+E. Corneal infection with Pseudomonas aeruginosa
+F. Impaired drainage of aqueous humor
+G. Autoimmune reaction against retinal antigens
+H. Reactivation of herpes zoster virus
+I. Autoimmune reaction against uveal antigens
+J. Autoimmune reaction against corneal antigens
+
+Choose the correct answer from the options.
+",G,Autoimmune reaction against retinal antigens,Ophthalmology,6f0080a4916d4d91ab353847c7539b41
+SuperGPQA-medicine-136,"
+Question: A 70-year-old female presents to the Emergency Department with altered mental status and fever for five days. The patient complains of lower abdominal pain and dysuria but denies headaches, vomiting, diarrhea, coughing, shortness of breath, or new medications. Normally, she is not confused and func- tions independently. The patient's medical history includes diabetes, hypertension, hyperlipidemia, and a prior appendectomy. On examination, her temperature is 39ᵒC, blood pressure 105/60 mmHg, pulse 128 beats/min, respiratory rate 20 breaths/min, oxygen saturation is 98% on room air, and glu- cose level is 190mg/dL (10.5mmol/L). The patient is awake and alert but is disoriented. She moves all extremities spontaneously, can follow basic commands and shows no focal neurologic deficits on examination.
+Which of the following is the most likely cause for this patient's altered mental status?
+
+Options:
+A. Intracerebral hemorrhage
+B. Urinary tract infection
+C. Diabetic ketoacidosis
+D. Pneumonia
+E. Electrolyte imbalance
+F. Alzheimer's disease
+G. Stroke
+H. Sepsis
+I. Hypothyroidism
+J. Acute kidney injury
+
+Choose the correct answer from the options.
+",H,Sepsis,Emergency Medicine,1e6d6653e0fd4dda8d7f7b72c3f2bce4
+SuperGPQA-medicine-137,"
+Question: A primiparous woman with no history of surgery. Due to prolonged second stage of labor and decreased fetal heart rate, a posterior-lateral episiotomy and low forceps delivery were performed, delivering a live infant weighing 4000g. Two hours postpartum, she complained of perineal pain, a feeling of rectal fullness, and minimal vaginal bleeding. On examination: anemic appearance, blood pressure 89/55mmHg. The possible diagnosis is
+
+Options:
+A. Cervical laceration
+B. Retained placenta
+C. First-degree perineal laceration
+D. Vaginal wall hematoma
+E. Fourth-degree perineal laceration
+F. Third-degree perineal laceration
+G. Uterine rupture
+H. Second-degree perineal laceration
+I. Uterine atony
+J. Perineal varicosities
+
+Choose the correct answer from the options.
+",D,Vaginal wall hematoma,Obstetrics and Gynecology,41a860487f204eb4b456b4542807b6bf
+SuperGPQA-medicine-138,"
+Question: A 27-year-old woman, with regular menstrual cycles, is now 30 weeks amenorrheic. Two days ago, she experienced irregular lower abdominal pain, intermittent. Today, she has had a significant amount of clear vaginal discharge. Physical examination: uterine fundal height 27 cm, fetal heart rate 150 beats per minute, closed cervix, vaginal fluid pH > 7. The best management approach is
+
+Options:
+A. intravenous antibiotics and tocolytics
+B. intravenous antibiotics and corticosteroids
+C. intravenous oxytocin infusion
+D. intramuscular progesterone
+E. cesarean section to terminate pregnancy
+F. intravenous antibiotics and antihypertensives
+G. intramuscular antibiotics and tocolytics
+H. bed rest
+I. intravenous antibiotics and antitoxins
+J. intravenous antibiotics and anticonvulsants
+
+Choose the correct answer from the options.
+",A,intravenous antibiotics and tocolytics,Obstetrics and Gynecology,7020548474e740d78c942b757f4b2a4d
+SuperGPQA-medicine-139,"
+Question: A patient with persistent fever for 5 days, accompanied by impaired consciousness, neck stiffness, and suspected positive Brudzinski's sign. Cerebrospinal fluid examination: pressure 220mmH2O, white blood cells 450×10^6/L, polymorphonuclear cells 0.60, mononuclear cells 0.40, glucose 4.0mmol/L, chloride 120mmol/L, protein 0.6g/L. The most likely diagnosis for this patient is which of the following?
+
+Options:
+A. Japanese encephalitis
+B. Pyogenic meningitis
+C. West Nile encephalitis
+D. Viral encephalitis
+E. Viral meningitis
+F. Herpes zoster encephalitis
+G. Epidemic cerebrospinal meningitis
+H. Herpes simplex encephalitis
+I. Cryptococcal meningitis
+J. Tuberculous meningitis
+
+Choose the correct answer from the options.
+",A,Japanese encephalitis,Neurology,15fde73ce54145c1beccdbd5129c6ecd
+SuperGPQA-medicine-140,"
+Question: A 50-year-old man presents to the emergency department with a severe headache. The patient reports that it started approx. 2 hours ago and has steadily worsened. He describes it as a stabbing pain localized behind his left eye. The patient reports that he has been having similar headaches several times a day for the past week, most often at night. He denies any nausea, vomiting, and visual or auditory disturbances. He has no significant past medical history. Current medications are a multivitamin and caffeine pills. The patient reports regular daily alcohol use but does not smoke. His temperature is 37.0°C (98.6°F), the blood pressure is 120/70 mm Hg, the pulse is 85/min, the respiratory rate is 18/min, and the oxygen saturation is 99% on room air. The patient is in moderate distress from the pain. The physical exam is significant for unilateral diaphoresis on the left forehead, left-sided rhinorrhea, and pronounced lacrimation of the left eye. The remainder of the physical exam is normal. Laboratory tests are normal. Non-contrast CT of the head shows no evidence of intracranial masses or hemorrhage. High flow oxygen and fluid resuscitation are initiated. Ibuprofen 200 mg orally is administered. Despite these interventions, the patient continues to be in significant pain. What is the next best step in management?
+
+Options:
+A. Administer subcutaneous sumatriptan
+B. Verapamil
+C. Administer intravenous sumatriptan
+D. Administer intranasal sumatriptan
+E. Administer sublingual sumatriptan
+F. Deep brain stimulation of the posterior inferior hypothalamus
+G. RF ablation of the left trigeminal nerve
+H. Administer oral sumatriptan
+I. CT angiography
+J. Administer intramuscular sumatriptan
+
+Choose the correct answer from the options.
+",A,Administer subcutaneous sumatriptan,Neurology,99281d9529904234a4deeb39cbd0e4f5
+SuperGPQA-medicine-141,"
+Question: A patient involved in a road traffic accident presents with quadriparesis, sphincter disturbance, sensory level up to the upper border of sternum and a respiratory rate of 35/minute.The likely level of lesion is:
+
+Options:
+A. C5-C6
+B. T3-T4
+C. C4-C6
+D. T4-T5
+E. T1-T2
+F. C6-C7
+G. C1-C2
+H. C3-C5
+I. C4-C5
+J. C3-C4
+
+Choose the correct answer from the options.
+",I,C4-C5,Neurology,22676d856f3c48e2a1fe2468664bc810
+SuperGPQA-medicine-142,"
+Question: A 42-year-old chronic alcoholic man was admitted to the hospital for inappropriate behavior and disturbed memory. He presents with severe retrograde memory loss, confusion, and confabulation. Neurologic examination showed horizontal nystagmus. He also has bilateral pretibial pitting edema and perioral erythema. CT studies of the brain were normal. The duty physician suspects the patient may be vitamin deficient. Which of the following reactions does the deficient vitamin mediate?
+
+Options:
+A. Alpha-Ketoglutarate + NAD+ + CoA <=> Succinyl-CoA + CO2 + NADH + H+
+B. Alpha-Ketoglutarate + NADH + CoA <=> Succinyl-CoA + CO2 + NAD+ + H+
+C. Acetyl-CoA + Oxaloacetate + H2O <=> Citrate + CoA + H+
+D. Alpha-Ketoglutarate + NAD+ + CoA + H+ <=> Succinyl-CoA + CO2 + NADH
+E. Succinate + FAD (enzyme bound) <=> Fumarate + FADH2
+F. Alpha-Ketoglutarate + NAD+ + CoA <=> Succinyl-CoA + CO2 + NADH
+G. Alpha-Ketoglutarate + NADH + CoA <=> Succinyl-CoA + CO2 + NAD+
+H. Succinyl-CoA + Pi + GDP <=> Succinate + GTP + CoA
+I. Alpha-Ketoglutarate + NAD+ + CoA <=> Succinyl-CoA + CO2 + NAD+ + H+
+J. Isocitrate + NAD+ <=> Alpha-Ketoglutarate + CO2 + NADH
+
+Choose the correct answer from the options.
+",F,Alpha-Ketoglutarate + NAD+ + CoA <=> Succinyl-CoA + CO2 + NADH,Internal Medicine,7d0d30aa83704e04bd9330d2c8e90f78
+SuperGPQA-medicine-143,"
+Question: A 68-year-old obese woman (BMI =34 kg/m2) suffers a stroke and expires. Histologic examination of the brainat autopsy reveals extensive arteriolar lipohyalinosis and numerous Charcot-Bouchard aneurysms. Which of the following best accounts for the pathogenesis of these autopsy findings?
+
+Options:
+A. Hypertension
+B. Atherosclerosis
+C. Hypertension-induced cerebral ischemia
+D. Hypotension
+E. Hyperlipidemia
+F. Autoimmunity
+G. Hyperglycemia
+H. Hypertensive vascular disease
+I. Diabetes
+J. Hyper tension-induced vascular changes
+
+Choose the correct answer from the options.
+",A,Hypertension,Neurology,fbef0a4d4af246aa9c60aa14f03e3f9c
+SuperGPQA-medicine-144,"
+Question: A 10-year-old boy is brought to his pediatrician over concern for a 2-month history of headaches. Recently, the patient has been experiencing nausea and vomiting, along with some difficulty with coordination during soccer practice last week. On exam, the patient's temperature is 98.2°F (36.8°C), blood pressure is 110/80 mmHg, pulse is 72/min, and respirations are 14/min. On further evaluation, the patient is found to have a well-encapsulated posterior fossa mass. The patient undergoes surgical resection, and the mass is found to be positive for GFAP. Which of the following is derived from the same embryologic germ layer as the cells that comprise this tumor?
+
+Options:
+A. Choroid plexus cells
+B. Neurons
+C. Melanocytes
+D. Neuroepithelial cells
+E. Schwann cells
+F. Microglia
+G. Ependymal cells
+H. Nucleus pulposus
+I. Astrocytes
+J. Oligodendrocytes
+
+Choose the correct answer from the options.
+",G,Ependymal cells,Pediatrics,0f18b39d56784231b291b1b21fe51709
+SuperGPQA-medicine-145,"
+Question: A 72-year-old female recently fractured her hip in a fall. She suffers from regular joint pain in her fingers, and hip X-rays reveal low bone mineral density. She has a history of diabetes mellitus and was diagnosed 2 years ago with end-stage renal disease. Serum phosphate levels are markedly elevated. Which of the following likely contributes to her orthopedic problems?
+
+Options:
+A. Chronic hypovolemia
+B. Decreased serum parathyroid hormone
+C. Decreased serum calcium
+D. Chronic hypertension
+E. Increased serum glucose
+F. Increased serum calcium
+G. Decreased serum aldosterone
+H. Increased serum phosphate
+I. Increased serum parathyroid hormone
+
+Choose the correct answer from the options.
+",I,Increased serum parathyroid hormone,Geriatric Medicine,a63462f4ff9e44289d3c9e4a91314250
+SuperGPQA-medicine-146,"
+Question: Cancer Palladium-103 is used to treat prostate cancer by inserting a small \((1
+\mathrm{mm} \times 5 \mathrm{mm})\) cylindrical piece of \(^{103} \mathrm{Pd}\)
+directly into the tumor. How long will it take for \(85 \%\) of the \(^{103}
+\mathrm{Pd}\) to decay, given that \(t_{1 / 2}=17\) days?
+
+Options:
+A. 63.28 days
+B. 54.68 days
+C. 56.24 days
+D. 57.56 days
+E. 58.92 days
+F. 56.84 days
+G. 55.72 days
+H. 53.92 days
+I. 59.36 days
+J. 51.84 days
+
+Choose the correct answer from the options.
+",D,57.56 days,Oncology,5f066009750b49d5baf6c0bbff796323
+SuperGPQA-medicine-147,"
+Question: An O-negative mother gave birth to
+a B-positive infant. The mother had no history of
+antibodies or transfusion. This was her first child.
+The baby was mildly jaundiced and the DAT
+weakly positive with polyspecific antisera. What
+could have caused the positive DAT?
+
+Options:
+A. An alloantibody, such as anti-K, coating the
+infant red cells
+B. An autoantibody from the infant's immune system
+C. Anti-A from another maternal pregnancy
+D. Presence of maternal anti-O coating the cells
+E. Maternal anti-A, B coating the infant cells
+F. Residual fetal bilirubin in the neonatal cells
+G. Maternal anti-Rh coating the infant cells
+H. Anti-D from the mother coating the infant red
+cells
+I. Maternal anti-B coating the infant cells
+J. Inherited enzyme deficiency causing jaundice
+
+Choose the correct answer from the options.
+",E,"Maternal anti-A, B coating the infant cells",Clinical Laboratory Diagnostics,fbce8d921b87476b96c054d36a7b4518
+SuperGPQA-medicine-148,"
+Question: 28 years old, gravida para (G.P.). At 35 weeks of pregnancy with severe preeclampsia, pregnancy needs to be terminated. Which of the following indicates fetal immaturity?
+
+Options:
+A. Amniotic fluid phosphatidylglycerol absence confirms insufficient lung maturity
+B. Amniotic fluid glucose concentration measured below optimal neonatal levels
+C. Amniotic fluid bilirubin substances measured by $\Delta_{450}$OD...value <0.02
+D. Amniotic fluid creatinine concentration indicates insufficient renal development
+E. Amniotic fluid lactate indicates inefficient fetal metabolic activity
+F. Amniotic fluid bilirubin substances measured by $\Delta OD_{450}$...value >0.02
+G. Amniotic fluid lecithin-to-sphingomyelin ratio remains under adequate threshold
+H. Amniotic fluid volume lower suggests restricted fetal movement capacity
+I. Amniotic fluid uric acid levels suggest inadequate fetal digestive maturity
+J. Amniotic fluid acetylcholine esterase test suggests neural tube closure defect
+
+Choose the correct answer from the options.
+",F,Amniotic fluid bilirubin substances measured by $\Delta OD_{450}$...value >0.02,Obstetrics and Gynecology,ddf587c60fff4d00af5b65832ef05765
+SuperGPQA-medicine-149,"
+Question: Lead poisoning increases the daily excretion of fecal porphyrin, which can be measured by fluorescence in urine ($405nm$ excitation, $595nm$ emission). Properly process a $0.5ml$ urine sample from a person suspected of lead poisoning, diluting it to $25ml$ for fluorescence measurement. The following data were obtained: $I_{u} = 40$, $I_{b} = 5$, $I_{s} = 80$. The internal standard involves adding $1.25\mu g$ of porphyrin to a $25ml$ analysis sample volume. The total volume of urine excreted every 24 hours is $800ml$. What is the patient's daily porphyrin excretion? (The normal value is $75-300\mu g/$day.) Remember, $I_{u}$ refers to fluorescence from unknown plus blank; $I_{s}$ refers to fluorescence from internal standard plus unknown and blank.
+
+Options:
+A. $$
+2 2 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+B. $$
+2 0 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+C. $$
+1 4 0 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+D. $$
+2 0 0 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+E. $$
+1 7 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+F. $$
+1 5 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+G. $$
+2 5 0 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+H. $$
+1 8 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+I. $$
+1 9 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+J. $$
+1 6 0 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$
+
+Choose the correct answer from the options.
+",E,"$$
+1 7 5 0 \ \mu\mathrm{g} / 2 4 \ \text{hours}
+$$",Clinical Laboratory Diagnostics,9a7af67974364e22a27ef64bf79c2daa
+SuperGPQA-medicine-150,"
+Question: Direct corneal reflex absent on one side, indirect corneal reflex present; contralateral direct corneal reflex present, indirect corneal reflex absent, lesion located in ___.
+
+Options:
+A. ipsilateral optic nerve
+B. ipsilateral trigeminal nerve
+C. contralateral optic nerve
+D. ipsilateral occipital lobe
+E. bilateral occipital lobe
+F. contralateral facial nerve
+G. contralateral occipital lobe
+H. bilateral trigeminal nerve
+I. ipsilateral facial nerve
+J. contralateral trigeminal nerve
+
+Choose the correct answer from the options.
+",B,ipsilateral trigeminal nerve,Neurology,3270e03771c94ec9a6a73dd3c9d58624
+SuperGPQA-medicine-151,"
+Question: A 65-year-old female was admitted to the hospital with sudden chest tightness and dyspnea for 10 hours. She has a 12-year history of hypertension and a 5-year history of diabetes. Physical examination: BP 160/90 mmHg, sitting up breathing. Bilateral lungs with widespread moist rales and scattered wheezing. Heart rate 128 beats per minute, regular rhythm, no murmurs heard in all valve areas. ECG shows: ST segment elevation in leads V1-V4. Arterial blood gas analysis: pH 7.35, PaO2 71 mmHg, PaCO2 40 mmHg. The most likely cause of the patient's current dyspnea is:
+
+Options:
+A. Bronchial asthma
+B. Diabetic ketoacidosis
+C. Acute coronary syndrome
+D. Pulmonary embolism
+E. Acute left heart failure
+F. Chronic obstructive pulmonary disease
+G. Acute myocardial infarction
+H. Acute right heart failure
+I. Acute pericarditis
+J. Acute coronary syndrome with pulmonary edema
+
+Choose the correct answer from the options.
+",G,Acute myocardial infarction,Internal Medicine,b6c2913f8da14ce2bfee96fd2ce6d4a7
+SuperGPQA-medicine-152,"
+Question: A child with nephrotic syndrome suddenly develops abdominal pain, gross hematuria, and renal failure. The most likely complication in this child is:
+
+Options:
+A. acute interstitial nephritis
+B. acute renal artery thrombosis
+C. acute renal vein thrombosis
+D. acute glomerulonephritis
+E. acute tubular necrosis
+F. renal vein thrombosis
+G. acute renal vein occlusion
+H. hyponatremia
+I. acute renal failure
+J. urinary tract infection
+
+Choose the correct answer from the options.
+",F,renal vein thrombosis,Pediatrics,afe40622b7df43ecbfabca037fd80bb9
+SuperGPQA-medicine-153,"
+Question: A 55-year-old man presents with worsening weakness of the left hand and progressive difficulty in walking for the last 2 months. He says he was previously healthy and active, hiking every weekend, but because of his increasing weakness and incoordination while walking, he stopped his weekly hiking excursion. His past medical history is unremarkable. Current medications are a daily multivitamin and occasional acetaminophen for headaches. He has no significant family history. The patient denies smoking, recreational drug use, or drinking. His vitals include: pulse 70/min, respirations 14/min, temperature 37.0°C (98.6°F), and blood pressure 130/80 mm Hg. Physical examination reveals fasciculations in the tongue and distal extremities. The left forearm shows significant atrophy, and mild lower limb muscle atrophy is also seen bilaterally. Hyporeflexia (1+) is present in the left arm, while hyperreflexia (3+) is seen in the legs bilaterally. Babinski's sign is positive bilaterally. The patient's speech is notably slow but no evidence of productive or expressive aphasia is present. The cranial nerves are intact. Which of the following pathologies most likely underlies this patient's condition?
+
+Options:
+A. Loss of the anterior horn cells of the spinal cord
+B. Loss of the anterior horn cells and pyramidal tract neurons, but not the entire pyramidal tract
+C. Loss of the pyramidal tract neurons and anterior horn cells of the spinal cord, with partial sparing of the corticobulbar tracts
+D. Demyelination of neurons in various parts of the brain
+E. Loss of the anterior horn cells and partial pyramidal tract neurons, with preservation of the corticobulbar tracts
+F. Degeneration of the dorsal columns of the spinal cord
+G. Loss of the pyramidal tract neurons and anterior horn cells of the spinal cord, with partial sparing of the corticospinal tracts
+H. Loss of the anterior horn cells and partial pyramidal tract neurons, with sparing of the corticospinal tracts
+I. Loss of the pyramidal tract neurons and anterior horn cells of the spinal cord
+J. Infarction of the posterior limb of the internal capsule
+
+Choose the correct answer from the options.
+",I,Loss of the pyramidal tract neurons and anterior horn cells of the spinal cord,Neurology,cc54d1acb92e418495e3401c65badcbe
+SuperGPQA-medicine-154,"
+Question: A 40-year-old woman has relapsing/remitting multiple sclerosis. She has experienced two attacks of disease previously that have left her with residual lower extremity weakness. She was initially treated with glucocoicoids with some improvement in her symptoms. However, she is currently only able to walk with a rolling walker about 100 m. A prior antibody test shows that she is negative for reactivity to the JC virus. You are planning to sta a disease-modifying therapy. Which of the following drug that causes a maximum reduction in appearance of new lesions and change in disease severity?
+
+Options:
+A. Fingolimod
+B. Interferon beta la
+C. Glatiramer
+D. Natalizumab (100 mg)
+E. Interferon beta lb
+F. Natalizumab (300 mg)
+G. Natalizumab
+H. Alemtuzumab
+
+Choose the correct answer from the options.
+",G,Natalizumab,Neurology,be9419d368f747e398abc33fe83aac73
+SuperGPQA-medicine-155,"
+Question: A young girl presents with repeated episodes of throbbing occipital headache associated with ataxia and vertigo. The family history is positive for similar headaches in her mother. Most likely diagnosis is -
+
+Options:
+A. Migraine with cerebellar symptoms
+B. Basilar migraine
+C. Migraine with brainstem aura
+D. Migraine with typical aura
+E. Cluster headache
+F. Migraine with brainstem symptoms
+G. Migraine with visual aura
+H. Vestibular Neuronitis
+I. Migraine with ataxia and vertigo
+J. Tension headache
+
+Choose the correct answer from the options.
+",B,Basilar migraine,Neurology,8d75c0affddf4ea693e5b64c02d0a6d1
+SuperGPQA-medicine-156,"
+Question: A 45-year old male has an acute attack of vertigo, vomiting and ataxia. The most likely diagnosis is Thrombosis of
+
+Options:
+A. Posterior cerebral artery
+B. Superior cerebellar artery with partial occlusion
+C. Posterior inferior cerebellar artery with proximal occlusion
+D. Middle cerebral artery
+E. Anterior inferior cerebellar artery
+F. Posterior inferior cerebellar artery
+G. Posterior inferior cerebellar artery with isolated lateral medullary syndrome
+H. Posterior inferior cerebellar artery with partial occlusion
+I. Posterior inferior cerebellar artery with distal occlusion
+J. Superior cerebellar artery
+
+Choose the correct answer from the options.
+",F,Posterior inferior cerebellar artery,Neurology,e0fcb4afcac247f9ac222a3d7a3e9402
+SuperGPQA-medicine-157,"
+Question: A 9-month-old girl is brought to the emergency department because of a 3-day history of fever, irritability, and discharge from her right ear. She had an episode of ear pain and fever three weeks ago. Her parents did not seek medical advice and the symptoms improved with symptomatic treatment. There is no family history of frequent infections. She appears ill. Her temperature is 39.3°C (102.7°F). Physical examination shows erythema and tenderness in the right postauricular region, and lateral and inferior displacement of the auricle. Otoscopy shows a bulging and cloudy tympanic membrane, with pus oozing out. The remainder of the examination shows no abnormalities. Laboratory studies show:
+Hemoglobin 11.5 g/dL
+Leukocyte count 15,800/mm3
+Segmented neutrophils 80%
+Eosinophils 1%
+Lymphocytes 17%
+Monocytes 2%
+Platelet count 258,000/mm3
+Which of the following is the most appropriate next step in management?""
+
+Options:
+A. CT scan of the temporal bone
+B. X-ray of the temporal bone
+C. Phenylephrine nasal drops therapy
+D. Tympanostomy tube placement
+E. MRI of the temporal bone with contrast
+F. Topical 0.3% ciprofloxacine therapy
+G. Magnetic resonance imaging of the temporal bone
+H. MRI of the temporal bone
+I. Oral aspirin therapy
+J. Oral amoxicillin therapy
+
+Choose the correct answer from the options.
+",A,CT scan of the temporal bone,Otorhinolaryngology,c4cacfe074a447ddb2a2e6f50c29fdc7
+SuperGPQA-medicine-158,"
+Question: A 57-year-old woman comes to the physician because of a 6-month history of tinnitus and progressive hearing loss in the left ear. She has type 2 diabetes mellitus and Raynaud syndrome. Her current medications include metformin, nifedipine, and a multivitamin. She appears well. Vital signs are within normal limits. Physical examination shows no abnormalities. A vibrating tuning fork is placed on the left mastoid process. Immediately after the patient does not hear a tone, the tuning fork is held over the left ear and she reports hearing the tuning fork again. The same test is repeated on the right side and shows the same pattern. The vibration tuning fork is then placed on the middle of the forehead and the patient hears the sound louder in the right ear. Which of the following is the most likely diagnosis?
+
+Options:
+A. Vestibular schwannoma
+B. Acoustic neuroma
+C. Presbycusis
+D. Cerumen impaction
+E. Meningioma
+F. Ménière disease
+""
+
+Choose the correct answer from the options.
+",B,Acoustic neuroma,Otorhinolaryngology,0e8a7d09871f4d08bee9cbb80456dbd6
+SuperGPQA-medicine-159,"
+Question: A 65 year old women has developed thick, erythematous nodules on her ears and nose with significant associated sensory loss. The nodules have grown slowly over the course of many years. Biopsy of the lesions shows dermal granulomas with giant cells but no acid-fast bacteria. Culture on blood agar and Lowenstein-Jensen medium shows no growth. These findings are most consistent with which of the following diagnoses?
+
+Options:
+A. Borderline leprosy
+B. Lichen scrofulosorum
+C. Onchocerciasis
+D. Lepromatous leprosy
+E. Tuberculoid leprosy
+F. Rhinoscleroma
+G. Cutaneous leishmaniasis
+H. Lichen planus
+I. Borderline lepromatous leprosy
+J. Borderline tuberculoid leprosy
+
+Choose the correct answer from the options.
+",E,Tuberculoid leprosy,Dermatology and Venereology,e24ac94b660a43878bfc581a413e44bd
+SuperGPQA-medicine-160,"
+Question: A 10-month-old girl is brought to the physician because of a 4-day history of irritability and a rash. Her temperature is 37.7°C (99.9°F). Examination of the skin shows flaccid, transparent blisters and brown crusts on her chest and upper extremities. Application of a shear force to normal skin causes sloughing. Which of the following is the most likely underlying cause of this patient's condition?
+
+Options:
+A. Exfoliative toxin B release
+B. Anti-hemidesmosome antibody formation
+C. Uroporphyrin accumulation
+D. Streptococcus pyogenes infection
+E. Anti-endomysium antibody formation
+F. Exfoliative toxin A release
+G. Anti-desmoglein antibody formation
+H. Exfoliative toxin C release
+I. Type IV hypersensitivity reaction
+
+Choose the correct answer from the options.
+",F,Exfoliative toxin A release,Dermatology and Venereology,52c87dec9cc944da89b6b74e4ba780a7
+SuperGPQA-medicine-161,"
+Question: A 61-year-old woman comes to the physician because of a constant, dull headache and generalized body pains for the past 8 months. She has also had difficulty hearing from her left side, which started a month after the onset of the headaches. Five months ago, she had surgery to correct a fracture of the right femur that occurred without a fall or any significant trauma. Five years ago, she underwent a total thyroidectomy for localized thyroid carcinoma. She takes levothyroxine and calcium supplements, which she started after menopause. Physical examination reveals a prominent forehead and irregular, tender skull surface. Bony tenderness is present over bilateral hip and knee joints, with decreased range of motion of the right hip joint and increased anterior curvature of both tibias. Laboratory studies show a highly elevated level of alkaline phosphatase, with vitamin D, calcium and PTH levels within normal limits. A plain x-ray of the head is most likely to show which of the following findings?
+
+Options:
+A. Lytic lesions with no sclerotic margin
+B. Mixed lytic and sclerotic lesions with a predominance of sclerotic changes
+C. Mixed lytic and sclerotic lesions
+D. Generalized dense, sclerotic bone
+E. Multiple, well-defined, punched out lytic lesions
+F. Lobulated lesions with a thin cortex and ground-glass appearance
+G. Periosteal trabeculations with radiolucent marrow hyperplasia
+H. Mixed lytic and sclerotic lesions with a predominance of lytic changes
+
+Choose the correct answer from the options.
+",C,Mixed lytic and sclerotic lesions,Imaging and Nuclear Medicine,513f70eea15747aca4319b75a7678845
+SuperGPQA-medicine-162,"
+Question: A 38-year-old woman presents with eye dryness and a foreign body sensation in the eyes. On physical examination, the oral cavity shows mucosal ulceration and atrophy. Biopsy of the lower lip shows marked lymphocytic infiltration of the minor salivary glands. Which of the following is most likely seen in this patient?
+
+Options:
+A. Anti-Sjögren's syndrome type A (SS-A) antibody
+B. Anti-double stranded (-ds)DNA
+C. Anti-Scl-70 antibodies
+D. Anti-centromere antibody
+E. Anti-Jo-1 antibody
+F. Anti-Sjögren's syndrome type B (SS-B) antibody
+
+Choose the correct answer from the options.
+",F,Anti-Sjögren's syndrome type B (SS-B) antibody,Ophthalmology,5c91e370b6d547e7b5ff646980fc476b
+SuperGPQA-medicine-163,"
+Question: A 55-year-old woman presents to her physician complaining of acute pain and redness in her right eye, with nausea and vomiting. She repos seeing halos around lights. On examination, lacrimation, lid edema, conjunctival injection, a steamy cornea, and a fixed mid-dilated pupil are seen. She has markedly elevated intraocular pressure (IOP), and a visual acuity of 20/200 in her right eye. She has no family history of eye diseases. Which of the following is the most likely diagnosis?
+
+Options:
+A. Ocular hypeension without glaucoma
+B. Open angle glaucoma
+C. Acute angle-closure glaucoma
+D. Acute angle-closure glaucoma with secondary corneal edema
+E. Acute angle-closure glaucoma with secondary corneal abrasion
+F. Acute angle-closure glaucoma with secondary iritis
+G. Acute closed-angle glaucoma
+H. Acute angle-closure glaucoma with secondary corneal dystrophy
+I. Corneal laceration
+J. Acute angle-closure glaucoma with secondary uveitis
+
+Choose the correct answer from the options.
+",G,Acute closed-angle glaucoma,Ophthalmology,aa013bcc244e45229279f3910cbc4fa2
+SuperGPQA-medicine-164,"
+Question: A 57-year-old woman comes to the emergency department because of severe pain around her right eye, blurred vision in the same eye, and a headache for the past 4 hours. She is nauseous but has not vomited. She can see colored bright circles when she looks at a light source. She is currently being treated for a urinary tract infection with trimethoprim-sulfamethoxazole. She appears uncomfortable. Vital signs are within normal limits. Examination shows visual acuity of 20/20 in the left eye and counting fingers at 5 feet in the right eye. The right eye shows conjunctival injection and edema of the cornea. The right pupil is dilated and fixed. Intravenous analgesia and antiemetics are administered. Which of the following is the most appropriate next step in management?
+
+Options:
+A. Perform retinal photocoagulation
+B. Administer topical ciprofloxacin
+C. Perform fundoscopy
+D. Perform anterior chamber paracentesis
+E. Perform fundus photography
+F. Perform ultrasound biomicroscopy
+G. Perform slit-lamp examination
+H. Administer topical steroids
+I. Administer topical atropine
+J. Perform gonioscopy
+
+Choose the correct answer from the options.
+",J,Perform gonioscopy,Ophthalmology,d533e199bece43b19741a7854d28015d
+SuperGPQA-medicine-165,"
+Question: Gram-stained periorbital exudates in severe panophthalmitis with cellulitis in an elderly diabetic shows irregular branching aseptate and broad hyphae. Which of the following is the most likely diagnosis
+
+Options:
+A. Candida
+B. Mucor species
+C. Rhizopus species
+D. Pencillium
+E. Aspergillus
+F. Apophysomyces elegans
+G. Rhizopus oryzae
+H. Apophysomyces trapeziformis
+I. Rhizomucor species
+J. Apophysomyces species
+
+Choose the correct answer from the options.
+",J,Apophysomyces species,Ophthalmology,2062425c117a4be0bfd97f1ea03510e8
+SuperGPQA-medicine-166,"
+Question: A 37-year-old man is brought into the emergency department as he was wandering the streets naked with a sword. The patient had to be forcibly restrained by police and is currently combative. Upon calming the patient and obtaining further history, the patient states that he is being pursued and that he needs to kill them all. The patient is given intramuscular (IM) haloperidol and diphenhydramine, and is admitted into the psychiatric ward. The patient has a past medical history of schizophrenia, obesity, anxiety, recurrent pneumonia, and depression. The patient is started on his home medication and is discharged 5 days later with prescriptions for multiple psychiatric medications including mood stabilizers and antidepressants. One week later, the patient is found by police standing outside in freezing weather. He is brought to the emergency department with a rectal temperature of 93.2°F (34°C). Resuscitation is started in the emergency department. Which of the following medications most likely exacerbated this patient's current presentation?
+
+Options:
+A. Chlorpromazine
+B. Fluoxetine
+C. Lithium
+D. Valproic acid
+E. Haloperidol
+F. Diphenhydramine
+G. Fluphenazine
+
+Choose the correct answer from the options.
+",G,Fluphenazine,Psychiatry and Mental Health,74794ce39d344e44a7207bb6d2e3a998
+SuperGPQA-medicine-167,"
+Question: A 68 year old man is admitted to the hospital for delirium associated with a urinary tract infection. Upon adequate treatment of the infection, the patient's mental status improved significantly, though he is noted to remain paly disoriented. He also has an impairment in sho-term memory, difficulties in naming simple objects, and impaired concentration. His family members confirm an 8-month history of gradual progressive decline in cognitive abilities, which they attribute to old-age. However, the man is no longer able to manage his finances and has gotten lost while driving to the grocery store on two occasions. Prior to discharge from the hospital, the nursing staff repos that the patient continues to have urinary incontinence, though his infection has resolved. He is also noted to have a very unsteady gait, requiring assistance when walking. No other obvious signs or symptoms are present. Which disorder most likely accounts for this patient's dementia?
+
+Options:
+A. Normal pressure hydrocephalus
+B. Parkinson disease
+C. Idiopathic normal pressure hydrocephalus
+D. Creutzfeldt-Jakob disease
+E. Vascular dementia
+F. Parkinson's disease with dementia
+G. Frontotemporal dementia
+H. Alzheimer's disease
+I. Idiopathic normal pressure hydrocephalus with cognitive impairment
+J. Huntington disease
+
+Choose the correct answer from the options.
+",A,Normal pressure hydrocephalus,Geriatric Medicine,01185e046f2d4daeaba251b069f3f7e5
+SuperGPQA-medicine-168,"
+Question: A 60-year-old man comes to the physician for a routine health maintenance examination. Over the past year, he has had problems initiating urination and the sensation of incomplete bladder emptying. He has a history of hypertension and hypercholesterolemia. He has smoked one pack of cigarettes daily for the past 40 years. He does not drink alcohol. His medications include lisinopril, atorvastatin, and daily aspirin. Vital signs are within normal limits. Physical examination shows a pulsatile abdominal mass at the level of the umbilicus and a bruit on auscultation. Digital rectal examination shows a symmetrically enlarged, smooth, firm, nontender prostate with rubbery texture. Laboratory studies are within normal limits. Which of the following is the most appropriate next step in management?
+
+Options:
+A. Transrectal ultrasonography
+B. Renal arteriography
+C. Aortic arteriography
+D. CT scan of the abdomen with contrast
+E. Prostate biopsy
+F. Abdominal CT without contrast
+G. PSA level testing
+H. Abdominal ultrasonography
+I. Abdominal MRI with contrast
+
+Choose the correct answer from the options.
+",H,Abdominal ultrasonography,Geriatric Medicine,95e266fe869942089f7686b50fda0179
+SuperGPQA-medicine-169,"
+Question: A 72-year-old man is brought in by his daughter who is concerned about his recent memory impairment. The patient's daughter says she has noticed impairment in memory and functioning for the past month. She says that he has forgotten to pay bills and go shopping, and, as a result, the electricity was cut off due to non-payment. She also says that last week, he turned the stove on and forgot about it, resulting in a kitchen fire. The patient has lived by himself since his wife died last year. He fondly recalls living with his wife and how much he misses her. He admits that he feels 'down' most days of the week living on his own and doesn't have much energy. When asked about the kitchen fire and problems with the electricity, he gets defensive and angry. At the patient's last routine check-up 3 months ago, he was healthy with no medical problems. His vital signs are within normal limits. On physical examination, the patient appears to have a flat affect. Which of the following is the most likely diagnosis in this patient?
+
+Options:
+A. Dementia
+B. Pick's disease
+C. Major depressive disorder with cognitive impairment
+D. Pseudodementia
+E. Delirium
+F. Major depressive disorder with cognitive symptoms
+G. Both dementia and delirium
+
+Choose the correct answer from the options.
+",D,Pseudodementia,Geriatric Medicine,d2d0affedbf94027a214e19eb57e2f96
+SuperGPQA-medicine-170,"
+Question: A 38-year-old woman presents to the Emergency Department with shortness of breath and right-sided chest pain after an assault. The patient states she was punched and kicked multiple times in the chest and back about 40 minutes prior to arrival. The shortness of breath has become more severe over the last 10 minutes before arriving to the hospital. On examination, her temperature is 37ᵒC, blood pres- sure 80/50 mmHg, pulse 125 beats/min, respiratory rate 26 breaths/min, and oxygen saturation is 88% on room air. The patient's airway is patent, lung sounds are absent on auscultation of the right chest, and distended neck veins are noted.
+Which of the following is the most likely cause of this patient's condition?
+
+Options:
+A. Pulmonary contusion injury
+B. Obstructive shock
+C. Hemothorax development
+D. Hypovolemic shock
+E. Cardiogenic shock
+F. Pneumothorax presence
+G. Distributive shock
+H. Pulmonary embolism risk
+I. Cardiac tamponade incident
+J. Ruptured spleen condition
+
+Choose the correct answer from the options.
+",B,Obstructive shock,Emergency Medicine,118d86cc46f849688d4fa43f1946e64c
+SuperGPQA-medicine-171,"
+Question: A man suffers from a rare skin disease. After marrying a healthy woman, they had six sons and four daughters. All the sons were affected by the disease, while all the daughters were healthy. It was later discovered that all of this man's grandsons inherited the disease, while all his granddaughters, maternal grandsons, and maternal granddaughters were healthy. What is the most likely mode of inheritance for this disease?
+
+Options:
+A. Unable to determine
+B. X-linked dominant inheritance
+C. Multigenic inheritance
+D. Sporadic mutation pattern
+E. X-linked recessive inheritance
+F. Autosomal Dominant Inheritance
+G. Mitochondrial inheritance
+H. Epigenetic inheritance
+I. Y-linked inheritance
+J. Autosomal recessive inheritance
+
+Choose the correct answer from the options.
+",I,Y-linked inheritance,Dermatology and Venereology,18df2ccc0eb74be683760e9ed5ae1677

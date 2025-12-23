@@ -112,13 +112,11 @@ class ReactAgent(BaseAgent):
         tool_output = tool._run(**tool_input)
 
         if tool_name == "code_execution":
-            content = tool_output["stdout"]
+            content = tool_output
             # update the code results
             code_result = CodeExecutionResult(
                 code=tool_input["code"],
-                console_output=tool_output["stdout"],
-                running_time=tool_output["running_time"],
-                peak_memory=tool_output["peak_memory_mb"],
+                console_output=tool_output,
             )
         else:
             content = tool_output
