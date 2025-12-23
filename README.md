@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./figs/biodsa_logo.png" alt="BioDSA Logo" width="500">
+  <img src="./figs/biodsa_logo.svg" alt="BioDSA Logo" width="500">
 </p>
 
 
