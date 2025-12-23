@@ -14,10 +14,35 @@ from pydantic import BaseModel
 import pandas as pd
 import logging
 import time
+import tiktoken
 
 # executino sandbox constants
 SANDBOX_IMANGE_IDENTIFIER = "biodsa-sandbox-py:latest" # this docker image must be built in advance
 DEFAULT_REMOTE_PATH = "/workdir"
+
+def truncate_middle_tokens(text: str, max_tokens: int) -> str:
+    """
+    Truncate text by removing tokens from the middle while preserving the beginning and end.
+    """
+    encoding = tiktoken.encoding_for_model("gpt-4o")
+    tokens = encoding.encode(text)
+    if len(tokens) > max_tokens:
+        # Account for the truncation marker's tokens
+        truncation_marker = "\n[... truncated ...]\n"
+        marker_tokens = len(encoding.encode(truncation_marker))
+        
+        # Subtract marker tokens from budget
+        available_tokens = max_tokens - marker_tokens
+        if available_tokens < 2:
+            # If we don't have enough tokens, just return the truncation marker
+            return truncation_marker
+        
+        # Split remaining budget between start and end
+        tokens_from_start = available_tokens // 2
+        tokens_from_end = available_tokens - tokens_from_start
+        
+        return encoding.decode(tokens[:tokens_from_start]) + truncation_marker + encoding.decode(tokens[-tokens_from_end:])
+    return text
 
 class Artifact(BaseModel):
     """
@@ -97,6 +122,12 @@ class ExecutionSandboxWrapper:
         self.workdir = workdir
         self.container_id = container_id
         self.start(container_id=container_id, image_identifier=image_identifier)
+
+    def get_workdir(self) -> str:
+        """
+        Get the workdir of the sandbox
+        """
+        return self.workdir
 
     def download_artifacts(self, output_dir: str) -> List[str]:
         """
@@ -460,6 +491,11 @@ class ExecutionSandboxWrapper:
 
         # decode the output
         output_logs = output.decode('utf-8')
+
+        # implement a truncation in the middle for the output logs
+        # using tiktoken to count the tokens and truncate the middle
+        output_logs = truncate_middle_tokens(output_logs, 100000)
+        
         
         # Convert peak memory to MB for easier reading
         peak_memory_mb = peak_memory_bytes[0] / (1024 * 1024)

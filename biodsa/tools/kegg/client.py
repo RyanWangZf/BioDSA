@@ -175,21 +175,18 @@ class KEGGClient:
     def search_pathways(
         self,
         query: str,
-        organism_code: Optional[str] = None,
-        max_results: int = 50
+        max_results: int = 50,
     ) -> List[Dict[str, str]]:
         """Search pathways by keywords or pathway names.
         
         Args:
             query: Search query (pathway name, keywords, or description)
-            organism_code: Organism code to filter results (optional, e.g., hsa, mmu, eco)
             max_results: Maximum number of results (1-1000, default: 50)
         
         Returns:
             List of matching pathways
         """
-        database = f"{organism_code}_pathway" if organism_code else "pathway"
-        text = self._make_request(f"find/{database}/{quote(query)}")
+        text = self._make_request(f"find/pathway/{quote(query)}")
         results = self._parse_kegg_list(text)
         return results[:max_results]
     
@@ -242,21 +239,18 @@ class KEGGClient:
     def search_genes(
         self,
         query: str,
-        organism_code: Optional[str] = None,
         max_results: int = 50
     ) -> List[Dict[str, str]]:
         """Search genes by name, symbol, or keywords.
         
         Args:
             query: Search query (gene name, symbol, or keywords)
-            organism_code: Organism code to filter results (optional, e.g., hsa, mmu)
             max_results: Maximum number of results (1-1000, default: 50)
         
         Returns:
             List of matching genes
         """
-        database = organism_code if organism_code else "genes"
-        text = self._make_request(f"find/{database}/{quote(query)}")
+        text = self._make_request(f"find/genes/{quote(query)}")
         results = self._parse_kegg_list(text)
         return results[:max_results]
     

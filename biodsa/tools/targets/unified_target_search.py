@@ -111,7 +111,7 @@ def search_targets_unified(
     if 'kegg_genes' in sources:
         try:
             kegg_client = KEGGClient()
-            gene_results = kegg_client.search_genes(search_term, organism_code="hsa", max_results=limit_per_source)
+            gene_results = kegg_client.search_genes(search_term, max_results=limit_per_source)
             results['kegg_genes'] = gene_results  # List of dicts
             summaries.append(f"**KEGG Genes:** Found {len(gene_results)} genes")
         except Exception as e:
@@ -399,7 +399,7 @@ def fetch_target_details_unified(
                 
             elif id_type in ['ensembl', 'gene_symbol']:
                 # Search for gene and fetch details
-                gene_results = kegg_client.search_genes(target_id, organism_code="hsa", max_results=1)
+                gene_results = kegg_client.search_genes(target_id, max_results=1)
                 if gene_results:
                     gene_id = gene_results[0]['id']
                     gene_info = kegg_client.get_gene_info(gene_id)

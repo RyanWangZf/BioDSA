@@ -140,11 +140,23 @@ results_dict, formatted_output = search_targets_unified(
 print(formatted_output)
 """
         
+        # Execute in sandbox if available
         if self.sandbox is not None:
-            result = self.sandbox.execute_code(code_template, timeout=60)
-            return result['output'] if 'output' in result else str(result)
+            exit_code, output, artifacts, running_time, peak_memory = self.sandbox.execute(
+                language="python",
+                code=code_template
+            )
+            
+            result = f"### Executed Code:\n```python\n{code_template}\n```\n\n"
+            result += f"### Output:\n{output}\n\n"
+            result += f"*Execution time: {running_time:.2f}s, Peak memory: {peak_memory:.2f}MB*"
+            
+            if exit_code != 0:
+                result += f"\n\n⚠️ **Warning:** Code exited with non-zero status ({exit_code})"
+            
+            return result
         else:
-            # Direct execution if no sandbox
+            # Fallback: execute locally
             results_dict, formatted_output = search_targets_unified(
                 search_term=search_term,
                 search_type=search_type,
@@ -152,7 +164,12 @@ print(formatted_output)
                 sources=sources,
                 save_path=save_path
             )
-            return formatted_output
+            
+            result = f"### Executed Code:\n```python\n{code_template}\n```\n\n"
+            result += f"### Output:\n{formatted_output}\n\n"
+            result += "*Executed locally (no sandbox)*"
+            
+            return result
 
 
 # =====================================================
@@ -275,11 +292,23 @@ details_dict, formatted_output = fetch_target_details_unified(
 print(formatted_output)
 """
         
+        # Execute in sandbox if available
         if self.sandbox is not None:
-            result = self.sandbox.execute_code(code_template, timeout=60)
-            return result['output'] if 'output' in result else str(result)
+            exit_code, output, artifacts, running_time, peak_memory = self.sandbox.execute(
+                language="python",
+                code=code_template
+            )
+            
+            result = f"### Executed Code:\n```python\n{code_template}\n```\n\n"
+            result += f"### Output:\n{output}\n\n"
+            result += f"*Execution time: {running_time:.2f}s, Peak memory: {peak_memory:.2f}MB*"
+            
+            if exit_code != 0:
+                result += f"\n\n⚠️ **Warning:** Code exited with non-zero status ({exit_code})"
+            
+            return result
         else:
-            # Direct execution if no sandbox
+            # Fallback: execute locally
             details_dict, formatted_output = fetch_target_details_unified(
                 target_id=target_id,
                 id_type=id_type,
@@ -287,5 +316,10 @@ print(formatted_output)
                 include_associations=include_associations,
                 save_path=save_path
             )
-            return formatted_output
+            
+            result = f"### Executed Code:\n```python\n{code_template}\n```\n\n"
+            result += f"### Output:\n{formatted_output}\n\n"
+            result += "*Executed locally (no sandbox)*"
+            
+            return result
 

@@ -27,7 +27,6 @@ def search_genes_unified(
     limit_per_source: int = 10,
     sources: Optional[List[str]] = None,
     include_variants: bool = False,
-    organism_code: Optional[str] = "hsa",
     save_path: Optional[str] = None,
 ) -> Tuple[Dict[str, Any], str]:
     """
@@ -42,7 +41,6 @@ def search_genes_unified(
         sources: List of sources to search. If None, searches all.
                  Options: ['biothings', 'kegg', 'variants', 'opentargets']
         include_variants: Whether to search for variants associated with genes (default: False)
-        organism_code: KEGG organism code for gene search (default: 'hsa' for human)
         save_path: Optional path to save aggregated results
     
     Returns:
@@ -83,7 +81,6 @@ def search_genes_unified(
             kegg_client = KEGGClient()
             kegg_results = kegg_client.search_genes(
                 search_term, 
-                organism_code=organism_code, 
                 max_results=limit_per_source
             )
             results['kegg'] = kegg_results  # List of dicts
@@ -365,7 +362,7 @@ def fetch_gene_details_unified(
                 summaries.append(f"**KEGG:** Found gene information")
             elif id_type in ['symbol', 'name']:
                 # Search first, then fetch
-                search_results = kegg_client.search_genes(gene_id, organism_code="hsa", max_results=1)
+                search_results = kegg_client.search_genes(gene_id, max_results=1)
                 if search_results:
                     kegg_id = search_results[0]['id']
                     gene_info = kegg_client.get_gene_info(kegg_id)
