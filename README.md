@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="./figs/biodsa_logo.png" alt="BioDSA Logo" width="500">
+</p>
+
+
 # BioDSA: Biomedical Data Science Agents
 
 BioDSA is an extensible library of data science agents designed for biomedical research. It provides a unified framework for building, deploying, and extending AI agents that can analyze biomedical data, search knowledge graphs, and synthesize scientific evidence.
