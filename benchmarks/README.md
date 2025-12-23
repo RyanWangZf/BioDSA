@@ -9,7 +9,7 @@ This directory contains benchmark datasets for evaluating biomedical data scienc
 | [BioDSA-1K](#biodsa-1k) | Hypothesis Validation | 1,029 | Real biomedical hypothesis validation from published studies |
 | [BioDSBench-Python](#biodsbench-python) | Code Generation | 128 | Python coding tasks for biomedical data analysis |
 | [BioDSBench-R](#biodsbench-r) | Code Generation | 165 | R coding tasks for biomedical data analysis |
-| [DeepEvidence](#deepevidence) | Evidence Synthesis | Multiple | Knowledge graph research and evidence gap analysis |
+| [DeepEvidence](#deepevidence) | Deep Research | 7 tasks | Deep knowledge graph research for biomedical discovery |
 | [HLE-Biomedicine](#hle-biomedicine) | Reasoning | 102 | Hard biomedicine questions from Humanity's Last Exam |
 | [HLE-Medicine](#hle-medicine) | Reasoning | 30 | Hard medicine questions from Humanity's Last Exam |
 | [LabBench](#labbench) | Literature QA | 75 | Literature and database question answering |
@@ -84,39 +84,34 @@ BioDSBench-R/
 
 **Location**: `DeepEvidence/`
 
-Comprehensive benchmark for evidence synthesis and knowledge graph research tasks, including:
+Comprehensive benchmark for deep knowledge graph research tasks spanning the biomedical discovery pipeline. Each task requires agents to search and synthesize evidence from multiple biomedical knowledge bases.
 
-- **Cohort**: Cohort optimization for clinical trial design
-- **Criteria**: Safety exclusion criteria generation
-- **Dose**: Drug regimen design
-- **DrugDiscovery**: Target identification and preclinical research QA
-- **DrugRepurposing**: Drug repurposing candidate identification
-- **Endpoint**: Surrogate endpoint selection
-- **Evidence**: Evidence gap analysis and synthesis from Cochrane reviews
-- **SampleSize**: Sample size estimation
+📄 **Paper**: DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research (In submission)
 
-**Structure**:
+🤗 **Full Dataset**: [HuggingFace - zifeng-ai/DeepEvidence](https://huggingface.co/datasets/zifeng-ai/DeepEvidence)
+
+**Task Types**:
+
+| Task | File | Description |
+|------|------|-------------|
+| Target Identification | `target_identification.parquet` | Identify therapeutic targets for diseases |
+| MoA Pathway Reasoning | `moa_pathway_reasoning.parquet` | Reason about drug mechanism of action pathways |
+| In Vivo Metabolic Flux Response | `in_vivo_metabolic_flux_response.parquet` | Predict metabolic responses in preclinical models |
+| Drug Regimen Design | `drug_regimen_design.parquet` | Design drug dosing regimens based on safety data |
+| Surrogate Endpoint Discovery | `surrogate_endpoint_discovery.parquet` | Identify surrogate endpoints for clinical trials |
+| Sample Size Estimation | `sample_size_estimation.parquet` | Estimate required sample sizes for trials |
+| Evidence Gap Discovery | `evidence_gap_discovery.parquet` | Identify gaps in existing clinical evidence |
+
+**Dataset Structure** (HuggingFace):
 ```
 DeepEvidence/
-├── Cohort/
-│   └── cohort_optimization_tasks.jsonl
-├── Criteria/
-│   └── safety_exclusion_criteria_tasks.jsonl
-├── Dose/
-│   └── drug_regimen_design_tasks.jsonl
-├── DrugDiscovery/
-│   ├── target_identification_all.jsonl
-│   ├── preclinical_research_all.jsonl
-│   └── in_vivo_flux_response_all.jsonl
-├── Endpoint/
-│   └── surrogate_endpoint_tasks.jsonl
-├── Evidence/
-│   ├── evidence_gap_20.csv
-│   └── evidence_synthesis_42.csv
-├── SampleSize/
-│   └── sample_size_estimation_25.csv
-└── data_processing/
-    └── [task generation scripts]
+├── target_identification.parquet
+├── moa_pathway_reasoning.parquet
+├── in_vivo_metabolic_flux_response.parquet
+├── drug_regimen_design.parquet
+├── surrogate_endpoint_discovery.parquet
+├── sample_size_estimation.parquet
+└── evidence_gap_discovery.parquet
 ```
 
 ---
