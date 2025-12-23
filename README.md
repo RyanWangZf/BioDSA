@@ -349,8 +349,9 @@ If you use BioDSA in your research, please cite our papers:
 ```bibtex
 @article{wang2025deepevidence,
   title={DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research},
-  author={Wang, Zifeng et al.},
-  journal={In submission},
+  author={Wang, Zifeng and Chen, Zheng and Yang, Ziwei and Wang, Xuan and Jin, Qiao and Peng, Yifan and Lu, Zhiyong and Sun, Jimeng
+},
+  journal={arxiv Preprint},
   year={2025}
 }
 

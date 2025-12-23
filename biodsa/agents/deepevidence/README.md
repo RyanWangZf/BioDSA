@@ -480,8 +480,9 @@ If you use DeepEvidence in your research, please cite:
 ```bibtex
 @article{wang2025deepevidence,
   title={DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research},
-  author={Wang, Zifeng and others},
-  journal={In submission},
+  author={Wang, Zifeng and Chen, Zheng and Yang, Ziwei and Wang, Xuan and Jin, Qiao and Peng, Yifan and Lu, Zhiyong and Sun, Jimeng
+},
+  journal={arxiv Preprint},
   year={2025}
 }
 ```
