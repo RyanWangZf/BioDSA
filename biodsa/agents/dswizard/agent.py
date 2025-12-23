@@ -209,7 +209,7 @@ class DSWizardAgent(BaseAgent):
             # update the code results
             code_result = CodeExecutionResult(
                 code=tool_input["code"],
-                console_output=tool_output,
+                console_output=content,
             )
         elif tool_name == "create_analysis_plan":
             content = tool_output
