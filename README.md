@@ -19,6 +19,8 @@ The library is designed to be modular—you can use the existing research agents
 
 📖 **Documentation**: [biodsa/agents/dswizard/README.md](biodsa/agents/dswizard/README.md)
 
+📓 **Tutorial**: [tutorials/dswizard_agent.ipynb](tutorials/dswizard_agent.ipynb)
+
 **Key Features**:
 - Two-phase planning and implementation approach
 - Dataset exploration before committing to analysis strategy
@@ -42,6 +44,8 @@ results = agent.go("Perform survival analysis comparing TP53 mutant vs wild-type
 📄 **Paper**: DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research (In submission)
 
 📖 **Documentation**: [biodsa/agents/deepevidence/README.md](biodsa/agents/deepevidence/README.md)
+
+📓 **Tutorial**: [tutorials/deepevidence_agent.ipynb](tutorials/deepevidence_agent.ipynb)
 
 **Key Features**:
 - Orchestrator + BFS/DFS subagent architecture for multi-scale search
@@ -67,6 +71,8 @@ results.export_evidence_graph_html("evidence_graph.html")
 BioDSA provides extensible base agent classes that you can use directly or extend for custom applications:
 
 ### CoderAgent
+
+📓 **Tutorial**: [tutorials/coder_agent.ipynb](tutorials/coder_agent.ipynb)
 
 A direct code generation agent that writes and executes Python/R code in a sandboxed environment.
 
@@ -178,14 +184,38 @@ results.to_pdf(output_dir="reports")
 
 ## 🐳 Sandbox Setup
 
-BioDSA uses Docker containers for isolated, secure code execution.
+BioDSA supports two execution modes for agent-generated code: **Docker sandbox** (recommended) and **local execution** (fallback).
 
-### Prerequisites
+### Execution Modes
+
+| Mode | Docker Required | Security | Artifacts | Use Case |
+|------|-----------------|----------|-----------|----------|
+| **Docker Sandbox** | ✅ Yes | ✅ Isolated container | ✅ Full support | Production, untrusted code |
+| **Local Execution** | ❌ No | ⚠️ Runs in your Python process | ⚠️ Limited | Quick testing, trusted code |
+
+### Without Docker (Local Execution)
+
+If Docker is not available, agents automatically fall back to **local execution mode**:
+
+- Code runs directly in your Python process using `exec()`
+- Variables persist across executions within the same session
+- Matplotlib plots are captured automatically
+- **Limitations:**
+  - No process isolation—code has full access to your system
+  - Generated files are saved to your current working directory
+  - Some artifact download features (e.g., `download_artifacts()`) are unavailable
+  - Not recommended for untrusted or LLM-generated code in production
+
+### With Docker (Recommended)
+
+For secure, isolated code execution, set up the Docker sandbox:
+
+#### Prerequisites
 
 - Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine
 - Ensure Docker daemon is running
 
-### Build the Python Sandbox
+#### Build the Python Sandbox
 
 ```bash
 cd biodsa_env/python_sandbox
@@ -317,6 +347,13 @@ python scripts/run_react_agent.py
 If you use BioDSA in your research, please cite our papers:
 
 ```bibtex
+@article{wang2025deepevidence,
+  title={DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research},
+  author={Wang, Zifeng et al.},
+  journal={In submission},
+  year={2025}
+}
+
 @article{wang2025biodsa1k,
   title={BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research},
   author={Wang, Zifeng and Danek, Benjamin and Sun, Jimeng},

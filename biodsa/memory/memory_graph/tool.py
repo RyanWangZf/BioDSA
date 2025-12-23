@@ -10,6 +10,33 @@ from typing import List, Dict, Union, Optional, Any
 from .graph import KnowledgeGraphManager
 from .schema import Entity, Relation, KnowledgeGraph
 
+
+def _run_async(coro):
+    """
+    Run an async coroutine, handling both regular Python and Jupyter notebook environments.
+    
+    In Jupyter notebooks, there's already a running event loop, so asyncio.run() fails.
+    This helper detects that case and uses nest_asyncio or falls back to a thread pool.
+    """
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        # No running loop, safe to use asyncio.run()
+        return asyncio.run(coro)
+    
+    # There's a running loop (e.g., Jupyter notebook)
+    # Try to use nest_asyncio if available
+    try:
+        import nest_asyncio
+        nest_asyncio.apply()
+        return asyncio.run(coro)
+    except ImportError:
+        # nest_asyncio not available, run in a separate thread
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(asyncio.run, coro)
+            return future.result()
+
 # Global cache for KnowledgeGraphManager instances (one per cache_dir)
 _manager_cache: Dict[str, KnowledgeGraphManager] = {}
 
@@ -80,7 +107,7 @@ def create_entities(
         # Convert back to dictionaries
         return [entity.to_dict() for entity in created_entities]
     
-    return asyncio.run(_async_create_entities())
+    return _run_async(_async_create_entities())
 
 
 def create_relations(
@@ -128,7 +155,7 @@ def create_relations(
         # Convert back to dictionaries
         return [relation.to_dict() for relation in created_relations]
     
-    return asyncio.run(_async_create_relations())
+    return _run_async(_async_create_relations())
 
 
 def add_observations(
@@ -161,7 +188,7 @@ def add_observations(
     async def _async_add_observations():
         return await knowledge_graph_manager.add_observations(observations, context)
     
-    return asyncio.run(_async_add_observations())
+    return _run_async(_async_add_observations())
 
 
 def search_nodes(
@@ -191,7 +218,7 @@ def search_nodes(
         graph_result = await knowledge_graph_manager.search_nodes(query, context, top_k)
         return graph_result.to_dict()
     
-    return asyncio.run(_async_search_nodes())
+    return _run_async(_async_search_nodes())
 
 
 def open_nodes(
@@ -217,7 +244,7 @@ def open_nodes(
         graph_result = await knowledge_graph_manager.open_nodes(entity_names, context)
         return graph_result.to_dict()
     
-    return asyncio.run(_async_open_nodes())
+    return _run_async(_async_open_nodes())
 
 def list_databases(cache_dir: Optional[str] = None) -> Dict[str, Union[List[str], str]]:
     """
@@ -235,7 +262,7 @@ def list_databases(cache_dir: Optional[str] = None) -> Dict[str, Union[List[str]
     async def _async_list_databases():
         return await knowledge_graph_manager.list_databases()
     
-    return asyncio.run(_async_list_databases())
+    return _run_async(_async_list_databases())
 
 
 def visualize_graph(
@@ -294,7 +321,7 @@ def visualize_graph(
             max_nodes=max_nodes
         )
     
-    return asyncio.run(_async_visualize_graph())
+    return _run_async(_async_visualize_graph())
 
 def clear_graph(
     context: str,
@@ -307,7 +334,7 @@ def clear_graph(
     async def _async_clear_graph():
         return await knowledge_graph_manager.clear_graph(context)
     
-    result = asyncio.run(_async_clear_graph())
+    result = _run_async(_async_clear_graph())
     # Clear the cached manager after clearing the graph
     clear_manager_cache(cache_dir)
     return result
@@ -358,7 +385,7 @@ def get_graph_text_overview(
             group_by_type=group_by_type
         )
     
-    return asyncio.run(_async_get_text_representation())
+    return _run_async(_async_get_text_representation())
 
 def load_graph_data(
     context: str,
@@ -371,5 +398,5 @@ def load_graph_data(
     async def _async_load_graph_data():
         return await knowledge_graph_manager.read_graph(context)
     
-    results = asyncio.run(_async_load_graph_data())
+    results = _run_async(_async_load_graph_data())
     return results.to_dict()
