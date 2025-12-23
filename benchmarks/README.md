@@ -10,12 +10,11 @@ This directory contains benchmark datasets for evaluating biomedical data scienc
 | [BioDSBench-Python](#biodsbench-python) | Code Generation | 128 | Python coding tasks for biomedical data analysis |
 | [BioDSBench-R](#biodsbench-r) | Code Generation | 165 | R coding tasks for biomedical data analysis |
 | [DeepEvidence](#deepevidence) | Deep Research | 7 tasks | Deep knowledge graph research for biomedical discovery |
-| [HLE-Biomedicine](#hle-biomedicine) | Reasoning | 102 | Hard biomedicine questions from Humanity's Last Exam |
+| [HLE-Biomedicine](#hle-biomedicine) | Reasoning | 40 | Hard biomedicine questions from Humanity's Last Exam |
 | [HLE-Medicine](#hle-medicine) | Reasoning | 30 | Hard medicine questions from Humanity's Last Exam |
 | [LabBench](#labbench) | Literature QA | 75 | Literature and database question answering |
 | [SuperGPQA](#supergpqa) | Expert QA | 264 | Expert-level biology and medicine questions |
-| [TrialGPT](#trialgpt) | Clinical Trials | Varies | Clinical trial matching and analysis |
-| [TrialPanoramaBench](#trialpanoramabench) | Evidence Synthesis | 50+ | Sample size estimation and evidence synthesis |
+| [TrialPanoramaBench](#trialpanoramabench) | Evidence Synthesis | 50 | Clinical evidence synthesis |
 | [TRQA-lit](#trqa-lit) | Literature QA | 172 | Translational research question answering |
 
 ---
@@ -120,12 +119,10 @@ DeepEvidence/
 
 **Location**: `HLE-biomedicine/`
 
-102 hard biomedicine questions from [Humanity's Last Exam](https://lastexam.ai/), filtered for questions that don't require images.
+40 hard biomedicine questions from [Humanity's Last Exam](https://lastexam.ai/), filtered for questions that don't require images.
 
 **Files**:
 - `hle_biomedicine_40.csv` - 40 selected biomedicine questions
-- `hle_biomedicine_62.csv` - 62 selected biomedicine questions
-- `hle_raw_no_image.csv` - All non-image biomedicine questions
 
 ---
 
@@ -159,21 +156,7 @@ Literature and database question answering benchmark.
 Expert-level graduate and professional level questions in biology and medicine from [SuperGPQA](https://huggingface.co/datasets/m-a-p/SuperGPQA).
 
 **Files**:
-- `SuperGPQA-hard-biology-92.csv` - 92 hard biology questions
 - `SuperGPQA-hard-medicine-172.csv` - 172 hard medicine questions
-- `SuperGPQA-all.jsonl` - All questions
-
----
-
-## TrialGPT
-
-**Location**: `TrialGPT/`
-
-Clinical trial matching benchmark.
-
-**Files**:
-- `trialgpt_raw.csv` - Full TrialGPT dataset
-- `trialgpt_raw_sampled.csv` - Sampled subset
 
 ---
 
@@ -185,7 +168,6 @@ Benchmark for clinical trial design tasks.
 
 **Files**:
 - `evidence_synthesis_50.csv` - 50 evidence synthesis tasks
-- `sample_size_estimation.jsonl` - Sample size estimation tasks
 
 ---
 
@@ -228,7 +210,7 @@ with open("BioDSBench-Python/dataset/python_tasks_with_class.jsonl") as f:
 ```python
 import pandas as pd
 
-df = pd.read_csv("SuperGPQA/SuperGPQA-hard-biology-92.csv")
+df = pd.read_csv("SuperGPQA/SuperGPQA-hard-medicine-172.csv")
 ```
 
 ---
@@ -238,6 +220,13 @@ df = pd.read_csv("SuperGPQA/SuperGPQA-hard-biology-92.csv")
 If you use these benchmarks, please cite the relevant papers:
 
 ```bibtex
+@article{wang2025deepevidence,
+  title={DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research},
+  author={Wang, Zifeng et al.},
+  journal={In submission},
+  year={2025}
+}
+
 @article{wang2025biodsa1k,
   title={BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research},
   author={Wang, Zifeng and Danek, Benjamin and Sun, Jimeng},
