@@ -15,7 +15,7 @@ The library is designed to be modular—you can use the existing research agents
 
 **DSWizard** (Data Science Wizard) is a two-phase agent designed for reliable biomedical data analysis. It operates by first creating a detailed analysis plan in natural language, then converting that plan into executable Python code.
 
-📄 **Paper**: [BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research](https://arxiv.org/abs/2505.16100) and [Can Large Language Models Replace Data Scientists in Biomedical Research?](https://arxiv.org/abs/2410.21591)
+📄 **Paper**: [BioDSA-1K: Benchmarking Data Science Agents for Biomedical Research](https://arxiv.org/abs/2505.16100) and [Making large language models reliable data science programming copilots for biomedical research](https://www.nature.com/articles/s41551-025-01587-2)
 
 📖 **Documentation**: [biodsa/agents/dswizard/README.md](biodsa/agents/dswizard/README.md)
 
@@ -41,7 +41,7 @@ results = agent.go("Perform survival analysis comparing TP53 mutant vs wild-type
 
 **DeepEvidence** is a hierarchical multi-agent system for comprehensive biomedical literature research and evidence synthesis. It leverages deep knowledge graph exploration to systematically gather, analyze, and synthesize evidence from 17+ biomedical knowledge bases.
 
-📄 **Paper**: DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research (In submission)
+📄 **Paper**: [DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research](https://arxiv.org/abs/2601.11560)
 
 📖 **Documentation**: [biodsa/agents/deepevidence/README.md](biodsa/agents/deepevidence/README.md)
 
@@ -347,12 +347,12 @@ python scripts/run_react_agent.py
 If you use BioDSA in your research, please cite our papers:
 
 ```bibtex
-@article{wang2025deepevidence,
+@article{wang2026deepevidence,
   title={DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research},
   author={Wang, Zifeng and Chen, Zheng and Yang, Ziwei and Wang, Xuan and Jin, Qiao and Peng, Yifan and Lu, Zhiyong and Sun, Jimeng
 },
-  journal={arxiv Preprint},
-  year={2025}
+  journal={arxiv preprint arXiv:2601.11560},
+  year={2026}
 }
 
 @article{wang2025biodsa1k,
@@ -362,12 +362,14 @@ If you use BioDSA in your research, please cite our papers:
   year={2025}
 }
 
-@article{wang2024llm,
-  title={Can Large Language Models Replace Data Scientists in Biomedical Research?},
-  author={Wang, Zifeng and Danek, Benjamin and Yang, Ziwei and Chen, Zheng and Sun, Jimeng},
-  journal={arXiv preprint arXiv:2410.21591},
-  year={2024}
+@article{wang2026reliable,
+  title     = {Making large language models reliable data science programming copilots for biomedical research},
+  author    = {Wang, Zifeng and Danek, Benjamin and Yang, Ziwei and Chen, Zheng and Sun, Jimeng},
+  journal   = {Nature Biomedical Engineering},
+  year      = {2026},
+  doi       = {10.1038/s41551-025-01587-2},
 }
+
 ```
 
 ---
