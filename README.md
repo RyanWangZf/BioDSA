@@ -69,6 +69,7 @@ results.export_evidence_graph_html("evidence_graph.html")
 | **TrialGPT** | Patient-to-trial matching with retrieval and eligibility scoring | [Nature Comm.](https://www.nature.com/articles/s41467-024-53081-z) | [README](biodsa/agents/trialgpt/README.md) \| [Tutorial](tutorials/trialgpt_agent.ipynb) |
 | **AgentMD** | Clinical risk prediction using large-scale toolkit of clinical calculators | [Nature Comm.](https://www.nature.com/articles/s41467-025-64430-x) | [README](biodsa/agents/agentmd/README.md) \| [Tutorial](tutorials/agentmd_agent.ipynb) |
 | **GeneAgent** | Self-verification agent for gene set analysis with database-backed verification | [Nature Methods](https://www.nature.com/articles/s41592-025-02748-6) | [README](biodsa/agents/geneagent/README.md) \| [Tutorial](tutorials/geneagent.ipynb) |
+| **Virtual Lab** | Multi-agent meeting system for AI-powered scientific research discussions | [Nature](https://www.nature.com/articles/s41586-025-09442-9) | [README](biodsa/agents/virtuallab/README.md) \| [Tutorial](tutorials/virtuallab_agent.ipynb) |
 
 ---
 
