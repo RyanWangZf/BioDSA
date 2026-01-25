@@ -6,15 +6,9 @@ GeneAgent is a language agent that autonomously interacts with domain-specific d
 
 This implementation is based on the original GeneAgent:
 
-```bibtex
-@article{jin2024geneagent,
-  title={GeneAgent: Self-verification Language Agent for Gene Set Analysis using Domain Databases},
-  author={Jin, Qiao and others},
-  year={2024}
-}
-```
+> Wang, Z., Jin, Q., Wei, C.H., et al. (2025). GeneAgent: self-verification language agent for gene-set analysis using domain databases. *Nature Methods*, 22, 1677–1685.
 
-**Original Repository:** https://github.com/ncbi-nlp/GeneAgent
+📄 **Paper**: [Nature Methods](https://www.nature.com/articles/s41592-025-02748-6) | **Original Repository**: [github.com/ncbi-nlp/GeneAgent](https://github.com/ncbi-nlp/GeneAgent)
 
 ## How It Works
 

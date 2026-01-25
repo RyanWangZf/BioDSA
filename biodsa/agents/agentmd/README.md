@@ -11,7 +11,9 @@ AgentMD empowers language models to:
 
 This implementation is based on the research paper:
 
-> Jin, Q., Wang, Z., Yang, Y., et al. (2024). AgentMD: Empowering Language Agents for Risk Prediction with Large-Scale Clinical Tool Learning. arXiv:2402.13225
+> Jin, Q., Wang, Z., Yang, Y., et al. (2025). AgentMD: Empowering language agents for risk prediction with large-scale clinical tool learning. *Nature Communications*, 16, 9377.
+
+📄 **Paper**: [Nature Communications](https://www.nature.com/articles/s41467-025-64430-x)
 
 ## Features
 
