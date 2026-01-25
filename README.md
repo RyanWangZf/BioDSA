@@ -1,5 +1,17 @@
 <p align="center">
-  <img src="./figs/biodsa_logo.svg" alt="BioDSA Logo" width="500">
+  <a href="https://keiji.ai">
+    <img src="./figs/keiji_logo_stacked_horizontal.svg" alt="Keiji AI" width="200">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://www.nature.com/articles/s41551-025-01587-2"><img src="https://img.shields.io/badge/Nature%20BME-Paper-blue" alt="Nature BME"></a>
+  <a href="https://biodsa.github.io"><img src="https://img.shields.io/badge/Website-biodsa.github.io-green" alt="Website"></a>
+  <a href="https://keiji.ai"><img src="https://img.shields.io/badge/Platform-keiji.ai-orange" alt="Platform"></a>
+  <a href="https://pipenv.pypa.io"><img src="https://img.shields.io/badge/pipenv-2024.4-blueviolet" alt="pipenv"></a>
+  <a href="https://huggingface.co/datasets/zifeng-ai/BioDSA-1K"><img src="https://img.shields.io/badge/🤗-BioDSA--1K-yellow" alt="BioDSA-1K"></a>
+  <a href="https://huggingface.co/datasets/zifeng-ai/TrialReviewBench"><img src="https://img.shields.io/badge/🤗-TrialReviewBench-yellow" alt="TrialReviewBench"></a>
+  <a href="https://huggingface.co/datasets/zifeng-ai/DeepEvidence"><img src="https://img.shields.io/badge/🤗-DeepEvidence-yellow" alt="DeepEvidence"></a>
 </p>
 
 # BioDSA: Biomedical Data Science Agents
@@ -224,7 +236,7 @@ BioDSA includes comprehensive benchmarks for evaluating agent performance on bio
 | **LabBench** | 75 | Literature QA and database QA |
 | **SuperGPQA** | 264 | Expert-level biology and medicine questions |
 
-**Datasets**: [🤗 HuggingFace](https://huggingface.co/datasets/zifeng-ai/BioDSBench)
+**Datasets**: [🤗 BioDSA-1K](https://huggingface.co/datasets/zifeng-ai/BioDSA-1K) | [🤗 TrialReviewBench](https://huggingface.co/datasets/zifeng-ai/TrialReviewBench) | [🤗 DeepEvidence](https://huggingface.co/datasets/zifeng-ai/DeepEvidence)
 
 ---
 
@@ -290,7 +302,7 @@ This project is licensed under the terms specified in the [LICENSE](LICENSE) fil
 
 ## 🔗 Links
 
-- **Homepage**: [biodsa.ai](https://biodsa.ai)
+- **Homepage**: [biodsa.github.io](https://biodsa.github.io)
 - **GitHub**: [github.com/RyanWangZf/BioDSA](https://github.com/RyanWangZf/BioDSA)
-- **Datasets**: [HuggingFace](https://huggingface.co/datasets/zifeng-ai/BioDSBench)
-- **Commercial Platform**: [TrialMind by Keiji AI](https://keiji.ai/product)
+- **Datasets**: [BioDSA-1K](https://huggingface.co/datasets/zifeng-ai/BioDSA-1K) | [TrialReviewBench](https://huggingface.co/datasets/zifeng-ai/TrialReviewBench) | [DeepEvidence](https://huggingface.co/datasets/zifeng-ai/DeepEvidence)
+- **Platform**: [Keiji AI](https://keiji.ai)
