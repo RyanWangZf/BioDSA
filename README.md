@@ -58,11 +58,17 @@ results = agent.go(
 results.export_evidence_graph_html("evidence_graph.html")
 ```
 
-### Other Specialized Agents
+### All Implemented Agents
 
-- **[TrialMind-SLR](biodsa/agents/trialmind_slr/README.md)** - Systematic literature review agent for clinical trial design
-- **[InformGen](biodsa/agents/informgen/README.md)** - Patient information sheet generation for clinical trials  
-- **[TrialGPT](biodsa/agents/trialgpt/README.md)** - Clinical trial eligibility screening agent
+| Agent | Description | Documentation |
+|-------|-------------|---------------|
+| **DSWizard** | Two-phase data science agent (planning → implementation) for biomedical data analysis | [README](biodsa/agents/dswizard/README.md) \| [Tutorial](tutorials/dswizard_agent.ipynb) |
+| **DeepEvidence** | Hierarchical multi-agent for deep research and evidence synthesis across 17+ knowledge bases | [README](biodsa/agents/deepevidence/README.md) \| [Tutorial](tutorials/deepevidence_agent.ipynb) |
+| **TrialMind-SLR** | Systematic literature review with 4-stage workflow (search → screen → extract → synthesize) | [README](biodsa/agents/trialmind_slr/README.md) \| [Tutorial](tutorials/trialmind_slr_agent.ipynb) |
+| **InformGen** | Clinical document generation with iterative write-review-revise workflow | [README](biodsa/agents/informgen/README.md) |
+| **TrialGPT** | Patient-to-trial matching with retrieval and eligibility scoring | [README](biodsa/agents/trialgpt/README.md) |
+| **AgentMD** | Clinical risk prediction using large-scale toolkit of clinical calculators | [README](biodsa/agents/agentmd/README.md) |
+| **GeneAgent** | Self-verification agent for gene set analysis with database-backed verification | [README](biodsa/agents/geneagent/README.md) |
 
 ---
 
