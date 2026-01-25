@@ -1,0 +1,79 @@
+# Research Findings: CRISPR-Cas9 Gene Editing for Sickle Cell Disease
+
+## Study Overview
+
+This document summarizes the key findings from our Phase I/II clinical trial investigating CRISPR-Cas9 gene editing therapy for sickle cell disease (SCD). The study was conducted at three academic medical centers between 2022-2024.
+
+## Patient Population
+
+- Total enrolled: 45 patients
+- Age range: 18-55 years (median: 28 years)
+- Gender: 24 female, 21 male
+- Disease severity: All patients had severe SCD with ≥2 vaso-occlusive crises per year
+- Prior treatments: All patients had failed or were intolerant to hydroxyurea therapy
+
+## Treatment Protocol
+
+Patients underwent the following procedure:
+1. Autologous CD34+ hematopoietic stem cells were collected via apheresis
+2. Cells were edited ex vivo using CRISPR-Cas9 targeting the BCL11A erythroid enhancer
+3. Patients received myeloablative conditioning with busulfan
+4. Edited cells were reinfused on Day 0
+
+## Efficacy Results
+
+### Primary Endpoint: Fetal Hemoglobin (HbF) Levels
+- Baseline mean HbF: 5.2% (range: 1.8-12.4%)
+- Month 6 mean HbF: 38.7% (range: 28.5-52.1%)
+- Month 12 mean HbF: 41.2% (range: 31.0-54.8%)
+- Month 24 mean HbF: 40.8% (range: 29.4-53.2%)
+
+### Secondary Endpoints
+- Vaso-occlusive crises: 
+  - Pre-treatment: median 4.5 events/year
+  - Post-treatment: median 0 events/year (p < 0.001)
+  
+- Transfusion requirements:
+  - Pre-treatment: 78% of patients required regular transfusions
+  - Post-treatment: 4% required transfusions (2 patients, transient)
+
+- Pain medication usage:
+  - Opioid consumption reduced by 89% from baseline
+
+- Quality of life (SF-36):
+  - Physical component score improved from 32.4 to 51.2
+  - Mental component score improved from 38.1 to 52.8
+
+## Safety Results
+
+### Serious Adverse Events
+- Grade 3-4 neutropenia: 100% (expected with myeloablative conditioning)
+- Febrile neutropenia: 42%
+- Mucositis Grade 3-4: 31%
+- Hepatic veno-occlusive disease: 2 patients (4.4%), both resolved
+- No treatment-related deaths
+
+### Long-term Safety
+- No evidence of off-target editing detected
+- No insertional oncogenesis observed
+- No clonal expansion of edited cells
+- Stable engraftment maintained through 24 months
+
+## Biomarker Analysis
+
+### Hemoglobin Parameters
+- Total hemoglobin increased from mean 8.2 g/dL to 11.8 g/dL
+- Hemoglobin S levels decreased from 78% to 42%
+- Red blood cell morphology normalized in 89% of patients
+
+### Inflammatory Markers
+- C-reactive protein decreased by 68%
+- Lactate dehydrogenase normalized in 91% of patients
+- Bilirubin levels decreased by 54%
+
+## Conclusions
+
+1. CRISPR-Cas9 editing of the BCL11A enhancer successfully induced therapeutic levels of fetal hemoglobin
+2. Clinical benefits were substantial and durable through 24 months of follow-up
+3. Safety profile was acceptable and consistent with myeloablative conditioning
+4. This approach represents a potentially curative therapy for sickle cell disease

@@ -1,0 +1,125 @@
+# Detailed Methodology: CRISPR-Cas9 Gene Editing Protocol
+
+## 1. Study Design
+
+### Trial Design
+- Open-label, single-arm, Phase I/II study
+- Multi-center: 3 academic medical centers in the United States
+- Duration: 24-month primary follow-up, 15-year long-term follow-up planned
+- ClinicalTrials.gov Identifier: NCT03745287 (fictional for this example)
+
+### Regulatory Approvals
+- FDA IND approval obtained March 2021
+- IRB approval at all participating sites
+- Independent Data Safety Monitoring Board (DSMB) oversight
+
+### Inclusion Criteria
+1. Confirmed diagnosis of sickle cell disease (HbSS or HbSβ0)
+2. Age 18-55 years
+3. ≥2 vaso-occlusive crises requiring hospitalization in the past 2 years
+4. Failed or intolerant to hydroxyurea therapy
+5. Adequate organ function (cardiac, hepatic, renal)
+6. ECOG performance status 0-1
+
+### Exclusion Criteria
+1. Prior allogeneic stem cell transplant
+2. HIV, HBV, or HCV infection
+3. Severe iron overload with cardiac involvement
+4. Prior malignancy within 5 years
+5. Pregnancy or breastfeeding
+
+## 2. Cell Collection and Processing
+
+### Apheresis Procedure
+- Patients received plerixafor (0.24 mg/kg) and G-CSF (10 μg/kg/day x 4 days) for mobilization
+- CD34+ cells collected via large-volume leukapheresis
+- Target collection: ≥6 x 10^6 CD34+ cells/kg
+- Backup collection stored unedited for rescue if needed
+
+### CD34+ Selection
+- CliniMACS system used for CD34+ positive selection
+- Purity requirement: ≥90% CD34+
+- Viability requirement: ≥85%
+
+## 3. CRISPR-Cas9 Gene Editing
+
+### Target Site
+- BCL11A erythroid-specific enhancer region on chromosome 2
+- Guide RNA sequence: 5'-CUAACAGUUGCUUUUAUCAC-3'
+- This disrupts BCL11A expression specifically in erythroid cells
+
+### Editing Reagents
+- Cas9 protein: SpCas9 (Streptococcus pyogenes Cas9), GMP-grade
+- sgRNA: Chemically modified synthetic sgRNA with 2'-O-methyl and phosphorothioate modifications
+- Electroporation: Lonza 4D-Nucleofector system
+
+### Editing Protocol
+1. CD34+ cells thawed and rested for 2 hours
+2. Cells resuspended at 1 x 10^7 cells/mL
+3. RNP complex (Cas9:sgRNA at 1:2.5 molar ratio) added
+4. Electroporation using program EO-100
+5. Cells cultured in StemSpan SFEM II + cytokines for 48 hours
+6. Quality control testing performed
+7. Cells cryopreserved in CryoStor CS10
+
+### Quality Control
+- Editing efficiency: Measured by next-generation sequencing (NGS)
+- Minimum requirement: ≥70% on-target indels
+- Off-target analysis: GUIDE-seq and targeted NGS at top 100 predicted sites
+- Sterility testing: 14-day culture
+- Endotoxin: <0.5 EU/mL
+- Mycoplasma: Negative
+
+## 4. Conditioning Regimen
+
+### Busulfan Protocol
+- Pharmacokinetically-adjusted IV busulfan
+- Target AUC: 4,000-5,000 μM·min per dose
+- Administered on Days -6 to -3
+- Seizure prophylaxis with levetiracetam
+
+### Supportive Care
+- Antiemetics per institutional guidelines
+- VOD prophylaxis with ursodiol
+- Infection prophylaxis: levofloxacin, fluconazole, acyclovir
+- Transfusion support to maintain Hgb >9 g/dL and platelets >20,000/μL
+
+## 5. Infusion and Monitoring
+
+### Cell Infusion
+- Day 0: Edited cells thawed at bedside and infused IV over 15-30 minutes
+- Target dose: ≥3 x 10^6 CD34+ cells/kg
+- Premedication: diphenhydramine and acetaminophen
+
+### Engraftment Monitoring
+- Daily CBC starting Day +1
+- Neutrophil engraftment: ANC ≥500/μL for 3 consecutive days
+- Platelet engraftment: Platelets ≥20,000/μL without transfusion x 7 days
+
+### Long-term Monitoring
+- Monthly visits through Month 6
+- Quarterly visits through Month 24
+- Annual visits through Year 15
+- Assessments: CBC, reticulocyte count, hemoglobin electrophoresis, HbF quantification, LDH, bilirubin
+
+## 6. Statistical Analysis
+
+### Sample Size
+- Based on Simon's two-stage design
+- H0: Response rate ≤50%, H1: Response rate ≥80%
+- Alpha = 0.05, Power = 80%
+- Stage 1: 15 patients, Stage 2: 30 additional patients
+
+### Analysis Populations
+- Intent-to-treat (ITT): All enrolled patients
+- Modified ITT (mITT): All patients who received edited cell infusion
+- Safety: All patients who received any study treatment
+
+### Primary Analysis
+- HbF response rate at Month 6 (success: HbF ≥20% or HbF increase ≥3-fold)
+- 95% confidence intervals calculated using Clopper-Pearson method
+
+### Secondary Analyses
+- Time to neutrophil and platelet engraftment: Kaplan-Meier method
+- VOC frequency: Negative binomial regression
+- QoL: Paired t-test comparing baseline to Month 12
