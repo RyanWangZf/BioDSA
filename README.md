@@ -114,6 +114,7 @@ See the [specialized agents](#-specialized-agents) above for real-world examples
 
 ## 📝 Update Log
 
+- **2026-01-25**: Added three new clinical trial agents (`TrialMind-SLR`, `InformGen`, `TrialGPT`) with complete documentation, tutorials, and example outputs; restructured README and documentation
 - **2025-12-23**: DeepEvidence agent release with hierarchical multi-agent architecture, 17+ knowledge base integrations, persistent evidence graph, and interactive HTML visualization
 - **2025-11-25**: Major refactoring with modular agent architecture, Docker sandbox integration, memory graph system with BM25 indexing, comprehensive benchmarks (BioDSA-1K, BioDSBench, HLE-Medicine, LabBench, SuperGPQA), and enhanced ExecutionResults API
 
