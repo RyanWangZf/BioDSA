@@ -1,0 +1,112 @@
+# Background Literature Review: Gene Therapy for Sickle Cell Disease
+
+## 1. Sickle Cell Disease Overview
+
+Sickle cell disease (SCD) is an inherited blood disorder affecting approximately 100,000 Americans and millions worldwide. It is caused by a point mutation in the β-globin gene (HBB), resulting in the production of abnormal hemoglobin S (HbS). When deoxygenated, HbS polymerizes, causing red blood cells to assume a rigid, sickle shape.
+
+### Clinical Manifestations
+- Vaso-occlusive crises: Painful episodes caused by microvascular occlusion
+- Chronic hemolytic anemia: Shortened RBC lifespan (10-20 days vs. 120 days normal)
+- Organ damage: Progressive damage to spleen, kidneys, brain, and lungs
+- Reduced life expectancy: Median survival 42-47 years in developed countries
+
+### Current Treatment Options
+1. Hydroxyurea: Increases fetal hemoglobin (HbF), reduces crises by ~50%
+2. L-glutamine: Reduces oxidative stress in RBCs
+3. Crizanlizumab: Anti-P-selectin antibody, reduces VOC frequency
+4. Voxelotor: Hemoglobin S polymerization inhibitor
+5. Chronic transfusions: For stroke prevention and severe disease
+6. Allogeneic HSCT: Only curative option, limited by donor availability
+
+## 2. Fetal Hemoglobin and BCL11A
+
+### The Hemoglobin Switch
+During fetal development, the predominant hemoglobin is HbF (α2γ2). After birth, expression switches to adult hemoglobin HbA (α2β2). In SCD patients, this means pathogenic HbS replaces protective HbF.
+
+### Hereditary Persistence of Fetal Hemoglobin (HPFH)
+Rare individuals with HPFH mutations maintain high HbF levels throughout life. When these mutations co-occur with sickle cell mutations, disease severity is markedly reduced. This natural experiment provided proof-of-concept that HbF reactivation could treat SCD.
+
+### BCL11A as a Therapeutic Target
+- BCL11A is a transcription factor that represses γ-globin expression
+- Genetic studies showed BCL11A variants associate with HbF levels
+- Erythroid-specific BCL11A knockout increases HbF without affecting other lineages
+- The erythroid-specific enhancer provides a safe target for gene editing
+
+Key references:
+- Sankaran VG, et al. Science 2008; 322:1839-1842
+- Bauer DE, et al. Science 2013; 342:253-257
+- Canver MC, et al. Nature 2015; 527:192-197
+
+## 3. CRISPR-Cas9 Technology
+
+### Mechanism of Action
+CRISPR-Cas9 is a programmable genome editing system derived from bacterial adaptive immunity. The Cas9 nuclease creates double-strand breaks at sites specified by a guide RNA (gRNA). Cellular repair mechanisms then modify the target sequence.
+
+### Advantages for Gene Therapy
+- High efficiency and specificity
+- Ability to target non-coding regulatory elements
+- Ex vivo editing allows quality control before infusion
+- No viral integration concerns
+
+### Safety Considerations
+- Off-target editing: Unintended cuts at similar sequences
+- On-target effects: Large deletions, chromosomal rearrangements
+- Immunogenicity: Immune responses to Cas9 protein
+- Delivery challenges: Efficient delivery to target cells
+
+## 4. Preclinical Development
+
+### In Vitro Studies
+- Primary human CD34+ cells from SCD patients were successfully edited
+- Editing efficiency >80% achieved with optimized conditions
+- Edited cells differentiated normally into erythroid lineage
+- HbF levels increased to >40% of total hemoglobin
+- Sickling phenotype was rescued in edited cells
+
+### Animal Studies
+- Humanized mouse models showed successful engraftment of edited cells
+- Long-term persistence of edited cells demonstrated
+- No adverse effects on hematopoiesis observed
+- Comprehensive off-target analysis showed no concerning findings
+
+Key references:
+- Wu Y, et al. Nat Med 2019; 25:776-783
+- Frangoul H, et al. NEJM 2021; 384:252-260
+
+## 5. Regulatory and Ethical Considerations
+
+### Regulatory Framework
+- Gene therapy products regulated as biologics by FDA
+- Require IND application with CMC, nonclinical, and clinical data
+- Long-term follow-up (15 years) recommended for integrating vectors
+- Special considerations for germline transmission (not applicable for somatic editing)
+
+### Ethical Considerations
+- Access and equity: High cost may limit availability
+- Informed consent: Ensuring understanding of novel therapy
+- Long-term risks: Unknown late effects of genome editing
+- Resource allocation: Balancing against other healthcare needs
+
+## 6. Competitive Landscape
+
+### Approved Therapies
+- Casgevy (exagamglogene autotemcel): FDA approved December 2023
+  - CRISPR-based, targets BCL11A enhancer
+  - 93.5% of patients VOC-free at 12 months
+
+- Lyfgenia (lovotibeglogene autotemcel): FDA approved December 2023
+  - Lentiviral vector, adds anti-sickling β-globin variant
+  - 88% of patients achieved resolution of VOC
+
+### Therapies in Development
+- In vivo gene editing approaches (avoiding myeloablation)
+- Base editing (precision editing without double-strand breaks)
+- Alternative targets (HBG1/HBG2 promoters)
+
+## 7. Future Directions
+
+1. In vivo delivery: Eliminate need for myeloablative conditioning
+2. Improved editing tools: Base editors, prime editors for precision
+3. Combination approaches: Multiple genetic modifications
+4. Global access: Reducing costs and infrastructure requirements
+5. Newborn screening integration: Enable early intervention
