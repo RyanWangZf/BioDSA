@@ -58,11 +58,17 @@ results = agent.go(
 results.export_evidence_graph_html("evidence_graph.html")
 ```
 
-### Other Specialized Agents
+### All Implemented Agents
 
-- **[TrialMind-SLR](biodsa/agents/trialmind_slr/README.md)** - Systematic literature review agent for clinical trial design
-- **[InformGen](biodsa/agents/informgen/README.md)** - Patient information sheet generation for clinical trials  
-- **[TrialGPT](biodsa/agents/trialgpt/README.md)** - Clinical trial eligibility screening agent
+| Agent | Description | Paper | Documentation |
+|-------|-------------|-------|---------------|
+| **DSWizard** | Two-phase data science agent (planning → implementation) for biomedical data analysis | [Nature BME](https://www.nature.com/articles/s41551-025-01587-2) | [README](biodsa/agents/dswizard/README.md) \| [Tutorial](tutorials/dswizard_agent.ipynb) |
+| **DeepEvidence** | Hierarchical multi-agent for deep research and evidence synthesis across 17+ knowledge bases | [arXiv](https://arxiv.org/abs/2601.11560) | [README](biodsa/agents/deepevidence/README.md) \| [Tutorial](tutorials/deepevidence_agent.ipynb) |
+| **TrialMind-SLR** | Systematic literature review with 4-stage workflow (search → screen → extract → synthesize) | [npj Digit. Med.](https://www.nature.com/articles/s41746-024-01322-6) | [README](biodsa/agents/trialmind_slr/README.md) \| [Tutorial](tutorials/trialmind_slr_agent.ipynb) |
+| **InformGen** | Clinical document generation with iterative write-review-revise workflow | [JAMIA](https://academic.oup.com/jamia/article/32/1/165/7878377) | [README](biodsa/agents/informgen/README.md) \| [Tutorial](tutorials/informgen_agent.ipynb) |
+| **TrialGPT** | Patient-to-trial matching with retrieval and eligibility scoring | [Nature Comm.](https://www.nature.com/articles/s41467-024-53081-z) | [README](biodsa/agents/trialgpt/README.md) \| [Tutorial](tutorials/trialgpt_agent.ipynb) |
+| **AgentMD** | Clinical risk prediction using large-scale toolkit of clinical calculators | [Nature Comm.](https://www.nature.com/articles/s41467-025-64430-x) | [README](biodsa/agents/agentmd/README.md) \| [Tutorial](tutorials/agentmd_agent.ipynb) |
+| **GeneAgent** | Self-verification agent for gene set analysis with database-backed verification | [Nature Methods](https://www.nature.com/articles/s41592-025-02748-6) | [README](biodsa/agents/geneagent/README.md) \| [Tutorial](tutorials/geneagent.ipynb) |
 
 ---
 
@@ -126,7 +132,7 @@ See the [specialized agents](#-specialized-agents) above for real-world examples
 
 ## 📝 Update Log
 
-- **2026-01-25**: Added three new clinical trial agents (`TrialMind-SLR`, `InformGen`, `TrialGPT`) with complete documentation, tutorials, and example outputs; restructured README and documentation
+- **2026-01-25**: Added DSWizard agent, added `TrialMind-SLR`, `InformGen`, `TrialGPT` , `AgentMD` (clinical risk prediction) and `GeneAgent` (gene set analysis) with tutorials; restructured README with agent overview table
 - **2025-12-23**: DeepEvidence agent release with hierarchical multi-agent architecture, 17+ knowledge base integrations, persistent evidence graph, and interactive HTML visualization
 - **2025-11-25**: Major refactoring with modular agent architecture, Docker sandbox integration, memory graph system with BM25 indexing, comprehensive benchmarks (BioDSA-1K, BioDSBench, HLE-Medicine, LabBench, SuperGPQA), and enhanced ExecutionResults API
 
