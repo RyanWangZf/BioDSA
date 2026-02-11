@@ -30,7 +30,7 @@ Building AI agents for biomedicine is hard. A typical agent needs LLM orchestrat
 - **LangGraph workflows** for composing agent logic as state graphs with conditional edges — supporting ReAct loops, multi-stage pipelines, and multi-agent orchestration
 - **17+ biomedical knowledge base integrations** (PubMed, ChEMBL, UniProt, Open Targets, Ensembl, cBioPortal, Reactome, ...) as plug-and-play tools
 - **10 benchmarks with 1,900+ tasks** for systematic evaluation
-- A **[skill library](biodsa-agent-dev-skills/)** that teaches AI coding assistants (Cursor, Claude Code, Codex, Gemini, OpenClaw) the full architecture — so they can vibe-prototype new agents that follow all codebase conventions
+- **Two skill libraries** that teach AI coding assistants (Cursor, Claude Code, Codex, Gemini, OpenClaw) to both **[create new agents](biodsa-agent-dev-skills/)** and **[run existing ones](biodsa-agent-exec-skills/)** — so you can vibe-prototype or execute agents in minutes
 
 ---
 
@@ -53,9 +53,9 @@ Building AI agents for biomedicine is hard. A typical agent needs LLM orchestrat
 
 ## Flow: From Idea to Working Agent
 
-BioDSA supports two paths — **manual** (write code yourself) and **vibe-prototyping** (let an AI coding assistant build it for you).
+BioDSA supports three paths — **manual** (write code yourself), **vibe-prototyping** (let an AI assistant build a new agent), and **vibe-executing** (let an AI assistant run an existing agent on your task).
 
-### Path A: Vibe-Prototype with AI Assistants
+### Path A: Vibe-Prototype a New Agent
 
 ```
  ┌──────────────────────────────────────────────────────────────┐
@@ -93,6 +93,36 @@ BioDSA supports two paths — **manual** (write code yourself) and **vibe-protot
  └──────────────────────────────────────────────────────────────┘
 ```
 
+### Path B: Vibe-Execute an Existing Agent
+
+```
+ ┌──────────────────────────────────────────────────────────────┐
+ │  1. INSTALL SKILLS (same as above)                          │
+ │     ./install-cursor.sh   (or claude-code/codex/gemini)     │
+ └──────────────────┬───────────────────────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │  2. DESCRIBE YOUR TASK                                      │
+ │     "Run DeepEvidenceAgent to research EGFR inhibitor       │
+ │      resistance mechanisms in lung cancer"                  │
+ │                                                             │
+ │     "Write a batch eval script for SLRMetaAgent on my       │
+ │      benchmark dataset at benchmarks/TrialPanoramaBench/"   │
+ └──────────────────┬───────────────────────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │  3. AI PICKS THE AGENT & WRITES THE SCRIPT                  │
+ │     Selects the right agent, configures it, handles output  │
+ │     → run_task.py  (single or batch execution)              │
+ └──────────────────┬───────────────────────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │  4. COLLECT DELIVERABLES                                    │
+ │     JSON results, PDF report, downloaded artifacts          │
+ │     python run_task.py                                      │
+ └──────────────────────────────────────────────────────────────┘
+```
+
 #### Install Skills
 
 ```bash
@@ -103,28 +133,33 @@ BioDSA supports two paths — **manual** (write code yourself) and **vibe-protot
 ./install-openclaw.sh      # OpenClaw (global)
 ```
 
-All installers support `--project`, `--uninstall`, `--dry-run`, and `--verbose` flags.
+Each installer installs **both** skill sets (agent development + agent execution). All installers support `--project`, `--uninstall`, `--dry-run`, and `--verbose` flags.
 
 <details>
 <summary>Manual installation & uninstall</summary>
 
-Copy the `.md` files from `biodsa-agent-dev-skills/` to your tool's skills directory:
+Copy the `.md` files from both skill source directories to your tool's skills directory:
 
-| Tool | Target Directory |
-| ---- | ---------------- |
-| Cursor | `<project>/.cursor/skills/biodsa-agent-development/` |
-| Claude Code (global) | `~/.claude/skills/biodsa-agent-development/` |
-| Claude Code (project) | `<project>/.claude/skills/biodsa-agent-development/` |
-| Codex CLI (global) | `~/.codex/skills/biodsa-agent-development/` |
-| Gemini CLI (global) | `~/.gemini/skills/biodsa-agent-development/` |
-| OpenClaw (global) | `~/.openclaw/skills/biodsa-agent-development/` |
+| Tool | Target Base Directory |
+| ---- | -------------------- |
+| Cursor | `<project>/.cursor/skills/` |
+| Claude Code (global) | `~/.claude/skills/` |
+| Claude Code (project) | `<project>/.claude/skills/` |
+| Codex CLI (global) | `~/.codex/skills/` |
+| Gemini CLI (global) | `~/.gemini/skills/` |
+| OpenClaw (global) | `~/.openclaw/skills/` |
 
-To uninstall, run any installer with `--uninstall`, or delete the `biodsa-agent-development/` folder from your tool's skills directory.
+Inside the target base, create two folders:
+- `biodsa-agent-development/` — copy files from `biodsa-agent-dev-skills/`
+- `biodsa-agent-execution/` — copy files from `biodsa-agent-exec-skills/`
+
+To uninstall, run any installer with `--uninstall`, or delete both folders from your tool's skills directory.
 
 </details>
 
 #### Example Prompts
 
+**Creating new agents** (uses dev skills):
 ```
 "Create an agent called DrugRepurposing that searches PubMed, ChEMBL,
  and Open Targets for drug repurposing opportunities."
@@ -134,11 +169,22 @@ To uninstall, run any installer with `--uninstall`, or delete the `biodsa-agent-
 
 "Build a multi-agent system where an orchestrator delegates gene analysis
  to a BFS sub-agent and pathway analysis to a DFS sub-agent."
-
-"I want to benchmark a literature QA agent on LabBench — build and evaluate it."
 ```
 
-### Path B: Build Manually
+**Running existing agents** (uses exec skills):
+```
+"Run DeepEvidenceAgent to research EGFR inhibitor resistance in NSCLC"
+
+"Write a script that uses DSWizardAgent to analyze the cBioPortal BRCA
+ dataset and generate a PDF report."
+
+"Batch-evaluate SLRMetaAgent on 10 systematic review questions and
+ collect results as JSON."
+
+"Use TrialGPTAgent to match this patient note to clinical trials."
+```
+
+### Path C: Build Manually
 
 ```bash
 git clone https://github.com/RyanWangZf/BioDSA.git
@@ -232,7 +278,8 @@ BioDSA/
 ├── benchmarks/                      # 10 evaluation benchmarks (1,900+ tasks)
 ├── tutorials/                       # Jupyter notebook tutorials for each agent
 ├── scripts/                         # Example run scripts
-├── biodsa-agent-dev-skills/         # Skill library for AI coding assistants
+├── biodsa-agent-dev-skills/         # Skill library: creating new agents
+├── biodsa-agent-exec-skills/        # Skill library: running existing agents
 ├── install-*.sh                     # One-command installers (Cursor, Claude, Codex, Gemini, OpenClaw)
 ├── biodsa_env/                      # Docker sandbox build files
 ├── tests/                           # Tool and integration tests
@@ -262,7 +309,7 @@ If you use BioDSA in your research, please cite:
 }
 ```
 
-**Documentation**: [tutorials/](tutorials/) | [biodsa-agent-dev-skills/](biodsa-agent-dev-skills/) | [benchmarks/](benchmarks/) | [biodsa_env/](biodsa_env/)
+**Documentation**: [tutorials/](tutorials/) | [biodsa-agent-dev-skills/](biodsa-agent-dev-skills/) | [biodsa-agent-exec-skills/](biodsa-agent-exec-skills/) | [benchmarks/](benchmarks/) | [biodsa_env/](biodsa_env/)
 
 **Links**: [biodsa.github.io](https://biodsa.github.io) | [Keiji AI](https://keiji.ai) | [BioDSA-1K](https://huggingface.co/datasets/zifeng-ai/BioDSA-1K) | [DeepEvidence](https://huggingface.co/datasets/zifeng-ai/DeepEvidence) | [TrialReviewBench](https://huggingface.co/datasets/zifeng-ai/TrialReviewBench)
 

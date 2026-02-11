@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Install BioDSA Agent Development Skills to Codex CLI
+# Install BioDSA Skills to Codex CLI
+#
+# Installs both skill sets:
+#   - Agent Development Skills (for creating new agents)
+#   - Agent Execution Skills  (for running existing agents)
 #
 # Usage:
 #   ./install-codex.sh                            # Install globally (~/.codex/skills/)
@@ -14,13 +18,13 @@ source "$SCRIPT_DIR/install-common.sh"
 
 TOOL_NAME="Codex CLI"
 INSTALL_MODE="global"
-DEFAULT_TARGET_DIR="$HOME/.codex/skills/$SKILL_NAME"
-PROJECT_SUBDIR=".codex/skills/$SKILL_NAME"
+DEFAULT_SKILLS_BASE="$HOME/.codex/skills"
+PROJECT_SKILLS_BASE=".codex/skills"
 
 print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
-    echo "Install BioDSA Agent Development Skills to Codex CLI"
+    echo "Install BioDSA Skills to Codex CLI"
     echo ""
     echo "Options:"
     echo "  --global           Install to global Codex skills (~/.codex/skills/) [default]"
