@@ -1,6 +1,80 @@
 # 05 — Deliverables, Run Scripts, and Sanity Checks
 
-This guide defines what a completed agent prototype looks like, how to create a run script, and how to validate that the agent works.
+This guide defines what a completed agent prototype looks like, how to create a run script, and how to validate that the agent works. It also covers the **design proposal** step (present before implementing) and the **design document** deliverable (produced alongside the agent code).
+
+---
+
+## Step 0: Design Proposal (Before Implementation)
+
+**IMPORTANT**: Before writing any code, present a design proposal to the user and wait for confirmation.
+
+### Why
+
+Users often have a high-level idea ("build an agent that does X") but the implementation has many design choices. Proposing first:
+- Catches misunderstandings early (saves wasted work)
+- Makes the agent's architecture transparent to the user
+- Gives the user a chance to steer tool selection, workflow structure, and scope
+- Produces better agents by incorporating domain knowledge the user has but didn't mention
+
+### Proposal Template
+
+Present the following to the user in a single message:
+
+```markdown
+## Design Proposal: <AgentName>
+
+### Understanding
+<Restate the user's goal in your own words. Be specific about what the agent will DO.>
+
+### Recommended Pattern
+<Which BioDSA pattern and why>
+- **Pattern**: <ReAct loop / Multi-stage pipeline / Orchestrator + sub-agents / Meeting system>
+- **Rationale**: <Why this pattern fits>
+
+### Proposed Workflow
+<Mermaid diagram or text description of the graph nodes and edges>
+
+```mermaid
+graph LR
+    A[User Input] --> B[Stage 1: ...]
+    B --> C{Decision}
+    C -->|yes| D[Stage 2: ...]
+    C -->|no| E[Stage 3: ...]
+    D --> F[Final Response]
+    E --> F
+```
+
+### Tools
+| Tool | Source | Purpose |
+|------|--------|---------|
+| <tool_name> | `biodsa/tools/<kb>/` (reuse) | <what it does> |
+| <tool_name> | `biodsa/tool_wrappers/<name>` (reuse) | <what it does> |
+| <new_tool_name> | New (agent-specific) | <what it does> |
+
+### State Fields
+| Field | Type | Purpose |
+|-------|------|---------|
+| `messages` | `Sequence[BaseMessage]` | Message history (required) |
+| <field> | <type> | <purpose> |
+
+### Input / Output
+- **Input**: <What the user passes to `agent.go()`>
+- **Output**: <What `final_response` contains>
+
+### Open Questions
+1. <Any ambiguity or design choice that needs user input>
+2. <e.g., "Should X be a separate stage or handled in the same node?">
+
+---
+Shall I proceed with this design, or would you like to adjust anything?
+```
+
+### When to Skip the Proposal
+
+You may skip the proposal and proceed directly to implementation if:
+- The user already provided a very detailed specification (e.g., a full algorithm description with explicit stages)
+- The user explicitly says "just build it" or "skip the design"
+- It's a trivial modification to an existing agent (e.g., "add a new tool to DeepEvidence")
 
 ---
 
@@ -17,7 +91,8 @@ biodsa/agents/my_agent/
 ├── state.py            # LangGraph state definition (Pydantic BaseModel)
 ├── prompt.py           # System prompts as module-level constants
 ├── tools.py            # Agent-specific tools (BaseTool subclasses)
-└── README.md           # Description of what the agent does, based-on paper, usage
+├── README.md           # Description of what the agent does, based-on paper, usage
+└── DESIGN.md           # Architecture explanation with Mermaid diagrams
 ```
 
 Plus at the repo root:
@@ -134,6 +209,116 @@ print(results.final_response)
 
 ## Tools
 [List of tools the agent uses]
+```
+
+#### `DESIGN.md`
+
+This is a **required deliverable** — a brief architecture document with Mermaid diagrams that makes the agent transparent and easy to understand. It serves as both documentation and a visual audit trail of design decisions.
+
+Use this template (replace placeholders):
+
+````markdown
+# MyAgent — Design Document
+
+## Overview
+
+**Purpose**: <One-sentence description of what this agent does and why>
+**Pattern**: <ReAct loop / Multi-stage pipeline / Orchestrator + sub-agents / Meeting system>
+**Based on**: <Paper citation or "original design">
+
+## Workflow
+
+```mermaid
+graph TD
+    A["User Input"] --> B["Stage 1: Plan"]
+    B --> C["Stage 2: Execute"]
+    C --> D{"Has tool calls?"}
+    D -->|"yes"| E["Tool Node"]
+    E --> C
+    D -->|"no"| F["Final Response"]
+```
+
+## State
+
+```mermaid
+classDiagram
+    class MyAgentState {
+        +Sequence~BaseMessage~ messages
+        +str input_data
+        +List~Dict~ search_results
+        +str plan
+    }
+```
+
+## Tools
+
+```mermaid
+graph LR
+    Agent["MyAgent"] --> T1["pubmed_search\n(reused)"]
+    Agent --> T2["clinical_trials_search\n(reused)"]
+    Agent --> T3["code_execution\n(reused)"]
+    Agent --> T4["my_custom_tool\n(new)"]
+```
+
+| Tool | Source | Description |
+|------|--------|-------------|
+| `pubmed_search` | `biodsa/tool_wrappers/pubmed/` | Search PubMed for relevant papers |
+| `clinical_trials_search` | `biodsa/tool_wrappers/clinical_trials/` | Search ClinicalTrials.gov |
+| `code_execution` | `biodsa/tool_wrappers/code_exec_tool.py` | Execute Python in sandbox |
+| `my_custom_tool` | `biodsa/agents/my_agent/tools.py` | Agent-specific tool |
+
+## Decision Points
+
+| Condition | Branch | Rationale |
+|-----------|--------|-----------|
+| LLM emits tool calls | → Tool Node | Need external data |
+| No tool calls | → END | Agent has enough info to respond |
+| Retry budget exceeded | → END with partial response | Prevent infinite loops |
+
+## Input / Output
+
+- **Input**: Natural language query describing <domain task>
+- **Output**: `ExecutionResults` with:
+  - `final_response`: Structured analysis / summary
+  - `message_history`: Full conversation trace
+  - `code_execution_results`: Any code outputs (if applicable)
+
+## Design Decisions
+
+1. **<Decision>**: <Why this choice was made>
+2. **<Decision>**: <Alternative considered and why rejected>
+````
+
+### Mermaid Diagram Types to Use
+
+Pick the right diagram type for what you're explaining:
+
+| What to Show | Mermaid Type | Example |
+|-------------|-------------|---------|
+| Agent workflow (graph nodes, edges) | `graph TD` or `graph LR` | Flowchart of stages and decision points |
+| State class structure | `classDiagram` | Fields and types in the state model |
+| Tool dependencies | `graph LR` | Which tools the agent uses and their sources |
+| Sequence of LLM calls | `sequenceDiagram` | Order of calls between agent, tools, and LLM |
+| Stage progression over time | `stateDiagram-v2` | State machine showing transitions |
+
+**Example — Sequence diagram for a multi-stage agent:**
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as Agent
+    participant LLM as LLM
+    participant T as Tools
+    U->>A: go("query")
+    A->>LLM: Stage 1 (Plan)
+    LLM-->>A: plan
+    A->>LLM: Stage 2 (Execute)
+    LLM-->>A: tool_calls
+    A->>T: execute tools
+    T-->>A: results
+    A->>LLM: Stage 3 (Synthesize)
+    LLM-->>A: final_response
+    A-->>U: ExecutionResults
 ```
 
 ---
