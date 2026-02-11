@@ -40,10 +40,11 @@ BioDSA is a framework for building biomedical data science agents. The codebase 
 
 ## Skill Library Contents
 
-This skill library is organized into six detailed guides:
+This skill library is organized into seven guides:
 
 | Guide | File | What It Covers |
 | ----- | ---- | -------------- |
+| 0 | [00-environment-setup.md](./00-environment-setup.md) | **Automatic** environment setup: conda env, pipenv install, `.env` configuration, Docker sandbox — run this before anything else if the env is not ready |
 | 1 | [01-base-agent.md](./01-base-agent.md) | `BaseAgent` class, constructor, key methods, LLM initialization, sandbox lifecycle |
 | 2 | [02-single-agent.md](./02-single-agent.md) | How to subclass `BaseAgent` for a single-agent workflow (ReAct loop, multi-stage pipeline, custom workflow) |
 | 3 | [03-multi-agent.md](./03-multi-agent.md) | Multi-agent patterns: orchestrator + sub-agents, multi-participant meetings |
@@ -54,6 +55,10 @@ This skill library is organized into six detailed guides:
 ## Quick-Start Checklist for Creating a New Agent
 
 When a user asks you to create a new agent, follow these steps in order:
+
+### Phase 0: Ensure Environment is Ready
+
+Before writing any code, verify the BioDSA environment is set up. Read [00-environment-setup.md](./00-environment-setup.md) and run the checks. If the environment is not ready (no conda/pipenv env, missing dependencies, no `.env`), **set it up automatically** — do not ask the user to do it manually.
 
 ### Phase 1: Propose Before Building
 

@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Install BioDSA Agent Development Skills to Gemini CLI
+# Install BioDSA Skills to Gemini CLI
+#
+# Installs both skill sets:
+#   - Agent Development Skills (for creating new agents)
+#   - Agent Execution Skills  (for running existing agents)
 #
 # Usage:
 #   ./install-gemini.sh                            # Install globally (~/.gemini/skills/)
@@ -14,13 +18,13 @@ source "$SCRIPT_DIR/install-common.sh"
 
 TOOL_NAME="Gemini CLI"
 INSTALL_MODE="global"
-DEFAULT_TARGET_DIR="$HOME/.gemini/skills/$SKILL_NAME"
-PROJECT_SUBDIR=".gemini/skills/$SKILL_NAME"
+DEFAULT_SKILLS_BASE="$HOME/.gemini/skills"
+PROJECT_SKILLS_BASE=".gemini/skills"
 
 print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
-    echo "Install BioDSA Agent Development Skills to Gemini CLI"
+    echo "Install BioDSA Skills to Gemini CLI"
     echo ""
     echo "Options:"
     echo "  --global           Install to global Gemini skills (~/.gemini/skills/) [default]"

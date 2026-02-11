@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Install BioDSA Agent Development Skills to Claude Code
+# Install BioDSA Skills to Claude Code
+#
+# Installs both skill sets:
+#   - Agent Development Skills (for creating new agents)
+#   - Agent Execution Skills  (for running existing agents)
 #
 # Usage:
 #   ./install-claude-code.sh                            # Install globally (~/.claude/skills/)
@@ -14,13 +18,13 @@ source "$SCRIPT_DIR/install-common.sh"
 
 TOOL_NAME="Claude Code"
 INSTALL_MODE="global"
-DEFAULT_TARGET_DIR="$HOME/.claude/skills/$SKILL_NAME"
-PROJECT_SUBDIR=".claude/skills/$SKILL_NAME"
+DEFAULT_SKILLS_BASE="$HOME/.claude/skills"
+PROJECT_SKILLS_BASE=".claude/skills"
 
 print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
-    echo "Install BioDSA Agent Development Skills to Claude Code"
+    echo "Install BioDSA Skills to Claude Code"
     echo ""
     echo "Options:"
     echo "  --global           Install to global Claude skills (~/.claude/skills/) [default]"

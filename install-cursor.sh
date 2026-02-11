@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Install BioDSA Agent Development Skills to Cursor IDE
+# Install BioDSA Skills to Cursor IDE
+#
+# Installs both skill sets:
+#   - Agent Development Skills (for creating new agents)
+#   - Agent Execution Skills  (for running existing agents)
 #
 # Usage:
 #   ./install-cursor.sh                            # Install to current project
@@ -15,13 +19,13 @@ source "$SCRIPT_DIR/install-common.sh"
 
 TOOL_NAME="Cursor"
 INSTALL_MODE="project"
-DEFAULT_TARGET_DIR="$(pwd)/.cursor/skills/$SKILL_NAME"
-PROJECT_SUBDIR=".cursor/skills/$SKILL_NAME"
+DEFAULT_SKILLS_BASE="$(pwd)/.cursor/skills"
+PROJECT_SKILLS_BASE=".cursor/skills"
 
 print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
-    echo "Install BioDSA Agent Development Skills to Cursor IDE"
+    echo "Install BioDSA Skills to Cursor IDE"
     echo ""
     echo "Options:"
     echo "  --project [PATH]   Install to a specific project directory (default: current directory)"
@@ -38,7 +42,7 @@ print_usage() {
 
 run_installer "$@"
 
-echo "The skills are now available in Cursor. When you ask Cursor to help you"
-echo "create a new BioDSA agent, it will automatically read these skills."
+echo "The skills are now available in Cursor. Ask Cursor to help you create"
+echo "new BioDSA agents or run existing ones — it will read these skills."
 echo ""
 print_try_message

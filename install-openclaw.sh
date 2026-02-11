@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Install BioDSA Agent Development Skills to OpenClaw
+# Install BioDSA Skills to OpenClaw
+#
+# Installs both skill sets:
+#   - Agent Development Skills (for creating new agents)
+#   - Agent Execution Skills  (for running existing agents)
 #
 # Usage:
 #   ./install-openclaw.sh                            # Install globally (~/.openclaw/skills/)
@@ -14,13 +18,13 @@ source "$SCRIPT_DIR/install-common.sh"
 
 TOOL_NAME="OpenClaw"
 INSTALL_MODE="global"
-DEFAULT_TARGET_DIR="$HOME/.openclaw/skills/$SKILL_NAME"
-PROJECT_SUBDIR="skills/$SKILL_NAME"
+DEFAULT_SKILLS_BASE="$HOME/.openclaw/skills"
+PROJECT_SKILLS_BASE="skills"
 
 print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
-    echo "Install BioDSA Agent Development Skills to OpenClaw"
+    echo "Install BioDSA Skills to OpenClaw"
     echo ""
     echo "Options:"
     echo "  --global           Install to global OpenClaw skills (~/.openclaw/skills/) [default]"

@@ -197,6 +197,8 @@ class BaseAgent():
                 **kwargs
             )
         elif (api == "azure"):
+            # Azure does not support reasoning_effort (OpenAI o1-only parameter)
+            kwargs = {k: v for k, v in kwargs.items() if k != "reasoning_effort"}
             llm = AzureChatOpenAI(
                 azure_endpoint=endpoint,
                 azure_deployment=model_name,
