@@ -108,8 +108,25 @@ def render_message_colored(message: BaseMessage, show_tool_calls: bool = True) -
         output_lines.append(f"{header} {TerminalColors.GRAY}({tool_name}){TerminalColors.RESET}")
         output_lines.append("=" * 100)
         
+        # Handle multimodal content (list of content blocks with images)
+        if isinstance(content, list):
+            text_parts = []
+            image_count = 0
+            for block in content:
+                if isinstance(block, dict):
+                    if block.get('type') == 'text':
+                        text_parts.append(block.get('text', ''))
+                    elif block.get('type') in ('image', 'image_url'):
+                        image_count += 1
+                elif isinstance(block, str):
+                    text_parts.append(block)
+            display_text = "\n".join(text_parts)
+            if image_count:
+                display_text += f"\n[{image_count} image(s) attached]"
+            content = display_text
+        
         # Truncate very long tool responses from the middle
-        if len(content) > 10000:
+        if isinstance(content, str) and len(content) > 10000:
             # Show first 4000 chars and last 4000 chars, strip whitespace from ends
             start_part = content[:4000].rstrip()
             end_part = content[-4000:].lstrip()

@@ -6,6 +6,8 @@ from typing import Dict, Any, Callable, Literal, List, Tuple, Optional
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from langchain_core.language_models.base import BaseLanguageModel
 from langchain_core.tools import BaseTool
+from langchain_core.messages import SystemMessage, AIMessage, ToolMessage, HumanMessage
+from langchain_core.messages.utils import count_tokens_approximately
 from langchain_anthropic import ChatAnthropic
 # from langchain_together import Together
 from langchain_openai import ChatOpenAI
@@ -16,6 +18,12 @@ from tenacity import retry, stop_after_attempt, wait_random_exponential, retry_i
 
 from biodsa.sandbox.sandbox_interface import ExecutionSandboxWrapper, UploadDataset
 from biodsa.agents.state import CodeExecutionResult
+from biodsa.utils.render_utils import render_message_colored
+from biodsa.agents.llm_config import (
+    SupportedApiType,
+    SupportedModelName,
+    ALL_SUPPORTED_MODELS,
+)
 
 def run_with_retry(func: Callable, max_retries: int = 5, min_wait: float = 1.0, max_wait: float = 30.0, timeout: Optional[float] = None, arg=None, **kwargs):
     """
@@ -91,10 +99,10 @@ class BaseAgent():
 
     def __init__(
         self,
-        api_type: Literal["azure"],
+        api_type: SupportedApiType,
         api_key: str,
-        model_name: Literal["gpt-4o", "gpt-4o-mini", "o3-mini"] = None,
-        endpoint: str=None,
+        model_name: SupportedModelName = None,
+        endpoint: str = None,
         max_completion_tokens=5000,
         container_id: str = None,
         model_kwargs: Dict[str, Any] = None,
@@ -129,7 +137,12 @@ class BaseAgent():
 
         # load model config
         self.model_name = model_name
-        
+        if model_name is not None and model_name not in ALL_SUPPORTED_MODELS:
+            logging.warning(
+                "model_name %r not in llm_config.ALL_SUPPORTED_MODELS; "
+                "add it to biodsa/agents/llm_config.py if this is a supported model.",
+                model_name,
+            )
         self.api_type = api_type
         
         self.max_completion_tokens = max_completion_tokens
@@ -309,6 +322,220 @@ class BaseAgent():
             model_kwargs.pop("thinking", None)
             model_kwargs["max_completion_tokens"] = 5000
         return model_kwargs
+
+    # ------------------------------------------------------------------
+    # Rendering helpers (colored terminal output)
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _print_message(message: BaseMessage, show_tool_calls: bool = True) -> None:
+        """
+        Print a single LangChain message with colored formatting.
+
+        Uses :func:`biodsa.utils.render_utils.render_message_colored`.
+        All agents can call ``self._print_message(msg)`` for consistent
+        terminal output.
+        """
+        print(render_message_colored(message, show_tool_calls=show_tool_calls))
+
+    def _print_stream_chunk(self, chunk: Dict[str, Any], show_tool_calls: bool = True) -> None:
+        """
+        Print the last message from a LangGraph stream chunk.
+
+        Typical usage inside a ``for stream_mode, chunk in graph.stream(...)``
+        loop::
+
+            for stream_mode, chunk in self.agent_graph.stream(
+                inputs, stream_mode=["values"], config=config
+            ):
+                self._print_stream_chunk(chunk)
+                result = chunk
+
+        Args:
+            chunk: A dict with a ``"messages"`` key (list of BaseMessage).
+            show_tool_calls: Whether to display tool call details.
+        """
+        messages = chunk.get("messages")
+        if not messages:
+            return
+        self._print_message(messages[-1], show_tool_calls=show_tool_calls)
+
+    # ------------------------------------------------------------------
+    # Multimodal tool-message helpers
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _build_tool_message(
+        tool_output: Any,
+        name: str,
+        tool_call_id: str,
+    ) -> ToolMessage:
+        """
+        Build a ``ToolMessage`` from a tool's return value.
+
+        If the tool returned a
+        :class:`~biodsa.tool_wrappers.multimodal_tools.MultimodalToolResult` the
+        message will carry LangChain-standard content blocks (text +
+        images) so that vision-capable LLMs can see the images.
+
+        For plain ``str`` returns the message is a simple text message.
+        """
+        # Lazy import to avoid circular deps at module level
+        from biodsa.tool_wrappers.multimodal_tools import MultimodalToolResult
+
+        if isinstance(tool_output, MultimodalToolResult):
+            content = tool_output.to_langchain_content()
+            return ToolMessage(
+                content=content, name=name, tool_call_id=tool_call_id
+            )
+        return ToolMessage(
+            content=str(tool_output), name=name, tool_call_id=tool_call_id
+        )
+
+    @staticmethod
+    def _content_to_text(content) -> str:
+        """
+        Extract plain text from a message's ``content`` field.
+
+        Handles both ``str`` content and the list-of-dicts multimodal
+        format (skipping image/audio/video blocks and base64 data).
+        """
+        if isinstance(content, str):
+            return content
+        if isinstance(content, list):
+            parts: List[str] = []
+            for block in content:
+                if isinstance(block, dict):
+                    btype = block.get("type", "")
+                    if btype == "text":
+                        parts.append(block.get("text", ""))
+                    elif btype in ("image", "image_url"):
+                        parts.append("[image]")
+                    elif btype in ("file", "audio", "video"):
+                        parts.append(f"[{btype}]")
+                    # skip base64 data entirely
+                elif isinstance(block, str):
+                    parts.append(block)
+            return "\n".join(parts)
+        return str(content)
+
+    def _compact_messages(
+        self,
+        messages: List[BaseMessage],
+        token_threshold: int = 80000,
+        compact_model_name: Optional[str] = None,
+        timeout: Optional[float] = None,
+    ) -> List[BaseMessage]:
+        """
+        Compact a message list when it exceeds *token_threshold*.
+
+        Uses a cheaper / smaller model to summarize the middle messages
+        (tool calls, tool results, intermediate AI responses) into a single
+        background briefing so the main model receives:
+
+            [system_prompt, compacted_background, original_user_message]
+
+        This avoids excessive input-token cost on the primary model while
+        preserving the essential context.
+
+        Args:
+            messages:           Full message list (system + user + tool rounds).
+            token_threshold:    Approximate token count above which compaction
+                                triggers.  Default 80 000.
+            compact_model_name: Model to use for the summary call.  Falls back
+                                to ``"gpt-5-mini"`` then ``self.model_name``.
+            timeout:            Per-call timeout for the summariser (seconds).
+                                Falls back to ``self.llm_timeout``.
+
+        Returns:
+            Either the original *messages* (if under threshold or compaction
+            fails) or a compacted 3-message list.
+        """
+        token_count = count_tokens_approximately(messages)
+        if token_count <= token_threshold:
+            return messages
+
+        compact_model = compact_model_name or "gpt-5-mini"
+        call_timeout = timeout if timeout is not None else self.llm_timeout
+
+        logging.info(
+            "compact_messages: ~%d tokens (threshold %d); summarising with %s.",
+            token_count, token_threshold, compact_model,
+        )
+
+        # --- locate boundaries ---
+        system_msg = messages[0] if messages and isinstance(messages[0], SystemMessage) else None
+        first_human_idx = next(
+            (i for i, m in enumerate(messages) if isinstance(m, HumanMessage)),
+            None,
+        )
+        if system_msg is None or first_human_idx is None:
+            return messages  # can't split sensibly
+
+        user_msg = messages[first_human_idx]
+        middle = messages[first_human_idx + 1:]
+        if not middle:
+            return messages
+
+        # --- serialise middle messages to plain text ---
+        text_parts = []
+        for m in middle:
+            role = getattr(m, "type", type(m).__name__)
+            content = self._content_to_text(getattr(m, "content", "") or "")
+            if isinstance(m, AIMessage) and getattr(m, "tool_calls", None):
+                tc = m.tool_calls[0]
+                text_parts.append(
+                    f"[{role}] Called tool '{tc.get('name', '?')}' "
+                    f"with args: {tc.get('args', {})}\n{content}"
+                )
+            elif isinstance(m, ToolMessage):
+                name = getattr(m, "name", "?")
+                text_parts.append(f"[{role} ({name})]\n{content}")
+            else:
+                text_parts.append(f"[{role}]\n{content}")
+
+        background_text = "\n---\n".join(text_parts)
+
+        # --- call the compact model ---
+        compact_llm = self._get_model(
+            api=self.api_type,
+            model_name=compact_model,
+            api_key=self.api_key,
+            endpoint=self.endpoint,
+        )
+        summary_prompt = [
+            SystemMessage(content=(
+                "You are a concise summarizer. Summarize the following agent "
+                "conversation history into a compact background briefing. "
+                "Focus on: what actions were taken (tool calls and results), "
+                "key findings, what was created/updated, and any errors. "
+                "Keep it concise (under 1000 words). Do NOT include raw file "
+                "contents; just note what was read and the key takeaways."
+            )),
+            HumanMessage(content=f"Conversation history to summarize:\n\n{background_text}"),
+        ]
+
+        try:
+            summary_response = run_with_retry(
+                compact_llm.invoke, arg=summary_prompt, timeout=call_timeout,
+            )
+            summary_text = summary_response.content or ""
+        except Exception as e:
+            logging.warning("compact_messages failed (%s); returning original.", e)
+            return messages
+
+        compacted = [
+            system_msg,
+            SystemMessage(content=(
+                "# Background (compacted from earlier conversation)\n\n"
+                + summary_text
+            )),
+            user_msg,
+        ]
+        new_count = count_tokens_approximately(compacted)
+        logging.info(
+            "compact_messages: ~%d → ~%d tokens (summary %d chars).",
+            token_count, new_count, len(summary_text),
+        )
+        return compacted
 
     def generate(self, **kwargs) -> Dict[str, Any]:
         """
