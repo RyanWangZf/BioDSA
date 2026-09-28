@@ -1,0 +1,14 @@
+{
+  "protocol_version": "1.0",
+  "run_id": "run-example",
+  "attempt_id": "attempt-0001",
+  "task_id": "arithmetic",
+  "task_type": "qa.multiple_choice.v1",
+  "input": {
+    "question": "What is 2 + 2?",
+    "choices": [{"id": "A", "text": "3"}, {"id": "B", "text": "4"}]
+  },
+  "assets": [],
+  "budget": {"wall_time_seconds": 10},
+  "seed": 7
+}

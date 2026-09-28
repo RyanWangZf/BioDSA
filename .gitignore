@@ -177,3 +177,7 @@ benchmark_datasets/R/datasets/*
 
 *.tar.gz
 .DS_store
+# BioAgent Gym local prepared data and run records
+.bioagent-gym/
+# Phase-1 compatibility: explicit old paths remain valid and are not migrated.
+.biodsa/

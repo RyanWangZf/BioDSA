@@ -12,9 +12,26 @@
   <a href="https://huggingface.co/datasets/zifeng-ai/DeepEvidence"><img src="https://img.shields.io/badge/🤗-DeepEvidence-yellow" alt="DeepEvidence"></a>
 </p>
 
-# BioDSA: Vibe-Prototype AI Agents for Biomedicine
+# BioAgent Gym
 
-**BioDSA** is an open-source framework for rapidly prototyping, optimizing, and benchmarking AI agents for biomedical tasks — from data analysis and literature research to clinical trial matching and drug discovery.
+**BioAgent Gym** is a modular framework for running and evaluating biomedical AI agents in reproducible task environments. The existing BioDSA agent implementations and published benchmark names remain available during the migration.
+
+The lightweight runner uses independent processes or containers and a
+versioned JSON file protocol. It does not require agents to inherit a common
+base class.
+
+```bash
+pip install -e .
+bioagent-gym prepare --benchmark fixture_qa \
+  --config experiments/fixture-prepare.json \
+  --output .bioagent-gym/fixture-prepared
+bioagent-gym validate --config experiments/fixture-qa.yaml
+bioagent-gym run --config experiments/fixture-qa.yaml
+bioagent-gym evaluate --run .bioagent-gym/fixture-run
+
+# Equivalent module entry point
+python -m bioagent_gym --help
+```
 
 Describe what you want in natural language. Get a working agent in minutes.
 
@@ -24,7 +41,7 @@ Describe what you want in natural language. Get a working agent in minutes.
 
 Building AI agents for biomedicine is hard. A typical agent needs LLM orchestration, access to domain-specific knowledge bases (PubMed, ChEMBL, ClinicalTrials.gov, ...), safe code execution, multi-step reasoning, and structured output — all wired together correctly. Starting from scratch every time is slow and error-prone.
 
-**BioDSA solves this by providing:**
+**BioAgent Gym provides:**
 
 - A **`BaseAgent` foundation** with built-in LLM support (OpenAI, Anthropic, Azure, Google), Docker-sandboxed code execution, and retry handling — so you focus on the agent logic, not the plumbing
 - **LangGraph workflows** for composing agent logic as state graphs with conditional edges — supporting ReAct loops, multi-stage pipelines, and multi-agent orchestration
@@ -53,7 +70,7 @@ Building AI agents for biomedicine is hard. A typical agent needs LLM orchestrat
 
 ## Flow: From Idea to Working Agent
 
-BioDSA supports three paths — **manual** (write code yourself), **vibe-prototyping** (let an AI assistant build a new agent), and **vibe-executing** (let an AI assistant run an existing agent on your task).
+The legacy BioDSA agent layer supports three paths — **manual** (write code yourself), **vibe-prototyping** (let an AI assistant build a new agent), and **vibe-executing** (let an AI assistant run an existing agent on your task).
 
 ### Path A: Vibe-Prototype a New Agent
 

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bioagent-gym"
+version = "0.1.0"
+description = "A modular framework for running and evaluating biomedical AI agents in reproducible task environments."
+requires-python = ">=3.10"
+dependencies = ["jsonschema>=4.18", "PyYAML>=6.0"]
+
+[project.scripts]
+bioagent-gym = "bioagent_gym.cli:main"
+
+[tool.setuptools]
+packages = ["bioagent_gym", "bioagent_gym.protocol", "harness"]
+package-dir = {"bioagent_gym.protocol" = "protocol"}
+
+[tool.setuptools.package-data]
+"bioagent_gym.protocol" = ["*.md", "schemas/**/*.json", "examples/*.json"]

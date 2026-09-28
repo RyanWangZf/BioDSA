@@ -1,0 +1,13 @@
+protocol_version: "1.0"
+agent:
+  manifest: ../agents/fixture_agent/agent.yaml
+benchmark:
+  manifest: ../benchmarks/fixture_qa/benchmark.yaml
+  prepared: ../.bioagent-gym/fixture-prepared
+  split: test
+execution:
+  backend: docker
+budget:
+  wall_time_seconds: 10
+seed: 7
+output: ../.bioagent-gym/fixture-docker-run
