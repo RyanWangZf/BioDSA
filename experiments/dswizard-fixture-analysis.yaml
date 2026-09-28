@@ -1,0 +1,12 @@
+protocol_version: "1.0"
+agent:
+  manifest: ../agents/dswizard/agent.yaml
+  config: ../agents/dswizard/config.mock.json
+benchmark:
+  manifest: ../benchmarks/fixture_analysis/benchmark.yaml
+  prepared: ../.bioagent-gym/analysis-prepared
+  split: test
+  data_revision: analysis-r1
+execution: {backend: local}
+budget: {wall_time_seconds: 20}
+output: ../.bioagent-gym/dswizard-analysis-run

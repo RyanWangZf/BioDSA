@@ -1,0 +1,1 @@
+{"provider":"mock","model":"deterministic-coder","temperature":1.0,"execution_environment":{"backend":"local_subprocess","timeout_seconds":10}}

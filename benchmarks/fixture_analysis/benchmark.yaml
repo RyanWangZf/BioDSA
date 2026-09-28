@@ -1,0 +1,21 @@
+manifest_version: "1.0"
+benchmark_id: fixture_analysis
+version: "0.1.0"
+description: Tiny CSV analysis tasks for migrated agent integration.
+protocol_versions: ["1.0"]
+task_types: [data.analysis.python.v1]
+prepare:
+  command: [./prepare.py]
+  runtime: {kind: local}
+evaluate:
+  command: [./evaluate.py]
+  runtime: {kind: local}
+evaluator: {id: fixture_analysis.artifact_check, version: "0.1.0"}
+schemas:
+  data.analysis.python.v1:
+    input: schemas/input.schema.json
+    output: schemas/output.schema.json
+metrics:
+  task_completed: {description: Expected result appears in answer and artifact exists.}
+aggregation:
+  task_completed: {operation: mean, agent_failure: exclude}

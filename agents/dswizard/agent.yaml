@@ -1,0 +1,14 @@
+manifest_version: "1.0"
+agent_id: dswizard
+description: Standalone migrated two-phase DSWizard.
+protocol_versions: ["1.0"]
+task_types: [data.analysis.python.v1]
+local: {command: [./.venv/bin/bioagent-dswizard]}
+docker:
+  build_context: .
+  dockerfile: Dockerfile
+  image: bioagent-gym/dswizard:0.1
+  command: [bioagent-dswizard]
+required_env: []
+resources: {cpus: 1, memory: 512m, gpus: 0, network: false}
+budget_capabilities: {model_calls: reported_only}

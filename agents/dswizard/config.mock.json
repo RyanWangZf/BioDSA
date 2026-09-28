@@ -1,0 +1,1 @@
+{"provider":"mock","model":"deterministic-dswizard","small_model":"deterministic-planner","temperature":1.0,"execution_environment":{"backend":"local_subprocess","timeout_seconds":10}}
