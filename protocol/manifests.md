@@ -26,8 +26,9 @@ is strict: defaults, agent manifest, experiment override, benchmark constraint,
 then backend capability validation. The removed `resources.network` field is
 invalid and has no compatibility mapping.
 
-An agent that executes generated code declares a `sandbox` Docker runtime and
-its own `required_env` allowlist. Equal agent/sandbox policies may share one
+An agent that executes generated code declares a `sandbox` Docker runtime,
+its own `resources`, and its own `required_env` allowlist. Agent `resources`
+limit the agent runtime; `sandbox.resources` limit a separate sandbox. Equal agent/sandbox policies may share one
 container. Different policies use a host-managed sidecar and a file channel;
 the Docker socket is never mounted. Docker `none` is enforced with
 `--network none`; `internet` uses ordinary container networking without host

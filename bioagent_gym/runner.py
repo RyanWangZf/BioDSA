@@ -193,7 +193,7 @@ def run_experiment(config_path: Path, evaluate_after: bool = True) -> Path:
                 if resolved["_network"]["boundary"] == "separate":
                     channel = attempt / "sandbox-channel"; channel.mkdir()
                     sandbox_names = resolved["_agent"]["sandbox"].get("required_env", [])
-                    sandbox = SandboxContainer(resolved["_agent"], workspace, channel, resolved["_network"]["sandbox"]["mode"], sandbox_names)
+                    sandbox = SandboxContainer(resolved["_agent"], workspace, channel, resolved["_network"]["sandbox"]["mode"], sandbox_names, logs)
                     sandbox.start()
                 backend, argv = _agent_command(resolved, input_dir, workspace, output_dir, config_snapshot, channel)
                 backend.start(argv, workspace, env, logs / "stdout.log", logs / "stderr.log"); outcome = backend.wait(float(resolved["budget"]["wall_time_seconds"])); task_record.update(vars(outcome))

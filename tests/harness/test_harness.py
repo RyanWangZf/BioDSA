@@ -86,6 +86,8 @@ class NetworkPolicyTests(unittest.TestCase):
             sandbox=SandboxContainer(manifest,workspace,channel,"none",["DECLARED_FAKE"])
             try:
                 sandbox.start(); requests=channel/"requests"; responses=channel/"responses"; deadline=time.monotonic()+5
+                inspect=json.loads(subprocess.run(["docker","inspect",sandbox.container_name],capture_output=True,text=True,check=True).stdout)[0]
+                self.assertEqual(inspect["HostConfig"]["NetworkMode"],"none"); self.assertEqual(inspect["HostConfig"]["NanoCpus"],500000000); self.assertEqual(inspect["HostConfig"]["Memory"],268435456)
                 while not requests.is_dir() and time.monotonic()<deadline: time.sleep(.02)
                 self.assertTrue(requests.is_dir())
                 def submit(identifier: str, code: str, timeout: float = 3) -> dict:
@@ -93,13 +95,22 @@ class NetworkPolicyTests(unittest.TestCase):
                     while not response.is_file() and time.monotonic()<deadline: time.sleep(.02)
                     self.assertTrue(response.is_file()); return json.loads(response.read_text())
                 value=submit("probe","import os,socket\ntry:\n socket.create_connection(('1.1.1.1',80),.5); network='connected'\nexcept OSError:\n network='blocked'\nprint(network,os.getenv('DECLARED_FAKE'),os.getenv('UNDECLARED_FAKE'))")
-                self.assertEqual(value["exit_code"],0); self.assertEqual(value["stdout"].strip(),"blocked visible None")
-                self.assertNotEqual(submit("failure","raise RuntimeError('expected')")["exit_code"],0)
-                self.assertTrue(submit("timeout","import time; time.sleep(10)",.05)["timed_out"])
+                self.assertTrue(value["ok"]); self.assertEqual(value["result"]["exit_code"],0); self.assertEqual(value["result"]["stdout"].strip(),"blocked visible None")
+                self.assertNotEqual(submit("failure","raise RuntimeError('expected')")["result"]["exit_code"],0)
+                self.assertTrue(submit("timeout","import time; time.sleep(10)",.05)["result"]["timed_out"])
             finally:
                 name=sandbox.container_name; sandbox.cleanup()
             remaining=subprocess.run(["docker","ps","-a","--filter",f"name=^{name}$","--format","{{.Names}}"],capture_output=True,text=True,check=True).stdout.strip()
             self.assertEqual(remaining,"")
+
+    def test_sandbox_worker_startup_failure_is_bounded_and_has_logs(self) -> None:
+        if subprocess.run(["docker","info"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode: self.skipTest("Docker daemon unavailable")
+        if subprocess.run(["docker","image","inspect","bioagent-gym/coder:0.1"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode: self.skipTest("Coder sandbox image unavailable")
+        manifest=load_agent(ROOT/"agents/coder/agent.yaml"); manifest["sandbox"]["docker"]["command"]=["python","-c","import sys; print('worker-boom',file=sys.stderr); sys.exit(7)"]
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary); (root/"workspace").mkdir(); (root/"channel").mkdir(); sandbox=SandboxContainer(manifest,root/"workspace",root/"channel","none",[],root/"logs",2); started=time.monotonic()
+            with self.assertRaisesRegex(HarnessError,"exited before ready.*worker-boom"): sandbox.start()
+            self.assertLess(time.monotonic()-started,2); self.assertIn("worker-boom",(root/"logs/sandbox.stderr.log").read_text())
 
 
 class ProtocolTests(unittest.TestCase):

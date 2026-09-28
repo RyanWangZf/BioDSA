@@ -18,5 +18,6 @@ sandbox:
     image: bioagent-gym/coder:0.1
     command: [python, -m, bioagent_coder.sandbox_worker]
   required_env: []
+  resources: {cpus: 0.5, memory: 256m, gpus: 0}
 resources: {cpus: 1, memory: 512m, gpus: 0}
 budget_capabilities: {model_calls: reported_only}

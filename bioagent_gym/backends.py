@@ -6,6 +6,8 @@ import signal
 import subprocess
 import time
 import uuid
+import json
+import threading
 from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
@@ -174,7 +176,7 @@ class DockerBackend(LocalBackend):
 class SandboxContainer:
     """Host-managed generated-code container using a shared file channel."""
 
-    def __init__(self, manifest: dict, workspace_dir: Path, channel_dir: Path, network_mode: str, env_names: list[str]):
+    def __init__(self, manifest: dict, workspace_dir: Path, channel_dir: Path, network_mode: str, env_names: list[str], logs_dir: Path | None = None, startup_timeout: float = 10):
         if not shutil.which("docker"):
             raise HarnessError("docker executable is unavailable")
         self.manifest = manifest
@@ -184,23 +186,67 @@ class SandboxContainer:
         self.env_names = env_names
         self.container_name = f"bioagent-gym-sandbox-{uuid.uuid4().hex[:16]}"
         self.started = False
+        self.logs_dir = logs_dir.resolve() if logs_dir else self.channel_dir
+        self.startup_timeout = startup_timeout
+        self._stop_monitor = threading.Event()
+        self._monitor: threading.Thread | None = None
 
     def start(self) -> None:
         docker = self.manifest["sandbox"]["docker"]
-        argv = ["docker", "run", "-d", "--name", self.container_name, "--rm"]
+        # Keep the stopped container until cleanup so startup/worker logs remain
+        # available after an early exit.
+        argv = ["docker", "run", "-d", "--name", self.container_name]
         argv += ["--mount", f"type=bind,src={self.workspace_dir},dst=/workspace"]
         argv += ["--mount", f"type=bind,src={self.channel_dir},dst=/channel"]
         argv += ["--workdir", "/workspace"]
         if self.network_mode == "none": argv += ["--network", "none"]
         for name in self.env_names: argv += ["--env", name]
+        resources = self.manifest["sandbox"].get("resources", {})
+        if resources.get("cpus") is not None: argv += ["--cpus", str(resources["cpus"])]
+        if resources.get("memory"): argv += ["--memory", str(resources["memory"])]
+        if resources.get("gpus"): argv += ["--gpus", str(resources["gpus"])]
         argv += [docker["image"], *docker["command"], "--channel", "/channel"]
         completed = subprocess.run(argv, capture_output=True, text=True)
         if completed.returncode:
             raise HarnessError(f"sandbox container failed to start: {completed.stderr.strip()}")
         self.started = True
+        deadline = time.monotonic() + self.startup_timeout
+        ready = self.channel_dir / "ready.json"
+        while time.monotonic() < deadline:
+            if ready.is_file():
+                self._monitor = threading.Thread(target=self._monitor_worker, daemon=True); self._monitor.start()
+                return
+            status = subprocess.run(["docker", "inspect", "--format", "{{.State.Running}} {{.State.ExitCode}}", self.container_name], capture_output=True, text=True)
+            if status.returncode or not status.stdout.startswith("true "):
+                detail = self._capture_logs()
+                self.cleanup()
+                raise HarnessError(f"sandbox worker exited before ready: {status.stdout.strip() or status.stderr.strip()}; logs: {detail}")
+            time.sleep(.05)
+        detail = self._capture_logs(); self.cleanup()
+        raise HarnessError(f"sandbox worker did not become ready within {self.startup_timeout:g}s; logs: {detail}")
+
+    def _capture_logs(self) -> str:
+        completed = subprocess.run(["docker", "logs", self.container_name], capture_output=True, text=True)
+        self.logs_dir.mkdir(parents=True, exist_ok=True)
+        (self.logs_dir / "sandbox.stdout.log").write_text(completed.stdout)
+        (self.logs_dir / "sandbox.stderr.log").write_text(completed.stderr)
+        return (completed.stderr or completed.stdout).strip()[-1000:] or "<empty>"
+
+    def _monitor_worker(self) -> None:
+        while not self._stop_monitor.wait(.1):
+            status = subprocess.run(["docker", "inspect", "--format", "{{.State.Running}} {{.State.ExitCode}}", self.container_name], capture_output=True, text=True)
+            if status.returncode or not status.stdout.startswith("true "):
+                detail = self._capture_logs()
+                temporary = self.channel_dir / ".worker-failure.tmp"
+                temporary.write_text(json.dumps({"code":"worker_exited","message":detail,"container_status":status.stdout.strip()}))
+                os.replace(temporary, self.channel_dir / "worker-failure.json")
+                return
 
     def cleanup(self) -> None:
         if not self.started: return
+        self._stop_monitor.set()
+        self._capture_logs()
         with suppress(Exception):
             subprocess.run(["docker", "rm", "-f", self.container_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=5, check=False)
         self.started = False
+        if self._monitor and self._monitor is not threading.current_thread(): self._monitor.join(timeout=1)

@@ -55,9 +55,13 @@ only declared input assets into the workspace and collects declared output
 files; benchmark references never enter the agent request or workspace.
 
 `local_subprocess` is a development execution environment, not a sandbox. With
-the harness Docker backend, it executes inside the task's agent container. The
-host harness owns container startup and cleanup and does not mount the Docker
-socket. There is no Docker-to-host fallback.
+the Docker backend, equal agent/sandbox network policies execute generated code
+inside the task's agent container. Different policies use a separate
+host-harness-managed sandbox container and an atomic file request/response
+channel. The worker emits a ready marker before the agent starts; the harness
+monitors liveness, captures logs, applies sandbox-specific CPU/memory/GPU
+limits, and cleans up both containers. The Docker socket is never mounted and
+there is no Docker-to-host fallback.
 
 ## Compatibility and verification scope
 
@@ -70,5 +74,5 @@ Deterministic mock clients drive the real workflow and real Python subprocesses
 without paid API calls. The live adapters accept OpenAI, Azure OpenAI,
 Anthropic, and Google-style configuration and preserve bounded retry behavior,
 but live provider calls are not part of the default verification. The mock,
-local execution, package isolation, and harness paths are verified. Docker is
-verified only when a daemon is available.
+local execution, package isolation, shared-container Docker path, and separate
+sandbox Docker path are verified when a daemon is available.

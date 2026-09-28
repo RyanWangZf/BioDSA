@@ -27,7 +27,12 @@ class FileExecutionSession:
   if self.closed: raise RuntimeError("execution session is closed")
   request_id=uuid.uuid4().hex; requests=self.channel/"requests"; responses=self.channel/"responses"; requests.mkdir(parents=True,exist_ok=True); responses.mkdir(parents=True,exist_ok=True); temporary=requests/f".{request_id}.tmp"; target=requests/f"{request_id}.json"; temporary.write_text(json.dumps({"code":code,"timeout_seconds":self.timeout})); os.replace(temporary,target); response=responses/f"{request_id}.json"; deadline=time.monotonic()+self.timeout+5
   while time.monotonic()<deadline:
-   if response.is_file(): value=json.loads(response.read_text()); response.unlink(missing_ok=True); return ExecutionResult(**value)
+   failure=self.channel/"worker-failure.json"
+   if failure.is_file(): raise RuntimeError(f"sandbox worker failed: {json.loads(failure.read_text()).get('message','unknown error')}")
+   if response.is_file():
+    value=json.loads(response.read_text()); response.unlink(missing_ok=True)
+    if not value.get("ok"): raise RuntimeError(f"sandbox request failed: {value.get('error',{}).get('message','unknown error')}")
+    return ExecutionResult(**value["result"])
    time.sleep(.02)
   raise TimeoutError("sandbox response timed out")
  def close(self): self.closed=True

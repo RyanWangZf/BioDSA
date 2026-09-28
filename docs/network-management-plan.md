@@ -1,6 +1,6 @@
 # Network management implementation plan
 
-Status: implemented; Docker integration pending an available daemon
+Status: implemented and Docker-verified
 
 1. Replace `resources.network` with independently resolved `network.agent` and
    `network.sandbox` policies. Resolution order is framework defaults, agent
