@@ -8,6 +8,8 @@ benchmark:
   data_revision: fixture-r1
 execution:
   backend: local
+  network:
+    agent: {mode: internet}
 budget:
   wall_time_seconds: 10
 seed: 7

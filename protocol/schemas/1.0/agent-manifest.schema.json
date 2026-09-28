@@ -22,13 +22,21 @@
       }
     },
     "required_env": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$"}},
+    "network": {"$ref": "#/$defs/network-policy"},
+    "sandbox": {
+      "type": "object", "additionalProperties": false,
+      "required": ["docker"],
+      "properties": {
+        "docker": {"$ref": "#/$defs/docker-runtime"},
+        "required_env": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$"}}
+      }
+    },
     "resources": {
       "type": "object", "additionalProperties": false,
       "properties": {
         "cpus": {"type": "number", "exclusiveMinimum": 0},
         "memory": {"type": "string", "minLength": 1},
-        "gpus": {"oneOf": [{"type": "integer", "minimum": 0}, {"type": "string", "minLength": 1}]},
-        "network": {"type": "boolean"}
+        "gpus": {"oneOf": [{"type": "integer", "minimum": 0}, {"type": "string", "minLength": 1}]}
       }
     },
     "budget_capabilities": {
@@ -45,6 +53,9 @@
   },
   "$defs": {
     "argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-    "command": {"type": "object", "additionalProperties": false, "required": ["command"], "properties": {"command": {"$ref": "#/$defs/argv"}}}
+    "command": {"type": "object", "additionalProperties": false, "required": ["command"], "properties": {"command": {"$ref": "#/$defs/argv"}}},
+    "mode": {"type": "object", "additionalProperties": false, "required": ["mode"], "properties": {"mode": {"enum": ["internet", "none"]}}},
+    "network-policy": {"type": "object", "additionalProperties": false, "properties": {"agent": {"$ref": "#/$defs/mode"}, "sandbox": {"$ref": "#/$defs/mode"}}},
+    "docker-runtime": {"type": "object", "additionalProperties": false, "required": ["image", "command"], "properties": {"build_context": {"type": "string", "minLength": 1}, "dockerfile": {"type": "string", "minLength": 1}, "image": {"type": "string", "minLength": 1}, "command": {"$ref": "#/$defs/argv"}}}
   }
 }

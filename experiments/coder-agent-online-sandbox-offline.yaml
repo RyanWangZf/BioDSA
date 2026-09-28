@@ -8,9 +8,8 @@ benchmark:
   split: test
   data_revision: analysis-r1
 execution:
-  backend: local
+  backend: docker
   network:
-    agent: {mode: internet}
-    sandbox: {mode: internet}
-budget: {wall_time_seconds: 20}
-output: ../.bioagent-gym/coder-analysis-run
+    sandbox: {mode: none}
+budget: {wall_time_seconds: 30}
+output: ../.bioagent-gym/coder-sandbox-offline-run

@@ -53,10 +53,14 @@ def cmd_validate(args: argparse.Namespace) -> None:
     resolved = resolve_experiment(Path(args.config))
     manifest, tasks = validate_prepared(resolved)
     # Validate presence only; validity of credentials remains an agent/provider concern.
-    missing = [name for name in resolved["_agent"].get("required_env", []) if not __import__("os").environ.get(name)]
+    missing = [name for name in resolved["_agent_env_names"] if not __import__("os").environ.get(name)]
     if missing:
         raise HarnessError(f"missing required environment variables: {', '.join(missing)}")
-    print(json.dumps({"valid": True, "tasks": len(tasks), "data_revision": manifest.get("data_revision")}, indent=2))
+    sandbox_env = resolved["_agent"].get("sandbox", {}).get("required_env", [])
+    missing_sandbox = [name for name in sandbox_env if not __import__("os").environ.get(name)]
+    if missing_sandbox:
+        raise HarnessError(f"missing required sandbox environment variables: {', '.join(missing_sandbox)}")
+    print(json.dumps({"valid": True, "tasks": len(tasks), "data_revision": manifest.get("data_revision"), "network": resolved["_network"]}, indent=2))
 
 
 def cmd_prepare(args: argparse.Namespace) -> None:

@@ -44,10 +44,11 @@ class LocalBackend:
         try:
             self._stdout = stdout.open("wb")
             self._stderr = stderr.open("wb")
+            inherited = {name: os.environ[name] for name in ("PATH", "HOME", "TMPDIR", "LANG", "LC_ALL", "SSL_CERT_FILE", "SSL_CERT_DIR") if name in os.environ}
             self.process = subprocess.Popen(
                 argv,
                 cwd=cwd,
-                env={**os.environ, **env},
+                env={**inherited, **env},
                 stdout=self._stdout,
                 stderr=self._stderr,
                 start_new_session=True,
@@ -111,7 +112,7 @@ class LocalBackend:
 
 
 class DockerBackend(LocalBackend):
-    def __init__(self, manifest: dict, request_dir: Path, workspace_dir: Path, output_dir: Path):
+    def __init__(self, manifest: dict, request_dir: Path, workspace_dir: Path, output_dir: Path, network_mode: str = "internet", channel_dir: Path | None = None, env_names: list[str] | None = None):
         super().__init__()
         if not shutil.which("docker"):
             raise HarnessError("docker executable is unavailable")
@@ -119,6 +120,9 @@ class DockerBackend(LocalBackend):
         self.request_dir = request_dir.resolve()
         self.workspace_dir = workspace_dir.resolve()
         self.output_dir = output_dir.resolve()
+        self.network_mode = network_mode
+        self.channel_dir = channel_dir.resolve() if channel_dir else None
+        self.env_names = env_names or list(manifest.get("required_env", []))
         self.container_name = f"bioagent-gym-{uuid.uuid4().hex[:16]}"
 
     def agent_argv(self, extra: list[str]) -> list[str]:
@@ -131,10 +135,12 @@ class DockerBackend(LocalBackend):
         argv += ["--mount", f"type=bind,src={self.request_dir},dst=/input,readonly"]
         argv += ["--mount", f"type=bind,src={self.output_dir},dst=/output"]
         argv += ["--mount", f"type=bind,src={self.workspace_dir},dst=/workspace"]
+        if self.channel_dir:
+            argv += ["--mount", f"type=bind,src={self.channel_dir},dst=/sandbox-channel"]
         argv += ["--workdir", "/workspace"]
         # `--env NAME` copies the value from the docker CLI environment without
         # placing the secret in argv, manifests, requests, or run records.
-        for name in self.manifest.get("required_env", []):
+        for name in self.env_names:
             argv += ["--env", name]
         resources = self.manifest.get("resources", {})
         if resources.get("cpus") is not None:
@@ -143,7 +149,7 @@ class DockerBackend(LocalBackend):
             argv += ["--memory", str(resources["memory"])]
         if resources.get("gpus"):
             argv += ["--gpus", str(resources["gpus"])]
-        if not resources.get("network", False):
+        if self.network_mode == "none":
             argv += ["--network", "none"]
         argv += [image, *command, *extra]
         return argv
@@ -163,3 +169,38 @@ class DockerBackend(LocalBackend):
                 stderr=subprocess.DEVNULL, timeout=5, check=False,
             )
         super().cleanup()
+
+
+class SandboxContainer:
+    """Host-managed generated-code container using a shared file channel."""
+
+    def __init__(self, manifest: dict, workspace_dir: Path, channel_dir: Path, network_mode: str, env_names: list[str]):
+        if not shutil.which("docker"):
+            raise HarnessError("docker executable is unavailable")
+        self.manifest = manifest
+        self.workspace_dir = workspace_dir.resolve()
+        self.channel_dir = channel_dir.resolve()
+        self.network_mode = network_mode
+        self.env_names = env_names
+        self.container_name = f"bioagent-gym-sandbox-{uuid.uuid4().hex[:16]}"
+        self.started = False
+
+    def start(self) -> None:
+        docker = self.manifest["sandbox"]["docker"]
+        argv = ["docker", "run", "-d", "--name", self.container_name, "--rm"]
+        argv += ["--mount", f"type=bind,src={self.workspace_dir},dst=/workspace"]
+        argv += ["--mount", f"type=bind,src={self.channel_dir},dst=/channel"]
+        argv += ["--workdir", "/workspace"]
+        if self.network_mode == "none": argv += ["--network", "none"]
+        for name in self.env_names: argv += ["--env", name]
+        argv += [docker["image"], *docker["command"], "--channel", "/channel"]
+        completed = subprocess.run(argv, capture_output=True, text=True)
+        if completed.returncode:
+            raise HarnessError(f"sandbox container failed to start: {completed.stderr.strip()}")
+        self.started = True
+
+    def cleanup(self) -> None:
+        if not self.started: return
+        with suppress(Exception):
+            subprocess.run(["docker", "rm", "-f", self.container_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=5, check=False)
+        self.started = False

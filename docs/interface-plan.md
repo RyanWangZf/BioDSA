@@ -85,8 +85,10 @@ It is a development convenience and provides no security isolation.
 The Docker backend uses the Docker CLI and a uniquely named, disposable
 container. Agent input is mounted read-only and output read-write; neither the
 repository, prepared `private/`, nor the Docker socket is mounted. The image
-comes from the agent manifest or is built explicitly. CPU, memory, GPU, and
-network settings are translated from the manifest. Cleanup force-removes the
+comes from the agent manifest or is built explicitly. CPU, memory, and GPU
+settings are translated from the manifest. Agent and generated-code network
+policies use the current `network.agent` and `network.sandbox` interface
+documented in `protocol/manifests.md`. Cleanup force-removes the
 named container. Benchmark runtime/container isolation is a manifest boundary
 in phase 1; prepare and evaluate execute locally.
 

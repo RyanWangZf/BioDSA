@@ -11,6 +11,10 @@
     "evaluator": {"type": "object", "additionalProperties": false, "required": ["id", "version"], "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "string", "minLength": 1}}},
     "schemas": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "object", "additionalProperties": false, "required": ["input", "output"], "properties": {"input": {"type": "string", "minLength": 1}, "output": {"type": "string", "minLength": 1}}}},
     "metrics": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": false, "properties": {"description": {"type": "string"}}}},
+    "network_constraints": {"type": "object", "additionalProperties": false, "properties": {
+      "agent": {"$ref": "#/$defs/network-constraint"},
+      "sandbox": {"$ref": "#/$defs/network-constraint"}
+    }},
     "aggregation": {"type": "object", "additionalProperties": {"oneOf": [
       {"enum": ["mean", "sum", "min", "max", "count"]},
       {"type": "object", "additionalProperties": false, "required": ["operation", "agent_failure"], "properties": {"operation": {"enum": ["mean", "sum", "min", "max", "count"]}, "agent_failure": {"enum": ["exclude", "zero"]}}}
@@ -19,6 +23,7 @@
   },
   "$defs": {
     "argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-    "process": {"type": "object", "additionalProperties": false, "required": ["command", "runtime"], "properties": {"command": {"$ref": "#/$defs/argv"}, "runtime": {"type": "object", "additionalProperties": false, "required": ["kind"], "properties": {"kind": {"enum": ["local", "docker"]}}}, "required_env": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}}}
+    "process": {"type": "object", "additionalProperties": false, "required": ["command", "runtime"], "properties": {"command": {"$ref": "#/$defs/argv"}, "runtime": {"type": "object", "additionalProperties": false, "required": ["kind"], "properties": {"kind": {"enum": ["local", "docker"]}}}, "required_env": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}}},
+    "network-constraint": {"type": "object", "additionalProperties": false, "required": ["allowed_modes"], "properties": {"allowed_modes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["internet", "none"]}}}}
   }
 }

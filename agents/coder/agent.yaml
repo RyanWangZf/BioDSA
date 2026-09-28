@@ -10,5 +10,13 @@ docker:
   image: bioagent-gym/coder:0.1
   command: [bioagent-coder]
 required_env: []
-resources: {cpus: 1, memory: 512m, gpus: 0, network: false}
+network:
+  agent: {mode: internet}
+  sandbox: {mode: internet}
+sandbox:
+  docker:
+    image: bioagent-gym/coder:0.1
+    command: [python, -m, bioagent_coder.sandbox_worker]
+  required_env: []
+resources: {cpus: 1, memory: 512m, gpus: 0}
 budget_capabilities: {model_calls: reported_only}

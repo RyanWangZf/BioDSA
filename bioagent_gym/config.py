@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+import re
 
 from .errors import HarnessError
 from .io import common_schema, read_json, read_jsonl, read_yaml, safe_relative_file, validate_schema
 from .manifests import load_agent, load_benchmark
+from .network import resolve_network
 
 
 def resolve_experiment(path: Path) -> dict[str, Any]:
@@ -27,12 +29,19 @@ def resolve_experiment(path: Path) -> dict[str, Any]:
     backend = config["execution"]["backend"]
     if backend == "docker" and "docker" not in agent:
         raise HarnessError(f"experiment {path.resolve()}: Docker backend requested but agent has no docker configuration")
+    network = resolve_network(agent, benchmark, config["execution"])
     config_snapshot = None
     if config["agent"].get("config"):
         agent_config_path = (base / config["agent"]["config"]).resolve()
         config_snapshot = read_json(agent_config_path)
         if not isinstance(config_snapshot, dict):
             raise HarnessError(f"agent config must be a JSON object: {agent_config_path}")
+    agent_env_names = list(agent.get("required_env", []))
+    configured_key = config_snapshot.get("api_key_env") if config_snapshot else None
+    if configured_key:
+        if not isinstance(configured_key, str) or not re.fullmatch(r"[A-Z_][A-Z0-9_]*", configured_key):
+            raise HarnessError("agent config api_key_env must be an environment variable name")
+        if configured_key not in agent_env_names: agent_env_names.append(configured_key)
     return {
         **config,
         "_config_path": str(path.resolve()),
@@ -42,6 +51,8 @@ def resolve_experiment(path: Path) -> dict[str, Any]:
         "_output": str(output),
         "_compatible_task_types": sorted(common_tasks),
         "_agent_config": config_snapshot,
+        "_agent_env_names": agent_env_names,
+        "_network": network,
     }
 
 

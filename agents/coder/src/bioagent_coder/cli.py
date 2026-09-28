@@ -10,7 +10,7 @@ def atomic(path,value):
 def main(argv=None):
     p=argparse.ArgumentParser(prog="bioagent-coder"); p.add_argument("--request",required=True); p.add_argument("--output-dir",required=True); p.add_argument("--config",required=True); a=p.parse_args(argv)
     req=json.loads(Path(a.request).read_text()); config=json.loads(Path(a.config).read_text()); out=Path(a.output_dir).resolve(); out.mkdir(parents=True,exist_ok=True); workspace=Path.cwd()
-    if config.get("execution_environment",{}).get("backend")!="local_subprocess": raise SystemExit("unsupported execution_environment.backend; no fallback")
+    if config.get("execution_environment",{}).get("backend") not in ("local_subprocess","file_channel"): raise SystemExit("unsupported execution_environment.backend; no fallback")
     try:
         files=[]
         for asset in req["assets"]:

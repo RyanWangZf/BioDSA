@@ -2,7 +2,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 from .client import MockClient,OpenAICompatibleClient
-from .execution import PythonExecutionSession
+from .execution import execution_session
 PLAN_PROMPT="""You are an expert data analysis agent. Create a step-by-step natural-language analysis plan that can be faithfully implemented as Python code.
 
 First understand the request and explore the available datasets with code to collect schema, value-range, and package information. Then create a plan containing the analysis steps and quality-control steps. Review it for missing steps or ambiguous dataset choices before completing it. Use explicit print() statements for every code output.
@@ -22,7 +22,7 @@ class DSWizardAgent:
  def __init__(self,config,workspace:Path): self.config,self.workspace=config,workspace; self.client=MockClient() if config.get("provider","mock")=="mock" else OpenAICompatibleClient(config)
  def run(self,task,data_files):
   logs=[]; codes=[]; timeout=float(self.config["execution_environment"]["timeout_seconds"])
-  with PythonExecutionSession(self.workspace,timeout) as session:
+  with execution_session(self.config,self.workspace) as session:
    if isinstance(self.client,MockClient): explore=self.client.exploration_code(data_files[0])
    else:
     response=self.client.complete([{"role":"system","content":PLAN_PROMPT.format(datasets="\n".join(data_files))},{"role":"user","content":task+"\nReturn one exploratory ```python block."}]); explore="\n".join(x.strip() for x in re.findall(r"```python(.*?)```",response,re.S|re.I))

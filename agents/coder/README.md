@@ -11,8 +11,10 @@ python -m venv .venv && .venv/bin/pip install -e .
 
 `local_subprocess` is explicit and is not a security boundary. Every execution
 uses a fresh interpreter in one task workspace: files persist between calls,
-Python variables do not. Docker runs the same executor inside the agent
-container; no Docker socket is mounted.
+Python variables do not. The manifest defaults both agent and generated code
+to `internet`. With Docker, an experiment can set only the sandbox to `none`;
+the harness then starts a separate offline execution sidecar and communicates
+through a file channel. No Docker socket is mounted. Local `none` is rejected.
 
 Run through BioAgent Gym after installing this project in its local `.venv`:
 
@@ -22,6 +24,12 @@ bioagent-gym prepare --benchmark fixture_analysis \
   --output .bioagent-gym/analysis-prepared
 bioagent-gym run --config experiments/coder-fixture-analysis.yaml
 ```
+
+The split-network Docker example is
+`experiments/coder-agent-online-sandbox-offline.yaml`.
+The deterministic mock Docker smoke explicitly disables both layers in
+`experiments/coder-fixture-analysis-docker-offline.yaml`. The local mock
+experiment explicitly uses host networking because local `none` is unsupported.
 
 For a direct protocol invocation, pass a prepared `request.json` and an output
 directory:

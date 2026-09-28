@@ -8,21 +8,98 @@ import sys
 import tempfile
 import time
 import unittest
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from unittest import mock
 from pathlib import Path
 
 import yaml
 
-from bioagent_gym.backends import LocalBackend
+from bioagent_gym.backends import LocalBackend, SandboxContainer
 from bioagent_gym.errors import HarnessError
 from bioagent_gym.io import atomic_json
 from bioagent_gym.config import resolve_experiment, validate_prepared
 from bioagent_gym.runner import _validate_result, evaluate_run, run_experiment
 from bioagent_gym.settings import cache_dir
+from bioagent_gym.manifests import load_agent
+from bioagent_gym.network import resolve_network
 
 
 ROOT = Path(__file__).resolve().parents[2]
 INPUT_SCHEMA = ROOT / "benchmarks/fixture_qa/schemas/qa-output.schema.json"
+
+
+class NetworkPolicyTests(unittest.TestCase):
+    def test_defaults_partial_override_and_sources(self) -> None:
+        agent = {"sandbox": {"docker": {}}, "network": {"agent": {"mode": "none"}}}
+        resolved = resolve_network(agent, {}, {"backend": "docker", "network": {"sandbox": {"mode": "none"}}})
+        self.assertEqual(resolved["agent"], {"mode":"none","source":"agent_manifest","applicable":True,"enforced":True,"enforcement":"docker_network_mode"})
+        self.assertEqual(resolved["sandbox"]["source"], "experiment")
+        self.assertEqual(resolved["boundary"], "shared")
+
+    def test_benchmark_conflict_and_local_none_are_rejected(self) -> None:
+        with self.assertRaisesRegex(HarnessError, "benchmark allows sandbox"):
+            resolve_network({"sandbox": {"docker": {}}}, {"network_constraints":{"sandbox":{"allowed_modes":["none"]}}}, {"backend":"docker"})
+        with self.assertRaisesRegex(HarnessError, "local backend cannot enforce"):
+            resolve_network({"network":{"agent":{"mode":"none"}}}, {}, {"backend":"local"})
+
+    def test_no_sandbox_is_not_applicable(self) -> None:
+        resolved = resolve_network({}, {}, {"backend":"local"})
+        self.assertFalse(resolved["sandbox"]["applicable"])
+        self.assertEqual(resolved["boundary"], "agent_only")
+
+    def test_removed_resources_network_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            manifest = Path(temporary)/"agent.yaml"
+            manifest.write_text(yaml.safe_dump({"manifest_version":"1.0","agent_id":"old","protocol_versions":["1.0"],"task_types":["qa.multiple_choice.v1"],"local":{"command":["true"]},"resources":{"network":False}}))
+            with self.assertRaisesRegex(HarnessError, "resources"):
+                load_agent(manifest)
+
+    def test_local_internet_reaches_controlled_endpoint_and_filters_env(self) -> None:
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200); self.end_headers(); self.wfile.write(b"controlled")
+            def log_message(self, *_): pass
+        try: server = ThreadingHTTPServer(("127.0.0.1",0),Handler)
+        except PermissionError: self.skipTest("test sandbox cannot bind a loopback endpoint")
+        thread=threading.Thread(target=server.serve_forever,daemon=True); thread.start()
+        try:
+            with tempfile.TemporaryDirectory() as temporary:
+                root=Path(temporary); script=root/"probe.py"; output=root/"value.txt"
+                script.write_text("import os,sys,urllib.request\nopen(sys.argv[2],'w').write(urllib.request.urlopen(sys.argv[1],timeout=2).read().decode()+'|'+str(os.getenv('DECLARED_FAKE'))+'|'+str(os.getenv('UNDECLARED_FAKE')))\n")
+                with mock.patch.dict(os.environ,{"DECLARED_FAKE":"visible","UNDECLARED_FAKE":"hidden"}):
+                    backend=LocalBackend(); backend.start([sys.executable,str(script),f"http://127.0.0.1:{server.server_port}",str(output)],root,{"DECLARED_FAKE":os.environ["DECLARED_FAKE"]},root/"stdout",root/"stderr"); outcome=backend.wait(5)
+                self.assertEqual(outcome.exit_code,0)
+                self.assertEqual(output.read_text(),"controlled|visible|None")
+        finally:
+            server.shutdown(); server.server_close()
+
+    def test_docker_none_executes_code_blocks_network_filters_env_and_cleans_up(self) -> None:
+        if subprocess.run(["docker","info"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
+            self.skipTest("Docker daemon unavailable")
+        if subprocess.run(["docker","image","inspect","bioagent-gym/coder:0.1"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
+            self.skipTest("Coder sandbox image unavailable")
+        manifest=load_agent(ROOT/"agents/coder/agent.yaml")
+        manifest["sandbox"]["required_env"]=["DECLARED_FAKE"]
+        with tempfile.TemporaryDirectory() as temporary, mock.patch.dict(os.environ,{"DECLARED_FAKE":"visible","UNDECLARED_FAKE":"hidden"}):
+            root=Path(temporary); workspace=root/"workspace"; channel=root/"channel"; workspace.mkdir(); channel.mkdir()
+            sandbox=SandboxContainer(manifest,workspace,channel,"none",["DECLARED_FAKE"])
+            try:
+                sandbox.start(); requests=channel/"requests"; responses=channel/"responses"; deadline=time.monotonic()+5
+                while not requests.is_dir() and time.monotonic()<deadline: time.sleep(.02)
+                self.assertTrue(requests.is_dir())
+                def submit(identifier: str, code: str, timeout: float = 3) -> dict:
+                    atomic_json(requests/f"{identifier}.json",{"code":code,"timeout_seconds":timeout}); response=responses/f"{identifier}.json"; deadline=time.monotonic()+8
+                    while not response.is_file() and time.monotonic()<deadline: time.sleep(.02)
+                    self.assertTrue(response.is_file()); return json.loads(response.read_text())
+                value=submit("probe","import os,socket\ntry:\n socket.create_connection(('1.1.1.1',80),.5); network='connected'\nexcept OSError:\n network='blocked'\nprint(network,os.getenv('DECLARED_FAKE'),os.getenv('UNDECLARED_FAKE'))")
+                self.assertEqual(value["exit_code"],0); self.assertEqual(value["stdout"].strip(),"blocked visible None")
+                self.assertNotEqual(submit("failure","raise RuntimeError('expected')")["exit_code"],0)
+                self.assertTrue(submit("timeout","import time; time.sleep(10)",.05)["timed_out"])
+            finally:
+                name=sandbox.container_name; sandbox.cleanup()
+            remaining=subprocess.run(["docker","ps","-a","--filter",f"name=^{name}$","--format","{{.Names}}"],capture_output=True,text=True,check=True).stdout.strip()
+            self.assertEqual(remaining,"")
 
 
 class ProtocolTests(unittest.TestCase):
@@ -97,9 +174,10 @@ class EndToEndTests(unittest.TestCase):
             config.write_text(yaml.safe_dump({
                 "protocol_version":"1.0", "agent":{"manifest":str(ROOT/"agents/fixture_agent/agent.yaml")},
                 "benchmark":{"manifest":str(ROOT/"benchmarks/fixture_qa/benchmark.yaml"),"prepared":str(prepared),"split":"test"},
-                "execution":{"backend":"local"}, "budget":{"wall_time_seconds":5}, "seed":7, "output":str(run),
+                "execution":{"backend":"local","network":{"agent":{"mode":"internet"}}}, "budget":{"wall_time_seconds":5}, "seed":7, "output":str(run),
             }), encoding="utf-8")
             run_experiment(config)
+            run_record=json.loads((run/"run-record.json").read_text()); self.assertEqual(run_record["network"]["boundary"],"agent_only"); self.assertEqual(run_record["network"]["agent"]["source"],"experiment")
             summary = evaluate_run(run)
             self.assertEqual(summary["metrics"]["accuracy"]["value"], 1.0)
             request_text = (run/"tasks/arithmetic/attempt-0001/input/request.json").read_text()
@@ -130,7 +208,7 @@ class EndToEndTests(unittest.TestCase):
     def _prepared_and_config(self, root: Path, **changes):
         prepared = root / "prepared"
         subprocess.run([str(ROOT/"benchmarks/fixture_qa/prepare.py"), "--config", str(ROOT/"experiments/fixture-prepare.json"), "--output-dir", str(prepared)], check=True)
-        value = {"protocol_version":"1.0", "agent":{"manifest":str(ROOT/"agents/fixture_agent/agent.yaml")}, "benchmark":{"manifest":str(ROOT/"benchmarks/fixture_qa/benchmark.yaml"),"prepared":str(prepared),"split":"test","data_revision":"fixture-r1"}, "execution":{"backend":"local"}, "budget":{"wall_time_seconds":5}, "output":str(root/"run")}
+        value = {"protocol_version":"1.0", "agent":{"manifest":str(ROOT/"agents/fixture_agent/agent.yaml")}, "benchmark":{"manifest":str(ROOT/"benchmarks/fixture_qa/benchmark.yaml"),"prepared":str(prepared),"split":"test","data_revision":"fixture-r1"}, "execution":{"backend":"local","network":{"agent":{"mode":"internet"}}}, "budget":{"wall_time_seconds":5}, "output":str(root/"run")}
         for key, item in changes.items(): value[key] = item
         config = root / "experiment.yaml"; config.write_text(yaml.safe_dump(value), encoding="utf-8")
         return prepared, config, value

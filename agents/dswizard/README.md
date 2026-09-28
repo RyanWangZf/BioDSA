@@ -12,8 +12,10 @@ python -m venv .venv && .venv/bin/pip install -e .
 The execution session uses fresh Python processes and a persistent per-task
 filesystem, matching the original sandbox semantics. `local_subprocess` is an
 explicit development backend. When the agent itself runs in Docker, generated
-code stays inside that host-harness-managed container; no Docker socket is
-mounted and there is no silent host fallback.
+code normally shares that container and both layers default to `internet`.
+Different policies use a host-managed execution sidecar and file channel; no
+Docker socket is mounted and there is no silent host fallback. Local `none` is
+rejected because it cannot be enforced.
 
 Run through BioAgent Gym after installing this project in its local `.venv`:
 
@@ -23,6 +25,10 @@ bioagent-gym prepare --benchmark fixture_analysis \
   --output .bioagent-gym/analysis-prepared
 bioagent-gym run --config experiments/dswizard-fixture-analysis.yaml
 ```
+
+The deterministic Docker smoke explicitly disables both network layers in
+`experiments/dswizard-fixture-analysis-docker-offline.yaml`. The local mock
+experiment explicitly uses host networking because local `none` is unsupported.
 
 The direct protocol form is:
 

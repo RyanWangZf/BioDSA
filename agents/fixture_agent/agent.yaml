@@ -11,9 +11,11 @@ docker:
   image: bioagent-gym/fixture-agent:0.1
   command: [python, /app/run.py]
 required_env: []
+network:
+  agent: {mode: none}
+  sandbox: {mode: none}
 resources:
   cpus: 1
   memory: 128m
   gpus: 0
-  network: false
 budget_capabilities: {}

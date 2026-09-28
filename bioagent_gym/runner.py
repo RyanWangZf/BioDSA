@@ -8,7 +8,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from .backends import DockerBackend, LocalBackend, utc_now
+from .backends import DockerBackend, LocalBackend, SandboxContainer, utc_now
 from .config import resolve_experiment, validate_prepared
 from .errors import HarnessError
 from .io import atomic_json, clean_env_names, common_schema, read_json, read_jsonl, safe_relative_dir, safe_relative_file, sha256, validate_schema
@@ -77,17 +77,25 @@ def _budget_record(resolved: dict[str, Any]) -> dict[str, str]:
     return record
 
 
-def _agent_command(resolved: dict[str, Any], input_dir: Path, workspace: Path, output_dir: Path, config_snapshot: Path | None) -> tuple[LocalBackend, list[str]]:
+def _agent_command(resolved: dict[str, Any], input_dir: Path, workspace: Path, output_dir: Path, config_snapshot: Path | None, channel: Path | None = None) -> tuple[LocalBackend, list[str]]:
     agent = resolved["_agent"]
+    runtime_config = None
+    if config_snapshot:
+        runtime_config = read_json(config_snapshot)
+        runtime_config["execution_environment"] = {**runtime_config.get("execution_environment", {}), "sandbox_env_names": agent.get("sandbox", {}).get("required_env", [])}
+        if channel:
+            runtime_config["execution_environment"].update({"backend": "file_channel", "channel_dir": "/sandbox-channel"})
+        atomic_json(input_dir / "agent-config.json", runtime_config)
     if resolved["execution"]["backend"] == "local":
         command, _ = resolve_command(agent, "local")
         args = ["--request", str(input_dir / "request.json"), "--output-dir", str(output_dir)]
-        if config_snapshot: args += ["--config", str(config_snapshot)]
+        if runtime_config is not None: args += ["--config", str(input_dir / "agent-config.json")]
         return LocalBackend(), command + args
-    backend = DockerBackend(agent, input_dir, workspace, output_dir)
+    env_names = list(resolved["_agent_env_names"])
+    if resolved["_network"]["boundary"] == "shared": env_names += list(agent.get("sandbox", {}).get("required_env", []))
+    backend = DockerBackend(agent, input_dir, workspace, output_dir, resolved["_network"]["agent"]["mode"], channel, env_names)
     args = ["--request", "/input/request.json", "--output-dir", "/output"]
-    if config_snapshot:
-        shutil.copy2(config_snapshot, input_dir / "agent-config.json")
+    if runtime_config is not None:
         args += ["--config", "/input/agent-config.json"]
     return backend, backend.agent_argv(args)
 
@@ -95,12 +103,22 @@ def _agent_command(resolved: dict[str, Any], input_dir: Path, workspace: Path, o
 def _ensure_docker_image(resolved: dict[str, Any]) -> None:
     if resolved["execution"]["backend"] != "docker": return
     if not shutil.which("docker"): raise HarnessError("docker executable is unavailable")
-    docker, base = resolved["_agent"]["docker"], Path(resolved["_agent"]["_path"]).parent
+    base = Path(resolved["_agent"]["_path"]).parent
+    images = [(resolved["_agent"]["docker"], "agent")]
+    if resolved["_network"]["boundary"] == "separate": images.append((resolved["_agent"]["sandbox"]["docker"], "sandbox"))
+    seen = set()
+    for docker, label in images:
+        if docker["image"] in seen: continue
+        seen.add(docker["image"])
+        _ensure_image(docker, base, label)
+
+
+def _ensure_image(docker: dict[str, Any], base: Path, label: str) -> None:
     if subprocess.run(["docker", "image", "inspect", docker["image"]], capture_output=True).returncode:
         context = safe_relative_dir(base, docker.get("build_context", "."), "docker build_context")
         dockerfile = safe_relative_file(base, docker.get("dockerfile", "Dockerfile"), "dockerfile")
         built = subprocess.run(["docker", "build", "-t", docker["image"], "-f", str(dockerfile), str(context)])
-        if built.returncode: raise HarnessError(f"docker image build failed with code {built.returncode}")
+        if built.returncode: raise HarnessError(f"{label} Docker image build failed with code {built.returncode}")
     try:
         docker["digest"] = subprocess.run(["docker", "image", "inspect", "--format", "{{.Id}}", docker["image"]], capture_output=True, text=True, check=True).stdout.strip() or None
     except subprocess.SubprocessError as exc:
@@ -110,6 +128,7 @@ def _ensure_docker_image(resolved: dict[str, Any]) -> None:
 def _snapshot_context(output: Path, resolved: dict[str, Any], prepared: dict[str, Any], tasks: list[dict[str, Any]], budget_record: dict[str, str]) -> tuple[dict[str, Any], Path | None]:
     context = output / "context"
     experiment = {key: value for key, value in resolved.items() if not key.startswith("_")}
+    experiment["network_resolution"] = resolved["_network"]
     experiment.update({"config_dir": str(Path(resolved["_config_path"]).parent), "prepared_path": resolved["_prepared"], "agent_manifest_path": resolved["_agent"]["_path"], "benchmark_manifest_path": resolved["_benchmark"]["_path"]})
     atomic_json(output / "resolved-experiment.json", experiment)
     atomic_json(context / "experiment.json", experiment)
@@ -130,7 +149,7 @@ def _snapshot_context(output: Path, resolved: dict[str, Any], prepared: dict[str
             destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
             reference.update({"kind": "snapshot", "path": str(destination)})
         else: reference.update({"kind": "external", "path": str(source)})
-    metadata = {"context_version": "1", "legacy": False, "protocol_version": resolved["protocol_version"], "benchmark_id": resolved["_benchmark"]["benchmark_id"], "benchmark_version": resolved["_benchmark"]["version"], "data_revision": prepared["data_revision"], "split": resolved["benchmark"]["split"], "evaluator": resolved["_benchmark"].get("evaluator"), "scoring": resolved["benchmark"].get("scoring", {}), "agent_config": str(config_path) if config_path else None, "budget_enforcement": budget_record, "reference": reference, "immutability": "version-and-snapshot; external content modified in place under the same version is not detectable"}
+    metadata = {"context_version": "1", "legacy": False, "protocol_version": resolved["protocol_version"], "benchmark_id": resolved["_benchmark"]["benchmark_id"], "benchmark_version": resolved["_benchmark"]["version"], "data_revision": prepared["data_revision"], "split": resolved["benchmark"]["split"], "evaluator": resolved["_benchmark"].get("evaluator"), "scoring": resolved["benchmark"].get("scoring", {}), "agent_config": str(config_path) if config_path else None, "budget_enforcement": budget_record, "network": resolved["_network"], "reference": reference, "immutability": "version-and-snapshot; external content modified in place under the same version is not detectable"}
     atomic_json(context / "metadata.json", metadata)
     atomic_json(output / "manifests" / "agent.json", public_manifest(resolved["_agent"]))
     atomic_json(output / "manifests" / "benchmark.json", public_manifest(resolved["_benchmark"]))
@@ -139,12 +158,16 @@ def _snapshot_context(output: Path, resolved: dict[str, Any], prepared: dict[str
 
 def _initial_record(resolved: dict[str, Any], run_id: str, prepared: dict[str, Any], budget: dict[str, str]) -> dict[str, Any]:
     docker = resolved["_agent"].get("docker", {})
-    return {"run_id": run_id, "status": "running", "started_at": utc_now(), "ended_at": None, "protocol_version": resolved["protocol_version"], "git_commit": _git_commit(), "agent_id": resolved["_agent"]["agent_id"], "benchmark_id": resolved["_benchmark"]["benchmark_id"], "benchmark_version": resolved["_benchmark"]["version"], "data_revision": prepared["data_revision"], "split": resolved["benchmark"]["split"], "prepared_checksum": prepared.get("checksum"), "backend": resolved["execution"]["backend"], "image": docker.get("image") if resolved["execution"]["backend"] == "docker" else None, "image_digest": docker.get("digest") if resolved["execution"]["backend"] == "docker" else None, "budget_enforcement": budget, "tasks": []}
+    sandbox_docker = resolved["_agent"].get("sandbox", {}).get("docker", {})
+    return {"run_id": run_id, "status": "running", "started_at": utc_now(), "ended_at": None, "protocol_version": resolved["protocol_version"], "git_commit": _git_commit(), "agent_id": resolved["_agent"]["agent_id"], "benchmark_id": resolved["_benchmark"]["benchmark_id"], "benchmark_version": resolved["_benchmark"]["version"], "data_revision": prepared["data_revision"], "split": resolved["benchmark"]["split"], "prepared_checksum": prepared.get("checksum"), "backend": resolved["execution"]["backend"], "network": resolved["_network"], "image": docker.get("image") if resolved["execution"]["backend"] == "docker" else None, "image_digest": docker.get("digest") if resolved["execution"]["backend"] == "docker" else None, "sandbox_image": sandbox_docker.get("image") if resolved["_network"]["boundary"] == "separate" else None, "sandbox_image_digest": sandbox_docker.get("digest") if resolved["_network"]["boundary"] == "separate" else None, "budget_enforcement": budget, "tasks": []}
 
 
 def run_experiment(config_path: Path, evaluate_after: bool = True) -> Path:
     resolved = resolve_experiment(config_path); prepared, tasks = validate_prepared(resolved)
-    budget = _budget_record(resolved); env = clean_env_names(resolved["_agent"].get("required_env", [])); _ensure_docker_image(resolved)
+    budget = _budget_record(resolved); env = clean_env_names(resolved["_agent_env_names"])
+    sandbox_env = clean_env_names(resolved["_agent"].get("sandbox", {}).get("required_env", [])) if resolved["_network"]["sandbox"]["applicable"] else {}
+    if resolved["_network"]["boundary"] == "shared": env.update(sandbox_env)
+    _ensure_docker_image(resolved)
     output = Path(resolved["_output"])
     if output.exists() and any(output.iterdir()): raise HarnessError(f"run output directory is not empty: {output}")
     output.mkdir(parents=True, exist_ok=True); run_id = resolved.get("run_id") or f"run-{uuid.uuid4().hex[:12]}"
@@ -164,8 +187,15 @@ def run_experiment(config_path: Path, evaluate_after: bool = True) -> Path:
             validate_schema(request, common_schema(resolved["protocol_version"], "task-request"), "TaskRequest"); atomic_json(input_dir / "request.json", request)
             task_record = {"task_id": task_id, "attempt_id": attempt_id, "status": "running", "workspace": str(workspace.relative_to(output))}; record["tasks"].append(task_record); atomic_json(output / "run-record.json", record)
             backend: LocalBackend | None = None
+            sandbox: SandboxContainer | None = None
             try:
-                backend, argv = _agent_command(resolved, input_dir, workspace, output_dir, config_snapshot)
+                channel = None
+                if resolved["_network"]["boundary"] == "separate":
+                    channel = attempt / "sandbox-channel"; channel.mkdir()
+                    sandbox_names = resolved["_agent"]["sandbox"].get("required_env", [])
+                    sandbox = SandboxContainer(resolved["_agent"], workspace, channel, resolved["_network"]["sandbox"]["mode"], sandbox_names)
+                    sandbox.start()
+                backend, argv = _agent_command(resolved, input_dir, workspace, output_dir, config_snapshot, channel)
                 backend.start(argv, workspace, env, logs / "stdout.log", logs / "stderr.log"); outcome = backend.wait(float(resolved["budget"]["wall_time_seconds"])); task_record.update(vars(outcome))
                 if outcome.timed_out: raise HarnessError("wall-time budget exceeded; process was terminated")
                 if outcome.cancelled: raise HarnessError("agent process was cancelled")
@@ -175,11 +205,14 @@ def run_experiment(config_path: Path, evaluate_after: bool = True) -> Path:
                 if result["status"] != "completed": task_record["failure_reason"] = result["error"]
             except KeyboardInterrupt as exc:
                 if backend: backend.cancel(); backend.cleanup()
+                if sandbox: sandbox.cleanup()
                 task_record.update({"status": "cancelled", "cancelled": True, "failure_reason": "user cancelled"}); cancelled, pending = True, exc
             except (HarnessError, OSError, subprocess.SubprocessError) as exc:
                 if backend: backend.cleanup()
                 task_record["status"] = "timed_out" if task_record.get("timed_out") else "failed"; task_record["failure_reason"] = str(exc)
-            finally: atomic_json(output / "run-record.json", record)
+            finally:
+                if sandbox: sandbox.cleanup()
+                atomic_json(output / "run-record.json", record)
             if cancelled: break
         record["status"] = "cancelled" if cancelled else ("completed" if all(item["status"] == "completed" for item in record["tasks"]) else "completed_with_failures")
     except BaseException as exc:
