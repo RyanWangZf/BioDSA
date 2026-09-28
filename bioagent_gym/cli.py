@@ -79,7 +79,8 @@ def cmd_run(args: argparse.Namespace) -> None:
 
 
 def cmd_evaluate(args: argparse.Namespace) -> None:
-    print(json.dumps(evaluate_run(Path(args.run)), indent=2))
+    manifest = Path(args.benchmark_manifest) if args.benchmark_manifest else None
+    print(json.dumps(evaluate_run(Path(args.run), manifest, args.allow_version_change), indent=2))
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -107,6 +108,8 @@ def build_parser() -> argparse.ArgumentParser:
     run.set_defaults(func=cmd_run)
     evaluate = sub.add_parser("evaluate")
     evaluate.add_argument("--run", required=True)
+    evaluate.add_argument("--benchmark-manifest")
+    evaluate.add_argument("--allow-version-change", action="store_true")
     evaluate.set_defaults(func=cmd_evaluate)
     return parser
 
@@ -122,6 +125,9 @@ def main(argv: list[str] | None = None) -> int:
     except subprocess.TimeoutExpired as exc:
         print(f"error: process timed out: {exc.cmd}", file=sys.stderr)
         return 2
+    except KeyboardInterrupt:
+        print("cancelled", file=sys.stderr)
+        return 130
 
 
 if __name__ == "__main__":

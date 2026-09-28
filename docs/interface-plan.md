@@ -108,28 +108,33 @@ after resolution, and must identify existing files. Symlink escapes fail.
 run/
   resolved-experiment.json
   manifests/{agent,benchmark}.json
+  context/{experiment,agent-manifest,benchmark-manifest,prepared-manifest,tasks,metadata}.json
+  context/evaluator/reference.json
   run-record.json
   tasks/<task-id>/attempt-0001/
     input/request.json
+    workspace/
     output/result.json
     logs/{stdout,stderr}.log
     validated-result.json
-    evaluation/request.json
-    evaluation/result.json
-  summary.json
+  evaluations/<evaluation-id>/
+    evaluation-record.json
+    tasks/<task-id>/attempt-0001/{request,result,status}.json
+    summary.json
+  latest-evaluation.json
 ```
 
-Evaluation reads validated results and the prepared dataset, so `bioagent-gym
-evaluate --run ...` never reruns an agent. The fixture evaluator uses a private
-reference path derived from the prepared manifest rather than data in the agent
-request.
+Evaluation reads validated results and snapshotted TaskSpecs, so `bioagent-gym
+evaluate --run ...` never reruns an agent. Small references are saved in the
+evaluator-only context; large references retain a versioned external path.
+Neither is placed in the agent input or workspace.
 
 ## CLI and phase-1 aggregation
 
 The implemented commands are `list agents`, `list benchmarks`, `validate`,
 `prepare`, `run`, and `evaluate`. `run` performs agent execution and then
-evaluation by default. `evaluate` replaces prior evaluation outputs and summary
-from already validated agent results.
+evaluation by default. Every `evaluate` invocation adds an immutable evaluation
+record and summary from already validated agent results.
 
 Generic aggregation supports `mean`, `sum`, `min`, `max`, and `count` for named
 numeric metrics, plus task status counts. More complex aggregation remains in a
@@ -139,7 +144,7 @@ inside the harness.
 ## Optional shared LLM boundary
 
 `protocol/llm-client.md` defines framework-neutral request/response, timeout,
-retry, and error semantics. `harness.llm.FakeClient` provides deterministic
+retry, and error semantics. `bioagent_gym.llm.FakeClient` provides deterministic
 tests and examples. Adoption is optional: neither agent conformance nor
 benchmark integration depends on this Python interface.
 

@@ -111,6 +111,19 @@ def safe_relative_file(root: Path, relative: str, label: str) -> Path:
     return resolved
 
 
+def safe_relative_dir(root: Path, relative: str, label: str) -> Path:
+    candidate = Path(relative)
+    if candidate.is_absolute() or ".." in candidate.parts:
+        raise HarnessError(f"{label} must be a contained relative path: {relative}")
+    resolved_root = root.resolve()
+    resolved = (root / candidate).resolve(strict=True)
+    if resolved != resolved_root and resolved_root not in resolved.parents:
+        raise HarnessError(f"{label} escapes its root: {relative}")
+    if not resolved.is_dir():
+        raise HarnessError(f"{label} is not a directory: {relative}")
+    return resolved
+
+
 def clean_env_names(names: Iterable[str]) -> dict[str, str]:
     missing = [name for name in names if not os.environ.get(name)]
     if missing:

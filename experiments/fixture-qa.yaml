@@ -5,6 +5,7 @@ benchmark:
   manifest: ../benchmarks/fixture_qa/benchmark.yaml
   prepared: ../.bioagent-gym/fixture-prepared
   split: test
+  data_revision: fixture-r1
 execution:
   backend: local
 budget:

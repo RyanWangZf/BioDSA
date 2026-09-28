@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from .errors import HarnessError
-from .io import read_yaml
+from .io import common_schema, read_yaml, safe_relative_file, validate_schema
 
 
 def _require(manifest: dict[str, Any], keys: tuple[str, ...], path: Path) -> None:
@@ -15,21 +15,20 @@ def _require(manifest: dict[str, Any], keys: tuple[str, ...], path: Path) -> Non
 
 def load_agent(path: Path) -> dict[str, Any]:
     value = read_yaml(path.resolve())
-    _require(value, ("manifest_version", "agent_id", "protocol_versions", "task_types", "local"), path)
-    if value["manifest_version"] != "1.0" or not isinstance(value["local"].get("command"), list):
-        raise HarnessError(f"invalid agent manifest version or local command: {path}")
+    validate_schema(value, common_schema("1.0", "agent-manifest"), f"agent manifest {path}")
     value["_path"] = str(path.resolve())
     return value
 
 
 def load_benchmark(path: Path) -> dict[str, Any]:
     value = read_yaml(path.resolve())
-    _require(value, ("manifest_version", "benchmark_id", "version", "protocol_versions", "task_types", "prepare", "evaluate", "schemas"), path)
-    if value["manifest_version"] != "1.0":
-        raise HarnessError(f"unsupported benchmark manifest version: {path}")
+    validate_schema(value, common_schema("1.0", "benchmark-manifest"), f"benchmark manifest {path}")
     for name in ("prepare", "evaluate"):
-        if not isinstance(value[name].get("command"), list):
-            raise HarnessError(f"{name}.command must be an argv array: {path}")
+        runtime = value[name]["runtime"]["kind"]
+        if runtime != "local":
+            raise HarnessError(
+                f"unsupported {name} runtime {runtime!r} in {path}; phase 1 supports local benchmark processes only"
+            )
     value["_path"] = str(path.resolve())
     return value
 
@@ -59,5 +58,5 @@ def resolve_command(manifest: dict[str, Any], section: str) -> tuple[list[str], 
         raise HarnessError(f"empty {section} command")
     executable = Path(command[0])
     if ("/" in command[0] or command[0].startswith(".")) and not executable.is_absolute():
-        command[0] = str((base / executable).resolve())
+        command[0] = str(safe_relative_file(base, command[0], f"{section} command entry point"))
     return command, base

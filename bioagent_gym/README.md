@@ -20,3 +20,9 @@ bioagent-gym evaluate --run .bioagent-gym/fixture-run
 Local execution is for development and does not sandbox untrusted code. Docker
 execution uses the image and command declared by the agent manifest and mounts
 only the per-attempt input (read-only) and output directories.
+
+Each attempt also receives a distinct writable workspace. Runs snapshot the
+selected tasks and configuration, while every `evaluate` invocation creates a
+new evaluation ID and keeps prior scoring output. Use
+`--allow-version-change` only when deliberately rescoring with changed declared
+benchmark, evaluator, or data versions.

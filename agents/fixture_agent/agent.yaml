@@ -16,4 +16,4 @@ resources:
   memory: 128m
   gpus: 0
   network: false
-budget_capabilities: []
+budget_capabilities: {}

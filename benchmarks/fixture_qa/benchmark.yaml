@@ -12,6 +12,9 @@ evaluate:
   command: [./evaluate.py]
   runtime:
     kind: local
+evaluator:
+  id: fixture_qa.exact_match
+  version: "0.1.0"
 schemas:
   qa.multiple_choice.v1:
     input: schemas/qa-input.schema.json
@@ -20,4 +23,6 @@ metrics:
   accuracy:
     description: Exact selected-choice accuracy.
 aggregation:
-  accuracy: mean
+  accuracy:
+    operation: mean
+    agent_failure: exclude

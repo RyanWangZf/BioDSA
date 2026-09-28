@@ -24,5 +24,22 @@ atomically publishes `evaluation-dir/result.json`.
 time by adding `run_id`, `attempt_id`, budget, seed, and resolved public assets.
 Private paths are only included in `EvaluationRequest`.
 
+Prepared manifests declare either one `split` plus `tasks_file`, or a `splits`
+mapping with one task file per split. The harness checks protocol, benchmark,
+benchmark version, requested split, and an explicitly requested data revision
+before starting an agent. All prepared file locations are contained relative
+paths.
+
+New runs snapshot the resolved experiment, agent config value, manifests,
+prepared metadata, and selected TaskSpecs under `context/`. Small references are
+copied into `context/evaluator/`; large references remain versioned external
+paths. Neither location is exposed to the agent. Every scoring pass creates a
+new `evaluations/<evaluation_id>/` tree and preserves earlier results. Legacy
+runs without context snapshots remain readable with an explicit warning.
+
+Version declarations and snapshots are the reproducibility boundary. BioAgent
+Gym does not scan or hash all dataset content on every run, so it cannot detect
+an external file changed in place without a corresponding version change.
+
 Manifests are documented in [`manifests.md`](manifests.md). Protocol objects
 have an explicit `extensions` object; unknown common fields are rejected.

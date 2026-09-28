@@ -29,7 +29,8 @@ def main() -> None:
     lines = "".join(json.dumps(task, sort_keys=True) + "\n" for task in tasks); (output / "tasks.jsonl").write_text(lines, encoding="utf-8")
     references = {"arithmetic":"B", "biology":"A"}; atomic(output / "private" / "references.json", references)
     digest = hashlib.sha256(lines.encode()).hexdigest()
-    atomic(output / "manifest.json", {"protocol_version":"1.0","benchmark_id":"fixture_qa","benchmark_version":"0.1.0","data_revision":config.get("data_revision","fixture-r1"),"split":config.get("split","test"),"checksum":f"sha256:{digest}","task_types":["qa.multiple_choice.v1"],"tasks_file":"tasks.jsonl","assets_dir":"assets","private":{"references":"private/references.json"}})
+    revision = config.get("data_revision", "fixture-r1")
+    atomic(output / "manifest.json", {"protocol_version":"1.0","benchmark_id":"fixture_qa","benchmark_version":"0.1.0","data_revision":revision,"split":config.get("split","test"),"checksum":f"sha256:{digest}","task_types":["qa.multiple_choice.v1"],"tasks_file":"tasks.jsonl","assets_dir":"assets","private":{"references":"private/references.json","reference_version":revision}})
 
 
 if __name__ == "__main__": main()

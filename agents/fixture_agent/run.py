@@ -31,8 +31,13 @@ def main() -> None:
     parser.add_argument("--config")
     args = parser.parse_args()
     request = json.loads(Path(args.request).read_text(encoding="utf-8"))
+    config = json.loads(Path(args.config).read_text(encoding="utf-8")) if args.config else {}
+    if config.get("fail_task_id") == request["task_id"]:
+        raise SystemExit(17)
     output = Path(args.output_dir)
     output.mkdir(parents=True, exist_ok=True)
+    Path("workspace-marker.txt").write_text(str(Path.cwd()), encoding="utf-8")
+    Path(f"{request['task_id']}.tmp").write_text("task-local", encoding="utf-8")
     question = request["input"]["question"].lower()
     choices = request["input"]["choices"]
     preferred = "4" if "2 + 2" in question else "liver" if "detox" in question else choices[0]["text"]
