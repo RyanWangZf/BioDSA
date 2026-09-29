@@ -13,7 +13,10 @@ agents:
     kwargs:
       provider: mock
       split: fit
-      item_ids: ["bdr-hle-biomedicine-4e0046c4552081e7b086", "bdr-moa-pathway-reasoning-23ba27014ef562423d8b", "bdr-evidence-gap-discovery-88771d5cb4cf708f1730"]
+      item_ids_by_dataset:
+        hle-biomedicine: ["bdr-hle-biomedicine-4e0046c4552081e7b086"]
+        moa-pathway-reasoning: ["bdr-moa-pathway-reasoning-23ba27014ef562423d8b"]
+        evidence-gap-discovery: ["bdr-evidence-gap-discovery-88771d5cb4cf708f1730"]
       item_timeout_seconds: 90
       tool_mode: stub
       knowledge_bases: [pubmed_papers, clinical_trials]

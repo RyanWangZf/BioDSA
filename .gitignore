@@ -187,5 +187,10 @@ benchmarks/biodsbench/tasks/*/environment/data/inputs/
 # Generated from pinned sources; answer keys are never committed or copied to agents.
 benchmarks/biodsbench/tasks/*/tests/references/
 benchmarks/biomedicine-deep-research/tasks/*/tests/references/
+# Grader entrypoints are generated from the single canonical scripts together
+# with verifier-only references by prepare_harbor_dataset_tasks.py.
+benchmarks/biodsbench/tasks/biodsbench-python/tests/grade.py
+benchmarks/biodsbench/tasks/biodsbench-python/tests/run_submission.py
+benchmarks/biomedicine-deep-research/tasks/*/tests/grade.py
 # Phase-1 compatibility: explicit old paths remain valid and are not migrated.
 .biodsa/

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import bioagent_harbor_runtime
 import shutil
 from pathlib import Path
 from typing import override
@@ -44,9 +45,10 @@ class CoderHarborAgent(BaseAgent):
             shutil.rmtree(stage)
         package = stage / "bioagent_coder"
         shutil.copytree(Path(__file__).resolve().parent, package)
+        shutil.copytree(Path(bioagent_harbor_runtime.__file__).resolve().parent, stage / "bioagent_harbor_runtime")
         await environment.upload_dir(stage, "/tmp/bioagent-coder")
         result = await environment.exec(
-            "python3 -c \"import shutil,site; shutil.copytree('/tmp/bioagent-coder/bioagent_coder', site.getsitepackages()[0]+'/bioagent_coder', dirs_exist_ok=True)\"",
+            "python3 -c \"import shutil,site; root=site.getsitepackages()[0]; shutil.copytree('/tmp/bioagent-coder/bioagent_coder', root+'/bioagent_coder', dirs_exist_ok=True); shutil.copytree('/tmp/bioagent-coder/bioagent_harbor_runtime', root+'/bioagent_harbor_runtime', dirs_exist_ok=True)\"",
             user="root",
             timeout_sec=180,
         )

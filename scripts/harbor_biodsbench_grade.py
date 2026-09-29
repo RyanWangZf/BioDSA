@@ -18,7 +18,7 @@ def decode(encoded):
         values=[decode(x) for x in encoded["values"]];return tuple(values) if kind=="tuple" else set(values) if kind=="set" else values
     if kind=="dict":return {decode(k):decode(v) for k,v in encoded["items"]}
     if kind=="ndarray":return decode(encoded["values"])
-    if kind=="series":return [decode(x) for x in encoded["values"]]
+    if kind in {"series","dataframe"}:return encoded
     return encoded
 def scalar(encoded):
     value=decode(encoded)
@@ -27,8 +27,8 @@ def scalar(encoded):
 def apply_transform(value, transform):
     if not transform:return value
     value=scalar(value)
-    if transform["kind"]=="abs_diff": return abs(value-transform["expected"])
-    if transform["kind"]=="round": return round(value,transform["digits"])
+    if transform["kind"]=="abs_diff": return abs(value-ast.literal_eval(transform["expected_source"]))
+    if transform["kind"]=="round": return round(value,ast.literal_eval(transform["digits_source"]))
     raise ValueError("unknown transform")
 
 OPS={"Eq":operator.eq,"NotEq":operator.ne,"Lt":operator.lt,"LtE":operator.le,"Gt":operator.gt,"GtE":operator.ge,"In":lambda a,b:a in b,"NotIn":lambda a,b:a not in b}
@@ -37,9 +37,35 @@ def resolve(term,observations):
     if "literal" in term:return term["literal"]
     return apply_transform(observations[term["observation"]],term.get("transform"))
 def check_one(check,observations):
+    kind=check["kind"]
+    if kind=="all":
+        for predicate in check["predicates"]:
+            if not check_one(predicate,observations):return False
+        return True
+    if kind=="any":
+        for predicate in check["predicates"]:
+            if check_one(predicate,observations):return True
+        return False
+    if kind=="not":return not check_one(check["predicate"],observations)
+    if kind=="all_membership":
+        items=scalar(resolve(check["items"],observations)); container=scalar(resolve(check["container"],observations))
+        return all(item in container for item in items)
+    if kind=="all_values_in":
+        encoded=resolve(check["values"],observations); container=scalar(resolve(check["container"],observations))
+        if not isinstance(encoded,dict) or encoded.get("type") not in {"dataframe","series","ndarray","list","tuple","set"}:raise ValueError("all_values_in requires a finite collection")
+        def leaves(value):
+            if isinstance(value,dict) and value.get("type")=="dataframe":
+                for row in value["data"]:
+                    for cell in row:yield decode(cell)
+            elif isinstance(value,dict) and value.get("type")=="series":
+                for cell in value["values"]:yield decode(cell)
+            else:
+                decoded=decode(value)
+                for cell in decoded:yield cell
+        return all(value in container for value in leaves(encoded))
     if check["kind"]=="truth":
         return bool(scalar(observations[check["actual"]["observation"]]))
-    if check["kind"]=="type":
+    if kind=="type":
         actual=observations[check["actual"]["observation"]]
         if actual.get("type")=="type": typename=actual["value"]
         else: typename={"series":"pandas.core.series.Series","dataframe":"pandas.core.frame.DataFrame","ndarray":"numpy.ndarray"}.get(actual.get("type"),actual.get("type"))
@@ -51,7 +77,6 @@ def check_one(check,observations):
         return typename.split(".")[-1]==expected
     left,right=resolve(check["left"],observations),resolve(check["right"],observations)
     left=scalar(left); right=scalar(right)
-    if check["op"] in {"Eq","NotEq"} and isinstance(left,float) and isinstance(right,float) and math.isnan(left) and math.isnan(right): return check["op"]=="Eq"
     compared=OPS[check["op"]](left,right)
     if isinstance(compared,list): return len(compared)==1 and bool(compared[0])
     # NumPy's original assertion semantics accept a one-element array.
@@ -90,8 +115,11 @@ for item_id in selected:
             proc=subprocess.run([sys.executable,"/tests/run_submission.py",str(code),str(spec),str(output)],cwd=str(temp),capture_output=True,text=True,timeout=75,preexec_fn=restrict_submission)
             exported=json.loads(output.read_text()) if output.is_file() else {"status":"failed","error":{"message":"no result export"}}
         if proc.returncode or exported.get("status")!="completed": results.append({**base,"status":"agent_error","score":0.0,"error":exported.get("error")});continue
-        checks=[check_one(c,exported["observations"]) for c in ref["scoring"]["checks"]]
-        results.append({**base,"status":"scored","score":float(all(checks)),"assertions_passed":sum(checks),"assertions_total":len(checks),"failed_assertions":[i for i,value in enumerate(checks) if not value]})
+        checks=[];check_errors={}
+        for index,check in enumerate(ref["scoring"]["checks"]):
+            try:checks.append(check_one(check,exported["observations"]))
+            except (TypeError,ValueError,KeyError,IndexError,AttributeError) as exc:checks.append(False);check_errors[str(index)]=f"{type(exc).__name__}: {exc}"
+        results.append({**base,"status":"scored","score":float(all(checks)),"assertions_passed":sum(checks),"assertions_total":len(checks),"failed_assertions":[i for i,value in enumerate(checks) if not value],"check_errors":check_errors})
     except subprocess.TimeoutExpired:results.append({**base,"status":"agent_timeout","score":0.0,"error":"verifier replay timeout"})
     except Exception as exc:results.append({**base,"status":"grading_error","score":None,"error":f"{type(exc).__name__}: {exc}"})
     finally:

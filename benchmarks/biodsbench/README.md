@@ -18,3 +18,10 @@ passes 112. Six pinned reference implementations fail before reaching a clean
 oracle result (`28481359_4`, `28481359_5`, `28481359_7`, `28481359_8`,
 `28472509_4`, and `37699004_1`); the manifest records them separately from
 scoring support. Unsupported R execution remains explicit and is unchanged.
+
+Boolean composition, chained comparisons, membership checks, and finite table
+value constraints are decided by the trusted grader. The unprivileged process
+exports operands rather than final assertion booleans. Unsupported statements
+or an empty assertion mapping block an item. A differential regression mutates
+one real output variable per item; both the original source tests and the new
+checker reject all 118 mutations.

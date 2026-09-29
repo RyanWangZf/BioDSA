@@ -33,13 +33,25 @@ def evaluate(node,state,scope=None):
     if isinstance(node,ast.UnaryOp):
         value=evaluate(node.operand,state,scope); return {ast.USub:operator.neg,ast.UAdd:operator.pos,ast.Not:operator.not_}[type(node.op)](value)
     if isinstance(node,ast.BoolOp):
-        values=[evaluate(x,state,scope) for x in node.values]
-        return all(values) if isinstance(node.op,ast.And) else any(values)
+        if isinstance(node.op,ast.And):
+            for child in node.values:
+                value=evaluate(child,state,scope)
+                if not value:return value
+            return value
+        for child in node.values:
+            value=evaluate(child,state,scope)
+            if value:return value
+        return value
     if isinstance(node,ast.BinOp):
         a,b=evaluate(node.left,state,scope),evaluate(node.right,state,scope); return {ast.Add:operator.add,ast.Sub:operator.sub,ast.Mult:operator.mul,ast.Div:operator.truediv,ast.Pow:operator.pow,ast.Mod:operator.mod}[type(node.op)](a,b)
     if isinstance(node,ast.Compare):
-        a=evaluate(node.left,state,scope); b=evaluate(node.comparators[0],state,scope)
-        return {ast.Eq:operator.eq,ast.NotEq:operator.ne,ast.Lt:operator.lt,ast.LtE:operator.le,ast.Gt:operator.gt,ast.GtE:operator.ge,ast.In:lambda x,y:x in y,ast.NotIn:lambda x,y:x not in y}[type(node.ops[0])](a,b)
+        left=evaluate(node.left,state,scope); operations={ast.Eq:operator.eq,ast.NotEq:operator.ne,ast.Lt:operator.lt,ast.LtE:operator.le,ast.Gt:operator.gt,ast.GtE:operator.ge,ast.In:lambda x,y:x in y,ast.NotIn:lambda x,y:x not in y}
+        for index,(op,right_node) in enumerate(zip(node.ops,node.comparators)):
+            right=evaluate(right_node,state,scope)
+            compared=operations[type(op)](left,right)
+            if index==len(node.ops)-1:return compared
+            if not compared:return False
+            left=right
     if isinstance(node,ast.IfExp): return evaluate(node.body if evaluate(node.test,state,scope) else node.orelse,state,scope)
     if isinstance(node,ast.Lambda):
         names=[arg.arg for arg in node.args.args]

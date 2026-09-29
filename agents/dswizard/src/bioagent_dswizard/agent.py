@@ -20,7 +20,7 @@ ANALYSIS_PLAN:
 {plan}"""
 class DSWizardAgent:
  def __init__(self,config,workspace:Path): self.config,self.workspace=config,workspace; self.client=MockClient() if config.get("provider","mock")=="mock" else OpenAICompatibleClient(config)
- def run(self,task,data_files):
+ def run(self,task,data_files,code_history=""):
   logs=[]; codes=[]; timeout=float(self.config["execution_environment"]["timeout_seconds"])
   with execution_session(self.config,self.workspace) as session:
    if isinstance(self.client,MockClient): explore=self.client.exploration_code(data_files[0])
@@ -32,7 +32,8 @@ class DSWizardAgent:
    if isinstance(self.client,MockClient): implementation=self.client.implementation_code(task,data_files[0])
    else:
     response=self.client.complete([{"role":"system","content":CODE_PROMPT.format(datasets="\n".join(data_files),plan=plan)},{"role":"user","content":task+"\nReturn one ```python block."}]); implementation="\n".join(x.strip() for x in re.findall(r"```python(.*?)```",response,re.S|re.I))
-   executed=session.execute(implementation); logs.append(executed.json()); codes.append(implementation)
+   final_program="\n\n".join(x for x in (code_history,implementation) if x)
+   executed=session.execute(final_program); logs.append(executed.json()); codes.append(implementation)
    if executed.timed_out or executed.exit_code!=0: raise RuntimeError("implementation failed: "+executed.stderr)
   final=self.client.final(task,executed.stdout) if isinstance(self.client,MockClient) else self.client.complete([{"role":"system","content":"Answer from execution results."},{"role":"user","content":executed.stdout}])
-  return {"final_answer":final,"analysis_plan":plan,"generated_code":codes,"execution_logs":logs}
+  return {"final_answer":final,"analysis_plan":plan,"exploration_code":explore,"final_program":final_program,"generated_code":codes,"execution_logs":logs}

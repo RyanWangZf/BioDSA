@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import bioagent_harbor_runtime
 import shutil
 from pathlib import Path
 from typing import override
@@ -29,6 +30,7 @@ class DeepEvidenceOptions(AgentOptions):
     reasoning_effort: str | None = None
     code_execution: bool = True
     item_ids: list[str] = []
+    item_ids_by_dataset: dict[str, list[str]] = {}
     item_timeout_seconds: float = 300
     split: str | None = None
 
@@ -51,8 +53,9 @@ class DeepEvidenceHarborAgent(BaseAgent):
         if stage.exists():
             shutil.rmtree(stage)
         shutil.copytree(Path(__file__).resolve().parent, stage / "bioagent_deepevidence")
+        shutil.copytree(Path(bioagent_harbor_runtime.__file__).resolve().parent, stage / "bioagent_harbor_runtime")
         await environment.upload_dir(stage, "/tmp/bioagent-deepevidence")
-        result = await environment.exec("python3 -c \"import shutil,site; shutil.copytree('/tmp/bioagent-deepevidence/bioagent_deepevidence', site.getsitepackages()[0]+'/bioagent_deepevidence', dirs_exist_ok=True)\"", user="root", timeout_sec=180)
+        result = await environment.exec("python3 -c \"import shutil,site; root=site.getsitepackages()[0]; shutil.copytree('/tmp/bioagent-deepevidence/bioagent_deepevidence', root+'/bioagent_deepevidence', dirs_exist_ok=True); shutil.copytree('/tmp/bioagent-deepevidence/bioagent_harbor_runtime', root+'/bioagent_harbor_runtime', dirs_exist_ok=True)\"", user="root", timeout_sec=180)
         if result.return_code:
             raise RuntimeError(f"DeepEvidence install failed: {result.stderr or result.stdout}")
 
@@ -65,9 +68,10 @@ class DeepEvidenceHarborAgent(BaseAgent):
         config["code_execution"] = {"enabled": config["code_execution"]}
         config["memory"] = {"mode": "task"}
         item_ids = config.pop("item_ids")
+        item_ids_by_dataset = config.pop("item_ids_by_dataset")
         item_timeout_seconds = config.pop("item_timeout_seconds")
         split = config.pop("split")
-        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_timeout_seconds": item_timeout_seconds, "split": split}))
+        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_ids_by_dataset": item_ids_by_dataset, "item_timeout_seconds": item_timeout_seconds, "split": split}))
         await environment.upload_file(request, "/tmp/bioagent-input.json")
         result = await environment.exec("python3 -m bioagent_deepevidence.harbor_runner /tmp/bioagent-input.json", cwd="/app")
         (self.logs_dir / "agent.stdout").write_text(result.stdout or "")

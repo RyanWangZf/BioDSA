@@ -12,6 +12,12 @@ docker run --rm --network none \
   -v "$work/bio/submission:/app/submission:ro" -v "$work/bio/logs:/logs" \
   bioagent-gym-biodsbench-oracle /tests/test.sh || true
 cat "$work/bio/logs/verifier/summary.json"
+python3 "$root/scripts/prepare_biodsbench_mutants.py" --output "$work/bio-mutants"
+mkdir -p "$work/bio-mutants/logs"
+docker run --rm --network none \
+  -v "$work/bio-mutants/submission:/app/submission:ro" -v "$work/bio-mutants/logs:/logs" \
+  bioagent-gym-biodsbench-oracle /tests/test.sh
+cat "$work/bio-mutants/logs/verifier/summary.json"
 
 for task in "$root"/benchmarks/biomedicine-deep-research/tasks/*; do
   name=${task##*/}; image="bioagent-gym-bdr-oracle-$name"; logs="$work/deep/$name/logs"

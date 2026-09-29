@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import bioagent_harbor_runtime
 import shutil
 from pathlib import Path
 from typing import override
@@ -41,8 +42,9 @@ class DSWizardHarborAgent(BaseAgent):
         if stage.exists():
             shutil.rmtree(stage)
         shutil.copytree(Path(__file__).resolve().parent, stage / "bioagent_dswizard")
+        shutil.copytree(Path(bioagent_harbor_runtime.__file__).resolve().parent, stage / "bioagent_harbor_runtime")
         await environment.upload_dir(stage, "/tmp/bioagent-dswizard")
-        result = await environment.exec("python3 -c \"import shutil,site; shutil.copytree('/tmp/bioagent-dswizard/bioagent_dswizard', site.getsitepackages()[0]+'/bioagent_dswizard', dirs_exist_ok=True)\"", user="root", timeout_sec=180)
+        result = await environment.exec("python3 -c \"import shutil,site; root=site.getsitepackages()[0]; shutil.copytree('/tmp/bioagent-dswizard/bioagent_dswizard', root+'/bioagent_dswizard', dirs_exist_ok=True); shutil.copytree('/tmp/bioagent-dswizard/bioagent_harbor_runtime', root+'/bioagent_harbor_runtime', dirs_exist_ok=True)\"", user="root", timeout_sec=180)
         if result.return_code:
             raise RuntimeError(f"DSWizard install failed: {result.stderr or result.stdout}")
 

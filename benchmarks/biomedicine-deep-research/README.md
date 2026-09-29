@@ -18,3 +18,8 @@ evidence-gap records contain PMID targets but the pinned source supplies no
 retrieval metric or ordering rule, so they are reported as `unscorable` rather
 than being coerced into choice scoring or an invented retrieval metric. The
 verifier-only self-check passes all 628 scoreable choice records.
+
+Malformed JSON lines, duplicate prediction IDs, and unknown prediction IDs are
+global grading errors: diagnostics are saved, evaluation exits nonzero, and no
+reward is written even if all recognized answers are correct. Choice IDs are
+normalized before duplicate detection, so case variants cannot bypass it.

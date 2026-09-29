@@ -122,6 +122,13 @@ batch artifacts rather than Harbor trials. Edit the `tasks` list in native
 Harbor YAML to change a static mix. No
 prepare, export, or config compiler command is required.
 
+Coder, DSWizard, and DeepEvidence package the same small
+`bioagent_harbor_runtime` implementation for item selection, process-group
+timeouts, workspace layout, incremental predictions, and continue-after-error
+behavior. It imports no agent framework and does not manage Docker or scoring.
+Benchmark grader sources remain under `scripts/`; dataset preparation places
+deployment copies into each Harbor 0.23 verifier context with private labels.
+
 ## Results and adding tasks
 
 Harbor writes one directory per job and trial. Inspect `result.json`, the
