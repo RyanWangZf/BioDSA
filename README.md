@@ -1,333 +1,126 @@
-<p align="center">
-  <a href="https://keiji.ai">
-    <img src="./figs/keiji_logo_stacked_horizontal.svg" alt="Keiji AI" width="200">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://www.nature.com/articles/s41551-025-01587-2"><img src="https://img.shields.io/badge/Nature%20BME-Paper-blue" alt="Nature BME"></a>
-  <a href="https://biodsa.github.io"><img src="https://img.shields.io/badge/Website-biodsa.github.io-green" alt="Website"></a>
-  <a href="https://keiji.ai"><img src="https://img.shields.io/badge/Platform-keiji.ai-orange" alt="Platform"></a>
-  <a href="https://huggingface.co/datasets/zifeng-ai/BioDSA-1K"><img src="https://img.shields.io/badge/🤗-BioDSA--1K-yellow" alt="BioDSA-1K"></a>
-  <a href="https://huggingface.co/datasets/zifeng-ai/DeepEvidence"><img src="https://img.shields.io/badge/🤗-DeepEvidence-yellow" alt="DeepEvidence"></a>
-</p>
-
 # BioAgent Gym
 
-**BioAgent Gym** is a modular framework for running and evaluating biomedical AI agents in reproducible task environments. The existing BioDSA agent implementations and published benchmark names remain available during the migration.
+BioAgent Gym maintains biomedical agents and ready-to-run native
+[Harbor](https://github.com/harbor-framework/harbor) tasks. Harbor is the only
+trial engine: it builds environments, runs agents, enforces timeouts, invokes
+verifiers, and stores submissions, logs, and rewards.
 
-The lightweight runner uses independent processes or containers and a
-versioned JSON file protocol. It does not require agents to inherit a common
-base class.
+This revision is fixed to `harbor==0.23.0` and Python 3.12+. Docker is required
+for the examples.
 
-```bash
-pip install -e .
-bioagent-gym prepare --benchmark fixture_qa \
-  --config experiments/fixture-prepare.json \
-  --output .bioagent-gym/fixture-prepared
-bioagent-gym validate --config experiments/fixture-qa.yaml
-bioagent-gym run --config experiments/fixture-qa.yaml
-bioagent-gym evaluate --run .bioagent-gym/fixture-run
+## Install
 
-# Equivalent module entry point
-python -m bioagent_gym --help
-```
-
-Describe what you want in natural language. Get a working agent in minutes.
-
----
-
-## Motivation
-
-Building AI agents for biomedicine is hard. A typical agent needs LLM orchestration, access to domain-specific knowledge bases (PubMed, ChEMBL, ClinicalTrials.gov, ...), safe code execution, multi-step reasoning, and structured output — all wired together correctly. Starting from scratch every time is slow and error-prone.
-
-**BioAgent Gym provides:**
-
-- A **`BaseAgent` foundation** with built-in LLM support (OpenAI, Anthropic, Azure, Google), Docker-sandboxed code execution, and retry handling — so you focus on the agent logic, not the plumbing
-- **LangGraph workflows** for composing agent logic as state graphs with conditional edges — supporting ReAct loops, multi-stage pipelines, and multi-agent orchestration
-- **17+ biomedical knowledge base integrations** (PubMed, ChEMBL, UniProt, Open Targets, Ensembl, cBioPortal, Reactome, ...) as plug-and-play tools
-- **10 benchmarks with 1,900+ tasks** for systematic evaluation
-- **Two skill libraries** that teach AI coding assistants (Cursor, Claude Code, Codex, Gemini, OpenClaw) to both **[create new agents](biodsa-agent-dev-skills/)** and **[run existing ones](biodsa-agent-exec-skills/)** — so you can vibe-prototype or execute agents in minutes
-
----
-
-## Implemented Agents
-
-8 specialized agents have been built and published on BioDSA, spanning data analysis, deep research, literature review, clinical matching, and more:
-
-| Agent | Type | Description | Paper | Docs |
-|-------|------|-------------|-------|------|
-| **DSWizard** | Single | Two-phase data science agent (planning → implementation) for biomedical data analysis | [Nature BME](https://www.nature.com/articles/s41551-025-01587-2) | [README](biodsa/agents/dswizard/README.md) \| [Tutorial](tutorials/dswizard_agent.ipynb) |
-| **DeepEvidence** | Multi-agent | Hierarchical orchestrator + BFS/DFS sub-agents for deep research across 17+ knowledge bases | [arXiv](https://arxiv.org/abs/2601.11560) | [README](biodsa/agents/deepevidence/README.md) \| [Tutorial](tutorials/deepevidence_agent.ipynb) |
-| **TrialMind-SLR** | Multi-stage | Systematic literature review with 4-stage workflow (search, screen, extract, synthesize) | [npj Digit. Med.](https://www.nature.com/articles/s41746-025-01840-7) | [README](biodsa/agents/trialmind_slr/README.md) \| [Tutorial](tutorials/trialmind_slr_agent.ipynb) |
-| **InformGen** | Multi-stage | Clinical document generation with iterative write-review-revise workflow | [JAMIA](https://academic.oup.com/jamia/advance-article-abstract/doi/10.1093/jamia/ocaf174/8304363) | [README](biodsa/agents/informgen/README.md) \| [Tutorial](tutorials/informgen_agent.ipynb) |
-| **TrialGPT** | Multi-stage | Patient-to-trial matching with retrieval and eligibility scoring | [Nature Comm.](https://www.nature.com/articles/s41467-024-53081-z) | [README](biodsa/agents/trialgpt/README.md) \| [Tutorial](tutorials/trialgpt_agent.ipynb) |
-| **AgentMD** | Pipeline | Clinical risk prediction using large-scale toolkit of 2,164+ clinical calculators | [Nature Comm.](https://www.nature.com/articles/s41467-025-64430-x) | [README](biodsa/agents/agentmd/README.md) \| [Tutorial](tutorials/agentmd_agent.ipynb) |
-| **GeneAgent** | Single | Self-verification agent for gene set analysis with database-backed claim verification | [Nature Methods](https://www.nature.com/articles/s41592-025-02748-6) | [README](biodsa/agents/geneagent/README.md) \| [Tutorial](tutorials/geneagent.ipynb) |
-| **Virtual Lab** | Multi-participant | Multi-agent meeting system for AI-powered scientific research discussions | [Nature](https://www.nature.com/articles/s41586-025-09442-9) | [README](biodsa/agents/virtuallab/README.md) \| [Tutorial](tutorials/virtuallab_agent.ipynb) |
-
----
-
-## Flow: From Idea to Working Agent
-
-The legacy BioDSA agent layer supports three paths — **manual** (write code yourself), **vibe-prototyping** (let an AI assistant build a new agent), and **vibe-executing** (let an AI assistant run an existing agent on your task).
-
-### Path A: Vibe-Prototype a New Agent
-
-```
- ┌──────────────────────────────────────────────────────────────┐
- │  1. INSTALL SKILLS                                          │
- │     ./install-cursor.sh   (or claude-code/codex/gemini)     │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  2. DESCRIBE YOUR AGENT                                     │
- │     "Build an agent that searches PubMed and ClinicalTrials │
- │      to find competing trials for a drug candidate"         │
- │                                                             │
- │     Optionally attach: reference paper, design docs,        │
- │     or point to a benchmark dataset                         │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  3. REVIEW THE DESIGN PROPOSAL                              │
- │     AI proposes: pattern, workflow diagram, tools, state     │
- │     You: confirm, adjust, or ask questions                  │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  4. AI GENERATES THE AGENT                                  │
- │     biodsa/agents/<name>/                                   │
- │       ├── agent.py, state.py, prompt.py, tools.py           │
- │       ├── README.md + DESIGN.md (with Mermaid diagrams)     │
- │     run_<name>.py                                           │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  5. RUN & ITERATE                                           │
- │     python run_<name>.py                                    │
- │     Evaluate on benchmarks, refine prompts/tools/logic      │
- └──────────────────────────────────────────────────────────────┘
-```
-
-### Path B: Vibe-Execute an Existing Agent
-
-```
- ┌──────────────────────────────────────────────────────────────┐
- │  1. INSTALL SKILLS (same as above)                          │
- │     ./install-cursor.sh   (or claude-code/codex/gemini)     │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  2. DESCRIBE YOUR TASK                                      │
- │     "Run DeepEvidenceAgent to research EGFR inhibitor       │
- │      resistance mechanisms in lung cancer"                  │
- │                                                             │
- │     "Write a batch eval script for SLRMetaAgent on my       │
- │      benchmark dataset at benchmarks/TrialPanoramaBench/"   │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  3. AI PICKS THE AGENT & WRITES THE SCRIPT                  │
- │     Selects the right agent, configures it, handles output  │
- │     → run_task.py  (single or batch execution)              │
- └──────────────────┬───────────────────────────────────────────┘
-                    ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  4. COLLECT DELIVERABLES                                    │
- │     JSON results, PDF report, downloaded artifacts          │
- │     python run_task.py                                      │
- └──────────────────────────────────────────────────────────────┘
-```
-
-#### Install Skills
+Create an environment and install Harbor plus the agents you want to run:
 
 ```bash
-./install-cursor.sh        # Cursor (project-level)
-./install-claude-code.sh   # Claude Code (global)
-./install-codex.sh         # Codex CLI (global)
-./install-gemini.sh        # Gemini CLI (global)
-./install-openclaw.sh      # OpenClaw (global)
+python3.12 -m venv .venv-harbor
+.venv-harbor/bin/pip install -e .
+.venv-harbor/bin/pip install -e 'agents/fixture_agent[harbor]'
+.venv-harbor/bin/pip install -e 'agents/coder[harbor]'
+.venv-harbor/bin/pip install -e 'agents/dswizard[harbor]'
+.venv-harbor/bin/pip install -e 'agents/deepevidence[harbor]'
 ```
 
-Each installer installs **both** skill sets (agent development + agent execution). All installers support `--project`, `--uninstall`, `--dry-run`, and `--verbose` flags.
+The agents are separate distributions. The repository package installs Harbor;
+it does not install agent model frameworks or a second runner.
 
-<details>
-<summary>Manual installation & uninstall</summary>
+Use an absolute Harbor results directory with 0.23.0. This avoids a Docker
+Compose path-resolution issue when a relative results directory is interpreted
+from a task build context.
 
-Copy the `.md` files from both skill source directories to your tool's skills directory:
-
-| Tool | Target Base Directory |
-| ---- | -------------------- |
-| Cursor | `<project>/.cursor/skills/` |
-| Claude Code (global) | `~/.claude/skills/` |
-| Claude Code (project) | `<project>/.claude/skills/` |
-| Codex CLI (global) | `~/.codex/skills/` |
-| Gemini CLI (global) | `~/.gemini/skills/` |
-| OpenClaw (global) | `~/.openclaw/skills/` |
-
-Inside the target base, create two folders:
-- `biodsa-agent-development/` — copy files from `biodsa-agent-dev-skills/`
-- `biodsa-agent-execution/` — copy files from `biodsa-agent-exec-skills/`
-
-To uninstall, run any installer with `--uninstall`, or delete both folders from your tool's skills directory.
-
-</details>
-
-#### Example Prompts
-
-**Creating new agents** (uses dev skills):
-```
-"Create an agent called DrugRepurposing that searches PubMed, ChEMBL,
- and Open Targets for drug repurposing opportunities."
-
-"Here is a paper on clinical evidence synthesis (~/papers/synthesis.pdf).
- Build the agent and evaluate it on benchmarks/TrialPanoramaBench/"
-
-"Build a multi-agent system where an orchestrator delegates gene analysis
- to a BFS sub-agent and pathway analysis to a DFS sub-agent."
-```
-
-**Running existing agents** (uses exec skills):
-```
-"Run DeepEvidenceAgent to research EGFR inhibitor resistance in NSCLC"
-
-"Write a script that uses DSWizardAgent to analyze the cBioPortal BRCA
- dataset and generate a PDF report."
-
-"Batch-evaluate SLRMetaAgent on 10 systematic review questions and
- collect results as JSON."
-
-"Use TrialGPTAgent to match this patient note to clinical trials."
-```
-
-### Path C: Build Manually
+## Deterministic smoke
 
 ```bash
-git clone https://github.com/RyanWangZf/BioDSA.git
-cd BioDSA
-pip install pipenv && pipenv install && pipenv shell
+ROOT="$(pwd)"
+.venv-harbor/bin/harbor run \
+  -c experiments/fixture-smoke.yaml \
+  --jobs-dir "$ROOT/.harbor/jobs" -y
+
+.venv-harbor/bin/harbor run \
+  --path "$ROOT/benchmarks/fixtures/tasks/analysis-smoke" \
+  --agent bioagent_coder.harbor_agent:CoderHarborAgent \
+  --ak provider=mock --ak timeout_seconds=30 \
+  --jobs-dir "$ROOT/.harbor/jobs" --job-name coder-mock -y
+
+.venv-harbor/bin/harbor run \
+  --path "$ROOT/benchmarks/fixtures/tasks/analysis-smoke" \
+  --agent bioagent_dswizard.harbor_agent:DSWizardHarborAgent \
+  --ak provider=mock --ak timeout_seconds=30 \
+  --jobs-dir "$ROOT/.harbor/jobs" --job-name dswizard-mock -y
+
+.venv-harbor/bin/harbor run \
+  --path "$ROOT/benchmarks/fixtures/tasks/evidence-smoke" \
+  --agent bioagent_deepevidence.harbor_agent:DeepEvidenceHarborAgent \
+  --ak provider=mock --ak tool_mode=stub \
+  --ak 'knowledge_bases=["pubmed_papers","clinical_trials"]' \
+  --ak 'routes=["bfs","dfs"]' --ak code_execution=true \
+  --jobs-dir "$ROOT/.harbor/jobs" --job-name deepevidence-mock -y
 ```
 
-Create a `.env` file with your API keys:
+Mocking replaces model/API responses only. The actual agent workflow, generated
+Python process, task-local files, Harbor container, artifact transfer, and
+verifier all run.
+
+## DSWizard BioDSBench mix
+
+Prepare the pinned public tables once. They are cached outside Git and copied
+into the four task build contexts:
 
 ```bash
-OPENAI_API_KEY=your_key_here
-# Or: AZURE_OPENAI_API_KEY, ANTHROPIC_API_KEY, GOOGLE_API_KEY
+.venv-harbor/bin/python scripts/fetch_biodsbench_harbor_data.py
 ```
 
-Then extend `BaseAgent` and define your workflow as a LangGraph state graph:
+Put `OPENROUTER_API_KEY` in `.env`, then run the static four-task job:
 
-```python
-import os
-from biodsa.agents import DSWizardAgent
-
-agent = DSWizardAgent(
-    model_name="gpt-5",
-    api_type="openai",
-    api_key=os.environ["OPENAI_API_KEY"]
-)
-
-agent.register_workspace("./biomedical_data/cBioPortal/datasets/acbc_mskcc_2015")
-results = agent.go("Perform survival analysis for TP53 mutant vs wild-type patients")
+```bash
+ROOT="$(pwd)"
+.venv-harbor/bin/harbor run \
+  -c experiments/dswizard-mix.yaml --env-file .env \
+  --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
-See [tutorials/](tutorials/) for Jupyter notebooks covering each agent.
+The tasks are BioDSBench Python records `27959731_0`, `27959731_2`,
+`27959731_3`, and `27959731_4`. The verifier executes submitted `analysis.py`
+against real tables and applies the source assertions. This example does not
+claim R coverage.
 
----
+## DeepEvidence biomedical research mix
 
-## Output Example
-
-Every agent returns an `ExecutionResults` object with a structured trace of the full run:
-
-```python
-results = agent.go("Analyze TP53 mutation patterns in breast cancer")
-
-# The agent's final answer
-print(results.final_response)
-
-# Full conversation trace (all LLM calls, tool outputs, reasoning steps)
-print(results.message_history)
-
-# Any code the agent wrote and executed in the sandbox
-print(results.code_execution_results)
-
-# Export a PDF report with figures, code, and narrative
-results.to_pdf(output_dir="reports")
-
-# Export structured JSON
-results.to_json(output_path="results/analysis.json")
-
-# Download generated artifacts (plots, tables, etc.)
-results.download_artifacts(output_dir="artifacts")
+```bash
+ROOT="$(pwd)"
+.venv-harbor/bin/harbor run \
+  -c experiments/deepevidence-mix.yaml --env-file .env \
+  --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
-The PDF report includes the agent's reasoning, executed code blocks, generated figures, and final conclusions — ready to share with collaborators.
+The job contains four labelled development records from exactly two source
+categories, `hle-biomedicine` and `labbench-litqa2`. Answer labels are present
+only in separate offline verifier images. Exact option accuracy is the science
+reward; citations, evidence, trace, and memory are collected as artifacts.
 
-### Benchmarking
+Edit the `tasks` list in either native Harbor YAML to change a static mix. No
+prepare, export, or config compiler command is required.
 
-Evaluate agents on 10 benchmarks covering hypothesis validation, code generation, reasoning, and evidence synthesis:
+## Results and adding tasks
 
-| Benchmark | Tasks | Type |
-|-----------|-------|------|
-| BioDSA-1K | 1,029 | Hypothesis validation |
-| BioDSBench (Python + R) | 293 | Code generation |
-| HLE-Biomedicine / Medicine | 70 | Hard reasoning QA |
-| LabBench | 75 | Literature & database QA |
-| SuperGPQA | 172 | Expert-level QA |
-| TrialPanoramaBench | 50 | Evidence synthesis |
-| TRQA-lit | 172 | Translational research QA |
+Harbor writes one directory per job and trial. Inspect `result.json`, the
+trial's `artifacts/`, `agent/`, `verifier/`, and `trial.log`, or run:
 
-See [benchmarks/README.md](benchmarks/README.md) for dataset details and loading instructions.
-
----
-
-## Repository Structure
-
-```
-BioDSA/
-├── biodsa/                          # Core framework
-│   ├── agents/                      #   Agent implementations (8 published + base classes)
-│   ├── tools/                       #   Low-level API tools (17+ knowledge bases)
-│   ├── tool_wrappers/               #   LangChain tool wrappers
-│   ├── sandbox/                     #   Docker sandbox & ExecutionResults
-│   └── memory/                      #   Memory graph system
-├── benchmarks/                      # 10 evaluation benchmarks (1,900+ tasks)
-├── tutorials/                       # Jupyter notebook tutorials for each agent
-├── scripts/                         # Example run scripts
-├── biodsa-agent-dev-skills/         # Skill library: creating new agents
-├── biodsa-agent-exec-skills/        # Skill library: running existing agents
-├── install-*.sh                     # One-command installers (Cursor, Claude, Codex, Gemini, OpenClaw)
-├── biodsa_env/                      # Docker sandbox build files
-├── tests/                           # Tool and integration tests
-└── biomedical_data/                 # Example datasets (cBioPortal, Open Targets)
+```bash
+.venv-harbor/bin/harbor view .harbor/jobs
 ```
 
----
+A new task needs `instruction.md`, `task.toml`, `environment/Dockerfile`, and
+`tests/test.sh`; add `solution/solve.sh` when a reference implementation exists.
+The verifier must evaluate the actual submission and write
+`/logs/verifier/reward.txt` or `reward.json`.
 
-## Reference
+Agent and task environment network policy is declared in `task.toml`. Real
+agent tasks use `public`; deterministic fixtures use `no-network`. Image builds
+and external data preparation are separate from runtime network policy. Harbor's
+single task container cannot represent online-agent/offline-generated-code as
+two independent boundaries; this repository does not silently weaken that
+unsupported topology.
 
-If you use BioDSA in your research, please cite:
-
-```bibtex
-@article{wang2026reliable,
-  title={Making large language models reliable data science programming copilots for biomedical research},
-  author={Wang, Zifeng and Danek, Benjamin and Yang, Ziwei and Chen, Zheng and Sun, Jimeng},
-  journal={Nature Biomedical Engineering},
-  year={2026},
-  doi={10.1038/s41551-025-01587-2}
-}
-
-@article{wang2026deepevidence,
-  title={DeepEvidence: Empowering Biomedical Discovery with Deep Knowledge Graph Research},
-  author={Wang, Zifeng and Chen, Zheng and Yang, Ziwei and Wang, Xuan and Jin, Qiao and Peng, Yifan and Lu, Zhiyong and Sun, Jimeng},
-  journal={arXiv preprint arXiv:2601.11560},
-  year={2026}
-}
-```
-
-**Documentation**: [tutorials/](tutorials/) | [biodsa-agent-dev-skills/](biodsa-agent-dev-skills/) | [biodsa-agent-exec-skills/](biodsa-agent-exec-skills/) | [benchmarks/](benchmarks/) | [biodsa_env/](biodsa_env/)
-
-**Links**: [biodsa.github.io](https://biodsa.github.io) | [Keiji AI](https://keiji.ai) | [BioDSA-1K](https://huggingface.co/datasets/zifeng-ai/BioDSA-1K) | [DeepEvidence](https://huggingface.co/datasets/zifeng-ai/DeepEvidence) | [TrialReviewBench](https://huggingface.co/datasets/zifeng-ai/TrialReviewBench)
-
-**License**: [LICENSE](LICENSE)
+See [the migration record](docs/harbor-migration-plan.md) for pinned dataset
+revisions, task provenance, design choices, and validation results.

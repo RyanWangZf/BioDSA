@@ -1,1 +1,2 @@
-# Runtime dependency lock for 0.1.0. The migrated core uses only Python stdlib.
+# Runtime dependency lock for 0.2.0. Core execution uses only Python stdlib.
+# Harbor integration is pinned by the optional dependency in pyproject.toml.

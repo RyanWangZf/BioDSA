@@ -1,1 +1,0 @@
-{"provider":"openai","model":"gpt-5","small_model":"gpt-5-mini","api_key_env":"OPENAI_API_KEY","endpoint":"https://api.openai.com/v1","temperature":1.0,"max_attempts":3,"execution_environment":{"backend":"local_subprocess","timeout_seconds":60}}

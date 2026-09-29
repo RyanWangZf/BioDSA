@@ -1,6 +1,0 @@
-#!/usr/bin/env python3
-import argparse,json
-from pathlib import Path
-p=argparse.ArgumentParser(); p.add_argument("--request",required=True); p.add_argument("--output-dir",required=True); a=p.parse_args(); req=json.loads(Path(a.request).read_text()); result=json.loads(Path(req["agent_result_path"]).read_text()); output=result.get("output",{}); routes={x.get("route") for x in output.get("trace",[]) if x.get("event")=="subagent_dispatched"}; required=set(json.loads(Path(req["reference"]["path"]).read_text())["required_routes"]); artifacts=Path(req["artifacts_dir"]); ok=bool(output.get("final_answer")) and bool(output.get("citations")) and required<=routes and all((artifacts/name).is_file() for name in ("trace.json","evidence_graph.json","citations.json")); status="not_applicable" if ok else "failed"; value={"protocol_version":req["protocol_version"],"run_id":req["run_id"],"attempt_id":req["attempt_id"],"task_id":req["task_id"],"status":status,"metrics":{},"details":{"structurally_valid":ok,"routes":sorted(routes)},"evaluator":{"id":"fixture_evidence.structure","version":"0.1.0"}};
-if not ok: value["error"]={"code":"structure_missing","message":"required DeepEvidence output is missing"}
-out=Path(a.output_dir); out.mkdir(parents=True,exist_ok=True); (out/"result.json").write_text(json.dumps(value))

@@ -24,6 +24,9 @@ class DeepEvidenceOptions(AgentOptions):
     tool_call_budget: int = 6
     tool_timeout_seconds: float = 10
     timeout_seconds: float = 90
+    max_tokens: int = 2000
+    max_attempts: int = 2
+    reasoning_effort: str | None = None
     code_execution: bool = True
 
 
@@ -44,14 +47,9 @@ class DeepEvidenceHarborAgent(BaseAgent):
         stage = self.logs_dir / "package-stage"
         if stage.exists():
             shutil.rmtree(stage)
-        shutil.copytree(Path(__file__).resolve().parent, stage / "src" / "bioagent_deepevidence")
-        (stage / "pyproject.toml").write_text(
-            '[build-system]\nrequires=["setuptools>=68"]\nbuild-backend="setuptools.build_meta"\n'
-            '[project]\nname="bioagent-deepevidence"\nversion="0.2.0"\n'
-            '[tool.setuptools.packages.find]\nwhere=["src"]\n'
-        )
+        shutil.copytree(Path(__file__).resolve().parent, stage / "bioagent_deepevidence")
         await environment.upload_dir(stage, "/tmp/bioagent-deepevidence")
-        result = await environment.exec("python3 -m pip install --no-deps /tmp/bioagent-deepevidence", user="root", timeout_sec=180)
+        result = await environment.exec("python3 -c \"import shutil,site; shutil.copytree('/tmp/bioagent-deepevidence/bioagent_deepevidence', site.getsitepackages()[0]+'/bioagent_deepevidence', dirs_exist_ok=True)\"", user="root", timeout_sec=180)
         if result.return_code:
             raise RuntimeError(f"DeepEvidence install failed: {result.stderr or result.stdout}")
 

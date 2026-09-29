@@ -67,13 +67,45 @@ artifacts.
 
 - [x] Inspect repository baseline and Harbor 0.23.0 CLI/types/templates.
 - [x] Inspect both required Hugging Face repositories and pin revisions.
-- [ ] Add native fixture tasks and Harbor adapters; run Docker end to end.
-- [ ] Add and test Coder, DSWizard, DeepEvidence adapters and smoke jobs.
-- [ ] Materialize selected BioDSBench tasks, inputs, and executable verifiers.
-- [ ] Materialize selected biomedical deep-research tasks and label verifiers.
-- [ ] Run both static mixes and live credential-limited smoke where available.
-- [ ] Remove superseded runner/protocol code and update README/docs.
+- [x] Add native fixture tasks and Harbor adapters; run Docker end to end.
+- [x] Add and test Coder, DSWizard, DeepEvidence adapters and smoke jobs.
+- [x] Materialize selected BioDSBench tasks, inputs, and executable verifiers.
+- [x] Materialize selected biomedical deep-research tasks and label verifiers.
+- [x] Validate both static mix configs and attempt a credential-limited live smoke.
+- [x] Remove superseded runner/protocol code and update README/docs.
 
-Validation results and any blocked live checks will be appended here as work
-lands. Dataset content is versioned by the pinned source revisions; this
-migration does not add mandatory whole-tree checksums.
+## Validation record
+
+All commands used Harbor 0.23.0 with absolute `--jobs-dir` paths:
+
+- fixture Docker job: 2/2 rewards 1.0; one validated adapter artifacts and one
+  attempted HTTPS from a `no-network` agent phase and verified it was blocked.
+- Coder mock analysis trial: reward 1.0; generated code executed and CSV was
+  collected.
+- DSWizard mock analysis trial: reward 1.0; exploration, plan, implementation,
+  and execution artifacts were collected.
+- DeepEvidence mock trial: reward 1.0; BFS/DFS dispatch, stub tools, memory,
+  code execution, citations, trace, and usage were verified.
+- complete BioDSBench Oracle mix: 4/4 trials, reward 1.0 each, against the real
+  downloaded tables and source assertions.
+- complete biomedical Deep Research Oracle mix: 4/4 trials, reward 1.0 each;
+  a separate `nop` trial confirmed a missing submission receives reward 0.0.
+- DSWizard/Qwen live attempt 1 reached Harbor's 300-second limit. A bounded
+  retry exposed a model response with no content after its output budget was
+  spent on reasoning. The final retry used `reasoning_effort=none`, reached
+  OpenRouter, and was rejected with HTTP 429. Live DSWizard therefore remains
+  unverified; it is not reported as a mock success.
+- The public-network live attempts reached OpenRouter (the final response was
+  HTTP 429), independently confirming public egress. No key value appeared in
+  the Harbor job configs or logs scanned after the attempts.
+
+Task schemas and both four-task job YAMLs load successfully through Harbor's
+actual Pydantic models. Dataset content is versioned by the pinned source
+revisions; this migration does not add mandatory whole-tree checksums.
+
+Harbor 0.23.0 currently resolves relative result paths from Docker Compose build
+contexts during some copy operations. Commands use an absolute `--jobs-dir` as
+a documented workaround. Per-phase network policies are enforced by Harbor.
+Online-agent/offline-generated-code requires two execution boundaries, which
+these single-container adapters do not implement; no configuration claims that
+topology is supported.

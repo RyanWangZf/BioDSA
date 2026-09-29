@@ -1,47 +1,12 @@
-# Standalone CoderAgent
+# CoderAgent for Harbor
 
-This project preserves the original generate-code → execute → final-answer
-workflow and prompt requirements without importing `biodsa` or another agent.
-The deterministic mock client drives the real workflow and Python execution.
+Install independently with `pip install -e 'agents/coder[harbor]'`. Use the
+custom agent path `bioagent_coder.harbor_agent:CoderHarborAgent` in a Harbor job
+or `--agent`. The adapter installs the package into the trial container, invokes
+the existing code-generation workflow, and writes `final_answer.md`,
+`analysis.py`, execution logs, and generated artifacts under `/app/submission`.
 
-```bash
-python -m venv .venv && .venv/bin/pip install -e .
-.venv/bin/bioagent-coder --help
-```
-
-`local_subprocess` is explicit and is not a security boundary. Every execution
-uses a fresh interpreter in one task workspace: files persist between calls,
-Python variables do not. The manifest defaults both agent and generated code
-to `internet`. With Docker, an experiment can set only the sandbox to `none`;
-the harness then starts a separate offline execution sidecar and communicates
-through a file channel. No Docker socket is mounted. Local `none` is rejected.
-
-Run through BioAgent Gym after installing this project in its local `.venv`:
-
-```bash
-bioagent-gym prepare --benchmark fixture_analysis \
-  --config benchmarks/fixture_analysis/prepare-config.json \
-  --output .bioagent-gym/analysis-prepared
-bioagent-gym run --config experiments/coder-fixture-analysis.yaml
-```
-
-The split-network Docker example is
-`experiments/coder-agent-online-sandbox-offline.yaml`.
-The deterministic mock Docker smoke explicitly disables both layers in
-`experiments/coder-fixture-analysis-docker-offline.yaml`. The local mock
-experiment explicitly uses host networking because local `none` is unsupported.
-
-For a direct protocol invocation, pass a prepared `request.json` and an output
-directory:
-
-```bash
-.venv/bin/bioagent-coder --request request.json --output-dir output \
-  --config config.mock.json
-```
-
-Live use is explicit: copy `config.live.example.json`, select `openai`,
-`azure`, `anthropic`, or `google`, set its standard credential environment
-variable, and replace the mock config in an experiment. Requests have a
-bounded retry count (`max_attempts`, default 3). Provider adapters are retained
-for configuration compatibility; this migration verified the deterministic
-mock path and did not call a paid endpoint.
+`provider=mock` is deterministic. OpenAI-compatible live jobs accept `model_name`,
+`endpoint`, `api_key_env`, `max_attempts`, `max_tokens`, `reasoning_effort`, and
+`timeout_seconds` through Harbor agent kwargs. Secrets belong in Harbor agent
+environment configuration.

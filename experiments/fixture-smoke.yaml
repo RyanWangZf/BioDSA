@@ -8,3 +8,4 @@ agents:
   - import_path: bioagent_fixture.harbor_agent:FixtureHarborAgent
 tasks:
   - path: benchmarks/fixtures/tasks/adapter-smoke
+  - path: benchmarks/fixtures/tasks/network-offline

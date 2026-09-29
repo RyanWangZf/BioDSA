@@ -1,6 +1,0 @@
-protocol_version: "1.0"
-agent: {manifest: ../agents/deepevidence/agent.yaml, config: ../agents/deepevidence/configs/mock.json}
-benchmark: {manifest: ../benchmarks/fixture_evidence/benchmark.yaml, prepared: ../.bioagent-gym/evidence-prepared, split: test, data_revision: evidence-fixture-r1}
-execution: {backend: local, network: {agent: {mode: internet}, sandbox: {mode: internet}}}
-budget: {wall_time_seconds: 30, tool_calls: 6}
-output: ../.bioagent-gym/deepevidence-fixture-run

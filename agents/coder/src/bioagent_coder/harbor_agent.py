@@ -17,6 +17,8 @@ class CoderOptions(AgentOptions):
     api_key_env: str = "OPENAI_API_KEY"
     timeout_seconds: float = 60
     max_attempts: int = 2
+    max_tokens: int = 2000
+    reasoning_effort: str | None = None
 
 
 class CoderHarborAgent(BaseAgent):
@@ -38,16 +40,11 @@ class CoderHarborAgent(BaseAgent):
         stage = self.logs_dir / "package-stage"
         if stage.exists():
             shutil.rmtree(stage)
-        package = stage / "src" / "bioagent_coder"
+        package = stage / "bioagent_coder"
         shutil.copytree(Path(__file__).resolve().parent, package)
-        (stage / "pyproject.toml").write_text(
-            '[build-system]\nrequires=["setuptools>=68"]\nbuild-backend="setuptools.build_meta"\n'
-            '[project]\nname="bioagent-coder"\nversion="0.2.0"\n'
-            '[tool.setuptools.packages.find]\nwhere=["src"]\n'
-        )
         await environment.upload_dir(stage, "/tmp/bioagent-coder")
         result = await environment.exec(
-            "python3 -m pip install --no-deps /tmp/bioagent-coder",
+            "python3 -c \"import shutil,site; shutil.copytree('/tmp/bioagent-coder/bioagent_coder', site.getsitepackages()[0]+'/bioagent_coder', dirs_exist_ok=True)\"",
             user="root",
             timeout_sec=180,
         )

@@ -4,10 +4,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bioagent-dswizard"
 version = "0.2.0"
-description = "Standalone BioAgent Gym DSWizard"
-requires-python = ">=3.10"
-[project.scripts]
-bioagent-dswizard = "bioagent_dswizard.cli:main"
+description = "DSWizard integration for Harbor"
+requires-python = ">=3.12"
 [project.optional-dependencies]
 harbor = ["harbor==0.23.0"]
 [tool.setuptools.packages.find]

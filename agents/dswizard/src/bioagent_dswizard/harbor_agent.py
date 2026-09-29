@@ -17,6 +17,8 @@ class DSWizardOptions(AgentOptions):
     api_key_env: str = "OPENAI_API_KEY"
     timeout_seconds: float = 90
     max_attempts: int = 2
+    max_tokens: int = 2000
+    reasoning_effort: str | None = None
 
 
 class DSWizardHarborAgent(BaseAgent):
@@ -36,14 +38,9 @@ class DSWizardHarborAgent(BaseAgent):
         stage = self.logs_dir / "package-stage"
         if stage.exists():
             shutil.rmtree(stage)
-        shutil.copytree(Path(__file__).resolve().parent, stage / "src" / "bioagent_dswizard")
-        (stage / "pyproject.toml").write_text(
-            '[build-system]\nrequires=["setuptools>=68"]\nbuild-backend="setuptools.build_meta"\n'
-            '[project]\nname="bioagent-dswizard"\nversion="0.2.0"\n'
-            '[tool.setuptools.packages.find]\nwhere=["src"]\n'
-        )
+        shutil.copytree(Path(__file__).resolve().parent, stage / "bioagent_dswizard")
         await environment.upload_dir(stage, "/tmp/bioagent-dswizard")
-        result = await environment.exec("python3 -m pip install --no-deps /tmp/bioagent-dswizard", user="root", timeout_sec=180)
+        result = await environment.exec("python3 -c \"import shutil,site; shutil.copytree('/tmp/bioagent-dswizard/bioagent_dswizard', site.getsitepackages()[0]+'/bioagent_dswizard', dirs_exist_ok=True)\"", user="root", timeout_sec=180)
         if result.return_code:
             raise RuntimeError(f"DSWizard install failed: {result.stderr or result.stdout}")
 
