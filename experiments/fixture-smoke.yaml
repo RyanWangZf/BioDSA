@@ -1,0 +1,10 @@
+job_name: bioagent-fixture-smoke
+n_attempts: 1
+n_concurrent_trials: 1
+environment:
+  type: docker
+  delete: true
+agents:
+  - import_path: bioagent_fixture.harbor_agent:FixtureHarborAgent
+tasks:
+  - path: benchmarks/fixtures/tasks/adapter-smoke

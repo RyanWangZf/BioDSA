@@ -179,5 +179,6 @@ benchmark_datasets/R/datasets/*
 .DS_store
 # BioAgent Gym local prepared data and run records
 .bioagent-gym/
+.harbor/
 # Phase-1 compatibility: explicit old paths remain valid and are not migrated.
 .biodsa/
