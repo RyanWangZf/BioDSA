@@ -14,6 +14,7 @@ shared item runner and the agent you intend to use:
 ```bash
 python3.12 -m venv .venv-harbor
 .venv-harbor/bin/pip install -e . -e runner -e 'agents/dswizard[harbor]'
+.venv-harbor/bin/pip install -e 'agents/deepevidence[harbor]'
 ```
 
 Coder, DSWizard, and DeepEvidence are separate distributions. Their wheels own
@@ -62,6 +63,9 @@ Run the formal leaderboard configurations with the required provider secret:
 .venv-harbor/bin/harbor run \
   -c benchmarks/biomedicine-deep-research/jobs/deepevidence.yaml --env-file .env \
   --jobs-dir "$ROOT/.harbor/jobs" -y
+
+.venv-harbor/bin/python benchmarks/biomedicine-deep-research/summarize.py \
+  "$ROOT/.harbor/jobs/<deepevidence-job-directory>"
 ```
 
 BioDSBench ranks the 118-item Python task; R remains inventoried but unsupported.

@@ -1,0 +1,19 @@
+job_name: deepevidence-fixture-smoke
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  env:
+    BIOAGENT_SPLIT: fit
+    BIOAGENT_ITEM_IDS: "bdr-hle-biomedicine-4e0046c4552081e7b086"
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_fixture.bdr_agent:BDRFixtureAgent
+    model_name: deterministic
+    kwargs:
+      split: fit
+      item_ids_by_dataset:
+        hle-biomedicine: ["bdr-hle-biomedicine-4e0046c4552081e7b086"]
+      item_timeout_seconds: 30
+tasks:
+  - path: benchmarks/biomedicine-deep-research/tasks/hle-biomedicine

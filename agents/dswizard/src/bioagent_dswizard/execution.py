@@ -7,11 +7,11 @@ class ExecutionResult:
  code:str; exit_code:int|None; stdout:str; stderr:str; timed_out:bool; duration_seconds:float
  def json(self): return asdict(self)
 class PythonExecutionSession:
- def __init__(self,workspace:Path,timeout:float,env_names=None): self.workspace,self.timeout,self.closed,self.env_names=workspace.resolve(),timeout,False,env_names or []; self.workspace.mkdir(parents=True,exist_ok=True)
+ def __init__(self,workspace:Path,timeout:float,env_names=None,python_executable=None): self.workspace,self.timeout,self.closed,self.env_names,self.python_executable=workspace.resolve(),timeout,False,env_names or [],python_executable or sys.executable; self.workspace.mkdir(parents=True,exist_ok=True)
  def execute(self,code):
   if self.closed: raise RuntimeError("execution session is closed")
   started=time.monotonic()
-  base={name:os.environ[name] for name in ("PATH","HOME","TMPDIR","LANG","LC_ALL","SSL_CERT_FILE","SSL_CERT_DIR") if name in os.environ}; sandbox_env={name:os.environ[name] for name in self.env_names if name in os.environ}; process=subprocess.Popen([sys.executable,"-c",code],cwd=self.workspace,env={**base,**sandbox_env},stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
+  base={name:os.environ[name] for name in ("PATH","HOME","TMPDIR","LANG","LC_ALL","SSL_CERT_FILE","SSL_CERT_DIR") if name in os.environ}; sandbox_env={name:os.environ[name] for name in self.env_names if name in os.environ}; process=subprocess.Popen([self.python_executable,"-c",code],cwd=self.workspace,env={**base,**sandbox_env},stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
   try:
    stdout,stderr=process.communicate(timeout=self.timeout); return ExecutionResult(code,process.returncode,stdout,stderr,False,time.monotonic()-started)
   except subprocess.TimeoutExpired:
@@ -40,4 +40,4 @@ class FileExecutionSession:
  def __exit__(self,*_): self.close()
 def execution_session(config,workspace):
  settings=config["execution_environment"]; timeout=float(settings["timeout_seconds"])
- return FileExecutionSession(Path(settings["channel_dir"]),timeout) if settings.get("backend")=="file_channel" else PythonExecutionSession(workspace,timeout,settings.get("sandbox_env_names",[]))
+ return FileExecutionSession(Path(settings["channel_dir"]),timeout) if settings.get("backend")=="file_channel" else PythonExecutionSession(workspace,timeout,settings.get("sandbox_env_names",[]),settings.get("python_executable"))

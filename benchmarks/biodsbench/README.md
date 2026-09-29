@@ -6,6 +6,9 @@ Run `python3 benchmarks/biodsbench/prepare.py` to refresh the exact inventories,
 stage large public tables, private references, and verifier deployment copies.
 The script verifies committed task definitions exist and does not rewrite
 instructions, `task.toml`, Dockerfiles, or jobs.
+Without `--skip-large-data`, missing archives or ambiguous/missing table matches
+make preparation fail with a concrete file list. The flag is the only supported
+way to prepare inventory metadata without asserting that tables are complete.
 
 ## Jobs and ranking scope
 

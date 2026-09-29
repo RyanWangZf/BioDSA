@@ -17,6 +17,9 @@ excludes evidence-gap retrieval because its source defines no metric.
 `jobs/deepevidence-diagnostic.yaml` covers all splits and all 13 subsets for
 inventory diagnostics; `jobs/deepevidence-smoke.yaml` is deterministic and
 bounded. Diagnostic and development results do not enter the formal ranking.
+`jobs/deepevidence-fixture-smoke.yaml` exercises the same task and verifier with
+a second deterministic test adapter to check agent/leaderboard decoupling; it is
+test infrastructure and never a ranked result.
 
 Single-choice answers require one legal option ID. Multi-select uses source
 set exact match, ignores ordering, and rejects duplicates. The 20
@@ -30,6 +33,18 @@ selection and also report each subset. Missing/failed model predictions remain
 in that denominator. A grading/infrastructure error invalidates the run rather
 than shrinking the denominator. Harbor task rewards must therefore be read with
 the per-item and per-subset summaries; they are not averaged into a macro score.
+
+After Harbor finishes, produce the leaderboard result with:
+
+```bash
+python3 benchmarks/biomedicine-deep-research/summarize.py /path/to/harbor/job
+```
+
+The summarizer requires all 12 formal subset trials, verifier split, the fixed
+127-item denominator, complete per-item IDs, and error-free grading. It reports
+agent/model identity, micro accuracy, each subset, and failure counts. Missing
+trials, Harbor exceptions, denominator drift, unscorable items, or grading
+errors invalidate the entire result and yield exit code 2.
 
 Malformed JSON lines, duplicate prediction IDs, and unknown prediction IDs are
 global grading errors: diagnostics are saved, evaluation exits nonzero, and no

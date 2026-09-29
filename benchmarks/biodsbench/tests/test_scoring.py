@@ -2,6 +2,7 @@ import ast
 import importlib.util
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -12,6 +13,7 @@ def module(name,path):
 
 build=module("build_biodsbench_scoring",ROOT/"benchmarks/biodsbench/scoring/compile_assertions.py")
 runner=module("run_biodsbench_submission",ROOT/"benchmarks/biodsbench/scoring/run_submission.py")
+prepare=module("biodsbench_prepare",ROOT/"benchmarks/biodsbench/prepare.py")
 
 class BioDSBenchCompilerTests(unittest.TestCase):
     def compile(self,test):
@@ -45,5 +47,10 @@ class BioDSBenchCompilerTests(unittest.TestCase):
             for observation in scoring["observations"]:
                 node=ast.parse(observation["expression"],mode="eval").body
                 self.assertNotIsInstance(node,(ast.BoolOp,ast.Compare),ref["item_id"])
+
+    def test_full_table_prepare_rejects_missing_archives(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(RuntimeError,"input preparation incomplete"):
+                prepare.stage_tables(Path(directory))
 
 if __name__=="__main__":unittest.main()

@@ -13,3 +13,10 @@ Each package owns its prompts, workflow, tools, dependencies, tests, and Harbor
 adapter. Adapters call `bioagent_harbor_runtime.run_batch` for selection,
 isolated child processes, timeouts, workspaces, and incremental predictions.
 Harbor owns the dataset-level trial and Docker environment.
+
+During Harbor `setup()`, each adapter creates `/opt/<agent>` inside the task
+container, installs that distribution's declared runtime dependencies, and
+stages the agent plus shared runner into the environment. Batch workers use the
+agent interpreter. Generated analysis code uses the task image's explicit
+Python, preserving the dependency boundary between agent logic and benchmark
+scientific execution.

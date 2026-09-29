@@ -10,12 +10,12 @@ class ExecutionResult:
 
 class PythonExecutionSession:
     """Fresh interpreter per call; files persist in the task workspace."""
-    def __init__(self, workspace: Path, timeout: float, env_names: list[str] | None = None): self.workspace, self.timeout, self.closed, self.env_names = workspace.resolve(), timeout, False, env_names or []; self.workspace.mkdir(parents=True, exist_ok=True)
+    def __init__(self, workspace: Path, timeout: float, env_names: list[str] | None = None, python_executable: str | None = None): self.workspace, self.timeout, self.closed, self.env_names, self.python_executable = workspace.resolve(), timeout, False, env_names or [], python_executable or sys.executable; self.workspace.mkdir(parents=True, exist_ok=True)
     def execute(self, code: str) -> ExecutionResult:
         if self.closed: raise RuntimeError("execution session is closed")
         started=time.monotonic()
         base={name:os.environ[name] for name in ("PATH","HOME","TMPDIR","LANG","LC_ALL","SSL_CERT_FILE","SSL_CERT_DIR") if name in os.environ}; sandbox_env={name:os.environ[name] for name in self.env_names if name in os.environ}
-        process=subprocess.Popen([sys.executable,"-c",code],cwd=self.workspace,env={**base,**sandbox_env},stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
+        process=subprocess.Popen([self.python_executable,"-c",code],cwd=self.workspace,env={**base,**sandbox_env},stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
         try:
             stdout,stderr=process.communicate(timeout=self.timeout); return ExecutionResult(code,process.returncode,stdout,stderr,False,time.monotonic()-started)
         except subprocess.TimeoutExpired:
@@ -49,4 +49,4 @@ class FileExecutionSession:
 def execution_session(config: dict, workspace: Path):
     settings=config["execution_environment"]; timeout=float(settings["timeout_seconds"])
     if settings.get("backend")=="file_channel": return FileExecutionSession(Path(settings["channel_dir"]),timeout)
-    return PythonExecutionSession(workspace,timeout,settings.get("sandbox_env_names",[]))
+    return PythonExecutionSession(workspace,timeout,settings.get("sandbox_env_names",[]),settings.get("python_executable"))

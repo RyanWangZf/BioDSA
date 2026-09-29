@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import json
-import bioagent_harbor_runtime
-import shutil
+from bioagent_harbor_runtime import install_command, stage_agent
 from pathlib import Path
 from typing import override
 
@@ -20,7 +19,7 @@ class CoderOptions(AgentOptions):
     max_attempts: int = 2
     max_tokens: int = 2000
     reasoning_effort: str | None = None
-    item_ids: list[str] = []
+    item_ids: list[str] | None = None
     item_timeout_seconds: float = 300
 
 
@@ -41,14 +40,10 @@ class CoderHarborAgent(BaseAgent):
     @override
     async def setup(self, environment: BaseEnvironment) -> None:
         stage = self.logs_dir / "package-stage"
-        if stage.exists():
-            shutil.rmtree(stage)
-        package = stage / "bioagent_coder"
-        shutil.copytree(Path(__file__).resolve().parent, package)
-        shutil.copytree(Path(bioagent_harbor_runtime.__file__).resolve().parent, stage / "bioagent_harbor_runtime")
+        stage_agent(Path(__file__).resolve().parent, "bioagent-coder", "bioagent_coder", stage)
         await environment.upload_dir(stage, "/tmp/bioagent-coder")
         result = await environment.exec(
-            "python3 -c \"import shutil,site; root=site.getsitepackages()[0]; shutil.copytree('/tmp/bioagent-coder/bioagent_coder', root+'/bioagent_coder', dirs_exist_ok=True); shutil.copytree('/tmp/bioagent-coder/bioagent_harbor_runtime', root+'/bioagent_harbor_runtime', dirs_exist_ok=True)\"",
+            install_command("/tmp/bioagent-coder", "/opt/bioagent-coder", "bioagent_coder"),
             user="root",
             timeout_sec=180,
         )
@@ -61,14 +56,16 @@ class CoderHarborAgent(BaseAgent):
         config = self.options.model_dump()
         config.update({
             "model": self.model_name,
-            "execution_environment": {"backend": "local_subprocess", "timeout_seconds": config.pop("timeout_seconds")},
+            "execution_environment": {"backend": "local_subprocess", "timeout_seconds": config.pop("timeout_seconds"), "python_executable": "/usr/local/bin/python3"},
         })
         item_ids = config.pop("item_ids")
         item_timeout_seconds = config.pop("item_timeout_seconds")
-        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_timeout_seconds": item_timeout_seconds}))
+        payload={"instruction": instruction, "config": config, "item_timeout_seconds": item_timeout_seconds}
+        if item_ids is not None: payload["item_ids"]=item_ids
+        request.write_text(json.dumps(payload))
         await environment.upload_file(request, "/tmp/bioagent-input.json")
         result = await environment.exec(
-            "python3 -m bioagent_coder.harbor_runner /tmp/bioagent-input.json",
+            "/opt/bioagent-coder/bin/python -m bioagent_coder.harbor_runner /tmp/bioagent-input.json",
             cwd="/app",
         )
         (self.logs_dir / "agent.stdout").write_text(result.stdout or "")

@@ -14,5 +14,9 @@ container security boundary.
 
 An agent wheel contains only its own namespace and declares
 `bioagent-harbor-runtime` as a dependency. Benchmarks never import agents.
+During Harbor setup the adapter creates a reusable agent virtual environment and
+installs its declared runtime dependencies. Agent workers use that interpreter;
+generated analysis uses the task image's configured interpreter so benchmark
+scientific dependencies remain owned by the task.
 Historical pre-Harbor code lives under `legacy/` and is outside the current
 install, catalog, and execution path.

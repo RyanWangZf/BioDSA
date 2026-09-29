@@ -54,9 +54,12 @@ def prepare_metadata(source):
             (task / "tests/run_submission.py").write_text("# R execution is not supported\n")
 
 def stage_tables(source):
+    missing = []
     for language, archive_name in (("python", "raw_patient_data_for_python_tasks.tar.gz"), ("r", "raw_patient_data_for_R_tasks.tar.gz")):
         archive = source / "data_files" / archive_name
-        if not archive.is_file(): continue
+        if not archive.is_file():
+            missing.append(f"{language}: archive not found: {archive}")
+            continue
         cache = source / f"extracted-{language}"; cache.mkdir(exist_ok=True)
         if not (cache / ".complete").exists():
             with tarfile.open(archive) as handle: handle.extractall(cache, filter="data")
@@ -67,13 +70,19 @@ def stage_tables(source):
             for relative in item["input_paths"]:
                 name = Path(relative).name
                 matches = [p for p in files if p.is_file() and p.stem == Path(name).stem and (language == "r" or item["study_id"] in str(p))]
-                if len(matches) != 1: continue
+                if len(matches) != 1:
+                    missing.append(f"{language}/{item['item_id']}: {name}: expected one source match, found {len(matches)}")
+                    continue
                 source_file = matches[0]
                 if source_file.suffix in {".txt", ".xena", ".tsv"} and Path(name).suffix == ".csv":
                     with source_file.open(newline="", errors="replace") as src, (destination / name).open("w", newline="") as dst: csv.writer(dst).writerows(csv.reader(src, delimiter="\t"))
                 else: shutil.copy2(source_file, destination / name)
                 verifier = task / "tests/data/inputs" / item["study_id"]; verifier.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(destination / name, verifier / name)
+    if missing:
+        preview="\n".join(f"- {entry}" for entry in missing[:100])
+        suffix=f"\n- ... and {len(missing)-100} more" if len(missing)>100 else ""
+        raise RuntimeError(f"BioDSBench input preparation incomplete ({len(missing)} missing or ambiguous files):\n{preview}{suffix}")
 
 def main():
     parser = argparse.ArgumentParser(); parser.add_argument("--source-cache", type=Path); parser.add_argument("--skip-large-data", action="store_true"); args = parser.parse_args()
