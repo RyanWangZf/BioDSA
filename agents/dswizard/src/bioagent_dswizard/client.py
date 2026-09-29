@@ -5,7 +5,7 @@ class MockClient:
  def plan(self,task,context): return "1. Load and validate the CSV columns.\n2. Compute the requested statistic.\n3. Save analysis_summary.csv.\n4. Print the result and verify row counts."
  def implementation_code(self,task,data_file):
   if "Count rows per group" in task: return f'''import csv\nfrom collections import Counter\nassert open("exploration.complete").read()=="done"\nrows=list(csv.DictReader(open({data_file!r}))); counts=Counter(r["group"] for r in rows)\nwith open("analysis_summary.csv","w",newline="") as f:\n w=csv.writer(f); w.writerow(["group","count"]); w.writerows(sorted(counts.items()))\nprint("A=2, B=2")'''
-  return f'''import csv\nassert open("exploration.complete").read()=="done"\nrows=list(csv.DictReader(open({data_file!r}))); mean=sum(float(r["value"]) for r in rows)/len(rows)\nwith open("analysis_summary.csv","w",newline="") as f:\n w=csv.writer(f); w.writerow(["metric","value"]); w.writerow(["mean",mean])\nprint(f"{{mean:.1f}}")'''
+  return f'''import csv\nassert open("exploration.complete").read()=="done"\nrows=list(csv.DictReader(open({data_file!r})))\nif rows and "value" in rows[0]: metric,value="mean",sum(float(r["value"]) for r in rows)/len(rows)\nelse: metric,value="row_count",len(rows)\nwith open("analysis_summary.csv","w",newline="") as f:\n w=csv.writer(f); w.writerow(["metric","value"]); w.writerow([metric,value])\nprint(f"{{metric}}={{value}}")'''
  def final(self,task,stdout): return f"Completed the planned analysis. Result: {stdout.strip()}"
 class OpenAICompatibleClient:
  def __init__(self,config): self.config=config

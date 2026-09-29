@@ -1,6 +1,6 @@
 """Prepare the two pinned sources as dataset-level Harbor tasks."""
 from __future__ import annotations
-import argparse, json, shutil, tarfile
+import argparse, csv, json, shutil, tarfile
 from collections import Counter
 from pathlib import Path
 
@@ -11,12 +11,12 @@ TOML='''schema_version = "1.4"\nartifacts = ["/app/submission"]\n[metadata]\nsou
 INSTRUCTION="# Dataset batch evaluation\n\nRead /app/data/items.jsonl. Answer each selected item independently. The adapter writes incremental predictions to /app/submission/predictions.jsonl and item artifacts below /app/submission/items/<item-id>/.\n"
 ENV='''FROM python:3.12-slim\nRUN pip install --no-cache-dir pandas==2.3.3 numpy==2.3.4 scipy==1.16.3 matplotlib==3.10.7 seaborn==0.13.2 statsmodels==0.14.5 lifelines==0.30.0\nCOPY data/ /app/data/\nWORKDIR /app\n'''
 BDR_ENV='''FROM python:3.12-slim\nCOPY data/ /app/data/\nWORKDIR /app\n'''
-TEST_DOCKER='''FROM python:3.12-slim\nCOPY test.sh grade.py run_submission.py /tests/\nCOPY references/ /tests/references/\nRUN chmod 700 /tests/references && chmod +x /tests/test.sh\nWORKDIR /app\n'''
+TEST_DOCKER='''FROM python:3.12-slim\nCOPY test.sh grade.py run_submission.py /tests/\nCOPY references/ /tests/references/\nCOPY data/ /app/data/\nRUN chmod 700 /tests/references && chmod +x /tests/test.sh\nWORKDIR /app\n'''
 
 def read(path): return [json.loads(x) for x in path.read_text().splitlines() if x.strip()]
 def write(path,rows): path.parent.mkdir(parents=True,exist_ok=True); path.write_text("".join(json.dumps(x,ensure_ascii=False)+"\n" for x in rows))
 def base(path,name,source,tags,env):
-    for d in (path/"data",path/"environment/data",path/"tests/references"): d.mkdir(parents=True,exist_ok=True)
+    for d in (path/"data",path/"environment/data",path/"tests/references",path/"tests/data"): d.mkdir(parents=True,exist_ok=True)
     (path/"instruction.md").write_text(INSTRUCTION); (path/"task.toml").write_text(TOML.format(source=source,name=name,tags=json.dumps(tags))); (path/"environment/Dockerfile").write_text(env); (path/"tests/Dockerfile").write_text(TEST_DOCKER); (path/"tests/test.sh").write_text("#!/bin/sh\nset -eu\npython3 /tests/grade.py\n")
 
 def bio(source):
@@ -49,8 +49,14 @@ def stage_bio_tables(source):
         for item in items:
             dest=task/"environment/data/inputs"/item["study_id"]; dest.mkdir(parents=True,exist_ok=True)
             for rel in item["input_paths"]:
-                name=Path(rel).name; matches=[p for p in files if p.is_file() and p.name==name and item["study_id"] in str(p)]
-                if len(matches)==1: shutil.copy2(matches[0],dest/name)
+                name=Path(rel).name; stem=Path(name).stem
+                matches=[p for p in files if p.is_file() and p.stem==stem and (lang=="r" or item["study_id"] in str(p))]
+                if len(matches)!=1: continue
+                input_file=matches[0]
+                if input_file.suffix in {".txt",".xena",".tsv"} and Path(name).suffix==".csv":
+                    with input_file.open(newline="",errors="replace") as src,(dest/name).open("w",newline="") as dst: csv.writer(dst).writerows(csv.reader(src,delimiter="\t"))
+                else: shutil.copy2(input_file,dest/name)
+                verifier_dest=task/"tests/data/inputs"/item["study_id"]; verifier_dest.mkdir(parents=True,exist_ok=True); shutil.copy2(dest/name,verifier_dest/name)
 
 def bdr(source):
     labels={x["example_id"]:x for x in read(source/"private/eval_labels.jsonl")}; evals=read(source/"public/verifier/cases.jsonl")
@@ -64,7 +70,7 @@ def bdr(source):
         for row in rows:
             item=dict(row); item.update(item_id=row["example_id"],source_split="verifier",instruction=row["prompt"]); public.append(item); ref=labels.get(row["example_id"]); refs.append({"item_id":row["example_id"],"label":None if ref is None else ref.get("target"),"task_type":row["task_type"],"source_split":"verifier"})
         write(task/"data/items.jsonl",public); write(task/"environment/data/items.jsonl",public); write(task/"tests/references/references.jsonl",refs)
-        blocked=[{"item_id":x["item_id"],"reason":"source label unavailable"} for x in refs if x["label"] is None]; manifest={"source_repo":"zifeng-ai/biomedicine-deep-research","source_revision":BDR_REV,"subset":subset,"splits":{s:{"source_count":n,"included_count":n} for s,n in counts.items()},"source_count":len(public),"included_count":len(public),"runnable_count":len(public),"scorable_count":len(public)-len(blocked),"blocked_count":len(blocked),"task_types":dict(Counter(x["task_type"] for x in public)),"blocked":blocked}
+        blocked=[{"item_id":x["item_id"],"reason":"source label unavailable"} for x in refs if x["label"] is None]; manifest={"source_repo":"zifeng-ai/biomedicine-deep-research","source_revision":BDR_REV,"subset":subset,"splits":{s:{"source_count":n,"included_count":n,"runnable_count":n,"scorable_count":n,"blocked_count":0} for s,n in counts.items()},"source_count":len(public),"included_count":len(public),"runnable_count":len(public),"scorable_count":len(public)-len(blocked),"blocked_count":len(blocked),"task_types":dict(Counter(x["task_type"] for x in public)),"blocked":blocked}
         (task/"data/manifest.json").write_text(json.dumps(manifest,indent=2)); shutil.copy2(task/"data/manifest.json",task/"environment/data/manifest.json"); (task/"tests/grade.py").write_text((ROOT/"scripts/harbor_bdr_grade.py").read_text()); (task/"tests/run_submission.py").write_text("# unused for this task\n")
 
 def main():

@@ -116,8 +116,8 @@ without inventing an LLM judge.
 - [x] Implement isolated per-item batch runners and selection propagation.
 - [x] Implement trusted dataset graders and BioDSBench execution isolation.
 - [x] Add full/smoke native Harbor jobs.
-- [ ] Run unit/config checks and real Docker Harbor batch smoke.
-- [ ] Delete replaced record-level tasks/scripts; update README and coverage report.
+- [x] Run unit/config checks and real Docker Harbor batch smoke.
+- [x] Delete replaced record-level tasks/scripts; update README and coverage report.
 
 ## Validation in progress
 
@@ -125,7 +125,15 @@ The DeepEvidence two-item HLE smoke completed as one real Docker Harbor trial:
 both item processes completed, the trusted denominator was two, and the
 deterministic mock scored 1/2 (accuracy 0.5). This demonstrates batch artifact
 collection and verifier aggregation; it is not a claim that the full 648-item
-suite ran. Remaining regression and BioDSBench checks are tracked above.
+suite ran.
+
+The DSWizard two-item BioDSBench smoke also completed as one Docker trial after
+the pinned public tables were staged. Both independent item processes completed
+and emitted plans/code/artifacts. Both are reported as `unscorable`, with a null
+accuracy and reward 0, because safe conversion of their source assertions is an
+explicit blocker. A verifier regression confirmed correct/partial/missing
+denominators of 2 with accuracies 1.0/0.5/0.0. A malicious submitted program
+could neither read root-only references nor overwrite the final reward.
 
 The complete paid/API-backed full jobs are prepared but are not run
 automatically. Validation uses fixed smoke selections and distinguishes source

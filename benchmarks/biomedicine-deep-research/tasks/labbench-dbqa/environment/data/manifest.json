@@ -5,15 +5,24 @@
   "splits": {
     "fit": {
       "source_count": 30,
-      "included_count": 30
+      "included_count": 30,
+      "runnable_count": 30,
+      "scorable_count": 30,
+      "blocked_count": 0
     },
     "tune": {
       "source_count": 10,
-      "included_count": 10
+      "included_count": 10,
+      "runnable_count": 10,
+      "scorable_count": 10,
+      "blocked_count": 0
     },
     "verifier": {
       "source_count": 10,
-      "included_count": 10
+      "included_count": 10,
+      "runnable_count": 10,
+      "scorable_count": 10,
+      "blocked_count": 0
     }
   },
   "source_count": 50,

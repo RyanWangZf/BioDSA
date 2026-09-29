@@ -27,6 +27,13 @@ def _batch(d:dict)->int:
     status,error="timeout","per-item timeout"; os.killpg(p.pid,signal.SIGTERM)
     try: p.wait(timeout=5)
     except subprocess.TimeoutExpired: os.killpg(p.pid,signal.SIGKILL); p.wait()
+   except BaseException:
+    if p.poll() is None: os.killpg(p.pid,signal.SIGTERM)
+    try: p.wait(timeout=5)
+    except subprocess.TimeoutExpired: os.killpg(p.pid,signal.SIGKILL); p.wait()
+    raise
+   finally:
+    if p.poll() is None: os.killpg(p.pid,signal.SIGKILL); p.wait()
    answer=(o/"final_answer.md").read_text() if status=="completed" else None; row={"item_id":i,"status":status,"final_answer":answer,"artifacts_dir":f"items/{i}"}
    if error: row["error"]=error
    stream.write(json.dumps(row)+"\n"); stream.flush(); os.fsync(stream.fileno())

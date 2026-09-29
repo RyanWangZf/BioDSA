@@ -34,8 +34,10 @@ for item_id in selected:
     if pred.get("status") != "completed": results.append({"item_id": item_id, "status": pred.get("status", "agent_error"), "score": 0.0}); continue
     if ref.get("label") is None: results.append({"item_id": item_id, "status": "unscorable", "score": None}); continue
     results.append({"item_id": item_id, "status": "scored", "score": float(norm(answer_payload(pred.get("final_answer"))) == norm(ref["label"])), "task_type": ref["task_type"]})
+unknown = sorted(set(preds) - set(selected))
 counts = {k: sum(x["status"] == k for x in results) for k in ("scored", "missing", "timeout", "agent_error", "grading_error", "unscorable")}
 scored = [x["score"] for x in results if x["status"] == "scored"]
-summary = {"total": len(selected), "attempted": len(selected)-counts["missing"], "completed": sum(x["status"] in {"scored", "unscorable"} for x in results), **counts, "malformed_or_duplicate": malformed, "metric_scope": "complete" if len(scored)==len(selected) and not malformed else "partial", "accuracy": sum(scored)/len(scored) if scored else None}
+invalid_scoring = counts["grading_error"] or counts["unscorable"] or malformed or unknown
+summary = {"total": len(selected), "attempted": len(selected)-counts["missing"], "completed": sum(x["status"] in {"scored", "unscorable"} for x in results), **counts, "malformed_or_duplicate": malformed, "unknown_prediction_ids": unknown, "metric_scope": "complete" if not invalid_scoring else "partial", "accuracy": None if invalid_scoring or not selected else sum(scored)/len(selected), "scored_only_accuracy": sum(scored)/len(scored) if scored else None, "metric_denominator": len(selected), "scored_only_denominator": len(scored)}
 logs=Path("/logs/verifier"); logs.mkdir(parents=True, exist_ok=True)
 (logs/"per_item_results.jsonl").write_text("".join(json.dumps(x)+"\n" for x in results)); (logs/"summary.json").write_text(json.dumps(summary, indent=2)); (logs/"reward.txt").write_text(str(summary["accuracy"] or 0.0))

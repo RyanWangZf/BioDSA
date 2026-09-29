@@ -182,6 +182,7 @@ benchmark_datasets/R/datasets/*
 .harbor/
 benchmarks/biodsbench/tasks/*/environment/inputs/
 benchmarks/biodsbench/tasks/*/tests/inputs/
+benchmarks/biodsbench/tasks/*/tests/data/inputs/
 benchmarks/biodsbench/tasks/*/environment/data/inputs/
 # Generated from pinned sources; answer keys are never committed or copied to agents.
 benchmarks/biodsbench/tasks/*/tests/references/
