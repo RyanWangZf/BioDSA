@@ -25,7 +25,10 @@ class DeepEvidenceAgent:
   action_budget=int(self.config.get("main_action_rounds_budget",6))
   for action,route in enumerate(routes[:max_search]):
    if action>=action_budget: self._record("budget_stop",scope="orchestrator",budget=action_budget); break
-   result=self._search(route,question if route=="bfs" else question+" mechanisms"); evidence.extend(result)
+   try:
+    if route in self.config.get("fail_routes",[]): raise RuntimeError(f"{route} subagent failed")
+    result=self._search(route,question if route=="bfs" else question+" mechanisms"); evidence.extend(result)
+   except Exception as exc: self._record("subagent_error",route=route,error=str(exc))
   retrieved=self.memory.retrieve(question); self._record("memory_retrieved",count=len(retrieved)); executions=[]; generated=[]
   if self.config.get("code_execution",{}).get("enabled"):
    code="import csv\nrows="+repr([(x.get('source'),x.get('id'),x.get('title')) for x in evidence])+"\nwith open('evidence_counts.csv','w',newline='') as f:\n w=csv.writer(f); w.writerow(['source','id','title']); w.writerows(rows)\nprint(len(rows))"

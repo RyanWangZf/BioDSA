@@ -18,6 +18,9 @@ class WorkflowTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as temporary:
    failed=DeepEvidenceAgent(self.config(knowledge_bases=["pubmed_papers"]),Path(temporary)).run("TOOL_FAILURE")
    self.assertTrue(any(x["event"]=="tool_error" and "stub failure" in x["error"] for x in failed["trace"]))
+  with tempfile.TemporaryDirectory() as temporary:
+   failed=DeepEvidenceAgent(self.config(fail_routes=["bfs"]),Path(temporary)).run("subagent failure")
+   self.assertTrue(any(x["event"]=="subagent_error" and x["route"]=="bfs" for x in failed["trace"])); self.assertTrue(any(x.get("route")=="dfs" for x in failed["trace"]))
  def test_task_memory_isolation(self):
   with tempfile.TemporaryDirectory() as temporary:
    root=Path(temporary); first=root/"one"; second=root/"two"; DeepEvidenceAgent(self.config(),first).run("FIRST_MARKER"); agent=DeepEvidenceAgent(self.config(),second); self.assertEqual(agent.memory.data["entities"],[]); agent.run("SECOND_MARKER"); self.assertNotIn("FIRST_MARKER",(second/"evidence_graph.json").read_text())
