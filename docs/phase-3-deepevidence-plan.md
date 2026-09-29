@@ -1,6 +1,6 @@
 # Phase 3: sandbox completion and DeepEvidence migration
 
-Status: in progress
+Status: implemented
 
 ## 1. Sandbox and existing-agent closeout
 
@@ -41,6 +41,17 @@ enabled unavailable tool fails during configuration instead of disappearing.
 Small execution/client adapters may remain duplicated until another migration
 proves a stable shared package boundary.
 
+The migrated project preserves the hierarchical orchestrator/BFS/DFS topology,
+knowledge-base selection, search/action budgets, task memory graph, generated
+code path, structured trace, citations, and artifacts. Its runtime uses a thin
+standard-library model client rather than the legacy BaseAgent/LangGraph class
+hierarchy. The registry retains PubMed, gene, disease, drug, variant, clinical
+trials, web search, target, pathway, and compound capabilities with lazy
+adapters. Live HTTP adapters are implemented for PubMed, MyGene, OLS, ChEMBL,
+MyVariant, ClinicalTrials.gov, Reactome, and PubChem. Target GraphQL and
+provider-specific web search require explicit adapters and fail early when
+selected in live mode; stub mode covers their workflow integration.
+
 ## 3. Protocol and verification
 
 1. Add the minimal `research.evidence_synthesis.v1` input/output schemas and a
@@ -59,3 +70,14 @@ proves a stable shared package boundary.
 Image-build, prepare, and evaluator networking remain outside agent/sandbox
 network policy. This phase does not migrate other agents or claim that a single
 PubMed smoke validates every knowledge base.
+
+## Verification status
+
+- Coder mock/local/Docker paths pass. Live PubMed produced a three-row CSV;
+  live CSV analysis produced correct group means and a valid SVG artifact.
+- DSWizard mock/local/Docker planning and implementation paths pass. Its
+  OpenRouter/Qwen live tasks reached the 360-second per-task limit before the
+  four serial model calls completed, so live behavior remains unverified.
+- DeepEvidence clean wheel install, repository-external import/CLI, unit tests,
+  local harness, Docker harness, and bounded PubMed live synthesis pass. The
+  structural fixture intentionally returns `not_applicable` with no score.

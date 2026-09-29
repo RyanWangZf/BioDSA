@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "bioagent-deepevidence"
+version = "0.1.0"
+description = "Standalone BioAgent Gym DeepEvidence agent"
+requires-python = ">=3.10"
+[project.scripts]
+bioagent-deepevidence = "bioagent_deepevidence.cli:main"
+[tool.setuptools.packages.find]
+where = ["src"]

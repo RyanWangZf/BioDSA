@@ -1,0 +1,6 @@
+protocol_version: "1.0"
+agent: {manifest: ../agents/deepevidence/agent.yaml, config: ../agents/deepevidence/configs/openrouter-pubmed.example.json}
+benchmark: {manifest: ../benchmarks/fixture_evidence/benchmark.yaml, prepared: ../.bioagent-gym/evidence-prepared, split: test, data_revision: evidence-fixture-r1}
+execution: {backend: docker, network: {agent: {mode: internet}, sandbox: {mode: internet}}}
+budget: {wall_time_seconds: 300, model_calls: 1, tool_calls: 2}
+output: ../.bioagent-gym/deepevidence-live-pubmed-run
