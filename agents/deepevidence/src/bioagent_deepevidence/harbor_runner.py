@@ -11,7 +11,7 @@ def _worker(request:Path)->int:
  (o/"generated_code.py").write_text("\n\n".join(r["generated_code"])); (o/"usage.json").write_text(json.dumps(usage,indent=2)); return 0
 
 def _batch(d:dict)->int:
- app=Path("/app"); items=[json.loads(x) for x in (app/"data/items.jsonl").read_text().splitlines() if x.strip()]; selected=d.get("item_ids") or []; known={x["item_id"] for x in items}
+ app=Path("/app"); item_file=app/"data/items.jsonl"; single_mode=not item_file.is_file(); items=[json.loads(x) for x in item_file.read_text().splitlines() if x.strip()] if not single_mode else [{"item_id":"single","instruction":d["instruction"],"input_paths":[]}]; selected=d.get("item_ids") or []; known={x["item_id"] for x in items}
  if set(selected)-known: raise ValueError(f"unknown item_ids: {sorted(set(selected)-known)}")
  if selected: items=[x for x in items if x["item_id"] in set(selected)]
  sub=app/"submission"; sub.mkdir(exist_ok=True)
@@ -36,6 +36,9 @@ def _batch(d:dict)->int:
    answer=(o/"final_answer.md").read_text() if status=="completed" else None; row={"item_id":i,"status":status,"final_answer":answer,"artifacts_dir":f"items/{i}"}
    if (o/"usage.json").is_file(): row["usage"]=json.loads((o/"usage.json").read_text())
    if error: row["error"]=error
+   if single_mode and status=="completed":
+    for artifact in o.iterdir():
+     if artifact.is_file(): __import__("shutil").copy2(artifact,sub/artifact.name)
    stream.write(json.dumps(row)+"\n"); stream.flush(); os.fsync(stream.fileno())
  return 0
 

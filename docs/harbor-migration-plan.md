@@ -134,6 +134,9 @@ accuracy and reward 0, because safe conversion of their source assertions is an
 explicit blocker. A verifier regression confirmed correct/partial/missing
 denominators of 2 with accuracies 1.0/0.5/0.0. A malicious submitted program
 could neither read root-only references nor overwrite the final reward.
+The pre-existing Coder analysis fixture also passed through the new entrypoint
+in Docker with reward 1.0, confirming that focused non-dataset Harbor smokes
+remain usable while dataset tasks take the batch path.
 
 The complete paid/API-backed full jobs are prepared but are not run
 automatically. Validation uses fixed smoke selections and distinguishes source
