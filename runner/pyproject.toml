@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bioagent-harbor-runtime"
 version = "0.1.0"
-description = "Small process-isolated batch runtime for BioAgent Gym Harbor adapters"
+description = "Process-isolated item runtime for BioAgent Gym Harbor adapters"
 requires-python = ">=3.12"
 
 [tool.setuptools.packages.find]

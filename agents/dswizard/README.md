@@ -7,5 +7,5 @@ inside the Harbor trial. Submissions include `analysis_plan.md`, `analysis.py`,
 `execution.json`, `final_answer.md`, and generated files.
 
 `provider=mock` exercises all stages without credentials. The bounded OpenRouter
-example is `experiments/dswizard-live-smoke.yaml`; the four-task job is
-`experiments/dswizard-mix.yaml`.
+formal and smoke jobs are maintained with the leaderboard under
+`benchmarks/biodsbench/jobs/`.

@@ -6,7 +6,8 @@ name = "bioagent-deepevidence"
 version = "0.2.0"
 description = "DeepEvidence integration for Harbor"
 requires-python = ">=3.12"
+dependencies = ["bioagent-harbor-runtime==0.1.0"]
 [project.optional-dependencies]
 harbor = ["harbor==0.23.0"]
 [tool.setuptools.packages.find]
-where = ["src", "../harbor_runtime/src"]
+where = ["src"]

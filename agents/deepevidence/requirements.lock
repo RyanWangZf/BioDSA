@@ -1,2 +1,3 @@
 # Runtime dependency lock for 0.2.0. Core execution uses only Python stdlib.
+# Install the separately versioned bioagent-harbor-runtime==0.1.0 distribution.
 # Harbor integration is pinned by the optional dependency in pyproject.toml.

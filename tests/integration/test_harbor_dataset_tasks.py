@@ -1,12 +1,19 @@
 import json
 import re
+import tomllib
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 class DatasetTaskInventoryTests(unittest.TestCase):
+    def test_agent_packages_depend_on_separate_runner(self):
+        for name in ("coder", "dswizard", "deepevidence"):
+            config = tomllib.loads((ROOT / f"agents/{name}/pyproject.toml").read_text())
+            self.assertEqual(config["tool"]["setuptools"]["packages"]["find"]["where"], ["src"])
+            self.assertIn("bioagent-harbor-runtime==0.1.0", config["project"]["dependencies"])
+
     def _items(self, root):
         found = {}
         for path in sorted(root.glob("*/data/items.jsonl")):
@@ -26,17 +33,27 @@ class DatasetTaskInventoryTests(unittest.TestCase):
         self.assertEqual(sum(map(len, deep.values())), 648)
         self.assertEqual(len({row["item_id"] for rows in deep.values() for row in rows}), 648)
 
-    def test_full_jobs_reference_every_dataset_task(self):
-        def paths(name):
-            return {Path(line.split(":", 1)[1].strip()).name for line in (ROOT / "experiments" / name).read_text().splitlines() if line.strip().startswith("- path:")}
-        bio_paths = paths("dswizard-full.yaml")
-        deep_paths = paths("deepevidence-full.yaml")
-        self.assertEqual(bio_paths, {"biodsbench-python", "biodsbench-r"})
+    def test_jobs_have_deliberate_dataset_scope(self):
+        def paths(path):
+            return {Path(line.split(":", 1)[1].strip()).name for line in path.read_text().splitlines() if line.strip().startswith("- path:")}
+        bio_paths = paths(ROOT / "benchmarks/biodsbench/jobs/dswizard.yaml")
+        deep_paths = paths(ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence-diagnostic.yaml")
+        self.assertEqual(bio_paths, {"biodsbench-python"})
         self.assertEqual(deep_paths, {p.name for p in (ROOT / "benchmarks/biomedicine-deep-research/tasks").iterdir() if p.is_dir()})
+        formal = paths(ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence.yaml")
+        self.assertNotIn("evidence-gap-discovery", formal)
+        self.assertEqual(len(formal), 12)
+
+    def test_prepare_scripts_do_not_generate_static_definitions(self):
+        for path in (ROOT / "benchmarks/biodsbench/prepare.py", ROOT / "benchmarks/biomedicine-deep-research/prepare.py"):
+            text = path.read_text()
+            self.assertNotIn('write_text(INSTRUCTION', text)
+            self.assertNotIn('write_text(TOML', text)
+            self.assertNotIn('write_text(ENV', text)
 
     def test_smoke_selection_is_shared_with_verifier(self):
-        for name in ("dswizard-smoke.yaml", "deepevidence-smoke.yaml"):
-            text = (ROOT / "experiments" / name).read_text()
+        for path in (ROOT / "benchmarks/biodsbench/jobs/dswizard-smoke.yaml", ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence-smoke.yaml"):
+            text = path.read_text()
             match = re.search(r'BIOAGENT_ITEM_IDS:\s*"([^"]+)"', text)
             self.assertIsNotNone(match)
             verifier = match.group(1)
@@ -58,8 +75,8 @@ class DatasetTaskInventoryTests(unittest.TestCase):
         self.assertEqual(by_type, {"single_choice": 367, "multi_select": 261, "evidence_gap_retrieval": 20})
 
     def test_split_jobs_propagate_trusted_selection(self):
-        for split in ("fit", "tune", "verifier"):
-            text = (ROOT / "experiments" / f"deepevidence-{split}.yaml").read_text()
+        for split, name in (("fit", "deepevidence-fit.yaml"), ("tune", "deepevidence-tune.yaml"), ("verifier", "deepevidence.yaml")):
+            text = (ROOT / "benchmarks/biomedicine-deep-research/jobs" / name).read_text()
             self.assertIn(f'BIOAGENT_SPLIT: "{split}"', text)
             self.assertIn(f"split: {split}", text)
 

@@ -8,6 +8,8 @@
       "included_count": 165,
       "runnable_count": 0,
       "scorable_count": 0,
+      "oracle_verified": 0,
+      "live_verified": 0,
       "blocked_count": 165
     }
   },
@@ -672,5 +674,6 @@
       "item_id": "33597971_6",
       "reason": "R runtime is not supported by the migrated agents"
     }
-  ]
+  ],
+  "oracle_failures": []
 }

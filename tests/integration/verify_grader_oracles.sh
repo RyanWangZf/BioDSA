@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -u
 
-root=$(cd "$(dirname "$0")/.." && pwd)
+root=$(cd "$(dirname "$0")/../.." && pwd)
 work=${TMPDIR:-/tmp}/bioagent-gym-grader-oracles
-python3 "$root/scripts/prepare_grader_oracles.py" --bio-output "$work/bio" --deep-output "$work/deep"
+python3 "$root/tests/integration/prepare_grader_oracles.py" --bio-output "$work/bio" --deep-output "$work/deep"
 
 bio_task="$root/benchmarks/biodsbench/tasks/biodsbench-python"
 docker build -q -t bioagent-gym-biodsbench-oracle -f "$bio_task/tests/Dockerfile" "$bio_task/tests" >/dev/null
@@ -12,7 +12,7 @@ docker run --rm --network none \
   -v "$work/bio/submission:/app/submission:ro" -v "$work/bio/logs:/logs" \
   bioagent-gym-biodsbench-oracle /tests/test.sh || true
 cat "$work/bio/logs/verifier/summary.json"
-python3 "$root/scripts/prepare_biodsbench_mutants.py" --output "$work/bio-mutants"
+python3 "$root/benchmarks/biodsbench/tests/prepare_mutants.py" --output "$work/bio-mutants"
 mkdir -p "$work/bio-mutants/logs"
 docker run --rm --network none \
   -v "$work/bio-mutants/submission:/app/submission:ro" -v "$work/bio-mutants/logs:/logs" \

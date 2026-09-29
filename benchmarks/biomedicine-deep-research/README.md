@@ -7,10 +7,16 @@ records from
 separate verifier images. Single-choice, multi-select, and evidence retrieval
 answers use their source target forms; citations and traces remain artifacts.
 
-Use `experiments/deepevidence-fit.yaml`, `deepevidence-tune.yaml`, or
-`deepevidence-verifier.yaml` to select one split consistently in both the
-agent and trusted verifier. The inventory-wide `deepevidence-full.yaml` keeps
-split-specific summaries and is not a formal mixed-split accuracy.
+Run `python3 benchmarks/biomedicine-deep-research/prepare.py` to refresh pinned
+public items, private references, manifests, and grader deployment copies. It
+does not rewrite committed task definitions or jobs.
+
+Use `jobs/deepevidence-fit.yaml` or `jobs/deepevidence-tune.yaml` for
+development. `jobs/deepevidence.yaml` is the formal verifier-split job and
+excludes evidence-gap retrieval because its source defines no metric.
+`jobs/deepevidence-diagnostic.yaml` covers all splits and all 13 subsets for
+inventory diagnostics; `jobs/deepevidence-smoke.yaml` is deterministic and
+bounded. Diagnostic and development results do not enter the formal ranking.
 
 Single-choice answers require one legal option ID. Multi-select uses source
 set exact match, ignores ordering, and rejects duplicates. The 20
@@ -19,7 +25,16 @@ retrieval metric or ordering rule, so they are reported as `unscorable` rather
 than being coerced into choice scoring or an invented retrieval metric. The
 verifier-only self-check passes all 628 scoreable choice records.
 
+Formal results use micro accuracy across the trusted, scoreable verifier item
+selection and also report each subset. Missing/failed model predictions remain
+in that denominator. A grading/infrastructure error invalidates the run rather
+than shrinking the denominator. Harbor task rewards must therefore be read with
+the per-item and per-subset summaries; they are not averaged into a macro score.
+
 Malformed JSON lines, duplicate prediction IDs, and unknown prediction IDs are
 global grading errors: diagnostics are saved, evaluation exits nonzero, and no
 reward is written even if all recognized answers are correct. Choice IDs are
 normalized before duplicate detection, so case variants cannot bypass it.
+
+Canonical scoring source is maintained only in `scoring/`; `prepare.py` copies
+it into each Harbor verifier context.

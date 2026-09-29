@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse,json,shutil
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 def clean(path): shutil.rmtree(path,ignore_errors=True);path.mkdir(parents=True)
 def bio(output):
     clean(output); refs=[json.loads(x) for x in (ROOT/"benchmarks/biodsbench/tasks/biodsbench-python/tests/references/references.jsonl").read_text().splitlines()]

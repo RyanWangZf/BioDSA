@@ -11,4 +11,3 @@ agents:
     env: {OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}"}
 tasks:
   - path: benchmarks/biodsbench/tasks/biodsbench-python
-  - path: benchmarks/biodsbench/tasks/biodsbench-r

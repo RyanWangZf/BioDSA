@@ -2,8 +2,19 @@
 
 The Python and R dataset tasks contain all 118 and 165 records respectively
 from pinned revision `e59af82ee9461db78ed399544ec8520afeb02ce5`.
-Run `python3 scripts/prepare_harbor_dataset_tasks.py` to refresh the exact
-inventories and stage large public tables from the external cache.
+Run `python3 benchmarks/biodsbench/prepare.py` to refresh the exact inventories,
+stage large public tables, private references, and verifier deployment copies.
+The script verifies committed task definitions exist and does not rewrite
+instructions, `task.toml`, Dockerfiles, or jobs.
+
+## Jobs and ranking scope
+
+- `jobs/dswizard.yaml` is the formal 118-item Python leaderboard job.
+- `jobs/dswizard-smoke.yaml` is a fixed two-item deterministic workflow check.
+
+The R task preserves all 165 source records and its native task definition, but
+no migrated agent/runtime currently supports it. It is therefore absent from
+the formal job and does not contribute to ranking.
 
 Per-item outputs live below `/app/submission/items`. Submitted Python executes
 as an unprivileged, resource-limited process away from hidden references and
@@ -25,3 +36,7 @@ exports operands rather than final assertion booleans. Unsupported statements
 or an empty assertion mapping block an item. A differential regression mutates
 one real output variable per item; both the original source tests and the new
 checker reject all 118 mutations.
+
+Canonical scoring source is maintained only in `scoring/`. `prepare.py` copies
+it into the Harbor 0.23 verifier build context. Regression and oracle helpers
+live in `tests/`.
