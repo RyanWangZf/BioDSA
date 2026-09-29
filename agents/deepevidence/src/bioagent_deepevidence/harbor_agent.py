@@ -28,6 +28,8 @@ class DeepEvidenceOptions(AgentOptions):
     max_attempts: int = 2
     reasoning_effort: str | None = None
     code_execution: bool = True
+    item_ids: list[str] = []
+    item_timeout_seconds: float = 300
 
 
 class DeepEvidenceHarborAgent(BaseAgent):
@@ -61,7 +63,9 @@ class DeepEvidenceHarborAgent(BaseAgent):
         config["execution_environment"] = {"backend": "local_subprocess", "timeout_seconds": config.pop("timeout_seconds")}
         config["code_execution"] = {"enabled": config["code_execution"]}
         config["memory"] = {"mode": "task"}
-        request.write_text(json.dumps({"instruction": instruction, "config": config}))
+        item_ids = config.pop("item_ids")
+        item_timeout_seconds = config.pop("item_timeout_seconds")
+        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_timeout_seconds": item_timeout_seconds}))
         await environment.upload_file(request, "/tmp/bioagent-input.json")
         result = await environment.exec("python3 -m bioagent_deepevidence.harbor_runner /tmp/bioagent-input.json", cwd="/app")
         (self.logs_dir / "agent.stdout").write_text(result.stdout or "")
@@ -70,8 +74,7 @@ class DeepEvidenceHarborAgent(BaseAgent):
             raise RuntimeError(f"DeepEvidence workflow failed ({result.return_code}): {result.stderr or result.stdout}")
         usage_path = self.logs_dir / "usage.json"
         try:
-            await environment.download_file("/app/submission/usage.json", usage_path)
-            usage = json.loads(usage_path.read_text())
-            context.metadata = {"tool_calls": usage.get("tool_calls"), "submission_dir": "/app/submission"}
+            await environment.download_file("/app/submission/predictions.jsonl", usage_path)
+            context.metadata = {"submission_dir": "/app/submission", "batch": True}
         except Exception:
             context.metadata = {"submission_dir": "/app/submission"}

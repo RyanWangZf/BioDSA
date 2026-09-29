@@ -1,0 +1,28 @@
+{
+  "source_repo": "zifeng-ai/biomedicine-deep-research",
+  "source_revision": "f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2",
+  "subset": "in-vivo-metabolic-flux-response",
+  "splits": {
+    "fit": {
+      "source_count": 15,
+      "included_count": 15
+    },
+    "tune": {
+      "source_count": 5,
+      "included_count": 5
+    },
+    "verifier": {
+      "source_count": 5,
+      "included_count": 5
+    }
+  },
+  "source_count": 25,
+  "included_count": 25,
+  "runnable_count": 25,
+  "scorable_count": 25,
+  "blocked_count": 0,
+  "task_types": {
+    "multi_select": 25
+  },
+  "blocked": []
+}

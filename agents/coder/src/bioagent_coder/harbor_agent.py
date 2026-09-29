@@ -19,6 +19,8 @@ class CoderOptions(AgentOptions):
     max_attempts: int = 2
     max_tokens: int = 2000
     reasoning_effort: str | None = None
+    item_ids: list[str] = []
+    item_timeout_seconds: float = 300
 
 
 class CoderHarborAgent(BaseAgent):
@@ -59,7 +61,9 @@ class CoderHarborAgent(BaseAgent):
             "model": self.model_name,
             "execution_environment": {"backend": "local_subprocess", "timeout_seconds": config.pop("timeout_seconds")},
         })
-        request.write_text(json.dumps({"instruction": instruction, "config": config}))
+        item_ids = config.pop("item_ids")
+        item_timeout_seconds = config.pop("item_timeout_seconds")
+        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_timeout_seconds": item_timeout_seconds}))
         await environment.upload_file(request, "/tmp/bioagent-input.json")
         result = await environment.exec(
             "python3 -m bioagent_coder.harbor_runner /tmp/bioagent-input.json",

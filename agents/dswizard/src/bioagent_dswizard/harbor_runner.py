@@ -1,30 +1,37 @@
 from __future__ import annotations
-
-import json
-import shutil
-import sys
+import argparse, json, os, shutil, signal, subprocess, sys
 from pathlib import Path
-
 from .agent import DSWizardAgent
 
+def _worker(request: Path)->int:
+ d=json.loads(request.read_text()); w,o=Path(d["workspace"]),Path(d["output"]); w.mkdir(parents=True); o.mkdir(parents=True); item=d["item"]
+ r=DSWizardAgent(d["config"],w).run(item["instruction"],[str(Path("/app")/p) for p in item.get("input_paths",[])])
+ (o/"final_answer.md").write_text(r["final_answer"]); (o/"analysis_plan.md").write_text(r["analysis_plan"]); (o/"analysis.py").write_text("\n\n".join(r["generated_code"])); (o/"execution.json").write_text(json.dumps(r["execution_logs"],indent=2))
+ for p in w.iterdir():
+  if p.is_file(): shutil.copy2(p,o/p.name)
+ return 0
 
-def main() -> int:
-    payload = json.loads(Path(sys.argv[1]).read_text())
-    workspace = Path("/app")
-    submission = workspace / "submission"
-    submission.mkdir(exist_ok=True)
-    inputs = sorted(str(path.relative_to(workspace)) for path in (workspace / "inputs").rglob("*") if path.is_file()) if (workspace / "inputs").is_dir() else []
-    result = DSWizardAgent(payload["config"], workspace).run(payload["instruction"], inputs)
-    (submission / "final_answer.md").write_text(result["final_answer"])
-    (submission / "analysis_plan.md").write_text(result["analysis_plan"])
-    (submission / "analysis.py").write_text("\n\n".join(result["generated_code"]))
-    (submission / "execution.json").write_text(json.dumps(result["execution_logs"], indent=2))
-    for path in workspace.iterdir():
-        if path.is_file():
-            shutil.copy2(path, submission / path.name)
-    print(result["final_answer"])
-    return 0
+def _batch(d:dict)->int:
+ app=Path("/app"); items=[json.loads(x) for x in (app/"data/items.jsonl").read_text().splitlines() if x.strip()]; selected=d.get("item_ids") or []; known={x["item_id"] for x in items}
+ if set(selected)-known: raise ValueError(f"unknown item_ids: {sorted(set(selected)-known)}")
+ if selected: items=[x for x in items if x["item_id"] in set(selected)]
+ sub=app/"submission"; sub.mkdir(exist_ok=True)
+ with (sub/"predictions.jsonl").open("w") as stream:
+  for item in items:
+   i=item["item_id"]; w,o=app/"work/items"/i,sub/"items"/i; req=app/"work/requests"/f"{i}.json"; req.parent.mkdir(parents=True,exist_ok=True); req.write_text(json.dumps({"item":item,"config":d["config"],"workspace":str(w),"output":str(o)}))
+   p=subprocess.Popen([sys.executable,"-m","bioagent_dswizard.harbor_runner","--item-worker",str(req)],start_new_session=True); status,error="completed",None
+   try:
+    code=p.wait(timeout=float(d.get("item_timeout_seconds",300)))
+    if code: status,error="agent_error",f"item worker exited {code}"
+   except subprocess.TimeoutExpired:
+    status,error="timeout","per-item timeout"; os.killpg(p.pid,signal.SIGTERM)
+    try: p.wait(timeout=5)
+    except subprocess.TimeoutExpired: os.killpg(p.pid,signal.SIGKILL); p.wait()
+   answer=(o/"final_answer.md").read_text() if status=="completed" else None; row={"item_id":i,"status":status,"final_answer":answer,"artifacts_dir":f"items/{i}"}
+   if error: row["error"]=error
+   stream.write(json.dumps(row)+"\n"); stream.flush(); os.fsync(stream.fileno())
+ return 0
 
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+def main()->int:
+ p=argparse.ArgumentParser(); p.add_argument("request",type=Path); p.add_argument("--item-worker",action="store_true"); a=p.parse_args(); return _worker(a.request) if a.item_worker else _batch(json.loads(a.request.read_text()))
+if __name__=="__main__": raise SystemExit(main())

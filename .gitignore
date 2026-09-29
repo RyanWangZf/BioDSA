@@ -182,5 +182,9 @@ benchmark_datasets/R/datasets/*
 .harbor/
 benchmarks/biodsbench/tasks/*/environment/inputs/
 benchmarks/biodsbench/tasks/*/tests/inputs/
+benchmarks/biodsbench/tasks/*/environment/data/inputs/
+# Generated from pinned sources; answer keys are never committed or copied to agents.
+benchmarks/biodsbench/tasks/*/tests/references/
+benchmarks/biomedicine-deep-research/tasks/*/tests/references/
 # Phase-1 compatibility: explicit old paths remain valid and are not migrated.
 .biodsa/

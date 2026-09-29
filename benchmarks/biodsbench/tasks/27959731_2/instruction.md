@@ -1,1 +1,0 @@
-Using the CSV files under `/app/inputs`, determine how many patients have TP53 mutations. Write `/app/submission/analysis.py`; when executed from `/app`, it must load the mutation and sample tables and leave the integer answer in a variable named `n`. Save a concise answer in `/app/submission/final_answer.md`. Do not hard-code the expected value.

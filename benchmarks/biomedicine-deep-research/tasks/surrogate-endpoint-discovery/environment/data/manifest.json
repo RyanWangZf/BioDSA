@@ -1,0 +1,28 @@
+{
+  "source_repo": "zifeng-ai/biomedicine-deep-research",
+  "source_revision": "f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2",
+  "subset": "surrogate-endpoint-discovery",
+  "splits": {
+    "fit": {
+      "source_count": 8,
+      "included_count": 8
+    },
+    "tune": {
+      "source_count": 3,
+      "included_count": 3
+    },
+    "verifier": {
+      "source_count": 3,
+      "included_count": 3
+    }
+  },
+  "source_count": 14,
+  "included_count": 14,
+  "runnable_count": 14,
+  "scorable_count": 14,
+  "blocked_count": 0,
+  "task_types": {
+    "multi_select": 14
+  },
+  "blocked": []
+}

@@ -1,0 +1,13 @@
+job_name: deepevidence-smoke
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  env: {BIOAGENT_ITEM_IDS: "bdr-hle-biomedicine-4e0046c4552081e7b086,bdr-hle-biomedicine-334a2ab4db08d036bef5"}
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_deepevidence.harbor_agent:DeepEvidenceHarborAgent
+    model_name: mock
+    kwargs: {provider: mock, item_ids: ["bdr-hle-biomedicine-4e0046c4552081e7b086", "bdr-hle-biomedicine-334a2ab4db08d036bef5"], item_timeout_seconds: 90, tool_mode: stub, knowledge_bases: [pubmed_papers, clinical_trials], routes: [bfs, dfs], tool_call_budget: 4, max_attempts: 1}
+tasks:
+  - path: benchmarks/biomedicine-deep-research/tasks/hle-biomedicine

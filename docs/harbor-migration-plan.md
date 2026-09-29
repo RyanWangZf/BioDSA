@@ -1,111 +1,132 @@
-# Harbor migration plan
+# Harbor dataset-task migration plan
 
 ## Baseline
 
-- BioAgent Gym HEAD at migration start: `580322917d1fa15ed9b01b57c3339367fe695812`.
-- Execution engine: `harbor==0.23.0` (Python 3.12+, task schema 1.4).
-- BioDSBench source: `zifeng-ai/BioDSBench` at revision
+- Implementation baseline: `039af0827ce5e22625e1f59240ec50335651ed4e`
+  on `zifeng/refactor`.
+- Execution engine: `harbor==0.23.0` (task schema 1.4).
+- BioDSBench source: `zifeng-ai/BioDSBench` revision
   `e59af82ee9461db78ed399544ec8520afeb02ce5`.
-- Biomedical Deep Research source: `zifeng-ai/biomedicine-deep-research` at
+- Biomedical Deep Research source: `zifeng-ai/biomedicine-deep-research`
   revision `f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2`.
 
-Harbor is the only trial runner. BioAgent Gym supplies custom Harbor agents,
-native task directories, and static Harbor job YAML. There is no compatibility
-layer for the previous CLI, manifests, request/result protocol, or run records.
+Harbor remains the only container, trial, timeout, verifier, and result engine.
+This change replaces one-record Harbor tasks with dataset-level tasks. The
+agent package is installed once per Harbor trial; a thin batch entrypoint runs
+the selected items sequentially with a fresh child process, agent/session, and
+workspace for every item. Harbor owns the dataset-level lifecycle, while
+per-item status and artifacts live below `/app/submission`.
 
-## Target layout and execution
+## Source inventory and task boundaries
 
-- `agents/{coder,dswizard,deepevidence,fixture_agent}` retain independent
-  packages and expose Harbor `BaseAgent` implementations.
-- `benchmarks/fixtures/tasks` contains deterministic adapter smoke tasks.
-- `benchmarks/biodsbench/tasks` contains selected Python BioDSBench records and
-  their real input tables and executable assertions.
-- `benchmarks/biomedicine-deep-research/tasks` contains selected development
-  records and answer-key verifiers isolated from the agent phase.
-- `experiments/{fixture-smoke,dswizard-mix,deepevidence-mix}.yaml` are native
-  Harbor 0.23 job configs with explicit local task paths.
+The pinned BioDSBench source contains 118 Python records from 13 studies and
+165 R records from 25 studies. It becomes two tasks:
 
-The custom Harbor adapter runs the installed agent package against the Harbor
-environment API. Agent code and generated code execute in the trial container;
-the task workspace persists within one trial and is fresh across trials. Harbor
-owns container creation, network policy, timeout, cancellation, verifier, and
-result storage. No Docker socket or nested BioAgent Gym runner is used.
+- `benchmarks/biodsbench/tasks/biodsbench-python`
+- `benchmarks/biodsbench/tasks/biodsbench-r`
 
-Real agents use the task environment's public network policy for model and
-biomedical API calls. Offline fixtures use `network_mode = "none"`. Harbor's
-single task container does not provide an agent-online/code-offline split; such
-a configuration is rejected/documented rather than weakened. Secrets are
-passed with Harbor agent environment configuration and are not stored in tasks.
+Every source record is registered. Python records are runnable; individual
+tests that cannot be reproduced through the safe JSON result boundary are
+reported as blocked rather than weakened. R records remain included but are
+blocked until the migrated agents and execution image support R faithfully.
 
-## Prepared task selection
+The pinned Biomedical Deep Research source contains 517 labelled development
+records (fit and tune) and 131 verifier records across 13 benchmark subsets.
+Each source subset becomes one dataset task. Development and verifier splits
+remain explicit in item IDs and manifests; private verifier labels are copied
+only into the verifier image. The observed task types are `single_choice`,
+`multi_select`, and `evidence_gap_retrieval`.
 
-BioDSBench uses Python tasks only. The initial mix selects four stable record
-IDs from study `27959731`: `27959731_0`, `27959731_2`, `27959731_3`, and
-`27959731_4`. They cover descriptive statistics and clinical feature
-engineering, share a compact real study dataset, and have executable assertions
-whose required state can be reconstructed in one submitted Python program.
+Coverage manifests record source repository/revision, subset/split, original
+record IDs, and source/included/runnable/scorable/blocked counts. Inclusion is
+not presented as execution. Missing labels, unsupported runtimes, missing data,
+or unsupported assertion semantics remain visible per-item blocking reasons.
 
-Biomedical Deep Research selects four labelled development records across two
-source categories: two `hle-biomedicine` and two `labbench-litqa2` examples.
-Their exact `example_id` values are recorded in each task's provenance file.
-They have deterministic option labels, so the verifier does not require an LLM
-judge. This mix validates answer correctness, not internal BFS/DFS or memory
-artifacts.
+## Dataset task contract
 
-## Module disposition
+Each task contains one Docker environment and one verifier:
 
-| Current module | Action |
-| --- | --- |
-| Coder, DSWizard, DeepEvidence workflows/prompts/tools | Keep; add Harbor adapters and remove file-protocol entrypoints after smoke passes. |
-| Agent LLM clients, memory, budgets, recovery | Keep inside each independent package. |
-| `bioagent_gym/`, `harness/` | Delete after native Harbor trials pass. |
-| `protocol/` and old manifest/config schemas | Delete after native Harbor trials pass. |
-| old prepared benchmark fixtures and experiment YAML | Replace with native Harbor task directories and job YAML. |
-| historical research agents/data | Keep when unrelated to the replaced execution layer. |
+```text
+<dataset-task>/
+  instruction.md
+  task.toml
+  data/items.jsonl
+  data/manifest.json
+  environment/Dockerfile
+  environment/data/...
+  tests/test.sh
+  tests/grade.py
+  tests/references/...
+```
+
+`items.jsonl` contains only public instructions, permitted code history, and
+input paths. References and hidden tests exist only in the verifier build
+context. Large BioDSBench tables are downloaded once into the pinned cache and
+staged by a purpose-specific preparation script; no general builder API is
+introduced.
+
+The batch entrypoint writes `predictions.jsonl` after every item and item
+artifacts below `items/<item-id>/`. It uses a process group per item so timeout
+or cancellation terminates generated child processes before the next item.
+Conversation, workflow memory, and writable files are never reused across
+items. Read-only source data and API client construction may be reused. This is
+process/session/workspace isolation inside one task container, not a separate
+container security boundary for each item.
+
+## Selection, budgets, and scoring
+
+Full jobs reference every dataset task and have no item limit. Smoke jobs pass
+a fixed item-ID list to both the agent options and verifier environment. The
+verifier treats its trusted selection as the denominator and rejects duplicate
+or unknown prediction IDs; an absent prediction remains `missing`.
+
+Per-item timeout/model/tool budgets are agent options. The Harbor agent timeout
+covers the complete dataset trial, including package setup and artifact writes.
+Verifier timeout covers the full selected dataset and is sized separately.
+
+Dataset graders write `per_item_results.jsonl`, `summary.json`, and Harbor's
+reward file. Summaries report total, attempted, completed, scored, missing,
+timeout, agent_error, grading_error, and unscorable. Metrics are marked partial
+unless the trusted selection is completely scoreable and free of grading
+errors.
+
+BioDSBench submissions execute as an unprivileged process with time/resource
+limits and a JSON-only result export. That process cannot read verifier
+references/tests or write the Harbor reward. The trusted grader evaluates the
+exported values against source assertions. It never imports submitted pickle
+or other executable serialized objects. Deep Research grading follows the
+source answer form; deterministic labelled choice/retrieval items are scored
+without inventing an LLM judge.
+
+## Files replaced
+
+- Delete the four BioDSBench and four Deep Research record-level task dirs.
+- Replace hard-coded four-record staging with one pinned, source-specific
+  preparation script.
+- Replace `dswizard-mix.yaml` and `deepevidence-mix.yaml` with full/smoke jobs.
+- Extend Coder, DSWizard, and DeepEvidence Harbor adapters with the dataset
+  batch contract; retain their workflow implementations.
+- Keep fixture tasks and agent integration tests as focused regressions.
 
 ## Implementation status
 
-- [x] Inspect repository baseline and Harbor 0.23.0 CLI/types/templates.
-- [x] Inspect both required Hugging Face repositories and pin revisions.
-- [x] Add native fixture tasks and Harbor adapters; run Docker end to end.
-- [x] Add and test Coder, DSWizard, DeepEvidence adapters and smoke jobs.
-- [x] Materialize selected BioDSBench tasks, inputs, and executable verifiers.
-- [x] Materialize selected biomedical deep-research tasks and label verifiers.
-- [x] Validate both static mix configs and attempt a credential-limited live smoke.
-- [x] Remove superseded runner/protocol code and update README/docs.
+- [x] Inspect HEAD, Harbor 0.23 types, pinned source files, configs, and splits.
+- [x] Record complete source counts and dataset-level boundaries.
+- [x] Materialize public inventories, private references, and coverage manifests.
+- [x] Implement isolated per-item batch runners and selection propagation.
+- [x] Implement trusted dataset graders and BioDSBench execution isolation.
+- [x] Add full/smoke native Harbor jobs.
+- [ ] Run unit/config checks and real Docker Harbor batch smoke.
+- [ ] Delete replaced record-level tasks/scripts; update README and coverage report.
 
-## Validation record
+## Validation in progress
 
-All commands used Harbor 0.23.0 with absolute `--jobs-dir` paths:
+The DeepEvidence two-item HLE smoke completed as one real Docker Harbor trial:
+both item processes completed, the trusted denominator was two, and the
+deterministic mock scored 1/2 (accuracy 0.5). This demonstrates batch artifact
+collection and verifier aggregation; it is not a claim that the full 648-item
+suite ran. Remaining regression and BioDSBench checks are tracked above.
 
-- fixture Docker job: 2/2 rewards 1.0; one validated adapter artifacts and one
-  attempted HTTPS from a `no-network` agent phase and verified it was blocked.
-- Coder mock analysis trial: reward 1.0; generated code executed and CSV was
-  collected.
-- DSWizard mock analysis trial: reward 1.0; exploration, plan, implementation,
-  and execution artifacts were collected.
-- DeepEvidence mock trial: reward 1.0; BFS/DFS dispatch, stub tools, memory,
-  code execution, citations, trace, and usage were verified.
-- complete BioDSBench Oracle mix: 4/4 trials, reward 1.0 each, against the real
-  downloaded tables and source assertions.
-- complete biomedical Deep Research Oracle mix: 4/4 trials, reward 1.0 each;
-  a separate `nop` trial confirmed a missing submission receives reward 0.0.
-- DSWizard/Qwen live attempt 1 reached Harbor's 300-second limit. A bounded
-  retry exposed a model response with no content after its output budget was
-  spent on reasoning. The final retry used `reasoning_effort=none`, reached
-  OpenRouter, and was rejected with HTTP 429. Live DSWizard therefore remains
-  unverified; it is not reported as a mock success.
-- The public-network live attempts reached OpenRouter (the final response was
-  HTTP 429), independently confirming public egress. No key value appeared in
-  the Harbor job configs or logs scanned after the attempts.
-
-Task schemas and both four-task job YAMLs load successfully through Harbor's
-actual Pydantic models. Dataset content is versioned by the pinned source
-revisions; this migration does not add mandatory whole-tree checksums.
-
-Harbor 0.23.0 currently resolves relative result paths from Docker Compose build
-contexts during some copy operations. Commands use an absolute `--jobs-dir` as
-a documented workaround. Per-phase network policies are enforced by Harbor.
-Online-agent/offline-generated-code requires two execution boundaries, which
-these single-container adapters do not implement; no configuration claims that
-topology is supported.
+The complete paid/API-backed full jobs are prepared but are not run
+automatically. Validation uses fixed smoke selections and distinguishes source
+inclusion, runnable/scorable status, and items actually executed.

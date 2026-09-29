@@ -1,0 +1,28 @@
+{
+  "source_repo": "zifeng-ai/biomedicine-deep-research",
+  "source_revision": "f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2",
+  "subset": "hle-medicine",
+  "splits": {
+    "fit": {
+      "source_count": 18,
+      "included_count": 18
+    },
+    "tune": {
+      "source_count": 6,
+      "included_count": 6
+    },
+    "verifier": {
+      "source_count": 6,
+      "included_count": 6
+    }
+  },
+  "source_count": 30,
+  "included_count": 30,
+  "runnable_count": 30,
+  "scorable_count": 30,
+  "blocked_count": 0,
+  "task_types": {
+    "single_choice": 30
+  },
+  "blocked": []
+}

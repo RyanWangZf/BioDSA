@@ -61,44 +61,52 @@ Mocking replaces model/API responses only. The actual agent workflow, generated
 Python process, task-local files, Harbor container, artifact transfer, and
 verifier all run.
 
-## DSWizard BioDSBench mix
+## DSWizard BioDSBench datasets
 
-Prepare the pinned public tables once. They are cached outside Git and copied
-into the four task build contexts:
+Prepare the pinned source inventories and public tables once. Small inventories
+are committed; large tables and verifier-only references remain outside Git:
 
 ```bash
-.venv-harbor/bin/python scripts/fetch_biodsbench_harbor_data.py
+.venv-harbor/bin/python scripts/prepare_harbor_dataset_tasks.py
 ```
 
-Put `OPENROUTER_API_KEY` in `.env`, then run the static four-task job:
+Run a fixed two-item mock smoke, or the full Python and R task set:
 
 ```bash
 ROOT="$(pwd)"
 .venv-harbor/bin/harbor run \
-  -c experiments/dswizard-mix.yaml --env-file .env \
+  -c experiments/dswizard-smoke.yaml \
+  --jobs-dir "$ROOT/.harbor/jobs" -y
+
+.venv-harbor/bin/harbor run \
+  -c experiments/dswizard-full.yaml --env-file .env \
   --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
-The tasks are BioDSBench Python records `27959731_0`, `27959731_2`,
-`27959731_3`, and `27959731_4`. The verifier executes submitted `analysis.py`
-against real tables and applies the source assertions. This example does not
-claim R coverage.
+The two Harbor tasks contain all 118 Python and 165 R source records. The R
+records and Python assertions not yet convertible through the safe JSON result
+boundary are listed as blocked and are not claimed as scored.
 
 ## DeepEvidence biomedical research mix
 
 ```bash
 ROOT="$(pwd)"
 .venv-harbor/bin/harbor run \
-  -c experiments/deepevidence-mix.yaml --env-file .env \
+  -c experiments/deepevidence-smoke.yaml \
+  --jobs-dir "$ROOT/.harbor/jobs" -y
+
+.venv-harbor/bin/harbor run \
+  -c experiments/deepevidence-full.yaml --env-file .env \
   --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
-The job contains four labelled development records from exactly two source
-categories, `hle-biomedicine` and `labbench-litqa2`. Answer labels are present
-only in separate offline verifier images. Exact option accuracy is the science
-reward; citations, evidence, trace, and memory are collected as artifacts.
+The full job references 13 dataset-level tasks and all 648 records at the pinned
+revision. Labels are present only in separate offline verifier images.
 
-Edit the `tasks` list in either native Harbor YAML to change a static mix. No
+Each Harbor trial installs the agent once, then runs selected items in fresh
+child processes and workspaces. Per-item retry/scheduling remains inside the
+batch artifacts rather than Harbor trials. Edit the `tasks` list in native
+Harbor YAML to change a static mix. No
 prepare, export, or config compiler command is required.
 
 ## Results and adding tasks
