@@ -12,6 +12,7 @@ agents:
     env: {OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}"}
 tasks:
   - path: benchmarks/biomedicine-deep-research/tasks/drug-regimen-design
+  - path: benchmarks/biomedicine-deep-research/tasks/evidence-gap-discovery
   - path: benchmarks/biomedicine-deep-research/tasks/hle-biomedicine
   - path: benchmarks/biomedicine-deep-research/tasks/hle-medicine
   - path: benchmarks/biomedicine-deep-research/tasks/in-vivo-metabolic-flux-response

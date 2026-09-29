@@ -7,120 +7,39 @@
       "source_count": 12,
       "included_count": 12,
       "runnable_count": 12,
-      "scorable_count": 0,
-      "oracle_verified": 0,
+      "scorable_count": 12,
+      "oracle_verified": 12,
       "live_verified": 0,
-      "blocked_count": 12
+      "blocked_count": 0
     },
     "tune": {
       "source_count": 4,
       "included_count": 4,
       "runnable_count": 4,
-      "scorable_count": 0,
-      "oracle_verified": 0,
+      "scorable_count": 4,
+      "oracle_verified": 4,
       "live_verified": 0,
-      "blocked_count": 4
+      "blocked_count": 0
     },
     "verifier": {
       "source_count": 4,
       "included_count": 4,
       "runnable_count": 4,
-      "scorable_count": 0,
-      "oracle_verified": 0,
+      "scorable_count": 4,
+      "oracle_verified": 4,
       "live_verified": 0,
-      "blocked_count": 4
+      "blocked_count": 0
     }
   },
   "source_count": 20,
   "included_count": 20,
   "runnable_count": 20,
-  "scorable_count": 0,
-  "oracle_verified": 0,
+  "scorable_count": 20,
+  "oracle_verified": 20,
   "live_verified": 0,
-  "blocked_count": 20,
+  "blocked_count": 0,
   "task_types": {
     "evidence_gap_retrieval": 20
   },
-  "blocked": [
-    {
-      "item_id": "bdr-evidence-gap-discovery-88771d5cb4cf708f1730",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-0859d2c011cc34075f97",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-127f44f4cab3593debb0",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-04bab083f2ac8f835019",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-2f48b41e7d9c3d3c3c4e",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-2016cd00403491bbfbfd",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-7399dc86add54865444f",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-0811c03f59575db634b0",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-162c01d3a058884cd0d7",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-5b64d9d6d8da5dde8549",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-26497a7fb8658bbefde4",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-174577ddfee11d0cb543",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-a1e90b9eeb9a85bad85a",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-ab17095a047d20ebbd69",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-ade2eda574a1abbaf1bd",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-b9202f6a943b18218f20",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-ce365b1467c0dbe58a58",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-d289a587a8cd3e74ad70",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-d4fe0520304e38a55d4f",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    },
-    {
-      "item_id": "bdr-evidence-gap-discovery-f89156795d92c46e5a84",
-      "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"
-    }
-  ]
+  "blocked": []
 }

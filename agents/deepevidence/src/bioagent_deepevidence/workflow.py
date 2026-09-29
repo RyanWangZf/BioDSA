@@ -16,7 +16,7 @@ class DeepEvidenceAgent:
    if index>=budget: self._record("budget_stop",route=route,budget=budget); break
    if self.tool_calls>=int(self.config.get("tool_call_budget",10**9)): self._record("budget_stop",route=route,budget=self.config["tool_call_budget"],scope="tool_calls"); break
    try:
-    self.tool_calls+=1; result=tool.search(query,3 if route=="bfs" else 2); self._record("tool_result",route=route,tool=name,count=len(result)); found.extend(result)
+    self.tool_calls+=1; limit=30 if self.config.get("task_type")=="evidence_gap_retrieval" and name=="pubmed_papers" else (3 if route=="bfs" else 2); result=tool.search(query,limit); self._record("tool_result",route=route,tool=name,count=len(result)); found.extend(result)
    except Exception as exc: self._record("tool_error",route=route,tool=name,error=str(exc));
   for item in found: self.memory.add(item)
   return found
@@ -35,4 +35,8 @@ class DeepEvidenceAgent:
    generated.append(code); execution=execution_session(self.config,self.workspace).execute(code); executions.append(execution.json()); self._record("code_execution",exit_code=execution.exit_code,timed_out=execution.timed_out)
    if execution.timed_out or execution.exit_code!=0: raise RuntimeError("evidence code execution failed: "+execution.stderr)
   answer=self.client.synthesize(question,evidence); citations=[{"id":x["id"],"source":x["source"],"title":x["title"],"url":x.get("url")} for x in evidence]; self._record("orchestrator_complete",evidence=len(evidence))
-  return {"final_answer":answer,"evidence":evidence,"citations":citations,"trace":self.trace,"memory_graph":self.memory.data,"generated_code":generated,"execution_logs":executions,"usage":{"model_calls":1,"tool_calls":self.tool_calls}}
+  retrieved_pmids=[]
+  for item in evidence:
+   value=str(item.get("id","")).strip()
+   if item.get("source")=="pubmed_papers" and value.isdigit() and value not in retrieved_pmids:retrieved_pmids.append(value)
+  return {"final_answer":answer,"retrieved_pmids":retrieved_pmids[:30],"evidence":evidence,"citations":citations,"trace":self.trace,"memory_graph":self.memory.data,"generated_code":generated,"execution_logs":executions,"usage":{"model_calls":1,"tool_calls":self.tool_calls}}

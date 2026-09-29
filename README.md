@@ -69,9 +69,9 @@ Run the formal leaderboard configurations with the required provider secret:
 ```
 
 BioDSBench ranks the 118-item Python task; R remains inventoried but unsupported.
-Biomedical Deep Research ranks scoreable verifier-split choice items. Fit and
-tune are development jobs. The diagnostic job covers the complete inventory,
-including evidence-gap records whose pinned source defines no metric.
+Biomedical Deep Research ranks verifier-split choice items by exact match and
+evidence-gap retrieval by recall@30. Fit and tune are development jobs. The
+diagnostic job covers the complete inventory across all splits.
 
 Use `harbor view .harbor/jobs` to inspect submissions, item artifacts, verifier
 logs, and rewards. See [architecture.md](docs/architecture.md),

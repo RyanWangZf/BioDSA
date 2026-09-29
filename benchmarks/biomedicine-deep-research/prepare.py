@@ -31,10 +31,9 @@ def prepare(source):
             references.append({"item_id": row["example_id"], "subset": subset, "label": None if label is None else label.get("target"), "task_type": row["task_type"], "valid_options": row.get("valid_options", []), "source_split": "verifier"})
         write(task / "data/items.jsonl", public); write(task / "environment/data/items.jsonl", public); write(task / "tests/references/references.jsonl", references)
         blocked = [{"item_id": row["item_id"], "reason": "source label unavailable"} for row in references if row["label"] is None]
-        blocked += [{"item_id": row["item_id"], "reason": "source revision defines proposed PMIDs but no retrieval metric or ranking rule"} for row in references if row["task_type"] == "evidence_gap_retrieval"]
         split_metadata = {}
         for split, count in counts.items():
-            selected = [row for row in references if row["source_split"] == split]; blocked_count = sum(row["label"] is None or row["task_type"] == "evidence_gap_retrieval" for row in selected)
+            selected = [row for row in references if row["source_split"] == split]; blocked_count = sum(row["label"] is None for row in selected)
             split_metadata[split] = {"source_count": count, "included_count": count, "runnable_count": count, "scorable_count": count - blocked_count, "oracle_verified": count - blocked_count, "live_verified": 0, "blocked_count": blocked_count}
         manifest = {"source_repo": "zifeng-ai/biomedicine-deep-research", "source_revision": REVISION, "subset": subset, "splits": split_metadata, "source_count": len(public), "included_count": len(public), "runnable_count": len(public), "scorable_count": len(public) - len(blocked), "oracle_verified": len(public) - len(blocked), "live_verified": 0, "blocked_count": len(blocked), "task_types": dict(Counter(row["task_type"] for row in public)), "blocked": blocked}
         (task / "data/manifest.json").write_text(json.dumps(manifest, indent=2)); shutil.copy2(task / "data/manifest.json", task / "environment/data/manifest.json")

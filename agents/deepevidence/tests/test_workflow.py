@@ -1,4 +1,5 @@
 import json,tempfile,unittest
+from unittest.mock import patch
 from pathlib import Path
 from bioagent_deepevidence.workflow import DeepEvidenceAgent
 from bioagent_deepevidence.tools import KNOWLEDGE_BASES,build_tools
@@ -31,4 +32,14 @@ class WorkflowTests(unittest.TestCase):
  def test_all_legacy_knowledge_base_names_are_registered(self):
   self.assertEqual(set(KNOWLEDGE_BASES),{"pubmed_papers","gene","disease","drug","variant","clinical_trials","web_search","target","pathway","compound"})
   for name,tool in build_tools(KNOWLEDGE_BASES,"stub").items(): self.assertEqual(tool.search("smoke",1)[0]["source"],name)
+ def test_evidence_gap_returns_ranked_unique_pubmed_ids(self):
+  class PubMed:
+   def search(self,query,limit):
+    self.limit=limit
+    return [{"source":"pubmed_papers","id":value,"title":value} for value in ("123","456","123")]
+  tool=PubMed()
+  with tempfile.TemporaryDirectory() as temporary, patch("bioagent_deepevidence.workflow.build_tools",return_value={"pubmed_papers":tool}):
+   result=DeepEvidenceAgent(self.config(task_type="evidence_gap_retrieval",knowledge_bases=["pubmed_papers"],routes=["bfs"]),Path(temporary)).run("find studies")
+   self.assertEqual(tool.limit,30)
+   self.assertEqual(result["retrieved_pmids"],["123","456"])
 if __name__=="__main__": unittest.main()

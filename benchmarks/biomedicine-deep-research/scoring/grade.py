@@ -6,6 +6,7 @@ from pathlib import Path
 
 FINAL_RE=re.compile(r"<BIOMED_FINAL>\s*(\{.*?\})\s*</BIOMED_FINAL>",re.S)
 VALID_SPLITS={"fit","tune","verifier"}
+RETRIEVAL_LIMIT=30
 
 def parse_answer(text,ref):
     matches=FINAL_RE.findall(str(text or ""))
@@ -20,7 +21,10 @@ def parse_answer(text,ref):
         if len(values)!=len(set(values)):raise ValueError("duplicate answer values are invalid")
         if any(x not in set(ref["valid_options"]) for x in values):raise ValueError("answer contains an unknown option")
         if kind=="single_choice" and len(values)!=1:raise ValueError("single_choice requires exactly one option")
-    elif len(values)!=len(set(values)):raise ValueError("duplicate answer values are invalid")
+    else:
+        if len(values)>RETRIEVAL_LIMIT:raise ValueError(f"evidence retrieval accepts at most {RETRIEVAL_LIMIT} PMIDs")
+        if any(not re.fullmatch(r"[1-9][0-9]*", value) for value in values):raise ValueError("proposed_pmids must contain bare numeric PubMed IDs")
+        if len(values)!=len(set(values)):raise ValueError("duplicate answer values are invalid")
     return values
 
 def load_predictions(path):
@@ -48,12 +52,15 @@ def grade(refs,selected,predictions,malformed=None,duplicates=None):
         if state=="timeout":results.append({**base,"status":"agent_timeout","score":0.0,"error":pred.get("error")});continue
         if state!="completed":results.append({**base,"status":"agent_error","score":0.0,"error":pred.get("error") or f"agent status {state}"});continue
         if ref.get("label") is None:results.append({**base,"status":"unscorable","score":None,"error":"source label unavailable"});continue
-        if ref["task_type"]=="evidence_gap_retrieval":results.append({**base,"status":"unscorable","score":None,"error":"source revision supplies PMIDs but no retrieval metric or ordering rule"});continue
         try:answer=parse_answer(pred.get("final_answer"),ref)
         except ValueError as exc:results.append({**base,"status":"scored","score":0.0,"error":str(exc)});continue
-        expected=[str(x).strip().upper() for x in ref["label"]["selected_options"]]
-        score=float(answer==expected) if ref["task_type"]=="single_choice" else float(set(answer)==set(expected))
-        results.append({**base,"status":"scored","score":score})
+        if ref["task_type"]=="evidence_gap_retrieval":
+            expected={str(x).strip() for x in ref["label"]["proposed_pmids"]};hits=expected & set(answer[:RETRIEVAL_LIMIT]);score=len(hits)/len(expected)
+            results.append({**base,"status":"scored","score":score,"metric":f"recall@{RETRIEVAL_LIMIT}","hits":len(hits),"reference_pmids":len(expected),"retrieved_pmids":len(answer)})
+        else:
+            expected=[str(x).strip().upper() for x in ref["label"]["selected_options"]]
+            score=float(answer==expected) if ref["task_type"]=="single_choice" else float(set(answer)==set(expected))
+            results.append({**base,"status":"scored","score":score,"metric":"exact_match"})
     global_error=bool(malformed or duplicates or unknown)
     if global_error:results.append({"item_id":"<predictions>","subset":None,"split":None,"task_type":None,"status":"grading_error","score":None,"error":{"malformed_lines":malformed,"duplicate_ids":duplicates,"unknown_ids":unknown}})
     expected_rows=[x for x in results if x["item_id"]!="<predictions>"];by_split=defaultdict(list)
@@ -71,6 +78,7 @@ def main():
     selected=local if explicit else list(eligible)
     if explicit and not selected:raise SystemExit(f"no trusted item ID belongs to this dataset task and split {split}")
     predictions,malformed,duplicates=load_predictions(Path("/app/submission/predictions.jsonl"));results,summary=grade(refs,selected,predictions,malformed,duplicates);summary["selection_split"]=split
+    retrieval=bool(selected) and all(refs[item_id]["task_type"]=="evidence_gap_retrieval" for item_id in selected);summary["primary_metric"]="mean_recall@30" if retrieval else "accuracy";summary["primary_score"]=summary["accuracy"]
     logs=Path("/logs/verifier");logs.mkdir(parents=True,exist_ok=True);(logs/"per_item_results.jsonl").write_text("".join(json.dumps(x)+"\n" for x in results));(logs/"summary.json").write_text(json.dumps(summary,indent=2))
     if summary["accuracy"] is None:print("evaluation incomplete; see summary.json",file=sys.stderr);return 2
     (logs/"reward.txt").write_text(str(summary["accuracy"]));return 0

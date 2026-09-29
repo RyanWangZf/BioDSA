@@ -40,6 +40,37 @@ class DeepEvidenceGraderTests(unittest.TestCase):
         self.assertIsNone(summary["accuracy"])
         self.assertEqual(summary["unknown_prediction_ids"], ["unknown"])
 
+    def test_evidence_gap_uses_recall_at_30(self):
+        ref = {"item_id":"gap", "subset":"evidence-gap-discovery", "source_split":"verifier", "task_type":"evidence_gap_retrieval", "valid_options":[], "label":{"proposed_pmids":["11","22","33","44"]}}
+        answer = '<BIOMED_FINAL>{"proposed_pmids":["33","999","11"]}</BIOMED_FINAL>'
+        results, summary = bdr.grade({"gap":ref}, ["gap"], {"gap":{"item_id":"gap","status":"completed","final_answer":answer}})
+        self.assertEqual(results[0]["metric"], "recall@30")
+        self.assertEqual(results[0]["hits"], 2)
+        self.assertEqual(results[0]["score"], .5)
+        self.assertEqual(summary["accuracy"], .5)
+
+    def test_evidence_gap_rejects_invalid_ranked_lists(self):
+        ref = {"task_type":"evidence_gap_retrieval"}
+        invalid = (
+            ["12", "12"],
+            ["PMID:12"],
+            [str(value) for value in range(1, 32)],
+        )
+        for values in invalid:
+            with self.subTest(values=values):
+                with self.assertRaises(ValueError):
+                    bdr.parse_answer(f'<BIOMED_FINAL>{json.dumps({"proposed_pmids":values})}</BIOMED_FINAL>', ref)
+
+    def test_all_evidence_gap_oracles_have_valid_pmids(self):
+        path = ROOT / "benchmarks/biomedicine-deep-research/tasks/evidence-gap-discovery/tests/references/references.jsonl"
+        rows = [json.loads(line) for line in path.read_text().splitlines()]
+        self.assertEqual(len(rows), 20)
+        for ref in rows:
+            answer = '<BIOMED_FINAL>' + json.dumps({"proposed_pmids":ref["label"]["proposed_pmids"][:30]}) + '</BIOMED_FINAL>'
+            parsed = bdr.parse_answer(answer, ref)
+            expected = set(ref["label"]["proposed_pmids"])
+            self.assertEqual(len(set(parsed) & expected) / len(expected), min(30, len(expected)) / len(expected))
+
 class LeaderboardSummaryTests(unittest.TestCase):
     def make_job(self, root: Path):
         tasks = [{"path": f"benchmarks/biomedicine-deep-research/tasks/{name}"} for name in sorted(bdr_summary.FORMAL_SUBSETS)]
@@ -58,8 +89,10 @@ class LeaderboardSummaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory); self.make_job(root); result=bdr_summary.summarize(root)
             self.assertTrue(result["valid"]); self.assertEqual(len(result["evaluations"]),1)
-            self.assertEqual(result["evaluations"][0]["micro_accuracy"],1.0)
-            self.assertEqual(result["evaluations"][0]["expected_total"],127)
+            self.assertEqual(result["evaluations"][0]["overall_mean_item_score"],1.0)
+            self.assertEqual(result["evaluations"][0]["choice_micro_accuracy"],1.0)
+            self.assertEqual(result["evaluations"][0]["evidence_gap_mean_recall_at_30"],1.0)
+            self.assertEqual(result["evaluations"][0]["expected_total"],131)
 
     def test_missing_trial_invalidates_whole_result(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -67,12 +100,12 @@ class LeaderboardSummaryTests(unittest.TestCase):
             import shutil
             shutil.rmtree(next(root.glob("hle-biomedicine__*")))
             result=bdr_summary.summarize(root)
-            self.assertFalse(result["valid"]); self.assertIsNone(result["evaluations"][0]["micro_accuracy"])
+            self.assertFalse(result["valid"]); self.assertIsNone(result["evaluations"][0]["overall_mean_item_score"])
 
     def test_grading_error_invalidates_whole_result(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory); self.make_job(root); trial=next(root.glob("hle-medicine__*")); path=trial/"verifier/summary.json"; summary=json.loads(path.read_text()); summary["grading_error"]=1; summary["accuracy"]=None; path.write_text(json.dumps(summary))
             result=bdr_summary.summarize(root)
-            self.assertFalse(result["valid"]); self.assertIsNone(result["evaluations"][0]["micro_accuracy"])
+            self.assertFalse(result["valid"]); self.assertIsNone(result["evaluations"][0]["overall_mean_item_score"])
 
 if __name__ == "__main__": unittest.main()

@@ -14,7 +14,7 @@ FORMAL_EXPECTED_COUNTS = {
     "labbench-litqa2": 5, "moa-pathway-reasoning": 5,
     "sample-size-estimation": 5, "supergpqa-hard-medicine": 35,
     "surrogate-endpoint-discovery": 3, "target-identification": 5,
-    "trqa-lit": 35,
+    "trqa-lit": 35, "evidence-gap-discovery": 4,
 }
 FORMAL_SUBSETS = set(FORMAL_EXPECTED_COUNTS)
 
@@ -64,7 +64,7 @@ def summarize(job_dir: Path) -> dict:
         errors = []
         if missing_trials: errors.append(f"missing trials: {sorted(missing_trials)}")
         if extra_trials: errors.append(f"unexpected trials: {sorted(extra_trials)}")
-        totals = Counter(); subset_results = {}; correct = 0.0; expected_total = 0; versions = set()
+        totals = Counter(); subset_results = {}; correct = 0.0; expected_total = 0; versions = set();choice_score=0.0;choice_total=0;retrieval_score=0.0;retrieval_total=0
         for subset in sorted(FORMAL_SUBSETS & set(trials)):
             trial = trials[subset]; expected = _expected(subset); expected_total += len(expected)
             result_path = trial / "result.json"; per_item_path = trial / "verifier/per_item_results.jsonl"; summary_path = trial / "verifier/summary.json"
@@ -85,10 +85,14 @@ def summarize(job_dir: Path) -> dict:
                 errors.append(f"{subset}: incomplete grading")
             counts = Counter(row.get("status", "unknown") for row in rows if row.get("item_id") != "<predictions>")
             score = sum(float(row.get("score") or 0) for row in rows if row.get("item_id") != "<predictions>")
+            if subset=="evidence-gap-discovery":retrieval_score+=score;retrieval_total+=len(expected)
+            else:choice_score+=score;choice_total+=len(expected)
             correct += score; totals.update(counts)
-            subset_results[subset] = {"expected_total": len(expected), "correct": score, "accuracy": score / len(expected) if expected else None, "statuses": dict(sorted(counts.items()))}
+            metric="mean_recall@30" if subset=="evidence-gap-discovery" else "accuracy"
+            subset_results[subset] = {"expected_total": len(expected), "score_sum": score, "metric":metric,"score": score / len(expected) if expected else None, "statuses": dict(sorted(counts.items()))}
         valid = not problems and not errors and set(trials) == FORMAL_SUBSETS
-        evaluations.append({"valid": valid, "agent": agent, "agent_versions": sorted(versions), "provider": provider, "model": model, "expected_total": expected_total, "correct": correct, "micro_accuracy": correct / expected_total if valid and expected_total else None, "statuses": dict(sorted(totals.items())), "subsets": subset_results, "errors": errors})
+        overall_score=correct/expected_total if valid and expected_total else None
+        evaluations.append({"valid": valid, "agent": agent, "agent_versions": sorted(versions), "provider": provider, "model": model, "expected_total": expected_total, "score_sum": correct, "overall_mean_item_score": overall_score, "choice_items":choice_total,"choice_micro_accuracy":choice_score/choice_total if valid and choice_total else None,"retrieval_items":retrieval_total,"evidence_gap_mean_recall_at_30":retrieval_score/retrieval_total if valid and retrieval_total else None,"statuses": dict(sorted(totals.items())), "subsets": subset_results, "errors": errors})
     return {"valid": not problems and bool(evaluations) and all(row["valid"] for row in evaluations), "job_name": job.get("job_name"), "source_revision": SOURCE_REVISION, "formal_split": "verifier", "formal_subsets": sorted(FORMAL_SUBSETS), "errors": problems, "evaluations": evaluations}
 
 

@@ -41,8 +41,8 @@ class DatasetTaskInventoryTests(unittest.TestCase):
         self.assertEqual(bio_paths, {"biodsbench-python"})
         self.assertEqual(deep_paths, {p.name for p in (ROOT / "benchmarks/biomedicine-deep-research/tasks").iterdir() if p.is_dir()})
         formal = paths(ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence.yaml")
-        self.assertNotIn("evidence-gap-discovery", formal)
-        self.assertEqual(len(formal), 12)
+        self.assertIn("evidence-gap-discovery", formal)
+        self.assertEqual(len(formal), 13)
 
     def test_prepare_scripts_do_not_generate_static_definitions(self):
         for path in (ROOT / "benchmarks/biodsbench/prepare.py", ROOT / "benchmarks/biomedicine-deep-research/prepare.py"):
