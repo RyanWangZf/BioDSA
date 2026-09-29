@@ -112,6 +112,26 @@ class NetworkPolicyTests(unittest.TestCase):
             with self.assertRaisesRegex(HarnessError,"exited before ready.*worker-boom"): sandbox.start()
             self.assertLess(time.monotonic()-started,2); self.assertIn("worker-boom",(root/"logs/sandbox.stderr.log").read_text())
 
+    def test_docker_internet_and_none_against_same_endpoint(self) -> None:
+        if subprocess.run(["docker","info"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode: self.skipTest("Docker daemon unavailable")
+        if subprocess.run(["docker","image","inspect","bioagent-gym/coder:0.1"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode: self.skipTest("Coder sandbox image unavailable")
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self): self.send_response(200); self.end_headers(); self.wfile.write(b"docker-controlled")
+            def log_message(self,*_): pass
+        try: server=ThreadingHTTPServer(("0.0.0.0",0),Handler)
+        except PermissionError: self.skipTest("test sandbox cannot bind a controlled endpoint")
+        thread=threading.Thread(target=server.serve_forever,daemon=True); thread.start(); manifest=load_agent(ROOT/"agents/coder/agent.yaml")
+        try:
+            for mode,expected in (("internet","reachable"),("none","blocked")):
+                with tempfile.TemporaryDirectory() as temporary:
+                    root=Path(temporary); (root/"workspace").mkdir(); (root/"channel").mkdir(); sandbox=SandboxContainer(manifest,root/"workspace",root/"channel",mode,[],root/"logs")
+                    try:
+                        sandbox.start(); requests=root/"channel/requests"; responses=root/"channel/responses"; code=f"import urllib.request\ntry:\n urllib.request.urlopen('http://host.docker.internal:{server.server_port}',timeout=1).read(); print('reachable')\nexcept Exception:\n print('blocked')"; atomic_json(requests/"network.json",{"code":code,"timeout_seconds":3}); response=responses/"network.json"; deadline=time.monotonic()+8
+                        while not response.is_file() and time.monotonic()<deadline: time.sleep(.02)
+                        self.assertTrue(response.is_file()); value=json.loads(response.read_text()); self.assertEqual(value["result"]["stdout"].strip(),expected)
+                    finally: sandbox.cleanup()
+        finally: server.shutdown(); server.server_close()
+
 
 class ProtocolTests(unittest.TestCase):
     def wait_pid_gone(self, pid: int, timeout: float = 3) -> None:

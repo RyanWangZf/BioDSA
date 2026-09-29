@@ -15,9 +15,10 @@ def main(argv=None):
    source=(Path(a.request).parent/asset["path"]).resolve(); target=workspace/Path(asset["path"]).name; shutil.copy2(source,target); files.append(target.name)
   details="\n".join(f"- {table['asset_id']}: {table['description']} ({', '.join(table.get('columns', []))})" for table in req["input"]["tables"]); requirements="\n".join(f"- {item}" for item in req["input"]["output_requirements"]); task=f"{req['input']['user_task']}\nTables:\n{details}\nOutput requirements:\n{requirements}"
   result=DSWizardAgent(config,workspace).run(task,files); artifacts=[]
-  for name in ("analysis_summary.csv",):
-   source=workspace/name
-   if source.is_file(): shutil.copy2(source,out/name); artifacts.append({"path":name,"type":mimetypes.guess_type(name)[0] or "application/octet-stream","description":"Generated analysis artifact"})
+  input_names={Path(item).name for item in files}
+  for source in workspace.iterdir():
+   name=source.name
+   if source.is_file() and name not in input_names and name not in {"exploration.complete"}: shutil.copy2(source,out/name); artifacts.append({"path":name,"type":mimetypes.guess_type(name)[0] or "application/octet-stream","description":"Generated analysis artifact"})
   (out/"analysis_plan.md").write_text(result["analysis_plan"]); artifacts.append({"path":"analysis_plan.md","type":"text/markdown","description":"DSWizard analysis plan"}); (out/"generated_code.py").write_text("\n\n".join(result["generated_code"])); artifacts.append({"path":"generated_code.py","type":"text/x-python","description":"Exploration and implementation code"})
   value={"protocol_version":req["protocol_version"],"run_id":req["run_id"],"attempt_id":req["attempt_id"],"task_id":req["task_id"],"status":"completed","output":result,"artifacts":artifacts,"usage":{"model_calls":4}}
  except Exception as exc: value={"protocol_version":req["protocol_version"],"run_id":req["run_id"],"attempt_id":req["attempt_id"],"task_id":req["task_id"],"status":"failed","artifacts":[],"error":{"code":"agent_error","message":str(exc)}}

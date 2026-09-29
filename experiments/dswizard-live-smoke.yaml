@@ -1,0 +1,7 @@
+protocol_version: "1.0"
+agent: {manifest: ../agents/dswizard/agent.yaml, config: ../agents/dswizard/config.openrouter.example.json}
+benchmark: {manifest: ../benchmarks/live_analysis_smoke/benchmark.yaml, prepared: ../.bioagent-gym/live-analysis-prepared, split: test, data_revision: live-smoke-r1}
+execution: {backend: docker, network: {agent: {mode: internet}, sandbox: {mode: internet}}}
+budget: {wall_time_seconds: 360, model_calls: 4}
+budget_policy: best_effort
+output: ../.bioagent-gym/dswizard-live-smoke-run

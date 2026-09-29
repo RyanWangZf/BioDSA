@@ -19,9 +19,11 @@ def main(argv=None):
         requirements="\n".join(f"- {item}" for item in req["input"]["output_requirements"])
         task=f"{req['input']['user_task']}\nTables:\n{details}\nOutput requirements:\n{requirements}"
         result=CoderAgent(config,workspace).run(task,files); artifacts=[]
-        for name in ("analysis_summary.csv",):
-            source=workspace/name
-            if source.is_file(): shutil.copy2(source,out/name); artifacts.append({"path":name,"type":mimetypes.guess_type(name)[0] or "application/octet-stream","description":"Generated analysis artifact"})
+        input_names={Path(item).name for item in files}
+        for source in workspace.iterdir():
+            name=source.name
+            if source.is_file() and name not in input_names and name not in {"exploration.complete"}:
+                shutil.copy2(source,out/name); artifacts.append({"path":name,"type":mimetypes.guess_type(name)[0] or "application/octet-stream","description":"Generated analysis artifact"})
         (out/"generated_code.py").write_text("\n\n".join(result["generated_code"])); artifacts.append({"path":"generated_code.py","type":"text/x-python","description":"Generated Python code"})
         value={"protocol_version":req["protocol_version"],"run_id":req["run_id"],"attempt_id":req["attempt_id"],"task_id":req["task_id"],"status":"completed","output":result,"artifacts":artifacts,"usage":{"model_calls":2}}
     except Exception as exc:

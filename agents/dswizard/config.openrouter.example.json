@@ -1,0 +1,1 @@
+{"provider":"openai","model":"qwen/qwen3.8-flash","small_model":"qwen/qwen3.8-flash","api_key_env":"OPENROUTER_API_KEY","endpoint":"https://openrouter.ai/api/v1","temperature":0.1,"max_attempts":2,"timeout_seconds":60,"execution_environment":{"backend":"local_subprocess","timeout_seconds":30}}

@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import argparse,csv,json
+from pathlib import Path
+p=argparse.ArgumentParser(); p.add_argument("--config",required=True); p.add_argument("--output-dir",required=True); a=p.parse_args(); out=Path(a.output_dir); assets=out/"assets"; private=out/"private"; assets.mkdir(parents=True,exist_ok=True); private.mkdir(exist_ok=True); cfg=json.loads(Path(a.config).read_text())
+with (assets/"data.csv").open("w",newline="") as f: w=csv.writer(f); w.writerow(["group","value"]); w.writerows([["A",1],["A",3],["B",5],["B",7]])
+tasks=[
+ {"task_id":"csv_chart","task_type":"data.analysis.python.v1","input":{"user_task":"Read data.csv, compute the mean value for each group, and explain the result.","tables":[{"asset_id":"data","description":"Small grouped numeric dataset","columns":["group","value"]}],"output_requirements":["Use only the Python standard library.","Save the grouped means as analysis_summary.csv.","Create a valid SVG bar chart named analysis_chart.svg."]},"assets":[{"id":"data","path":"data.csv","media_type":"text/csv"}]},
+ {"task_id":"pubmed_lookup","task_type":"data.analysis.python.v1","input":{"user_task":"Query the NCBI PubMed E-utilities HTTPS API for at most three recent papers about EGFR inhibitor resistance in non-small-cell lung cancer, and summarize the returned records.","tables":[],"output_requirements":["Use Python urllib from the standard library and a short request timeout.","Save PMID, title, and publication date to pubmed_results.csv.","Print the number of records returned."]},"assets":[]}
+]
+(out/"tasks.jsonl").write_text("".join(json.dumps(x)+"\n" for x in tasks)); (private/"reference.json").write_text(json.dumps({"csv_chart":["analysis_summary.csv","analysis_chart.svg"],"pubmed_lookup":["pubmed_results.csv"]})); (out/"manifest.json").write_text(json.dumps({"protocol_version":"1.0","benchmark_id":"live_analysis_smoke","benchmark_version":"0.1.0","data_revision":cfg["data_revision"],"task_types":["data.analysis.python.v1"],"split":cfg["split"],"tasks_file":"tasks.jsonl","assets_dir":"assets","private":{"references":"private/reference.json","reference_version":cfg["data_revision"]}}))
