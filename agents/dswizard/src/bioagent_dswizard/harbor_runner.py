@@ -6,7 +6,8 @@ from .agent import DSWizardAgent
 def _worker(request: Path)->int:
  d=json.loads(request.read_text()); w,o=Path(d["workspace"]),Path(d["output"]); w.mkdir(parents=True); o.mkdir(parents=True); item=d["item"]
  r=DSWizardAgent(d["config"],w).run(item["instruction"],[str(Path("/app")/p) for p in item.get("input_paths",[])])
- (o/"final_answer.md").write_text(r["final_answer"]); (o/"analysis_plan.md").write_text(r["analysis_plan"]); (o/"analysis.py").write_text("\n\n".join(r["generated_code"])); (o/"execution.json").write_text(json.dumps(r["execution_logs"],indent=2))
+ replay=[item.get("code_history","")]+r["generated_code"]
+ (o/"final_answer.md").write_text(r["final_answer"]); (o/"analysis_plan.md").write_text(r["analysis_plan"]); (o/"analysis.py").write_text("\n\n".join(x for x in replay if x)); (o/"execution.json").write_text(json.dumps(r["execution_logs"],indent=2))
  for p in w.iterdir():
   if p.is_file(): shutil.copy2(p,o/p.name)
  return 0

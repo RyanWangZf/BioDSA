@@ -3,15 +3,18 @@ from __future__ import annotations
 import argparse, csv, json, shutil, tarfile
 from collections import Counter
 from pathlib import Path
+from build_biodsbench_scoring import build as build_bio_scoring
 
 BIO_REV="e59af82ee9461db78ed399544ec8520afeb02ce5"
 BDR_REV="f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2"
+BIO_ORACLE_BLOCKED={"28481359_4","28481359_5","28481359_7","28481359_8","28472509_4","37699004_1"}
 ROOT=Path(__file__).resolve().parents[1]
 TOML='''schema_version = "1.4"\nartifacts = ["/app/submission"]\n[metadata]\nsource = "{source}"\ndataset_task = "{name}"\ncategory = "Science"\ntags = {tags}\n[verifier]\ntimeout_sec = 7200.0\nenvironment_mode = "separate"\nnetwork_mode = "no-network"\n[agent]\ntimeout_sec = 86400.0\nnetwork_mode = "public"\n[environment]\nbuild_timeout_sec = 1200.0\ncpus = 2\nmemory_mb = 4096\nstorage_mb = 16384\nnetwork_mode = "public"\n'''
 INSTRUCTION="# Dataset batch evaluation\n\nRead /app/data/items.jsonl. Answer each selected item independently. The adapter writes incremental predictions to /app/submission/predictions.jsonl and item artifacts below /app/submission/items/<item-id>/.\n"
-ENV='''FROM python:3.12-slim\nRUN pip install --no-cache-dir pandas==2.3.3 numpy==2.3.4 scipy==1.16.3 matplotlib==3.10.7 seaborn==0.13.2 statsmodels==0.14.5 lifelines==0.30.0\nCOPY data/ /app/data/\nWORKDIR /app\n'''
+ENV='''FROM python:3.12-slim\nRUN apt-get update && apt-get install -y --no-install-recommends chromium && rm -rf /var/lib/apt/lists/*\nRUN pip install --no-cache-dir pandas==2.3.3 numpy==2.3.4 scipy==1.16.3 matplotlib==3.10.7 seaborn==0.13.2 statsmodels==0.14.5 lifelines==0.30.0 scikit-learn==1.7.2 plotly==6.3.1 kaleido==1.1.0 ridgeplot==0.3.2 PyComplexHeatmap==1.8.3\nCOPY data/ /app/data/\nWORKDIR /app\n'''
 BDR_ENV='''FROM python:3.12-slim\nCOPY data/ /app/data/\nWORKDIR /app\n'''
 TEST_DOCKER='''FROM python:3.12-slim\nCOPY test.sh grade.py run_submission.py /tests/\nCOPY references/ /tests/references/\nCOPY data/ /app/data/\nRUN chmod 700 /tests/references && chmod +x /tests/test.sh\nWORKDIR /app\n'''
+BIO_TEST_DOCKER='''FROM python:3.12-slim\nRUN apt-get update && apt-get install -y --no-install-recommends chromium && rm -rf /var/lib/apt/lists/*\nRUN pip install --no-cache-dir pandas==2.3.3 numpy==2.3.4 scipy==1.16.3 matplotlib==3.10.7 seaborn==0.13.2 statsmodels==0.14.5 lifelines==0.30.0 scikit-learn==1.7.2 plotly==6.3.1 kaleido==1.1.0 ridgeplot==0.3.2 PyComplexHeatmap==1.8.3\nCOPY test.sh grade.py run_submission.py /tests/\nCOPY references/ /tests/references/\nCOPY data/ /app/data/\nRUN chmod 700 /tests/references && chmod +x /tests/test.sh\nWORKDIR /app\n'''
 
 def read(path): return [json.loads(x) for x in path.read_text().splitlines() if x.strip()]
 def write(path,rows): path.parent.mkdir(parents=True,exist_ok=True); path.write_text("".join(json.dumps(x,ensure_ascii=False)+"\n" for x in rows))
@@ -22,17 +25,21 @@ def base(path,name,source,tags,env):
 def bio(source):
     for lang,filename in (("python","python_tasks_with_class.jsonl"),("r","R_tasks_with_class.jsonl")):
         task=ROOT/f"benchmarks/biodsbench/tasks/biodsbench-{lang}"; base(task,task.name,f"zifeng-ai/BioDSBench@{BIO_REV}",["biomedicine",lang,"data-analysis"],ENV)
+        (task/"tests/Dockerfile").write_text(BIO_TEST_DOCKER)
+        source_rows=read(source/filename); scoring_by_id={x["item_id"]:x for x in build_bio_scoring(source_rows)} if lang=="python" else {}
         public=[]; refs=[]; blocked=[]
-        for row in read(source/filename):
+        for row in source_rows:
             tables=json.loads(row["tables"]) if isinstance(row["tables"],str) else row["tables"]; paths=[f"data/inputs/{row['study_ids']}/{Path(x).name}" for x in tables]
             prompt=row["queries"]+"\n\nInput files:\n"+"\n".join("- /app/"+x for x in paths)
             if row.get("code_histories"): prompt+="\n\nPermitted prior code:\n"+row["code_histories"]
-            public.append({"item_id":row["unique_question_ids"],"source_split":"benchmark","instruction":prompt,"input_paths":paths,"language":lang,"study_id":row["study_ids"],"analysis_types":row["analysis_types"]})
-            refs.append({"item_id":row["unique_question_ids"],"reference_answer":row.get("reference_answer"),"test_cases":row.get("test_cases")})
-            reason="R runtime is not supported by the migrated agents" if lang=="r" else "safe source-assertion conversion pending"
-            blocked.append({"item_id":row["unique_question_ids"],"reason":reason})
+            public.append({"item_id":row["unique_question_ids"],"source_split":"benchmark","instruction":prompt,"input_paths":paths,"code_history":row.get("code_histories") or "","language":lang,"study_id":row["study_ids"],"analysis_types":row["analysis_types"]})
+            scoring=scoring_by_id.get(row["unique_question_ids"]); refs.append({"item_id":row["unique_question_ids"],"study_id":row["study_ids"],"reference_answer":row.get("reference_answer"),"code_history":row.get("code_histories") or "","scoring":scoring})
+            if lang=="r": blocked.append({"item_id":row["unique_question_ids"],"reason":"R runtime is not supported by the migrated agents"})
+            elif not scoring["supported"]: blocked.append({"item_id":row["unique_question_ids"],"reason":scoring["blocking_reason"]})
         write(task/"data/items.jsonl",public); write(task/"environment/data/items.jsonl",public); write(task/"tests/references/references.jsonl",refs)
-        manifest={"source_repo":"zifeng-ai/BioDSBench","source_revision":BIO_REV,"subset":lang,"splits":{"benchmark":{"source_count":len(public),"included_count":len(public),"runnable_count":len(public) if lang=="python" else 0,"scorable_count":0,"blocked_count":len(blocked)}},"blocked":blocked}
+        scorable=len(public)-len(blocked) if lang=="python" else 0
+        oracle_failures=[] if lang!="python" else [{"item_id":x,"reason":"pinned source reference implementation fails before or during its original assertions; grader remains available"} for x in sorted(BIO_ORACLE_BLOCKED)]
+        manifest={"source_repo":"zifeng-ai/BioDSBench","source_revision":BIO_REV,"subset":lang,"splits":{"benchmark":{"source_count":len(public),"included_count":len(public),"runnable_count":len(public) if lang=="python" else 0,"scorable_count":scorable,"oracle_verified":scorable-len(oracle_failures),"live_verified":0,"blocked_count":len(blocked)}},"blocked":blocked,"oracle_failures":oracle_failures}
         (task/"data/manifest.json").write_text(json.dumps(manifest,indent=2)); shutil.copy2(task/"data/manifest.json",task/"environment/data/manifest.json"); (task/"tests/grade.py").write_text((ROOT/"scripts/harbor_biodsbench_grade.py").read_text()); (task/"tests/run_submission.py").write_text((ROOT/"scripts/run_biodsbench_submission.py").read_text())
 
 def stage_bio_tables(source):
@@ -65,12 +72,16 @@ def bdr(source):
         for split in ("fit","tune"):
             rows=read(source/f"public/development/{split}/{subset}.jsonl"); counts[split]=len(rows)
             for row in rows:
-                item={k:v for k,v in row.items() if k!="label"}; item.update(item_id=row["example_id"],source_split=split,instruction=row["prompt"]); public.append(item); refs.append({"item_id":row["example_id"],"label":row.get("label"),"task_type":row["task_type"],"source_split":split})
+                item={k:v for k,v in row.items() if k!="label"}; item.update(item_id=row["example_id"],source_split=split,instruction=row["prompt"]); public.append(item); refs.append({"item_id":row["example_id"],"subset":subset,"label":row.get("label"),"task_type":row["task_type"],"valid_options":row.get("valid_options",[]),"source_split":split})
         rows=[x for x in evals if x["benchmark"]==subset]; counts["verifier"]=len(rows)
         for row in rows:
-            item=dict(row); item.update(item_id=row["example_id"],source_split="verifier",instruction=row["prompt"]); public.append(item); ref=labels.get(row["example_id"]); refs.append({"item_id":row["example_id"],"label":None if ref is None else ref.get("target"),"task_type":row["task_type"],"source_split":"verifier"})
+            item=dict(row); item.update(item_id=row["example_id"],source_split="verifier",instruction=row["prompt"]); public.append(item); ref=labels.get(row["example_id"]); refs.append({"item_id":row["example_id"],"subset":subset,"label":None if ref is None else ref.get("target"),"task_type":row["task_type"],"valid_options":row.get("valid_options",[]),"source_split":"verifier"})
         write(task/"data/items.jsonl",public); write(task/"environment/data/items.jsonl",public); write(task/"tests/references/references.jsonl",refs)
-        blocked=[{"item_id":x["item_id"],"reason":"source label unavailable"} for x in refs if x["label"] is None]; manifest={"source_repo":"zifeng-ai/biomedicine-deep-research","source_revision":BDR_REV,"subset":subset,"splits":{s:{"source_count":n,"included_count":n,"runnable_count":n,"scorable_count":n,"blocked_count":0} for s,n in counts.items()},"source_count":len(public),"included_count":len(public),"runnable_count":len(public),"scorable_count":len(public)-len(blocked),"blocked_count":len(blocked),"task_types":dict(Counter(x["task_type"] for x in public)),"blocked":blocked}
+        blocked=[{"item_id":x["item_id"],"reason":"source label unavailable"} for x in refs if x["label"] is None]+[{"item_id":x["item_id"],"reason":"source revision defines proposed PMIDs but no retrieval metric or ranking rule"} for x in refs if x["task_type"]=="evidence_gap_retrieval"]
+        split_meta={}
+        for s,n in counts.items():
+            split_refs=[x for x in refs if x["source_split"]==s]; split_blocked=sum(x["label"] is None or x["task_type"]=="evidence_gap_retrieval" for x in split_refs); split_meta[s]={"source_count":n,"included_count":n,"runnable_count":n,"scorable_count":n-split_blocked,"oracle_verified":n-split_blocked,"live_verified":0,"blocked_count":split_blocked}
+        manifest={"source_repo":"zifeng-ai/biomedicine-deep-research","source_revision":BDR_REV,"subset":subset,"splits":split_meta,"source_count":len(public),"included_count":len(public),"runnable_count":len(public),"scorable_count":len(public)-len(blocked),"oracle_verified":len(public)-len(blocked),"live_verified":0,"blocked_count":len(blocked),"task_types":dict(Counter(x["task_type"] for x in public)),"blocked":blocked}
         (task/"data/manifest.json").write_text(json.dumps(manifest,indent=2)); shutil.copy2(task/"data/manifest.json",task/"environment/data/manifest.json"); (task/"tests/grade.py").write_text((ROOT/"scripts/harbor_bdr_grade.py").read_text()); (task/"tests/run_submission.py").write_text("# unused for this task\n")
 
 def main():

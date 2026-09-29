@@ -11,9 +11,15 @@ def _worker(request:Path)->int:
  (o/"generated_code.py").write_text("\n\n".join(r["generated_code"])); (o/"usage.json").write_text(json.dumps(usage,indent=2)); return 0
 
 def _batch(d:dict)->int:
- app=Path("/app"); item_file=app/"data/items.jsonl"; single_mode=not item_file.is_file(); items=[json.loads(x) for x in item_file.read_text().splitlines() if x.strip()] if not single_mode else [{"item_id":"single","instruction":d["instruction"],"input_paths":[]}]; selected=d.get("item_ids") or []; known={x["item_id"] for x in items}
- if set(selected)-known: raise ValueError(f"unknown item_ids: {sorted(set(selected)-known)}")
- if selected: items=[x for x in items if x["item_id"] in set(selected)]
+ app=Path("/app"); item_file=app/"data/items.jsonl"; single_mode=not item_file.is_file(); items=[json.loads(x) for x in item_file.read_text().splitlines() if x.strip()] if not single_mode else [{"item_id":"single","instruction":d["instruction"],"input_paths":[]}]
+ split=d.get("split")
+ if split not in {None,"fit","tune","verifier"}: raise ValueError(f"unsupported split: {split}")
+ if split: items=[x for x in items if x.get("source_split")==split]
+ selected=d.get("item_ids") or []; known={x["item_id"] for x in items}
+ if selected:
+  relevant=set(selected)&known
+  if not relevant: raise ValueError(f"no selected item belongs to this dataset task and split {split}")
+  items=[x for x in items if x["item_id"] in relevant]
  sub=app/"submission"; sub.mkdir(exist_ok=True)
  with (sub/"predictions.jsonl").open("w") as stream:
   for item in items:

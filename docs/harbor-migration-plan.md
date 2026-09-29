@@ -2,7 +2,7 @@
 
 ## Baseline
 
-- Implementation baseline: `039af0827ce5e22625e1f59240ec50335651ed4e`
+- Scoring-reliability baseline: `46522017d452c7775c051fe49b2551d792ae7a17`
   on `zifeng/refactor`.
 - Execution engine: `harbor==0.23.0` (task schema 1.4).
 - BioDSBench source: `zifeng-ai/BioDSBench` revision
@@ -92,11 +92,17 @@ errors.
 
 BioDSBench submissions execute as an unprivileged process with time/resource
 limits and a JSON-only result export. That process cannot read verifier
-references/tests or write the Harbor reward. The trusted grader evaluates the
-exported values against source assertions. It never imports submitted pickle
-or other executable serialized objects. Deep Research grading follows the
-source answer form; deterministic labelled choice/retrieval items are scored
-without inventing an LLM judge.
+references/tests or write the Harbor reward. A pinned mapping covers the
+actual scalar, DataFrame, Series, ndarray, collection, finite predicate, and
+model-attribute operations used by all 118 Python records. The trusted grader
+applies the source checks and requires all assertions to pass. It never imports
+submitted code, pickle, or another executable serialization.
+
+Deep Research grading follows each source answer form. Single choice accepts
+exactly one valid option; multi-select uses source set exact-match with no
+partial credit and rejects duplicates. Evidence-gap retrieval has PMID targets
+but no metric or ranking semantics in the pinned source, so its 20 records are
+explicitly unscorable. No semantic judge is invented.
 
 ## Files replaced
 
@@ -119,7 +125,7 @@ without inventing an LLM judge.
 - [x] Run unit/config checks and real Docker Harbor batch smoke.
 - [x] Delete replaced record-level tasks/scripts; update README and coverage report.
 
-## Validation in progress
+## Scoring repair implementation and validation
 
 The DeepEvidence two-item HLE smoke completed as one real Docker Harbor trial:
 both item processes completed, the trusted denominator was two, and the
@@ -127,13 +133,26 @@ deterministic mock scored 1/2 (accuracy 0.5). This demonstrates batch artifact
 collection and verifier aggregation; it is not a claim that the full 648-item
 suite ran.
 
-The DSWizard two-item BioDSBench smoke also completed as one Docker trial after
-the pinned public tables were staged. Both independent item processes completed
-and emitted plans/code/artifacts. Both are reported as `unscorable`, with a null
-accuracy and reward 0, because safe conversion of their source assertions is an
-explicit blocker. A verifier regression confirmed correct/partial/missing
-denominators of 2 with accuracies 1.0/0.5/0.0. A malicious submitted program
-could neither read root-only references nor overwrite the final reward.
+The BioDSBench verifier now scores real results instead of returning a fixed
+zero. The full verifier-only oracle used the same non-root replay and JSON
+boundary as agent submissions. It verified 112 of 118 references. Six source
+references fail in their own implementation: four items read gene-oriented
+tables as though genes were columns (`28481359_4`, `_5`, `_7`, `_8`), one uses
+`pd` without importing pandas (`28472509_4`), and one Plotly reference cannot
+start Chromium after verifier privilege dropping (`37699004_1`). These remain
+concrete oracle failures; their scoring mappings are retained because a valid
+agent implementation can still satisfy the source assertions. Negative checks
+cover wrong values, columns, shapes, and missing variables through the same
+boundary.
+
+Deep Research was recounted directly from the fixed revision: fit 388, tune
+129, verifier 131, with disjoint IDs. Across all splits there are 367
+single-choice, 261 multi-select, and 20 evidence-gap retrieval records. Standard
+submissions passed the real parser and grader for all 628 scoreable choice
+records across all 13 task images. The 20 retrieval records produced the
+expected incomplete-evaluation status and no reward. Dedicated fit, tune, and
+verifier jobs propagate the split to both agent and trusted verifier; the full
+job is inventory-wide and reports each split separately.
 The pre-existing Coder analysis fixture also passed through the new entrypoint
 in Docker with reward 1.0, confirming that focused non-dataset Harbor smokes
 remain usable while dataset tasks take the batch path.

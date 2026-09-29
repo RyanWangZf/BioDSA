@@ -83,9 +83,11 @@ ROOT="$(pwd)"
   --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
-The two Harbor tasks contain all 118 Python and 165 R source records. The R
-records and Python assertions not yet convertible through the safe JSON result
-boundary are listed as blocked and are not claimed as scored.
+The two Harbor tasks contain all 118 Python and 165 R source records. All 118
+Python records have real assertion-based scoring through an isolated JSON
+result boundary. The verifier-only reference check passes 112; six source
+reference implementations fail for the concrete reasons recorded in the task
+manifest. R execution remains unsupported and unchanged.
 
 ## DeepEvidence biomedical research mix
 
@@ -96,12 +98,23 @@ ROOT="$(pwd)"
   --jobs-dir "$ROOT/.harbor/jobs" -y
 
 .venv-harbor/bin/harbor run \
-  -c experiments/deepevidence-full.yaml --env-file .env \
+  -c experiments/deepevidence-verifier.yaml --env-file .env \
   --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
-The full job references 13 dataset-level tasks and all 648 records at the pinned
-revision. Labels are present only in separate offline verifier images.
+Use `deepevidence-fit.yaml` and `deepevidence-tune.yaml` for development. The
+formal configuration is `deepevidence-verifier.yaml`; it selects only the 131
+verifier records. `deepevidence-full.yaml` is an inventory-wide diagnostic over
+all 648 records and reports fit/tune/verifier separately. Labels are present
+only in separate offline verifier images. The 20 evidence-gap records remain
+explicitly unscorable because the pinned source does not define a retrieval
+metric.
+
+Recreate the verifier-only standard submissions and run every grader image:
+
+```bash
+scripts/verify_grader_oracles.sh
+```
 
 Each Harbor trial installs the agent once, then runs selected items in fresh
 child processes and workspaces. Per-item retry/scheduling remains inside the

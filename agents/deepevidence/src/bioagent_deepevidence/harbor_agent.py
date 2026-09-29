@@ -30,6 +30,7 @@ class DeepEvidenceOptions(AgentOptions):
     code_execution: bool = True
     item_ids: list[str] = []
     item_timeout_seconds: float = 300
+    split: str | None = None
 
 
 class DeepEvidenceHarborAgent(BaseAgent):
@@ -65,7 +66,8 @@ class DeepEvidenceHarborAgent(BaseAgent):
         config["memory"] = {"mode": "task"}
         item_ids = config.pop("item_ids")
         item_timeout_seconds = config.pop("item_timeout_seconds")
-        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_timeout_seconds": item_timeout_seconds}))
+        split = config.pop("split")
+        request.write_text(json.dumps({"instruction": instruction, "config": config, "item_ids": item_ids, "item_timeout_seconds": item_timeout_seconds, "split": split}))
         await environment.upload_file(request, "/tmp/bioagent-input.json")
         result = await environment.exec("python3 -m bioagent_deepevidence.harbor_runner /tmp/bioagent-input.json", cwd="/app")
         (self.logs_dir / "agent.stdout").write_text(result.stdout or "")

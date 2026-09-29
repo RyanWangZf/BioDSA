@@ -6,6 +6,15 @@ Run `python3 scripts/prepare_harbor_dataset_tasks.py` to refresh the exact
 inventories and stage large public tables from the external cache.
 
 Per-item outputs live below `/app/submission/items`. Submitted Python executes
-away from hidden references and reward files. Unsupported R execution and
-assertions that cannot cross the safe JSON boundary are explicit manifest
-blockers rather than file-existence passes.
+as an unprivileged, resource-limited process away from hidden references and
+reward files. A finite observation wrapper exports only the scalar, table,
+array, collection, and model attributes used by the 118 pinned source tests;
+the trusted grader applies the original assertions and requires every assertion
+for an item to pass. It never imports submitted code or executable serialized
+objects.
+
+All 118 Python items have scoring mappings. The verifier-only reference run
+passes 112. Six pinned reference implementations fail before reaching a clean
+oracle result (`28481359_4`, `28481359_5`, `28481359_7`, `28481359_8`,
+`28472509_4`, and `37699004_1`); the manifest records them separately from
+scoring support. Unsupported R execution remains explicit and is unchanged.

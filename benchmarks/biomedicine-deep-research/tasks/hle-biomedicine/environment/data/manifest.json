@@ -8,6 +8,8 @@
       "included_count": 24,
       "runnable_count": 24,
       "scorable_count": 24,
+      "oracle_verified": 24,
+      "live_verified": 0,
       "blocked_count": 0
     },
     "tune": {
@@ -15,6 +17,8 @@
       "included_count": 8,
       "runnable_count": 8,
       "scorable_count": 8,
+      "oracle_verified": 8,
+      "live_verified": 0,
       "blocked_count": 0
     },
     "verifier": {
@@ -22,6 +26,8 @@
       "included_count": 8,
       "runnable_count": 8,
       "scorable_count": 8,
+      "oracle_verified": 8,
+      "live_verified": 0,
       "blocked_count": 0
     }
   },
@@ -29,6 +35,8 @@
   "included_count": 40,
   "runnable_count": 40,
   "scorable_count": 40,
+  "oracle_verified": 40,
+  "live_verified": 0,
   "blocked_count": 0,
   "task_types": {
     "single_choice": 40
