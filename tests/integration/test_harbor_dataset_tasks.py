@@ -1,4 +1,5 @@
 import json
+import importlib.util
 import re
 import tomllib
 import unittest
@@ -87,6 +88,17 @@ class DatasetTaskInventoryTests(unittest.TestCase):
         self.assertEqual(stats["scorable_count"], 118)
         self.assertEqual(stats["oracle_verified"], 112)
         self.assertEqual(len(manifest["oracle_failures"]), 6)
+
+    def test_deep_oracle_caps_retrieval_submissions_at_30(self):
+        spec=importlib.util.spec_from_file_location("prepare_grader_oracles",ROOT/"tests/integration/prepare_grader_oracles.py");module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory);module.deep(output)
+            path=output/"evidence-gap-discovery/submission/predictions.jsonl";rows=[json.loads(line) for line in path.read_text().splitlines()]
+            self.assertEqual(len(rows),20)
+            for row in rows:
+                payload=json.loads(row["final_answer"].split("<BIOMED_FINAL>",1)[1].split("</BIOMED_FINAL>",1)[0])
+                self.assertLessEqual(len(payload["proposed_pmids"]),30)
 
 
 if __name__ == "__main__":

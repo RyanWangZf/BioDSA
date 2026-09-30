@@ -41,7 +41,7 @@ def load_predictions(path):
 def metrics(rows,global_error=False):
     counts=Counter(x["status"] for x in rows);valid=[x for x in rows if x["status"] in {"scored","missing","agent_timeout","agent_error"}]
     incomplete=counts["unscorable"] or counts["grading_error"] or global_error
-    return {"expected_total":len(rows),"attempted":len(rows)-counts["missing"],"validly_evaluated":len(valid),"missing":counts["missing"],"agent_timeout":counts["agent_timeout"],"agent_error":counts["agent_error"],"unscorable":counts["unscorable"],"grading_error":counts["grading_error"]+int(global_error),"accuracy":None if incomplete or not rows else sum((x["score"] or 0) for x in valid)/len(rows)}
+    return {"expected_total":len(rows),"attempted":len(rows)-counts["missing"],"validly_evaluated":len(valid),"missing":counts["missing"],"agent_timeout":counts["agent_timeout"],"agent_error":counts["agent_error"],"unscorable":counts["unscorable"],"grading_error":counts["grading_error"]+int(global_error),"mean_score":None if incomplete or not rows else sum((x["score"] or 0) for x in valid)/len(rows)}
 
 def grade(refs,selected,predictions,malformed=None,duplicates=None):
     malformed=malformed or [];duplicates=duplicates or [];unknown=sorted(set(predictions)-set(selected));results=[]
@@ -56,7 +56,7 @@ def grade(refs,selected,predictions,malformed=None,duplicates=None):
         except ValueError as exc:results.append({**base,"status":"scored","score":0.0,"error":str(exc)});continue
         if ref["task_type"]=="evidence_gap_retrieval":
             expected={str(x).strip() for x in ref["label"]["proposed_pmids"]};hits=expected & set(answer[:RETRIEVAL_LIMIT]);score=len(hits)/len(expected)
-            results.append({**base,"status":"scored","score":score,"metric":f"recall@{RETRIEVAL_LIMIT}","hits":len(hits),"reference_pmids":len(expected),"retrieved_pmids":len(answer)})
+            results.append({**base,"status":"scored","score":score,"metric":f"recall@{RETRIEVAL_LIMIT}","hits":len(hits),"reference_pmids":len(expected),"retrieved_pmids":len(answer),"max_recall_at_30":min(RETRIEVAL_LIMIT,len(expected))/len(expected)})
         else:
             expected=[str(x).strip().upper() for x in ref["label"]["selected_options"]]
             score=float(answer==expected) if ref["task_type"]=="single_choice" else float(set(answer)==set(expected))
@@ -66,6 +66,12 @@ def grade(refs,selected,predictions,malformed=None,duplicates=None):
     expected_rows=[x for x in results if x["item_id"]!="<predictions>"];by_split=defaultdict(list)
     for row in expected_rows:by_split[row["split"]].append(row)
     summary={**metrics(expected_rows,global_error),"malformed_lines":malformed,"duplicate_prediction_ids":duplicates,"unknown_prediction_ids":unknown,"by_split":{key:metrics(rows) for key,rows in sorted(by_split.items())}}
+    retrieval=bool(selected) and all(refs[item_id]["task_type"]=="evidence_gap_retrieval" for item_id in selected);summary["primary_metric"]="mean_recall@30" if retrieval else "accuracy";summary["primary_score"]=summary["mean_score"]
+    if retrieval:
+        summary["mean_recall_at_30"]=summary["mean_score"]
+        maxima=[min(RETRIEVAL_LIMIT,len(refs[item_id]["label"]["proposed_pmids"]))/len(refs[item_id]["label"]["proposed_pmids"]) for item_id in selected if refs[item_id].get("label")]
+        summary["mean_max_recall_at_30"]=sum(maxima)/len(selected) if len(maxima)==len(selected) and selected else None
+    else:summary["accuracy"]=summary["mean_score"]
     return results,summary
 
 def main():
@@ -78,9 +84,8 @@ def main():
     selected=local if explicit else list(eligible)
     if explicit and not selected:raise SystemExit(f"no trusted item ID belongs to this dataset task and split {split}")
     predictions,malformed,duplicates=load_predictions(Path("/app/submission/predictions.jsonl"));results,summary=grade(refs,selected,predictions,malformed,duplicates);summary["selection_split"]=split
-    retrieval=bool(selected) and all(refs[item_id]["task_type"]=="evidence_gap_retrieval" for item_id in selected);summary["primary_metric"]="mean_recall@30" if retrieval else "accuracy";summary["primary_score"]=summary["accuracy"]
     logs=Path("/logs/verifier");logs.mkdir(parents=True,exist_ok=True);(logs/"per_item_results.jsonl").write_text("".join(json.dumps(x)+"\n" for x in results));(logs/"summary.json").write_text(json.dumps(summary,indent=2))
-    if summary["accuracy"] is None:print("evaluation incomplete; see summary.json",file=sys.stderr);return 2
-    (logs/"reward.txt").write_text(str(summary["accuracy"]));return 0
+    if summary["primary_score"] is None:print("evaluation incomplete; see summary.json",file=sys.stderr);return 2
+    (logs/"reward.txt").write_text(str(summary["primary_score"]));return 0
 
 if __name__=="__main__":raise SystemExit(main())

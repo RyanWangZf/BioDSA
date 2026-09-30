@@ -32,14 +32,20 @@ class WorkflowTests(unittest.TestCase):
  def test_all_legacy_knowledge_base_names_are_registered(self):
   self.assertEqual(set(KNOWLEDGE_BASES),{"pubmed_papers","gene","disease","drug","variant","clinical_trials","web_search","target","pathway","compound"})
   for name,tool in build_tools(KNOWLEDGE_BASES,"stub").items(): self.assertEqual(tool.search("smoke",1)[0]["source"],name)
- def test_evidence_gap_returns_ranked_unique_pubmed_ids(self):
+ def test_evidence_gap_uses_model_query_and_ranked_final_answer(self):
   class PubMed:
    def search(self,query,limit):
-    self.limit=limit
+    self.query,self.limit=query,limit
     return [{"source":"pubmed_papers","id":value,"title":value} for value in ("123","456","123")]
+  class DecidingClient:
+   def plan_queries(self,question,routes):return {routes[0]:"model-authored query"}
+   def synthesize(self,question,evidence,task_type=None):return '{"proposed_pmids":["456","123"]}'
   tool=PubMed()
-  with tempfile.TemporaryDirectory() as temporary, patch("bioagent_deepevidence.workflow.build_tools",return_value={"pubmed_papers":tool}):
+  with tempfile.TemporaryDirectory() as temporary, patch("bioagent_deepevidence.workflow.build_tools",return_value={"pubmed_papers":tool}), patch("bioagent_deepevidence.workflow.MockClient",return_value=DecidingClient()):
    result=DeepEvidenceAgent(self.config(task_type="evidence_gap_retrieval",knowledge_bases=["pubmed_papers"],routes=["bfs"]),Path(temporary)).run("find studies")
+   self.assertEqual(tool.query,"model-authored query")
    self.assertEqual(tool.limit,30)
-   self.assertEqual(result["retrieved_pmids"],["123","456"])
+   self.assertEqual(result["submitted_pmids"],["456","123"])
+   self.assertIn('"456","123"',result["final_answer"].replace(" ",""))
+   self.assertEqual(result["final_answer"].count("<BIOMED_FINAL>"),1)
 if __name__=="__main__": unittest.main()

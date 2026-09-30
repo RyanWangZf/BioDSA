@@ -22,7 +22,8 @@ def deep(output):
         target=output/task.name/"submission";target.mkdir(parents=True);rows=[]
         for ref in map(json.loads,refs_file.read_text().splitlines()):
             key="proposed_pmids" if ref["task_type"]=="evidence_gap_retrieval" else "selected_options"
-            answer=f"<BIOMED_FINAL>{json.dumps({key:ref['label'][key]})}</BIOMED_FINAL>"
+            values=ref["label"][key][:30] if ref["task_type"]=="evidence_gap_retrieval" else ref["label"][key]
+            answer=f"<BIOMED_FINAL>{json.dumps({key:values})}</BIOMED_FINAL>"
             rows.append({"item_id":ref["item_id"],"status":"completed","final_answer":answer})
         (target/"predictions.jsonl").write_text("".join(json.dumps(x)+"\n" for x in rows))
 def main():

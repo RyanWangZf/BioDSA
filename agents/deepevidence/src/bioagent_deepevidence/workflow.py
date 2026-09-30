@@ -1,5 +1,5 @@
 from __future__ import annotations
-import csv,json,time
+import csv,json,re,time
 from pathlib import Path
 from .client import MockClient,OpenAIClient
 from .execution import execution_session
@@ -21,22 +21,36 @@ class DeepEvidenceAgent:
   for item in found: self.memory.add(item)
   return found
  def run(self,question,background=""):
-  self._record("orchestrator_start",prompt=ORCHESTRATOR_PROMPT); evidence=[]; routes=self.config.get("routes",["bfs","dfs"]); max_search=int(self.config.get("main_search_rounds_budget",2))
+  self._record("orchestrator_start",prompt=ORCHESTRATOR_PROMPT);evidence=[];routes=self.config.get("routes",["bfs","dfs"]);max_search=int(self.config.get("main_search_rounds_budget",2));task_type=self.config.get("task_type")
+  queries=self.client.plan_queries(question,routes[:max_search]) if task_type=="evidence_gap_retrieval" else {route:question if route=="bfs" else question+" mechanisms" for route in routes[:max_search]};self._record("query_plan",queries=queries)
   action_budget=int(self.config.get("main_action_rounds_budget",6))
   for action,route in enumerate(routes[:max_search]):
    if action>=action_budget: self._record("budget_stop",scope="orchestrator",budget=action_budget); break
    try:
     if route in self.config.get("fail_routes",[]): raise RuntimeError(f"{route} subagent failed")
-    result=self._search(route,question if route=="bfs" else question+" mechanisms"); evidence.extend(result)
+    result=self._search(route,queries[route]);evidence.extend(result)
    except Exception as exc: self._record("subagent_error",route=route,error=str(exc))
   retrieved=self.memory.retrieve(question); self._record("memory_retrieved",count=len(retrieved)); executions=[]; generated=[]
   if self.config.get("code_execution",{}).get("enabled"):
    code="import csv\nrows="+repr([(x.get('source'),x.get('id'),x.get('title')) for x in evidence])+"\nwith open('evidence_counts.csv','w',newline='') as f:\n w=csv.writer(f); w.writerow(['source','id','title']); w.writerows(rows)\nprint(len(rows))"
    generated.append(code); execution=execution_session(self.config,self.workspace).execute(code); executions.append(execution.json()); self._record("code_execution",exit_code=execution.exit_code,timed_out=execution.timed_out)
    if execution.timed_out or execution.exit_code!=0: raise RuntimeError("evidence code execution failed: "+execution.stderr)
-  answer=self.client.synthesize(question,evidence); citations=[{"id":x["id"],"source":x["source"],"title":x["title"],"url":x.get("url")} for x in evidence]; self._record("orchestrator_complete",evidence=len(evidence))
-  retrieved_pmids=[]
-  for item in evidence:
-   value=str(item.get("id","")).strip()
-   if item.get("source")=="pubmed_papers" and value.isdigit() and value not in retrieved_pmids:retrieved_pmids.append(value)
-  return {"final_answer":answer,"retrieved_pmids":retrieved_pmids[:30],"evidence":evidence,"citations":citations,"trace":self.trace,"memory_graph":self.memory.data,"generated_code":generated,"execution_logs":executions,"usage":{"model_calls":1,"tool_calls":self.tool_calls}}
+  answer=self.client.synthesize(question,evidence,task_type);model_output=answer;citations=[{"id":x["id"],"source":x["source"],"title":x["title"],"url":x.get("url")} for x in evidence]
+  submitted_pmids=[]
+  if task_type=="evidence_gap_retrieval":
+   matches=re.findall(r"<BIOMED_FINAL>\s*(\{.*?\})\s*</BIOMED_FINAL>",answer,re.S)
+   if len(matches)>1:raise RuntimeError("retrieval synthesis contains multiple BIOMED_FINAL objects")
+   candidate=matches[0] if matches else answer.strip()
+   if candidate.startswith("```"):candidate=re.sub(r"^```(?:json)?\s*|\s*```$","",candidate,flags=re.I)
+   if not matches and not candidate.startswith("{"):
+    found=re.search(r"\{\s*\"proposed_pmids\"\s*:.*?\}",candidate,re.S);candidate=found.group(0) if found else candidate
+   try:payload=json.loads(candidate)
+   except json.JSONDecodeError as exc:raise RuntimeError("retrieval synthesis BIOMED_FINAL is invalid JSON") from exc
+   submitted_pmids=payload.get("proposed_pmids") if set(payload)=={"proposed_pmids"} else None
+   evidence_pmids={str(item.get("id")) for item in evidence if item.get("source")=="pubmed_papers"}
+   if not isinstance(submitted_pmids,list) or len(submitted_pmids)>30 or any(not isinstance(value,str) or not re.fullmatch(r"[1-9][0-9]*",value) for value in submitted_pmids) or len(submitted_pmids)!=len(set(submitted_pmids)):raise RuntimeError("retrieval synthesis returned an invalid PMID ranking")
+   if not set(submitted_pmids)<=evidence_pmids:raise RuntimeError("retrieval synthesis selected PMID outside retrieved evidence")
+   narrative=re.sub(r"<BIOMED_FINAL>.*?</BIOMED_FINAL>","",answer,flags=re.S).strip() if matches else "Model-selected PMID ranking."
+   answer=narrative+"\n\n<BIOMED_FINAL>"+json.dumps({"proposed_pmids":submitted_pmids})+"</BIOMED_FINAL>"
+  self._record("orchestrator_complete",evidence=len(evidence),submitted_pmids=submitted_pmids,model_output=model_output)
+  return {"final_answer":answer,"submitted_pmids":submitted_pmids,"evidence":evidence,"citations":citations,"trace":self.trace,"memory_graph":self.memory.data,"generated_code":generated,"execution_logs":executions,"usage":{"model_calls":2 if task_type=="evidence_gap_retrieval" else 1,"tool_calls":self.tool_calls}}

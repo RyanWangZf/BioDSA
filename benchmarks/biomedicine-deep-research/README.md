@@ -27,6 +27,10 @@ return at most 30 unique bare PMID strings in ranked order as
 `{"proposed_pmids":[...]}`. Its item score is
 `recall@30 = |predicted top-30 PMIDs intersect ground truth PMIDs| / |ground truth PMIDs|`.
 There is no precision component or partial credit based on text similarity.
+When a reference contains more than 30 PMIDs, the theoretical maximum is
+`30 / |ground truth PMIDs|`; per-item results and task summaries report that
+maximum explicitly. The denominator is never shortened to manufacture a score
+of one.
 
 Formal results separately report choice micro accuracy and mean evidence-gap
 recall@30, plus each subset and a clearly named mean item score across all 131
@@ -34,6 +38,15 @@ verifier items. Missing/failed model predictions remain
 in that denominator. A grading/infrastructure error invalidates the run rather
 than shrinking the denominator. Harbor task rewards must therefore be read with
 the per-item and per-subset summaries; they are not averaged into a macro score.
+The overall mean is item-count weighted: the four retrieval items contribute
+about 3.1%, so it is not an equal-weight combination of choice and retrieval
+ability.
+
+For evidence-gap tasks, DeepEvidence asks the model to generate search queries
+and to select and rank PMIDs from retrieved PubMed evidence. The Harbor adapter
+persists that workflow-produced `BIOMED_FINAL` unchanged. The deterministic
+mock client uses retrieval order as an explicit baseline; that baseline is test
+infrastructure rather than the live agent policy.
 
 After Harbor finishes, produce the leaderboard result with:
 
