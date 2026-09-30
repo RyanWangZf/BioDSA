@@ -186,6 +186,13 @@ benchmarks/*/local-jobs/
 # Read-only upstream checkouts used during migration. Source provenance belongs
 # in committed agents/<name>/MIGRATION.md files, never in the runtime import path.
 reference_repo/
+# Local snapshots and generated outputs archived away from the current root.
+# Their inventories are documented in legacy/, but large data and reports stay
+# outside version control.
+legacy/biomedical_data/OpenTargets/
+legacy/biomedical_data/agentmd/
+legacy/artifacts/test_artifacts/
+legacy/artifacts/workdir/
 benchmarks/biodsbench/tasks/*/environment/inputs/
 benchmarks/biodsbench/tasks/*/tests/inputs/
 benchmarks/biodsbench/tasks/*/tests/data/inputs/

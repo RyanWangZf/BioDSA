@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="300" viewBox="0 0 900 300"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Blue gradient for nodes -->
+    <linearGradient id="nodeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6EC6FF"/>
+      <stop offset="100%" stop-color="#1E88E5"/>
+    </linearGradient>
+
+    <!-- Glow -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- === Graph Icon === -->
+  <g transform="translate(90,150)" stroke="#1E5FBF" stroke-width="6"
+     stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Edges -->
+    <line x1="-40" y1="50" x2="-10" y2="-30"/>
+    <line x1="-10" y1="-30" x2="50" y2="10"/>
+    <line x1="-40" y1="50" x2="50" y2="10"/>
+
+    <!-- Nodes -->
+    <g filter="url(#softGlow)">
+      <circle cx="-40" cy="50" r="16" fill="url(#nodeGrad)"/>
+      <circle cx="-10" cy="-30" r="14" fill="url(#nodeGrad)"/>
+      <circle cx="50" cy="10" r="14" fill="url(#nodeGrad)"/>
+    </g>
+
+    <!-- Hexagon halos -->
+    <polygon points="-40,28 -20,39 -20,61 -40,72 -60,61 -60,39"
+             fill="none" stroke="#64B5F6" stroke-width="4"/>
+    <polygon points="-10,-54 8,-44 8,-16 -10,-6 -28,-16 -28,-44"
+             fill="none" stroke="#64B5F6" stroke-width="4"/>
+    <polygon points="50,-14 68,-4 68,24 50,34 32,24 32,-4"
+             fill="none" stroke="#64B5F6" stroke-width="4"/>
+  </g>
+
+  <!-- === BIODSA Text === -->
+  <text x="240" y="175"
+        font-family="Inter, Helvetica Neue, Arial, sans-serif"
+        font-size="96"
+        font-weight="600"
+        letter-spacing="10"
+        fill="#1E5FBF">
+    BIODSA
+  </text>
+
+</svg>
