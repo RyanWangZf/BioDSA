@@ -15,6 +15,7 @@ under `tests/fixtures/agent`; unmigrated implementations live under `legacy/`.
 | [TrialGPT](trialgpt/README.md) | Patient-to-clinical-trial matching and ranking | Passed | Source-derived contract passed; side-by-side legacy runtime not run | Docker blocked; installed worker passed | Not run |
 | [AgentMD](agentmd/README.md) | Medical calculator retrieval and execution | Passed | Source-derived contract passed; full resources blocked | Docker blocked; fixed-calculator worker passed | Not run |
 | [InformGen](informgen/README.md) | Reviewed, section-based document generation | Passed | Source-derived contract passed; side-by-side legacy runtime not run | Docker blocked; installed worker passed | Not run |
+| [DeepRare](deeprare/README.md) | Bounded phenotype-to-rare-disease diagnosis with public evidence | Passed | Local reference behavior contract passed | Docker smoke attempted; see migration record | Not run |
 
 Install with `pip install -e runner -e 'agents/<name>[harbor]'`. “Harbor smoke”
 means that the adapter, workflow, tools/code execution, submission, and verifier

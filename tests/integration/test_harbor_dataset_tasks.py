@@ -8,11 +8,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SUPPORTED_AGENTS = (
     "coder", "dswizard", "deepevidence", "react", "trialmind_slr",
-    "virtuallab", "geneagent", "trialgpt", "agentmd", "informgen",
+    "virtuallab", "geneagent", "trialgpt", "agentmd", "informgen", "deeprare",
 )
 MIGRATED_FIXTURE_AGENTS = (
     "react", "trialmind_slr", "virtuallab", "geneagent", "trialgpt",
-    "agentmd", "informgen",
+    "agentmd", "informgen", "deeprare",
 )
 
 

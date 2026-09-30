@@ -1,0 +1,10 @@
+job_name: deeprare-fixture
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+agents:
+  - import_path: bioagent_deeprare.harbor_agent:DeepRareHarborAgent
+    model_name: fixture
+    kwargs: {provider: fixture, item_timeout_seconds: 90}
+tasks:
+  - path: tests/fixtures/tasks/deeprare-workflow
