@@ -6,11 +6,19 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+SUPPORTED_AGENTS = (
+    "coder", "dswizard", "deepevidence", "react", "trialmind_slr",
+    "virtuallab", "geneagent", "trialgpt", "agentmd", "informgen",
+)
+MIGRATED_FIXTURE_AGENTS = (
+    "react", "trialmind_slr", "virtuallab", "geneagent", "trialgpt",
+    "agentmd", "informgen",
+)
 
 
 class DatasetTaskInventoryTests(unittest.TestCase):
     def test_agent_packages_depend_on_separate_runner(self):
-        for name in ("coder", "dswizard", "deepevidence"):
+        for name in SUPPORTED_AGENTS:
             config = tomllib.loads((ROOT / f"agents/{name}/pyproject.toml").read_text())
             self.assertEqual(config["tool"]["setuptools"]["packages"]["find"]["where"], ["src"])
             self.assertIn("bioagent-harbor-runtime==0.1.0", config["project"]["dependencies"])
@@ -20,6 +28,28 @@ class DatasetTaskInventoryTests(unittest.TestCase):
                 path.read_text(errors="ignore")
                 for path in (ROOT / f"agents/{name}/src").rglob("*.py")
             ))
+
+    def test_migrated_agents_have_native_behavior_fixtures(self):
+        for name in MIGRATED_FIXTURE_AGENTS:
+            task = ROOT / f"tests/fixtures/tasks/{name}-workflow"
+            job = ROOT / f"tests/fixtures/jobs/{name}.yaml"
+            self.assertTrue((task / "data/items.jsonl").is_file(), name)
+            self.assertTrue((task / "environment/Dockerfile").is_file(), name)
+            self.assertTrue((task / "tests/test.sh").is_file(), name)
+            text = job.read_text()
+            self.assertIn(f"tests/fixtures/tasks/{name}-workflow", text)
+            self.assertIn(f"bioagent_{name}.harbor_agent", text)
+
+    def test_migrated_runtime_sources_do_not_import_legacy_or_other_agents(self):
+        for name in MIGRATED_FIXTURE_AGENTS:
+            source = "\n".join(
+                path.read_text(errors="ignore")
+                for path in (ROOT / f"agents/{name}/src").rglob("*.py")
+            )
+            self.assertNotRegex(source, r"(?m)^(?:from|import)\s+(?:legacy|biodsa)\b", name)
+            for other in MIGRATED_FIXTURE_AGENTS:
+                if other != name:
+                    self.assertNotIn(f"bioagent_{other}", source, name)
 
     def _items(self, root):
         found = {}

@@ -17,6 +17,8 @@ way to prepare inventory metadata without asserting that tables are complete.
 - `tests/jobs/dswizard-live.yaml` and `tests/jobs/coder-live.yaml` run the same
   two Python items through the same verifier. One includes source code history.
   They are bounded integration checks, not leaderboard results.
+- `tests/jobs/react-live.yaml` adapts the same two-item scope to ReAct's
+  model/code/feedback loop. It is prepared but has not been executed.
 
 `jobs/` contains only ranked entrypoints, one file per supported agent. Coder
 does not yet have a formal job because its two-item live behavior validation did

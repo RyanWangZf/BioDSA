@@ -1,0 +1,12 @@
+job_name: virtuallab-fixture
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_virtuallab.harbor_agent:VirtualLabAgentHarborAgent
+    model_name: fixture
+    kwargs: {provider: fixture, item_timeout_seconds: 90}
+tasks:
+  - path: tests/fixtures/tasks/virtuallab-workflow
