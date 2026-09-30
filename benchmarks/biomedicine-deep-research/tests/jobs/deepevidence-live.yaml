@@ -1,0 +1,34 @@
+job_name: deepevidence-live
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  env:
+    BIOAGENT_SPLIT: fit
+    BIOAGENT_ITEM_IDS: "bdr-hle-biomedicine-4e0046c4552081e7b086,bdr-hle-biomedicine-334a2ab4db08d036bef5,bdr-moa-pathway-reasoning-23ba27014ef562423d8b,bdr-moa-pathway-reasoning-5135e8249f06ffce21e5,bdr-evidence-gap-discovery-88771d5cb4cf708f1730,bdr-evidence-gap-discovery-0859d2c011cc34075f97"
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_deepevidence.harbor_agent:DeepEvidenceHarborAgent
+    model_name: qwen/qwen3.8-flash
+    kwargs:
+      provider: openai
+      endpoint: "https://openrouter.ai/api/v1"
+      api_key_env: OPENROUTER_API_KEY
+      split: fit
+      item_ids_by_dataset:
+        hle-biomedicine: ["bdr-hle-biomedicine-4e0046c4552081e7b086", "bdr-hle-biomedicine-334a2ab4db08d036bef5"]
+        moa-pathway-reasoning: ["bdr-moa-pathway-reasoning-23ba27014ef562423d8b", "bdr-moa-pathway-reasoning-5135e8249f06ffce21e5"]
+        evidence-gap-discovery: ["bdr-evidence-gap-discovery-88771d5cb4cf708f1730", "bdr-evidence-gap-discovery-0859d2c011cc34075f97"]
+      item_timeout_seconds: 240
+      tool_mode: live
+      knowledge_bases: [pubmed_papers]
+      routes: [bfs, dfs]
+      tool_call_budget: 2
+      max_attempts: 2
+      max_tokens: 1200
+      reasoning_effort: none
+    env: {OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}"}
+tasks:
+  - path: benchmarks/biomedicine-deep-research/tasks/hle-biomedicine
+  - path: benchmarks/biomedicine-deep-research/tasks/moa-pathway-reasoning
+  - path: benchmarks/biomedicine-deep-research/tasks/evidence-gap-discovery

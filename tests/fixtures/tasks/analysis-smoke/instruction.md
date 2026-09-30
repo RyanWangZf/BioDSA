@@ -1,0 +1,1 @@
+Count rows per group in `/app/inputs/tiny.csv`. Save a two-column `analysis_summary.csv` under `/app/submission`, generated code as `/app/submission/analysis.py`, and a concise final answer as `/app/submission/final_answer.md`.

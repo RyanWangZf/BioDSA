@@ -1,0 +1,22 @@
+job_name: react-live
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  env: {BIOAGENT_ITEM_IDS: "28481359_0,29713087_1"}
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_react.harbor_agent:ReActAgentHarborAgent
+    model_name: qwen/qwen3.8-flash
+    kwargs:
+      provider: openai
+      item_ids: ["28481359_0", "29713087_1"]
+      item_timeout_seconds: 240
+      workflow_config:
+        endpoint: "https://openrouter.ai/api/v1"
+        api_key_env: OPENROUTER_API_KEY
+        recursion_limit: 10
+        max_tokens: 1600
+    env: {OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}"}
+tasks:
+  - path: benchmarks/biodsbench/tasks/biodsbench-python

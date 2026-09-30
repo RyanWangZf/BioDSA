@@ -1,0 +1,1 @@
+"""Deterministic Harbor integration fixture."""

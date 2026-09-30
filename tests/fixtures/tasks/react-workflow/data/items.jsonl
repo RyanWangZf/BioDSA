@@ -1,0 +1,1 @@
+{"item_id": "react-fixture", "instruction": "Compute six times seven", "agent_config": {"responses": {"react_decision": [{"tool_calls": [{"name": "code_execution", "args": {"code": "print(6*7)"}}]}, {"final_answer": "42", "tool_calls": []}]}}}

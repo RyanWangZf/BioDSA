@@ -1,0 +1,45 @@
+{
+  "source_repo": "zifeng-ai/biomedicine-deep-research",
+  "source_revision": "f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2",
+  "subset": "evidence-gap-discovery",
+  "splits": {
+    "fit": {
+      "source_count": 12,
+      "included_count": 12,
+      "runnable_count": 12,
+      "scorable_count": 12,
+      "oracle_verified": 12,
+      "live_verified": 0,
+      "blocked_count": 0
+    },
+    "tune": {
+      "source_count": 4,
+      "included_count": 4,
+      "runnable_count": 4,
+      "scorable_count": 4,
+      "oracle_verified": 4,
+      "live_verified": 0,
+      "blocked_count": 0
+    },
+    "verifier": {
+      "source_count": 4,
+      "included_count": 4,
+      "runnable_count": 4,
+      "scorable_count": 4,
+      "oracle_verified": 4,
+      "live_verified": 0,
+      "blocked_count": 0
+    }
+  },
+  "source_count": 20,
+  "included_count": 20,
+  "runnable_count": 20,
+  "scorable_count": 20,
+  "oracle_verified": 20,
+  "live_verified": 0,
+  "blocked_count": 0,
+  "task_types": {
+    "evidence_gap_retrieval": 20
+  },
+  "blocked": []
+}

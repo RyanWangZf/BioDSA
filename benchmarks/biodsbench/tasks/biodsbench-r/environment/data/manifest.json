@@ -1,0 +1,679 @@
+{
+  "source_repo": "zifeng-ai/BioDSBench",
+  "source_revision": "e59af82ee9461db78ed399544ec8520afeb02ce5",
+  "subset": "r",
+  "splits": {
+    "benchmark": {
+      "source_count": 165,
+      "included_count": 165,
+      "runnable_count": 0,
+      "scorable_count": 0,
+      "oracle_verified": 0,
+      "live_verified": 0,
+      "blocked_count": 165
+    }
+  },
+  "blocked": [
+    {
+      "item_id": "33176622_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33176622_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33176622_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33176622_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33176622_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32211396_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "23502430_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "23502430_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "23502430_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "23502430_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "23502430_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "23502430_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37091789_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37091789_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37091789_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37091789_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "31010415_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "31010415_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "31010415_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "31010415_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "31010415_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "31010415_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34305920_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34305920_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34305920_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34305920_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34305920_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33746977_7",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_7",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33761933_8",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33177247_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34092242_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "29340250_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "29340250_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "29340250_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "29340250_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "29340250_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "29340250_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37255653_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37255653_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37255653_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37255653_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37255653_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "37255653_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38329437_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38329437_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38329437_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38329437_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38329437_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38329437_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "35222524_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "35222524_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "35222524_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "35222524_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "35222524_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "35222524_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34238253_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34621245_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33795528_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33591944_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "30828567_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "38342795_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32637351_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32793288_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "34565373_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "32721879_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_0",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_1",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_2",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_3",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_4",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_5",
+      "reason": "R runtime is not supported by the migrated agents"
+    },
+    {
+      "item_id": "33597971_6",
+      "reason": "R runtime is not supported by the migrated agents"
+    }
+  ],
+  "oracle_failures": []
+}

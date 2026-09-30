@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bioagent-deeprare"
+version = "0.1.0"
+description = "DeepRare rare-disease diagnosis integration for Harbor"
+requires-python = ">=3.12"
+dependencies = ["bioagent-harbor-runtime==0.1.0"]
+
+[project.scripts]
+bioagent-deeprare = "bioagent_deeprare.cli:main"
+
+[project.optional-dependencies]
+harbor = ["harbor==0.23.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

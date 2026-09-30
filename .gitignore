@@ -177,3 +177,33 @@ benchmark_datasets/R/datasets/*
 
 *.tar.gz
 .DS_store
+# BioAgent Gym local prepared data and run records
+.bioagent-gym/
+.harbor/
+# Developer copies of formal Harbor jobs belong here. Committed jobs are the
+# leaderboard entrypoints; bounded test jobs live under each benchmark's tests/.
+benchmarks/*/local-jobs/
+# Read-only upstream checkouts used during migration. Source provenance belongs
+# in committed agents/<name>/MIGRATION.md files, never in the runtime import path.
+reference_repo/
+# Local snapshots and generated outputs archived away from the current root.
+# Their inventories are documented in legacy/, but large data and reports stay
+# outside version control.
+legacy/biomedical_data/OpenTargets/
+legacy/biomedical_data/agentmd/
+legacy/artifacts/test_artifacts/
+legacy/artifacts/workdir/
+benchmarks/biodsbench/tasks/*/environment/inputs/
+benchmarks/biodsbench/tasks/*/tests/inputs/
+benchmarks/biodsbench/tasks/*/tests/data/inputs/
+benchmarks/biodsbench/tasks/*/environment/data/inputs/
+# Generated from pinned sources; answer keys are never committed or copied to agents.
+benchmarks/biodsbench/tasks/*/tests/references/
+benchmarks/biomedicine-deep-research/tasks/*/tests/references/
+# Grader entrypoints are generated from each benchmark's scoring source together
+# with verifier-only references by that benchmark's prepare.py.
+benchmarks/biodsbench/tasks/biodsbench-python/tests/grade.py
+benchmarks/biodsbench/tasks/biodsbench-python/tests/run_submission.py
+benchmarks/biomedicine-deep-research/tasks/*/tests/grade.py
+# Local historical run state is never migrated or committed.
+.biodsa/

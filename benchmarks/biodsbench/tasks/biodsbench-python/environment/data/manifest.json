@@ -1,0 +1,43 @@
+{
+  "source_repo": "zifeng-ai/BioDSBench",
+  "source_revision": "e59af82ee9461db78ed399544ec8520afeb02ce5",
+  "subset": "python",
+  "splits": {
+    "benchmark": {
+      "source_count": 118,
+      "included_count": 118,
+      "runnable_count": 118,
+      "scorable_count": 118,
+      "oracle_verified": 112,
+      "live_verified": 0,
+      "blocked_count": 0
+    }
+  },
+  "blocked": [],
+  "oracle_failures": [
+    {
+      "item_id": "28472509_4",
+      "reason": "pinned source reference implementation fails before or during its original assertions; grader remains available"
+    },
+    {
+      "item_id": "28481359_4",
+      "reason": "pinned source reference implementation fails before or during its original assertions; grader remains available"
+    },
+    {
+      "item_id": "28481359_5",
+      "reason": "pinned source reference implementation fails before or during its original assertions; grader remains available"
+    },
+    {
+      "item_id": "28481359_7",
+      "reason": "pinned source reference implementation fails before or during its original assertions; grader remains available"
+    },
+    {
+      "item_id": "28481359_8",
+      "reason": "pinned source reference implementation fails before or during its original assertions; grader remains available"
+    },
+    {
+      "item_id": "37699004_1",
+      "reason": "pinned source reference implementation fails before or during its original assertions; grader remains available"
+    }
+  ]
+}

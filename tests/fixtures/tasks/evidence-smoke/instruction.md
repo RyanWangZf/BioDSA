@@ -1,0 +1,1 @@
+Synthesize evidence on whether a hypothetical intervention improves a biomedical outcome. Use both breadth-first and depth-first research routes, exercise the configured evidence tools and task-local memory, and save the final answer, structured citations, trace, memory graph, usage, and any code-execution artifacts under `/app/submission`.

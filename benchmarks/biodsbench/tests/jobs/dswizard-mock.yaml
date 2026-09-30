@@ -1,0 +1,13 @@
+job_name: dswizard-mock
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  env: {BIOAGENT_ITEM_IDS: "28481359_0,28481359_1"}
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_dswizard.harbor_agent:DSWizardHarborAgent
+    model_name: mock
+    kwargs: {provider: mock, item_ids: ["28481359_0", "28481359_1"], item_timeout_seconds: 90, max_attempts: 1}
+tasks:
+  - path: benchmarks/biodsbench/tasks/biodsbench-python

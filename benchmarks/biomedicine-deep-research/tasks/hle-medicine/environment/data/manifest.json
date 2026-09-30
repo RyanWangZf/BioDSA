@@ -1,0 +1,45 @@
+{
+  "source_repo": "zifeng-ai/biomedicine-deep-research",
+  "source_revision": "f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2",
+  "subset": "hle-medicine",
+  "splits": {
+    "fit": {
+      "source_count": 18,
+      "included_count": 18,
+      "runnable_count": 18,
+      "scorable_count": 18,
+      "oracle_verified": 18,
+      "live_verified": 0,
+      "blocked_count": 0
+    },
+    "tune": {
+      "source_count": 6,
+      "included_count": 6,
+      "runnable_count": 6,
+      "scorable_count": 6,
+      "oracle_verified": 6,
+      "live_verified": 0,
+      "blocked_count": 0
+    },
+    "verifier": {
+      "source_count": 6,
+      "included_count": 6,
+      "runnable_count": 6,
+      "scorable_count": 6,
+      "oracle_verified": 6,
+      "live_verified": 0,
+      "blocked_count": 0
+    }
+  },
+  "source_count": 30,
+  "included_count": 30,
+  "runnable_count": 30,
+  "scorable_count": 30,
+  "oracle_verified": 30,
+  "live_verified": 0,
+  "blocked_count": 0,
+  "task_types": {
+    "single_choice": 30
+  },
+  "blocked": []
+}

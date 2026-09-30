@@ -1,0 +1,29 @@
+job_name: deepevidence-mock
+n_attempts: 1
+n_concurrent_trials: 1
+environment: {type: docker, delete: true}
+verifier:
+  env:
+    BIOAGENT_SPLIT: fit
+    BIOAGENT_ITEM_IDS: "bdr-hle-biomedicine-4e0046c4552081e7b086,bdr-moa-pathway-reasoning-23ba27014ef562423d8b,bdr-evidence-gap-discovery-88771d5cb4cf708f1730"
+  include_logs: [per_item_results.jsonl, summary.json]
+agents:
+  - import_path: bioagent_deepevidence.harbor_agent:DeepEvidenceHarborAgent
+    model_name: mock
+    kwargs:
+      provider: mock
+      split: fit
+      item_ids_by_dataset:
+        hle-biomedicine: ["bdr-hle-biomedicine-4e0046c4552081e7b086"]
+        moa-pathway-reasoning: ["bdr-moa-pathway-reasoning-23ba27014ef562423d8b"]
+        evidence-gap-discovery: ["bdr-evidence-gap-discovery-88771d5cb4cf708f1730"]
+      item_timeout_seconds: 90
+      tool_mode: stub
+      knowledge_bases: [pubmed_papers, clinical_trials]
+      routes: [bfs, dfs]
+      tool_call_budget: 4
+      max_attempts: 1
+tasks:
+  - path: benchmarks/biomedicine-deep-research/tasks/hle-biomedicine
+  - path: benchmarks/biomedicine-deep-research/tasks/moa-pathway-reasoning
+  - path: benchmarks/biomedicine-deep-research/tasks/evidence-gap-discovery

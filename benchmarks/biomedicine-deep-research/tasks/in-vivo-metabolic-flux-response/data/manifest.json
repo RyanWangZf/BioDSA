@@ -1,0 +1,45 @@
+{
+  "source_repo": "zifeng-ai/biomedicine-deep-research",
+  "source_revision": "f3e34ee8ccde8ea15c98f55dae871e63ef8bc5b2",
+  "subset": "in-vivo-metabolic-flux-response",
+  "splits": {
+    "fit": {
+      "source_count": 15,
+      "included_count": 15,
+      "runnable_count": 15,
+      "scorable_count": 15,
+      "oracle_verified": 15,
+      "live_verified": 0,
+      "blocked_count": 0
+    },
+    "tune": {
+      "source_count": 5,
+      "included_count": 5,
+      "runnable_count": 5,
+      "scorable_count": 5,
+      "oracle_verified": 5,
+      "live_verified": 0,
+      "blocked_count": 0
+    },
+    "verifier": {
+      "source_count": 5,
+      "included_count": 5,
+      "runnable_count": 5,
+      "scorable_count": 5,
+      "oracle_verified": 5,
+      "live_verified": 0,
+      "blocked_count": 0
+    }
+  },
+  "source_count": 25,
+  "included_count": 25,
+  "runnable_count": 25,
+  "scorable_count": 25,
+  "oracle_verified": 25,
+  "live_verified": 0,
+  "blocked_count": 0,
+  "task_types": {
+    "multi_select": 25
+  },
+  "blocked": []
+}
