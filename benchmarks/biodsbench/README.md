@@ -14,6 +14,9 @@ way to prepare inventory metadata without asserting that tables are complete.
 
 - `jobs/dswizard.yaml` is the formal 118-item Python leaderboard job.
 - `jobs/dswizard-smoke.yaml` is a fixed two-item deterministic workflow check.
+- `jobs/dswizard-live-smoke.yaml` and `jobs/coder-live-smoke.yaml` run the same
+  two Python items through the same verifier. One includes source code history.
+  They are bounded integration checks, not leaderboard results.
 
 The R task preserves all 165 source records and its native task definition, but
 no migrated agent/runtime currently supports it. It is therefore absent from

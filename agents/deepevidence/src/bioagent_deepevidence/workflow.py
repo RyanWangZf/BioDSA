@@ -35,7 +35,7 @@ class DeepEvidenceAgent:
    code="import csv\nrows="+repr([(x.get('source'),x.get('id'),x.get('title')) for x in evidence])+"\nwith open('evidence_counts.csv','w',newline='') as f:\n w=csv.writer(f); w.writerow(['source','id','title']); w.writerows(rows)\nprint(len(rows))"
    generated.append(code); execution=execution_session(self.config,self.workspace).execute(code); executions.append(execution.json()); self._record("code_execution",exit_code=execution.exit_code,timed_out=execution.timed_out)
    if execution.timed_out or execution.exit_code!=0: raise RuntimeError("evidence code execution failed: "+execution.stderr)
-  answer=self.client.synthesize(question,evidence,task_type);model_output=answer;citations=[{"id":x["id"],"source":x["source"],"title":x["title"],"url":x.get("url")} for x in evidence]
+  answer=self.client.synthesize(question,evidence,task_type);model_output=answer;self._record("synthesis_output",model_output=model_output);citations=[{"id":x["id"],"source":x["source"],"title":x["title"],"url":x.get("url")} for x in evidence]
   submitted_pmids=[]
   if task_type=="evidence_gap_retrieval":
    matches=re.findall(r"<BIOMED_FINAL>\s*(\{.*?\})\s*</BIOMED_FINAL>",answer,re.S)

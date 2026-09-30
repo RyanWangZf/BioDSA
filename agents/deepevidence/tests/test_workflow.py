@@ -2,6 +2,7 @@ import json,tempfile,unittest
 from unittest.mock import patch
 from pathlib import Path
 from bioagent_deepevidence.workflow import DeepEvidenceAgent
+from bioagent_deepevidence.harbor_runner import _worker
 from bioagent_deepevidence.tools import KNOWLEDGE_BASES,build_tools
 class WorkflowTests(unittest.TestCase):
  def config(self,**changes):
@@ -48,4 +49,12 @@ class WorkflowTests(unittest.TestCase):
    self.assertEqual(result["submitted_pmids"],["456","123"])
    self.assertIn('"456","123"',result["final_answer"].replace(" ",""))
    self.assertEqual(result["final_answer"].count("<BIOMED_FINAL>"),1)
+ def test_failed_item_persists_query_tool_and_model_diagnostics(self):
+  class InvalidClient:
+   def plan_queries(self,question,routes):return {route:"diagnostic query" for route in routes}
+   def synthesize(self,question,evidence,task_type=None):return "invalid model output"
+  with tempfile.TemporaryDirectory() as temporary,patch("bioagent_deepevidence.workflow.MockClient",return_value=InvalidClient()):
+   root=Path(temporary);request=root/"request.json";workspace=root/"workspace";output=root/"output";request.write_text(json.dumps({"workspace":str(workspace),"output":str(output),"config":{"provider":"mock","tool_mode":"stub","knowledge_bases":["pubmed_papers"],"routes":["bfs"],"code_execution":{"enabled":False}},"item":{"task_type":"evidence_gap_retrieval","instruction":"find evidence"}}))
+   with self.assertRaises(RuntimeError):_worker(request)
+   trace=json.loads((output/"trace.json").read_text());self.assertTrue(any(row["event"]=="query_plan" for row in trace));self.assertTrue(any(row["event"]=="tool_result" for row in trace));self.assertTrue(any(row["event"]=="synthesis_output" for row in trace));failure=json.loads((output/"failure.json").read_text());self.assertEqual(failure["type"],"RuntimeError")
 if __name__=="__main__": unittest.main()

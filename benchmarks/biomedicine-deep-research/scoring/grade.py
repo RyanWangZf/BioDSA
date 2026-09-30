@@ -46,7 +46,7 @@ def metrics(rows,global_error=False):
 def grade(refs,selected,predictions,malformed=None,duplicates=None):
     malformed=malformed or [];duplicates=duplicates or [];unknown=sorted(set(predictions)-set(selected));results=[]
     for item_id in selected:
-        ref,pred=refs[item_id],predictions.get(item_id);base={"item_id":item_id,"subset":ref["subset"],"split":ref["source_split"],"task_type":ref["task_type"]}
+        ref,pred=refs[item_id],predictions.get(item_id);base={"item_id":item_id,"subset":ref["subset"],"split":ref["source_split"],"task_type":ref["task_type"],"metric":f"recall@{RETRIEVAL_LIMIT}" if ref["task_type"]=="evidence_gap_retrieval" else "exact_match"}
         if pred is None:results.append({**base,"status":"missing","score":0.0,"error":"prediction missing"});continue
         state=pred.get("status")
         if state=="timeout":results.append({**base,"status":"agent_timeout","score":0.0,"error":pred.get("error")});continue

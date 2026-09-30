@@ -17,6 +17,9 @@ including evidence-gap retrieval.
 `jobs/deepevidence-diagnostic.yaml` covers all splits and all 13 subsets for
 inventory diagnostics; `jobs/deepevidence-smoke.yaml` is deterministic and
 bounded. Diagnostic and development results do not enter the formal ranking.
+`jobs/deepevidence-live-smoke.yaml` runs two fit items from each of
+single-choice, multi-select, and retrieval with live model and PubMed calls. It
+is an integration check and is deliberately outside the formal result scope.
 `jobs/deepevidence-fixture-smoke.yaml` exercises the same task and verifier with
 a second deterministic test adapter to check agent/leaderboard decoupling; it is
 test infrastructure and never a ranked result.

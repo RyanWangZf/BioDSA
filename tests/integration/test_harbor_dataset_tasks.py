@@ -61,6 +61,13 @@ class DatasetTaskInventoryTests(unittest.TestCase):
             for item_id in verifier.split(","):
                 self.assertIn(f'"{item_id}"', text)
 
+    def test_live_smokes_use_fixed_comparable_scopes(self):
+        bio_jobs=ROOT/"benchmarks/biodsbench/jobs";coder=(bio_jobs/"coder-live-smoke.yaml").read_text();wizard=(bio_jobs/"dswizard-live-smoke.yaml").read_text();expected="28481359_0,29713087_1"
+        self.assertIn(f'BIOAGENT_ITEM_IDS: "{expected}"',coder);self.assertIn(f'BIOAGENT_ITEM_IDS: "{expected}"',wizard)
+        deep=(ROOT/"benchmarks/biomedicine-deep-research/jobs/deepevidence-live-smoke.yaml").read_text()
+        for subset in ("hle-biomedicine","moa-pathway-reasoning","evidence-gap-discovery"):
+            match=re.search(rf'{subset}: \[(.*?)\]',deep);self.assertIsNotNone(match);self.assertEqual(match.group(1).count('"')//2,2)
+
     def test_deep_research_split_inventory_is_disjoint(self):
         deep = self._items(ROOT / "benchmarks/biomedicine-deep-research/tasks")
         by_split = {name: set() for name in ("fit", "tune", "verifier")}

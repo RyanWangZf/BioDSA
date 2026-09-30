@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, json, shutil
+import argparse, json, shutil, traceback
 from pathlib import Path
 from bioagent_harbor_runtime import run_batch
 from .agent import DSWizardAgent
@@ -12,6 +12,10 @@ def _worker(request: Path)->int:
   elif link.exists():raise RuntimeError(f"refusing to replace existing replay path: {link}")
   link.symlink_to(data_root,target_is_directory=True)
  try:r=DSWizardAgent(d["config"],w).run(item["instruction"],[str(Path("/app")/p) for p in item.get("input_paths",[])],item.get("code_history", ""))
+ except Exception as exc:
+  for path in w.iterdir():
+   if path.is_file():shutil.copy2(path,o/path.name)
+  (o/"failure.json").write_text(json.dumps({"type":type(exc).__name__,"message":str(exc),"traceback":traceback.format_exc()},indent=2));raise
  finally:
   for link in links:
    if link.is_symlink():link.unlink()

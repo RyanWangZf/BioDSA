@@ -34,6 +34,8 @@ class OpenAIClient:
   if not isinstance(value,dict) or set(value)!=set(routes) or any(not isinstance(value[route],str) or not value[route].strip() for route in routes):raise RuntimeError("model query plan does not match requested routes")
   return {route:value[route].strip() for route in routes}
  def synthesize(self,question,evidence,task_type=None):
-  system="Synthesize biomedical evidence with explicit source identifiers. Do not invent citations."
-  if task_type=="evidence_gap_retrieval":system+=" Select and rank up to 30 PubMed IDs from the supplied evidence. End with exactly one <BIOMED_FINAL> JSON object whose only field is proposed_pmids."
+  system="Use the supplied biomedical evidence to decide the answer. Do not invent evidence. Return only the required BIOMED_FINAL block with no reasoning or prose."
+  if task_type=="evidence_gap_retrieval":system+=" Select and rank up to 30 PubMed IDs from the supplied evidence. The block must contain a JSON object whose only field is proposed_pmids."
+  elif task_type=="single_choice":system+=" Select exactly one option and use a JSON object whose only field is selected_options."
+  elif task_type=="multi_select":system+=" Select all supported options and use a JSON object whose only field is selected_options."
   return self._complete(system,question+"\nEvidence:\n"+json.dumps(evidence))

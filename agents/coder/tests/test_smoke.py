@@ -11,6 +11,10 @@ class Smoke(unittest.TestCase):
    root=Path(d); (root/"data.csv").write_text("group,value\nA,1\nB,3\n"); result=CoderAgent({"provider":"mock","execution_environment":{"timeout_seconds":5}},root).run("Calculate the overall mean of the value column",["data.csv"]); self.assertEqual(result["execution_logs"][0]["exit_code"],0); self.assertTrue((root/"analysis_summary.csv").is_file())
  def test_timeout(self):
   with tempfile.TemporaryDirectory() as d: self.assertTrue(PythonExecutionSession(Path(d),.05).execute("import time; time.sleep(10)").timed_out)
+ def test_code_history_is_part_of_executed_and_submitted_program(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);(root/"data.csv").write_text("group,value\nA,1\nB,3\n");history="open('history.marker','w').write('used')";result=CoderAgent({"provider":"mock","execution_environment":{"timeout_seconds":5}},root).run("Calculate the overall mean of the value column",["data.csv"],history)
+   self.assertEqual((root/"history.marker").read_text(),"used");self.assertTrue(result["final_program"].startswith(history));self.assertEqual((root/"candidate_analysis.py").read_text(),result["final_program"]);self.assertTrue((root/"candidate_execution.json").is_file());self.assertEqual(result["execution_logs"][0]["exit_code"],0)
  def test_sandbox_environment_allowlist(self):
   with tempfile.TemporaryDirectory() as d:
    with mock.patch.dict(os.environ,{"DECLARED_FAKE":"yes","UNDECLARED_FAKE":"no"}): result=PythonExecutionSession(Path(d),2,["DECLARED_FAKE"]).execute("import os; print(os.getenv('DECLARED_FAKE'),os.getenv('UNDECLARED_FAKE'))")

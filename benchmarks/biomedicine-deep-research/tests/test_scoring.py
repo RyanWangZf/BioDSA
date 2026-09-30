@@ -148,4 +148,13 @@ class LeaderboardSummaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);self.make_job(root);trial=next(root.glob("hle-medicine__*"));path=trial/"verifier/summary.json";summary=json.loads(path.read_text());summary["primary_score"]=.25;path.write_text(json.dumps(summary));result=bdr_summary.summarize(root);self.assertFalse(result["valid"]);self.assertTrue(any("differs from per-item" in error for error in result["evaluations"][0]["errors"]))
 
+    def test_malformed_model_answer_is_valid_zero_not_infrastructure_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);self.make_job(root);trial=next(root.glob("hle-medicine__*"));rows_path=trial/"verifier/per_item_results.jsonl";rows=[json.loads(line) for line in rows_path.read_text().splitlines()];item_id=rows[0]["item_id"]
+            refs={row["item_id"]:row for row in map(json.loads,(ROOT/"benchmarks/biomedicine-deep-research/tasks/hle-medicine/tests/references/references.jsonl").read_text().splitlines())};ref=refs[item_id]
+            graded,graded_summary=bdr.grade({item_id:ref},[item_id],{item_id:{"status":"completed","final_answer":"not a valid final answer"}})
+            self.assertEqual(graded[0]["status"],"scored");self.assertEqual(graded[0]["score"],0.0);self.assertEqual(graded[0]["metric"],"exact_match");self.assertEqual(graded_summary["grading_error"],0)
+            rows[0]=graded[0];rows_path.write_text("".join(json.dumps(row)+"\n" for row in rows));summary_path=trial/"verifier/summary.json";summary=json.loads(summary_path.read_text());summary["primary_score"]=(len(rows)-1)/len(rows);summary_path.write_text(json.dumps(summary))
+            result=bdr_summary.summarize(root);self.assertTrue(result["valid"],result)
+
 if __name__ == "__main__": unittest.main()
