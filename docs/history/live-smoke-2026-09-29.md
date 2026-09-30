@@ -1,7 +1,7 @@
 # Bounded live smoke — 2026-09-29
 
 These runs used Harbor 0.23.0, `qwen/qwen3.8-flash` through the configured
-OpenRouter endpoint, Docker task environments, and the committed `*-live-smoke`
+OpenRouter endpoint, Docker task environments, and the committed live test
 jobs. They are integration diagnostics, not leaderboard results.
 
 ## BioDSBench Python
@@ -41,7 +41,7 @@ completed all six items without agent or grading errors.
 ## Commands
 
 ```bash
-harbor run -c benchmarks/biodsbench/jobs/dswizard-live-smoke.yaml --env-file .env -y
-harbor run -c benchmarks/biodsbench/jobs/coder-live-smoke.yaml --env-file .env -y
-harbor run -c benchmarks/biomedicine-deep-research/jobs/deepevidence-live-smoke.yaml --env-file .env -y
+harbor run -c benchmarks/biodsbench/tests/jobs/dswizard-live.yaml --env-file .env -y
+harbor run -c benchmarks/biodsbench/tests/jobs/coder-live.yaml --env-file .env -y
+harbor run -c benchmarks/biomedicine-deep-research/tests/jobs/deepevidence-live.yaml --env-file .env -y
 ```

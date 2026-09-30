@@ -14,6 +14,12 @@ class DatasetTaskInventoryTests(unittest.TestCase):
             config = tomllib.loads((ROOT / f"agents/{name}/pyproject.toml").read_text())
             self.assertEqual(config["tool"]["setuptools"]["packages"]["find"]["where"], ["src"])
             self.assertIn("bioagent-harbor-runtime==0.1.0", config["project"]["dependencies"])
+            migration = (ROOT / f"agents/{name}/MIGRATION.md").read_text()
+            self.assertIn("Behavior map", migration)
+            self.assertNotIn("reference_repo", "\n".join(
+                path.read_text(errors="ignore")
+                for path in (ROOT / f"agents/{name}/src").rglob("*.py")
+            ))
 
     def _items(self, root):
         found = {}
@@ -38,12 +44,20 @@ class DatasetTaskInventoryTests(unittest.TestCase):
         def paths(path):
             return {Path(line.split(":", 1)[1].strip()).name for line in path.read_text().splitlines() if line.strip().startswith("- path:")}
         bio_paths = paths(ROOT / "benchmarks/biodsbench/jobs/dswizard.yaml")
-        deep_paths = paths(ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence-diagnostic.yaml")
         self.assertEqual(bio_paths, {"biodsbench-python"})
-        self.assertEqual(deep_paths, {p.name for p in (ROOT / "benchmarks/biomedicine-deep-research/tasks").iterdir() if p.is_dir()})
         formal = paths(ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence.yaml")
         self.assertIn("evidence-gap-discovery", formal)
-        self.assertEqual(len(formal), 13)
+        self.assertEqual(formal, {p.name for p in (ROOT / "benchmarks/biomedicine-deep-research/tasks").iterdir() if p.is_dir()})
+
+    def test_formal_job_directories_only_contain_ranked_entrypoints(self):
+        self.assertEqual(
+            {path.name for path in (ROOT / "benchmarks/biodsbench/jobs").glob("*.yaml")},
+            {"dswizard.yaml"},
+        )
+        self.assertEqual(
+            {path.name for path in (ROOT / "benchmarks/biomedicine-deep-research/jobs").glob("*.yaml")},
+            {"deepevidence.yaml"},
+        )
 
     def test_prepare_scripts_do_not_generate_static_definitions(self):
         for path in (ROOT / "benchmarks/biodsbench/prepare.py", ROOT / "benchmarks/biomedicine-deep-research/prepare.py"):
@@ -53,7 +67,7 @@ class DatasetTaskInventoryTests(unittest.TestCase):
             self.assertNotIn('write_text(ENV', text)
 
     def test_smoke_selection_is_shared_with_verifier(self):
-        for path in (ROOT / "benchmarks/biodsbench/jobs/dswizard-smoke.yaml", ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence-smoke.yaml"):
+        for path in (ROOT / "benchmarks/biodsbench/tests/jobs/dswizard-mock.yaml", ROOT / "benchmarks/biomedicine-deep-research/tests/jobs/deepevidence-mock.yaml"):
             text = path.read_text()
             match = re.search(r'BIOAGENT_ITEM_IDS:\s*"([^"]+)"', text)
             self.assertIsNotNone(match)
@@ -62,9 +76,9 @@ class DatasetTaskInventoryTests(unittest.TestCase):
                 self.assertIn(f'"{item_id}"', text)
 
     def test_live_smokes_use_fixed_comparable_scopes(self):
-        bio_jobs=ROOT/"benchmarks/biodsbench/jobs";coder=(bio_jobs/"coder-live-smoke.yaml").read_text();wizard=(bio_jobs/"dswizard-live-smoke.yaml").read_text();expected="28481359_0,29713087_1"
+        bio_jobs=ROOT/"benchmarks/biodsbench/tests/jobs";coder=(bio_jobs/"coder-live.yaml").read_text();wizard=(bio_jobs/"dswizard-live.yaml").read_text();expected="28481359_0,29713087_1"
         self.assertIn(f'BIOAGENT_ITEM_IDS: "{expected}"',coder);self.assertIn(f'BIOAGENT_ITEM_IDS: "{expected}"',wizard)
-        deep=(ROOT/"benchmarks/biomedicine-deep-research/jobs/deepevidence-live-smoke.yaml").read_text()
+        deep=(ROOT/"benchmarks/biomedicine-deep-research/tests/jobs/deepevidence-live.yaml").read_text()
         for subset in ("hle-biomedicine","moa-pathway-reasoning","evidence-gap-discovery"):
             match=re.search(rf'{subset}: \[(.*?)\]',deep);self.assertIsNotNone(match);self.assertEqual(match.group(1).count('"')//2,2)
 
@@ -82,11 +96,10 @@ class DatasetTaskInventoryTests(unittest.TestCase):
         self.assertFalse(by_split["tune"] & by_split["verifier"])
         self.assertEqual(by_type, {"single_choice": 367, "multi_select": 261, "evidence_gap_retrieval": 20})
 
-    def test_split_jobs_propagate_trusted_selection(self):
-        for split, name in (("fit", "deepevidence-fit.yaml"), ("tune", "deepevidence-tune.yaml"), ("verifier", "deepevidence.yaml")):
-            text = (ROOT / "benchmarks/biomedicine-deep-research/jobs" / name).read_text()
-            self.assertIn(f'BIOAGENT_SPLIT: "{split}"', text)
-            self.assertIn(f"split: {split}", text)
+    def test_formal_split_is_propagated_to_agent_and_verifier(self):
+        text = (ROOT / "benchmarks/biomedicine-deep-research/jobs/deepevidence.yaml").read_text()
+        self.assertIn('BIOAGENT_SPLIT: "verifier"', text)
+        self.assertIn("split: verifier", text)
 
     def test_biodsbench_python_mapping_covers_every_item(self):
         manifest = json.loads((ROOT / "benchmarks/biodsbench/tasks/biodsbench-python/data/manifest.json").read_text())

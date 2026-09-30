@@ -1,4 +1,4 @@
-job_name: deepevidence-smoke
+job_name: deepevidence-mock
 n_attempts: 1
 n_concurrent_trials: 1
 environment: {type: docker, delete: true}

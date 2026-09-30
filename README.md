@@ -45,11 +45,11 @@ Run deterministic smoke jobs:
 ```bash
 ROOT="$(pwd)"
 .venv-harbor/bin/harbor run \
-  -c benchmarks/biodsbench/jobs/dswizard-smoke.yaml \
+  -c benchmarks/biodsbench/tests/jobs/dswizard-mock.yaml \
   --jobs-dir "$ROOT/.harbor/jobs" -y
 
 .venv-harbor/bin/harbor run \
-  -c benchmarks/biomedicine-deep-research/jobs/deepevidence-smoke.yaml \
+  -c benchmarks/biomedicine-deep-research/tests/jobs/deepevidence-mock.yaml \
   --jobs-dir "$ROOT/.harbor/jobs" -y
 ```
 
@@ -70,8 +70,9 @@ Run the formal leaderboard configurations with the required provider secret:
 
 BioDSBench ranks the 118-item Python task; R remains inventoried but unsupported.
 Biomedical Deep Research ranks verifier-split choice items by exact match and
-evidence-gap retrieval by recall@30. Fit and tune are development jobs. The
-diagnostic job covers the complete inventory across all splits.
+evidence-gap retrieval by recall@30. To experiment on fit or tune, copy the
+formal YAML into the gitignored `local-jobs/` directory and change both the
+agent `kwargs.split` and verifier `BIOAGENT_SPLIT`; these values must agree.
 
 Use `harbor view .harbor/jobs` to inspect submissions, item artifacts, verifier
 logs, and rewards. See [architecture.md](docs/architecture.md),

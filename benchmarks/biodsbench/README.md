@@ -13,10 +13,15 @@ way to prepare inventory metadata without asserting that tables are complete.
 ## Jobs and ranking scope
 
 - `jobs/dswizard.yaml` is the formal 118-item Python leaderboard job.
-- `jobs/dswizard-smoke.yaml` is a fixed two-item deterministic workflow check.
-- `jobs/dswizard-live-smoke.yaml` and `jobs/coder-live-smoke.yaml` run the same
+- `tests/jobs/dswizard-mock.yaml` is a fixed two-item deterministic workflow check.
+- `tests/jobs/dswizard-live.yaml` and `tests/jobs/coder-live.yaml` run the same
   two Python items through the same verifier. One includes source code history.
   They are bounded integration checks, not leaderboard results.
+
+`jobs/` contains only ranked entrypoints, one file per supported agent. Coder
+does not yet have a formal job because its two-item live behavior validation did
+not produce a correct submission. Local development copies belong in the
+gitignored `local-jobs/` directory.
 
 The R task preserves all 165 source records and its native task definition, but
 no migrated agent/runtime currently supports it. It is therefore absent from

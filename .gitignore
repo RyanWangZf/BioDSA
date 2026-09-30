@@ -180,6 +180,12 @@ benchmark_datasets/R/datasets/*
 # BioAgent Gym local prepared data and run records
 .bioagent-gym/
 .harbor/
+# Developer copies of formal Harbor jobs belong here. Committed jobs are the
+# leaderboard entrypoints; bounded test jobs live under each benchmark's tests/.
+benchmarks/*/local-jobs/
+# Read-only upstream checkouts used during migration. Source provenance belongs
+# in committed agents/<name>/MIGRATION.md files, never in the runtime import path.
+reference_repo/
 benchmarks/biodsbench/tasks/*/environment/inputs/
 benchmarks/biodsbench/tasks/*/tests/inputs/
 benchmarks/biodsbench/tasks/*/tests/data/inputs/
