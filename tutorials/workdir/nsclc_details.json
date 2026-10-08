@@ -1,0 +1,11 @@
+{
+  "disease_id": "MONDO:0005233",
+  "id_type": "mondo",
+  "sources": [
+    "biothings",
+    "kegg",
+    "opentargets",
+    "chembl_drugs"
+  ],
+  "details": {}
+}

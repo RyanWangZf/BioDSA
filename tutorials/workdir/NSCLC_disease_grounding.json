@@ -1,0 +1,42 @@
+{
+  "search_term": "non-small cell lung cancer",
+  "sources": [
+    "biothings",
+    "kegg",
+    "opentargets"
+  ],
+  "results": {
+    "biothings": [
+      {
+        "disease_id": "MONDO:0005233",
+        "name": "non-small cell lung carcinoma",
+        "definition": "A group of at least three distinct histological types of lung cancer, including non-small cell squamous cell carcinoma, adenocarcinoma, and large cell carcinoma. Non-small cell lung carcinomas have a poor response to conventional chemotherapy. [NCIT:P378]",
+        "synonyms": "non-small cell cancer of lung, non-small cell cancer of the lung, non-small cell carcinoma of lung, non-small cell carcinoma of the lung, non-small cell lung cancer, non-small cell lung carcinoma, non-small cell lung carcinoma (disease), NSCLC, NSCLC - non-small cell lung cancer",
+        "mondo_id": "MONDO:0005233",
+        "doid": "DOID:3908"
+      },
+      {
+        "disease_id": "MONDO:0056806",
+        "name": "non-small cell squamous lung carcinoma",
+        "definition": "A squamous cell carcinoma that arises from the lung. It is characterized by the presence of large malignant cells. It includes the clear cell and papillary variants of squamous cell carcinoma. [NCIT:C133254]",
+        "synonyms": "non-small cell squamous lung cancer, non-small cell squamous lung carcinoma, squamous non-small cell lung carcinoma",
+        "mondo_id": "MONDO:0056806",
+        "doid": "DOID:0080521"
+      }
+    ],
+    "kegg": [
+      {
+        "id": "H00014",
+        "description": "Non-small cell lung cancer"
+      }
+    ],
+    "opentargets": [
+      {
+        "id": "MONDO_0005233",
+        "name": "non-small cell lung carcinoma",
+        "description": "A group of at least three distinct histological types of lung cancer, including non-small cell squamous cell carcinoma, adenocarcinoma, and large cell carcinoma. Non-small cell lung carcinomas have a poor response to conventional chemotherapy.",
+        "entity": "disease"
+      }
+    ]
+  }
+}
